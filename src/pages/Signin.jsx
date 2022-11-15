@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import icons from '../images/icon/icons';
+import { useForm } from 'react-hook-form';
 
 import AuthImage from '../images/auth-image.jpg';
 
 function Signin() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const [eye, setEye] = useState(false);
+
+  const toggleEye = () => setEye(!eye);
+
   return (
     <main className='bg-white'>
       <div className='relative md:flex'>
@@ -13,8 +25,7 @@ function Signin() {
             {/* Header */}
             <div className='flex-1'>
               <div className='flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8'>
-                {/* Logo */}
-                <Link className='block' to='/'>
+                <figure className='block' to='/'>
                   <svg width='32' height='32' viewBox='0 0 32 32'>
                     <defs>
                       <linearGradient
@@ -50,13 +61,13 @@ function Signin() {
                       fill='url(#logo-b)'
                     />
                   </svg>
-                </Link>
+                </figure>
               </div>
             </div>
 
             <div className='max-w-sm mx-auto px-4 py-8'>
               <h1 className='text-3xl text-slate-800 font-bold mb-6'>
-                Welcome back! ✨
+                Bienvenido de nuevo
               </h1>
               {/* Form */}
               <form>
@@ -65,7 +76,7 @@ function Signin() {
                     <label
                       className='block text-sm font-medium mb-1'
                       htmlFor='email'>
-                      Email Address
+                      Correo electrónico
                     </label>
                     <input
                       id='email'
@@ -73,18 +84,52 @@ function Signin() {
                       type='email'
                     />
                   </div>
-                  <div>
+                  <div className='relative'>
                     <label
-                      className='block text-sm font-medium mb-1'
+                      className='block text-sm font-semibold mb-1'
                       htmlFor='password'>
-                      Password
+                      Contraseña:
                     </label>
-                    <input
-                      id='password'
-                      className='form-input w-full'
-                      type='password'
-                      autoComplete='on'
-                    />
+
+                    <div className='focus-within:text-primary '>
+                      <input
+                        maxLength='35'
+                        className='form-input w-full'
+                        type={eye ? 'text' : 'password'}
+                        autoComplete='off'
+                        {...register('password', {
+                          required: {
+                            value: true,
+                            message: 'El campo es requerido',
+                          },
+                        })}
+                      />
+
+                      <section className='relative '>
+                        <button
+                          type='button'
+                          className='absolute inset-2 -top-7 left-auto flex items-center '>
+                          {eye ? (
+                            <img
+                              onClick={toggleEye}
+                              src={icons.openEye}
+                              alt='Ojo abierto'
+                            />
+                          ) : (
+                            <img
+                              onClick={toggleEye}
+                              src={icons.closedEye}
+                              alt='Ojo cerrado'
+                            />
+                          )}
+                        </button>
+                      </section>
+                    </div>
+                    {errors.password && (
+                      <span className='text-red-500 text-sm'>
+                        {errors.password.message}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className='flex items-center justify-between mt-6'>
@@ -92,27 +137,19 @@ function Signin() {
                     <Link
                       className='text-sm underline hover:no-underline'
                       to='/reset-password'>
-                      Forgot Password?
+                      ¿Olvidaste la contraseña?
                     </Link>
                   </div>
                   <Link
                     className='btn bg-primary hover:bg-indigo-600 text-white ml-3'
                     to='/'>
-                    Sign In
+                    Iniciar sesión
                   </Link>
                 </div>
               </form>
+
               {/* Footer */}
               <div className='pt-5 mt-6 border-t border-slate-200'>
-                <div className='text-sm'>
-                  Don’t you have an account?{' '}
-                  <Link
-                    className='font-medium text-primary hover:text-indigo-600'
-                    to='/signup'>
-                    Sign Up
-                  </Link>
-                </div>
-                {/* Warning */}
                 <div className='mt-5'>
                   <div className='bg-amber-100 text-amber-600 px-3 py-2 rounded'>
                     <svg
@@ -120,10 +157,7 @@ function Signin() {
                       viewBox='0 0 12 12'>
                       <path d='M10.28 1.28L3.989 7.575 1.695 5.28A1 1 0 00.28 6.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 1.28z' />
                     </svg>
-                    <span className='text-sm'>
-                      To support you during the pandemic super pro features are
-                      free until March 31st.
-                    </span>
+                    <span className='text-sm'>Master schedule</span>
                   </div>
                 </div>
               </div>

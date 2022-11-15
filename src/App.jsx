@@ -6,7 +6,7 @@ import './charts/ChartjsConfig';
 import Dashboard from './pages/Dashboard';
 import PageNotFound from './pages/utility/PageNotFound';
 import Signin from './pages/Signin';
-import Signup from './pages/Signup';
+
 import ResetPassword from './pages/ResetPassword';
 
 //COMPONENTS FOR DESIGN
@@ -41,7 +41,7 @@ function App() {
         <Route path='/utility/404' element={<PageNotFound />} />
 
         <Route path='/signin' element={<Signin />} />
-        <Route path='/signup' element={<Signup />} />
+
         <Route path='/reset-password' element={<ResetPassword />} />
 
         {/* COMPONENTS FOR DESIGN */}

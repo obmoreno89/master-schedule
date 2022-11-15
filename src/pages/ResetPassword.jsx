@@ -14,7 +14,7 @@ function ResetPassword() {
             <div className='flex-1'>
               <div className='flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8'>
                 {/* Logo */}
-                <Link className='block' to='/'>
+                <Link className='block' to='/signin'>
                   <svg width='32' height='32' viewBox='0 0 32 32'>
                     <defs>
                       <linearGradient
@@ -56,16 +56,17 @@ function ResetPassword() {
 
             <div className='max-w-sm mx-auto px-4 py-8'>
               <h1 className='text-3xl text-slate-800 font-bold mb-6'>
-                Reset your Password ✨
+                Restablece tu contraseña
               </h1>
-              {/* Form */}
+
               <form>
                 <div className='space-y-4'>
                   <div>
                     <label
                       className='block text-sm font-medium mb-1'
                       htmlFor='email'>
-                      Email Address <span className='text-rose-500'>*</span>
+                      Correo electrónico{' '}
+                      <span className='text-rose-500'>*</span>
                     </label>
                     <input
                       id='email'
@@ -76,7 +77,7 @@ function ResetPassword() {
                 </div>
                 <div className='flex justify-end mt-6'>
                   <button className='btn bg-primary hover:bg-indigo-600 text-white whitespace-nowrap'>
-                    Send Reset Link
+                    Enviar link
                   </button>
                 </div>
               </form>
