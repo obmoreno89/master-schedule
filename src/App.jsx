@@ -36,13 +36,16 @@ function App() {
   return (
     <>
       <Routes>
-        <Route exact path='/' element={<Dashboard />} />
+        <Route exact path='master-schedule/' element={<Dashboard />} />
 
         <Route path='/utility/404' element={<PageNotFound />} />
 
-        <Route path='/signin' element={<Signin />} />
+        <Route path='master-schedule/signin' element={<Signin />} />
 
-        <Route path='/reset-password' element={<ResetPassword />} />
+        <Route
+          path='master-schedule/reset-password'
+          element={<ResetPassword />}
+        />
 
         {/* COMPONENTS FOR DESIGN */}
         <Route path='/component/button' element={<ButtonPage />} />
