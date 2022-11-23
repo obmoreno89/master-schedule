@@ -34,6 +34,28 @@ function DropdownProfile({ align }) {
     return () => document.removeEventListener('keydown', keyHandler);
   });
 
+  const emailUser = localStorage.getItem('email');
+  console.log(emailUser);
+  const tokenUser = localStorage.getItem('token');
+  console.log(tokenUser);
+
+  const logout = () => {
+    fetch('http://44.211.175.241/api/auth/logout/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'tokenUser',
+      },
+      body: JSON.stringify(emailUser),
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json));
+  };
+
+  useEffect(() => {
+    logout();
+  }, []);
+
   return (
     <div className='relative inline-flex'>
       <button

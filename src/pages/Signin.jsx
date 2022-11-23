@@ -39,11 +39,11 @@ function Signin() {
       .then((json) => {
         if (json.status_code === 202) {
           dispatch(startLoading());
-          console.log(json);
           setTimeout(() => {
             localStorage.setItem('token', json.token);
             localStorage.setItem('id', json.id);
             localStorage.setItem('first_name', json.first_name);
+            localStorage.setItem('email', json.email);
             navigate('/master-schedule/');
             dispatch(finishLoading());
           }, 1000);
