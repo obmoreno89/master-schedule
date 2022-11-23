@@ -9,6 +9,10 @@ import Signin from './pages/Signin';
 
 import ResetPassword from './pages/ResetPassword';
 
+//PRIVATE ROUTE AND PUBLIC ROUTE
+import PrivateRoute from './routes/PrivateRoute';
+import PublicRoute from './routes/PublicRoute';
+
 //COMPONENTS FOR DESIGN
 import ButtonPage from './pages/component/ButtonPage';
 import FormPage from './pages/component/FormPage';
@@ -36,16 +40,35 @@ function App() {
   return (
     <>
       <Routes>
-        <Route exact path='master-schedule/' element={<Dashboard />} />
+        <Route
+          exact
+          path='master-schedule/'
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
 
-        <Route path='/utility/404' element={<PageNotFound />} />
-
-        <Route path='master-schedule/signin' element={<Signin />} />
+        <Route
+          path='master-schedule/signin'
+          element={
+            <PublicRoute>
+              <Signin />
+            </PublicRoute>
+          }
+        />
 
         <Route
           path='master-schedule/reset-password'
-          element={<ResetPassword />}
+          element={
+            <PublicRoute>
+              <ResetPassword />
+            </PublicRoute>
+          }
         />
+
+        <Route path='/utility/404' element={<PageNotFound />} />
 
         {/* COMPONENTS FOR DESIGN */}
         <Route path='/component/button' element={<ButtonPage />} />
