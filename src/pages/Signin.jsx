@@ -16,6 +16,8 @@ function Signin() {
 
   const toggleEye = () => setEye(!eye);
 
+  const submit = (data) => console.log(data);
+
   return (
     <main className='bg-white'>
       <div className='relative md:flex'>
@@ -33,7 +35,8 @@ function Signin() {
                         y1='20.229%'
                         x2='100%'
                         y2='108.156%'
-                        id='logo-a'>
+                        id='logo-a'
+                      >
                         <stop stopColor='#A5B4FC' stopOpacity='0' offset='0%' />
                         <stop stopColor='#A5B4FC' offset='100%' />
                       </linearGradient>
@@ -42,7 +45,8 @@ function Signin() {
                         y1='29.267%'
                         x2='22.42%'
                         y2='100%'
-                        id='logo-b'>
+                        id='logo-b'
+                      >
                         <stop stopColor='#38BDF8' stopOpacity='0' offset='0%' />
                         <stop stopColor='#38BDF8' offset='100%' />
                       </linearGradient>
@@ -70,24 +74,42 @@ function Signin() {
                 Bienvenido de nuevo
               </h1>
               {/* Form */}
-              <form>
+              <form onSubmit={handleSubmit(submit)}>
                 <div className='space-y-4'>
                   <div>
                     <label
                       className='block text-sm font-medium mb-1'
-                      htmlFor='email'>
+                      htmlFor='email'
+                    >
                       Correo electrónico
                     </label>
                     <input
                       id='email'
                       className='form-input w-full'
                       type='email'
+                      autoComplete='off'
+                      {...register('email', {
+                        required: {
+                          value: true,
+                          message: 'El campo es requerido',
+                        },
+                        pattern: {
+                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                          message: 'El formato no es correcto',
+                        },
+                      })}
                     />
+                    {errors.email && (
+                      <span className='text-red-500 text-sm'>
+                        {errors.email.message}
+                      </span>
+                    )}
                   </div>
                   <div className='relative'>
                     <label
                       className='block text-sm font-semibold mb-1'
-                      htmlFor='password'>
+                      htmlFor='password'
+                    >
                       Contraseña:
                     </label>
 
@@ -108,7 +130,8 @@ function Signin() {
                       <section className='relative '>
                         <button
                           type='button'
-                          className='absolute inset-2 -top-7 left-auto flex items-center '>
+                          className='absolute inset-2 -top-7 left-auto flex items-center '
+                        >
                           {eye ? (
                             <img
                               onClick={toggleEye}
@@ -136,39 +159,40 @@ function Signin() {
                   <div className='mr-1'>
                     <Link
                       className='text-sm underline hover:no-underline'
-                      to='/reset-password'>
+                      to='/reset-password'
+                    >
                       ¿Olvidaste la contraseña?
                     </Link>
                   </div>
-                  <Link
+                  <button
+                    type='submit'
                     className='btn bg-primary hover:bg-indigo-600 text-white ml-3'
-                    to='/'>
+                  >
                     Iniciar sesión
-                  </Link>
+                  </button>
                 </div>
               </form>
 
-              {/* Footer */}
-              <div className='pt-5 mt-6 border-t border-slate-200'>
+              <footer className='pt-5 mt-6 border-t border-slate-200'>
                 <div className='mt-5'>
                   <div className='bg-amber-100 text-amber-600 px-3 py-2 rounded'>
                     <svg
                       className='inline w-3 h-3 shrink-0 fill-current mr-2'
-                      viewBox='0 0 12 12'>
+                      viewBox='0 0 12 12'
+                    >
                       <path d='M10.28 1.28L3.989 7.575 1.695 5.28A1 1 0 00.28 6.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 1.28z' />
                     </svg>
                     <span className='text-sm'>Master schedule</span>
                   </div>
                 </div>
-              </div>
+              </footer>
             </div>
           </div>
         </div>
-
-        {/* Image */}
         <div
           className='hidden md:block absolute top-0 bottom-0 right-0 md:w-1/2'
-          aria-hidden='true'>
+          aria-hidden='true'
+        >
           <img
             className='object-cover object-center w-full h-full'
             src={AuthImage}
