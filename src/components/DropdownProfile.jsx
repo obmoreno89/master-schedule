@@ -44,17 +44,13 @@ function DropdownProfile({ align }) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: 'tokenUser',
+        Authorization: tokenUser,
       },
       body: JSON.stringify(emailUser),
     })
       .then((response) => response.json())
       .then((json) => console.log(json));
   };
-
-  useEffect(() => {
-    logout();
-  }, []);
 
   return (
     <div className='relative inline-flex'>
@@ -110,20 +106,22 @@ function DropdownProfile({ align }) {
             <li>
               <Link
                 className='font-medium text-sm text-primary hover:text-indigo-600 flex items-center py-1 px-3'
-                to='master-schedule/settings'
+                to='/master-schedule/settings'
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
                 Configuración
               </Link>
             </li>
             <li>
-              <Link
+              <button
                 className='font-medium text-sm text-primary hover:text-indigo-600 flex items-center py-1 px-3'
-                to='master-schedule/signin'
-                onClick={() => setDropdownOpen(!dropdownOpen)}
+                onClick={() => {
+                  setDropdownOpen(!dropdownOpen);
+                  logout();
+                }}
               >
                 Cerrar sesión
-              </Link>
+              </button>
             </li>
           </ul>
         </div>
