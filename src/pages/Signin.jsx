@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import icons from '../images/icon/icons';
 import { useForm } from 'react-hook-form';
@@ -6,20 +6,20 @@ import AuthImage from '../images/auth-image.jpg';
 import ButtonLoading from '../helpers/ButtonLoading';
 import ErrorMessage from '../helpers/ErrorMessage';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  startLoading,
-  finishLoading,
-  handleErrorLogin,
-  handleErrorLoginClosed,
-} from '../store/auth/authSlice';
+import { selectUser, sendData } from '../store/slice/loginSlice';
 
 function Signin() {
+  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+
+  const navigate = useNavigate();
+
   const [eye, setEye] = useState(false);
   const toggleEye = () => setEye(!eye);
-  const dispatch = useDispatch();
-  const { loading, errorLogin } = useSelector((state) => state.login);
 
-  const submit = (data) => console.log(data);
+  const submit = (data) => {
+    dispatch(sendData(data));
+  };
 
   const {
     register,
@@ -27,36 +27,11 @@ function Signin() {
     formState: { errors },
   } = useForm();
 
-  const navigate = useNavigate();
-
-  const loginUser = (dataUser) => {
-    fetch('http://44.211.175.241/api/auth/login/', {
-      method: 'POST',
-      headers: {
-        'content-Type': 'application/json',
-      },
-      body: JSON.stringify(dataUser),
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        if (json.status_code === 202) {
-          dispatch(startLoading());
-          setTimeout(() => {
-            localStorage.setItem('token', json.token);
-            localStorage.setItem('id', json.id);
-            localStorage.setItem('first_name', json.first_name);
-            localStorage.setItem('email', json.email);
-            navigate('/master-schedule/');
-            dispatch(finishLoading());
-          }, 1000);
-        } else {
-          dispatch(handleErrorLogin());
-          setTimeout(() => {
-            dispatch(handleErrorLoginClosed());
-          }, 3000);
-        }
-      });
-  };
+  useEffect(() => {
+    if (user) {
+      navigate('/master-schedule/');
+    }
+  }, [user]);
 
   return (
     <main className='bg-white'>
@@ -78,7 +53,7 @@ function Signin() {
                 Bienvenido de nuevo
               </h1>
               {/* Form */}
-              <form onSubmit={handleSubmit(loginUser)}>
+              <form onSubmit={handleSubmit(submit)}>
                 <div className='space-y-4'>
                   <div>
                     <label
@@ -168,27 +143,17 @@ function Signin() {
                       ¿Olvidaste la contraseña?
                     </Link>
                   </div>
-                  {!loading ? (
-                    <button
-                      type='submit'
-                      className='btn bg-primary hover:bg-secondary hover:text-primary text-white ml-3'
-                    >
-                      Iniciar sesión
-                    </button>
-                  ) : (
-                    <ButtonLoading loading='Ingresando' />
-                  )}
+
+                  <button
+                    type='submit'
+                    className='btn bg-primary hover:bg-secondary hover:text-primary text-white ml-3'
+                  >
+                    Iniciar sesión
+                  </button>
                 </div>
               </form>
 
-              <footer className='pt-5 mt-6 border-t border-slate-200'>
-                {errorLogin && (
-                  <ErrorMessage
-                    message=' Credenciales Incorrectas, por favor de verificar el
-                usuario o contraseña.'
-                  />
-                )}
-              </footer>
+              <footer className='pt-5 mt-6 border-t border-slate-200'></footer>
             </div>
           </div>
         </div>

@@ -5,13 +5,6 @@ import { useForm } from 'react-hook-form';
 import AuthImage from '../images/auth-image.jpg';
 import ErrorMessage from '../helpers/ErrorMessage';
 import ButtonLoading from '../helpers/ButtonLoading';
-import { useSelector, useDispatch } from 'react-redux';
-import {
-  startLoading,
-  finishLoading,
-  handleErrorLogin,
-  handleErrorLoginClosed,
-} from '../store/auth/authSlice';
 
 function ResetPassword() {
   const {
@@ -20,38 +13,7 @@ function ResetPassword() {
     formState: { errors },
   } = useForm();
 
-  const { loading, errorLogin } = useSelector((state) => state.login);
-  const dispatch = useDispatch();
-
   const submit = (data) => console.log(data);
-
-  const clearStorage = () => sessionStorage.clear();
-
-  const passwordCode = (email) => {
-    fetch('http://44.211.175.241/api/auth/password-reset/send-code', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(email),
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        if (json.status_code === 200) {
-          dispatch(startLoading());
-          sessionStorage.setItem('code', json.code);
-          console.log(json);
-          setTimeout(() => {
-            dispatch(finishLoading());
-          }, 2000);
-        } else {
-          dispatch(startLoading());
-          dispatch(handleErrorLogin());
-          setTimeout(() => {
-            dispatch(handleErrorLoginClosed());
-            dispatch(finishLoading());
-          }, 3000);
-        }
-      });
-  };
 
   return (
     <main className='bg-white'>
@@ -111,23 +73,19 @@ function ResetPassword() {
                   </div>
                 </div>
                 <div className='flex justify-end mt-6'>
-                  {!loading ? (
-                    <button
-                      type='submit'
-                      className='btn bg-primary hover:bg-indigo-600 text-white whitespace-nowrap'
-                    >
-                      Enviar link
-                    </button>
-                  ) : (
-                    <ButtonLoading loading='Enviando' />
-                  )}
+                  <button
+                    type='submit'
+                    className='btn bg-primary hover:bg-indigo-600 text-white whitespace-nowrap'
+                  >
+                    Enviar link
+                  </button>
                 </div>
               </form>
-              <footer className='pt-5 mt-6 border-t border-slate-200'>
+              {/* <footer className='pt-5 mt-6 border-t border-slate-200'>
                 {errorLogin && (
                   <ErrorMessage message='El correo no se encuentra en nuestra base de datos.' />
                 )}
-              </footer>
+              </footer> */}
             </div>
           </div>
         </div>
