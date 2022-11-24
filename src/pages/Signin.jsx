@@ -6,11 +6,19 @@ import AuthImage from '../images/auth-image.jpg';
 import ButtonLoading from '../helpers/ButtonLoading';
 import ErrorMessage from '../helpers/ErrorMessage';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUser, sendData } from '../store/slice/loginSlice';
+import {
+  selectUser,
+  sendData,
+  selectIsCorrect,
+  selectLoading,
+} from '../store/slice/loginSlice';
 
 function Signin() {
   const dispatch = useDispatch();
+
   const user = useSelector(selectUser);
+  const isCorrect = useSelector(selectIsCorrect);
+  const loading = useSelector(selectLoading);
 
   const navigate = useNavigate();
 
@@ -32,6 +40,21 @@ function Signin() {
       navigate('/master-schedule/');
     }
   }, [user]);
+
+  const handleButtonLogin = () => {
+    return !loading ? (
+      <button
+        type='submit'
+        className='btn bg-primary hover:bg-secondary hover:text-primary text-white ml-3'
+      >
+        Iniciar sesión
+      </button>
+    ) : (
+      <div>
+        <ButtonLoading loading='cargando' />
+      </div>
+    );
+  };
 
   return (
     <main className='bg-white'>
@@ -143,17 +166,15 @@ function Signin() {
                       ¿Olvidaste la contraseña?
                     </Link>
                   </div>
-
-                  <button
-                    type='submit'
-                    className='btn bg-primary hover:bg-secondary hover:text-primary text-white ml-3'
-                  >
-                    Iniciar sesión
-                  </button>
+                  {handleButtonLogin()}
                 </div>
               </form>
 
-              <footer className='pt-5 mt-6 border-t border-slate-200'></footer>
+              <footer className='pt-5 mt-6 border-t border-slate-200'>
+                {isCorrect && (
+                  <ErrorMessage message='El correo no se encuentra en nuestra base de datos.' />
+                )}
+              </footer>
             </div>
           </div>
         </div>
