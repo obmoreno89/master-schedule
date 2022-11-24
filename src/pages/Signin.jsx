@@ -11,6 +11,7 @@ import {
   sendData,
   selectIsCorrect,
   selectLoading,
+  revertLogout,
 } from '../store/slice/loginSlice';
 
 function Signin() {
@@ -26,7 +27,7 @@ function Signin() {
   const toggleEye = () => setEye(!eye);
 
   const submit = (data) => {
-    dispatch(sendData(data));
+    dispatch(sendData(data, navigate));
   };
 
   const {
@@ -35,11 +36,11 @@ function Signin() {
     formState: { errors },
   } = useForm();
 
-  useEffect(() => {
-    if (user) {
-      navigate('/master-schedule/');
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     navigate('/master-schedule/');
+  //   }
+  // }, [user, navigate]);
 
   const handleButtonLogin = () => {
     return !loading ? (

@@ -1,9 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 import Transition from '../utils/Transition';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser, selectLogout } from '../store/slice/loginSlice';
 
 function DropdownProfile({ align }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const trigger = useRef(null);
   const dropdown = useRef(null);
@@ -33,24 +38,6 @@ function DropdownProfile({ align }) {
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   });
-
-  const emailUser = localStorage.getItem('email');
-  console.log(emailUser);
-  const tokenUser = localStorage.getItem('token');
-  console.log(tokenUser);
-
-  const logout = () => {
-    fetch('http://44.211.175.241/api/auth/logout/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: tokenUser,
-      },
-      body: JSON.stringify(emailUser),
-    })
-      .then((response) => response.json())
-      .then((json) => console.log(json));
-  };
 
   return (
     <div className='relative inline-flex'>
@@ -117,7 +104,7 @@ function DropdownProfile({ align }) {
                 className='font-medium text-sm text-primary hover:text-indigo-600 flex items-center py-1 px-3'
                 onClick={() => {
                   setDropdownOpen(!dropdownOpen);
-                  logout();
+                  dispatch(logoutUser(navigate));
                 }}
               >
                 Cerrar sesión
