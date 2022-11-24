@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import icons from '../images/icon/icons';
 import { useForm } from 'react-hook-form';
 import AuthImage from '../images/auth-image.jpg';
+import ErrorMessage from '../helpers/ErrorMessage';
+import ButtonLoading from '../helpers/ButtonLoading';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   startLoading,
@@ -18,10 +20,12 @@ function ResetPassword() {
     formState: { errors },
   } = useForm();
 
-  const { loading, errorLoading } = useSelector((state) => state.login);
+  const { loading, errorLogin } = useSelector((state) => state.login);
   const dispatch = useDispatch();
 
   const submit = (data) => console.log(data);
+
+  const clearStorage = () => sessionStorage.clear();
 
   const passwordCode = (email) => {
     fetch('http://44.211.175.241/api/auth/password-reset/send-code', {
@@ -33,14 +37,18 @@ function ResetPassword() {
       .then((json) => {
         if (json.status_code === 200) {
           dispatch(startLoading());
+          sessionStorage.setItem('code', json.code);
+          console.log(json);
           setTimeout(() => {
-            finishLoading();
+            dispatch(finishLoading());
           }, 2000);
         } else {
+          dispatch(startLoading());
           dispatch(handleErrorLogin());
           setTimeout(() => {
-            handleErrorLoginClosed();
-          }, 2000);
+            dispatch(handleErrorLoginClosed());
+            dispatch(finishLoading());
+          }, 3000);
         }
       });
   };
@@ -55,7 +63,11 @@ function ResetPassword() {
             <div className='flex-1'>
               <div className='flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8'>
                 {/* Logo */}
-                <Link className='block' to='/master-schedule/signin'>
+                <Link
+                  className='block'
+                  to='/master-schedule/signin'
+                  onClick={clearStorage}
+                >
                   <img src={icons.logoNide} alt='Logo' className='w-36' />
                 </Link>
               </div>
@@ -99,20 +111,28 @@ function ResetPassword() {
                   </div>
                 </div>
                 <div className='flex justify-end mt-6'>
-                  <button
-                    type='submit'
-                    className='btn bg-primary hover:bg-indigo-600 text-white whitespace-nowrap'
-                  >
-                    Enviar link
-                  </button>
+                  {!loading ? (
+                    <button
+                      type='submit'
+                      className='btn bg-primary hover:bg-indigo-600 text-white whitespace-nowrap'
+                    >
+                      Enviar link
+                    </button>
+                  ) : (
+                    <ButtonLoading loading='Enviando' />
+                  )}
                 </div>
               </form>
+              <footer className='pt-5 mt-6 border-t border-slate-200'>
+                {errorLogin && (
+                  <ErrorMessage message='El correo no se encuentra en nuestra base de datos.' />
+                )}
+              </footer>
             </div>
           </div>
         </div>
 
-        {/* Image */}
-        <div
+        <figure
           className='hidden md:block absolute top-0 bottom-0 right-0 md:w-1/2'
           aria-hidden='true'
         >
@@ -123,7 +143,7 @@ function ResetPassword() {
             height='1024'
             alt='Authentication'
           />
-        </div>
+        </figure>
       </div>
     </main>
   );
