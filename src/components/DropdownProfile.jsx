@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useNavigate, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Transition from '../utils/Transition';
-import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser, selectLogout } from '../store/slice/loginSlice';
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../store/slice/authSlice';
 
 function DropdownProfile({ align }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -13,7 +13,6 @@ function DropdownProfile({ align }) {
   const trigger = useRef(null);
   const dropdown = useRef(null);
 
-  // close on click outside
   useEffect(() => {
     const clickHandler = ({ target }) => {
       if (!dropdown.current) return;
@@ -29,7 +28,6 @@ function DropdownProfile({ align }) {
     return () => document.removeEventListener('click', clickHandler);
   });
 
-  // close if the esc key is pressed
   useEffect(() => {
     const keyHandler = ({ keyCode }) => {
       if (!dropdownOpen || keyCode !== 27) return;

@@ -5,6 +5,12 @@ import { useForm } from 'react-hook-form';
 import AuthImage from '../images/auth-image.jpg';
 import ErrorMessage from '../helpers/ErrorMessage';
 import ButtonLoading from '../helpers/ButtonLoading';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectIsCorrect,
+  selectLoading,
+  emailSend,
+} from '../store/slice/authSlice';
 
 function ResetPassword() {
   const {
@@ -13,7 +19,14 @@ function ResetPassword() {
     formState: { errors },
   } = useForm();
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const submit = (data) => console.log(data);
+  const isCorrect = useSelector(selectIsCorrect);
+  const loading = useSelector(selectLoading);
+
+  const clearSessionStorage = () => sessionStorage.clear();
+  const emailSubmit = (data) => dispatch(emailSend(data, navigate));
 
   return (
     <main className='bg-white'>
@@ -28,7 +41,7 @@ function ResetPassword() {
                 <Link
                   className='block'
                   to='/master-schedule/signin'
-                  onClick={clearStorage}
+                  onClick={clearSessionStorage}
                 >
                   <img src={icons.logoNide} alt='Logo' className='w-36' />
                 </Link>
@@ -40,7 +53,7 @@ function ResetPassword() {
                 Restablece tu contraseña
               </h1>
 
-              <form onSubmit={handleSubmit(passwordCode)}>
+              <form onSubmit={handleSubmit(emailSubmit)}>
                 <div className='space-y-4'>
                   <div>
                     <label
@@ -73,19 +86,23 @@ function ResetPassword() {
                   </div>
                 </div>
                 <div className='flex justify-end mt-6'>
-                  <button
-                    type='submit'
-                    className='btn bg-primary hover:bg-indigo-600 text-white whitespace-nowrap'
-                  >
-                    Enviar link
-                  </button>
+                  {!loading ? (
+                    <button
+                      type='submit'
+                      className='btn bg-primary hover:bg-indigo-600 text-white whitespace-nowrap'
+                    >
+                      Enviar link
+                    </button>
+                  ) : (
+                    <ButtonLoading loading='Enviando' />
+                  )}
                 </div>
               </form>
-              {/* <footer className='pt-5 mt-6 border-t border-slate-200'>
-                {errorLogin && (
+              <footer className='pt-5 mt-6 border-t border-slate-200'>
+                {isCorrect && (
                   <ErrorMessage message='El correo no se encuentra en nuestra base de datos.' />
                 )}
-              </footer> */}
+              </footer>
             </div>
           </div>
         </div>

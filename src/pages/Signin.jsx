@@ -11,8 +11,7 @@ import {
   sendData,
   selectIsCorrect,
   selectLoading,
-  revertLogout,
-} from '../store/slice/loginSlice';
+} from '../store/slice/authSlice';
 
 function Signin() {
   const dispatch = useDispatch();
@@ -35,12 +34,6 @@ function Signin() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  // useEffect(() => {
-  //   if (user) {
-  //     navigate('/master-schedule/');
-  //   }
-  // }, [user, navigate]);
 
   const handleButtonLogin = () => {
     return !loading ? (

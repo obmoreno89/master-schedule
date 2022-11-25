@@ -1,22 +1,16 @@
-import { createSlice, createAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-
-export const revertLogout = createAction('REVERT_LOGOUT');
 
 const initialState = {
   user: null,
   isCorrect: false,
   loading: false,
+  resetPassword: null,
 };
 
-const loginSlice = createSlice({
+const authSlice = createSlice({
   initialState,
-  name: 'users',
-  extraReducers: (builder) => {
-    builder.addCase(revertLogout, (state, action) => {
-      state.logout = false;
-    });
-  },
+  name: 'auth',
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload;
@@ -30,14 +24,13 @@ const loginSlice = createSlice({
   },
 });
 
-export const { setUser, setIsCorrect, setLoading } = loginSlice.actions;
+export const { setUser, setIsCorrect, setLoading } = authSlice.actions;
 
-export const selectUser = (state) => state.users.user;
-export const selectIsCorrect = (state) => state.users.isCorrect;
-export const selectLoading = (state) => state.users.loading;
-export const selectLogout = (state) => state.users.logout;
+export const selectUser = (state) => state.auth.user;
+export const selectIsCorrect = (state) => state.auth.isCorrect;
+export const selectLoading = (state) => state.auth.loading;
 
-export default loginSlice.reducer;
+export default authSlice.reducer;
 
 export const sendData = (data, navigate) => (dispatch) => {
   dispatch(setLoading(true));
@@ -75,5 +68,24 @@ export const logoutUser = (navigate) => () => {
         localStorage.clear();
         navigate('/master-schedule/signin/');
       }
+    });
+};
+
+export const emailSend = (data, navigate) => (dispatch) => {
+  dispatch(setLoading(true));
+  axios
+    .post('http://44.211.175.241/api/auth/password-reset/send-code', data)
+    .then((response) => {
+      dispatch(setLoading(false));
+      if (response.data.status_code === 200) {
+        console.log(response.data);
+        sessionStorage.setItem('code', response.data.code);
+        dispatch(setIsCorrect(false));
+        // navigate('/master-schedule/code-verification/');
+      }
+    })
+    .catch(() => {
+      dispatch(setIsCorrect(true));
+      dispatch(setLoading(false));
     });
 };
