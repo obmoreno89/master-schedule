@@ -7,7 +7,10 @@ import Dashboard from './pages/Dashboard';
 import PageNotFound from './pages/utility/PageNotFound';
 import Signin from './pages/Signin';
 
+//COMPONENTS PASSWORD
 import ResetPassword from './pages/ResetPassword';
+import VerificationPassword from './pages/VerificationPassword';
+import ConfirmNewPassword from './pages/ConfirmNewPassword';
 
 //PRIVATE ROUTE AND PUBLIC ROUTE
 import PrivateRoute from './routes/PrivateRoute';
@@ -64,6 +67,24 @@ function App() {
           element={
             <PublicRoute>
               <ResetPassword />
+            </PublicRoute>
+          }
+        />
+
+        <Route
+          path='/master-schedule/verification-code/'
+          element={
+            <PublicRoute>
+              <VerificationPassword />
+            </PublicRoute>
+          }
+        />
+
+        <Route
+          path='/master-schedule/confirm-password/'
+          element={
+            <PublicRoute>
+              <ConfirmNewPassword />
             </PublicRoute>
           }
         />

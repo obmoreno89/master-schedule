@@ -1,19 +1,18 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import icons from '../images/icon/icons';
 import { useForm } from 'react-hook-form';
+import icons from '../images/icon/icons';
 import AuthImage from '../images/auth-image.jpg';
-import ErrorMessage from '../helpers/ErrorMessage';
+import SuccessMessage from '../helpers/SuccessMessage';
 import ButtonLoading from '../helpers/ButtonLoading';
+import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setIsCorrect,
   selectIsCorrect,
   selectLoading,
-  emailSend,
+  confirmNewPass,
 } from '../store/slice/authSlice';
 
-function ResetPassword() {
+function ConfirmNewPassword() {
   const {
     register,
     handleSubmit,
@@ -22,7 +21,7 @@ function ResetPassword() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const submit = (data) => console.log(data);
+  const submit = (data) => dispatch(confirmNewPass(data, navigate));
   const isCorrect = useSelector(selectIsCorrect);
   const loading = useSelector(selectLoading);
 
@@ -30,7 +29,6 @@ function ResetPassword() {
     sessionStorage.clear();
     dispatch(setIsCorrect(false));
   };
-  const emailSubmit = (data) => dispatch(emailSend(data, navigate));
 
   return (
     <main className='bg-white'>
@@ -54,31 +52,26 @@ function ResetPassword() {
 
             <div className='max-w-sm mx-auto px-4 py-8'>
               <h1 className='text-3xl text-slate-800 font-bold mb-6'>
-                Restablece tu contraseña
+                Ingresa la nueva contraseña
               </h1>
 
-              <form onSubmit={handleSubmit(emailSubmit)}>
+              <form onSubmit={handleSubmit(submit)}>
                 <div className='space-y-4'>
                   <div>
                     <label
                       className='block text-sm font-medium mb-1'
-                      htmlFor='email'
+                      htmlFor='password'
                     >
-                      Correo electrónico{' '}
-                      <span className='text-rose-500'>*</span>
+                      Nueva contraseña <span className='text-rose-500'>*</span>
                     </label>
                     <input
                       autoComplete='off'
                       className='form-input w-full'
-                      type='email'
-                      {...register('email', {
+                      type='password'
+                      {...register('password', {
                         required: {
                           value: true,
                           message: 'El campo es requerido',
-                        },
-                        pattern: {
-                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                          message: 'El formato no es correcto',
                         },
                       })}
                     />
@@ -95,7 +88,7 @@ function ResetPassword() {
                       type='submit'
                       className='btn bg-primary hover:bg-indigo-600 text-white whitespace-nowrap'
                     >
-                      Enviar link
+                      Cambiar
                     </button>
                   ) : (
                     <ButtonLoading loading='Enviando' />
@@ -104,7 +97,7 @@ function ResetPassword() {
               </form>
               <footer className='pt-5 mt-6 border-t border-slate-200'>
                 {isCorrect && (
-                  <ErrorMessage message='El correo no se encuentra en nuestra base de datos.' />
+                  <SuccessMessage message='La contraseña se actualizó correctamente. Aguarde y será redirigido.' />
                 )}
               </footer>
             </div>
@@ -128,4 +121,4 @@ function ResetPassword() {
   );
 }
 
-export default ResetPassword;
+export default ConfirmNewPassword;

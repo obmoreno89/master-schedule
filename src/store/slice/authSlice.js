@@ -78,14 +78,68 @@ export const emailSend = (data, navigate) => (dispatch) => {
     .then((response) => {
       dispatch(setLoading(false));
       if (response.data.status_code === 200) {
-        console.log(response.data);
         sessionStorage.setItem('code', response.data.code);
+        sessionStorage.setItem('email', data.email);
         dispatch(setIsCorrect(false));
-        // navigate('/master-schedule/code-verification/');
+        navigate('/master-schedule/verification-code/');
       }
     })
     .catch(() => {
       dispatch(setIsCorrect(true));
+      dispatch(setLoading(false));
+    });
+};
+
+export const codeSend = (data, navigate) => (dispatch) => {
+  dispatch(setLoading(true));
+
+  const json = {
+    email: sessionStorage.getItem('email'),
+    user_code: parseInt(data.user_code),
+  };
+
+  axios
+    .post('http://44.211.175.241/api/auth/password-reset/verify-code', json)
+    .then((response) => {
+      dispatch(setLoading(false));
+      if (response.data.status_code === 202) {
+        sessionStorage.setItem('token', response.data.token);
+        sessionStorage.setItem('email', response.data.email);
+        dispatch(setIsCorrect(false));
+        navigate('/master-schedule/confirm-password/');
+      }
+    })
+    .catch(() => {
+      dispatch(setIsCorrect(true));
+      dispatch(setLoading(false));
+    });
+};
+
+export const confirmNewPass = (data, navigate) => (dispatch) => {
+  dispatch(setLoading(true));
+
+  const token = sessionStorage.getItem('token');
+  const json = {
+    email: sessionStorage.getItem('email'),
+    new_password: data.password,
+  };
+
+  axios
+    .post('http://44.211.175.241/api/auth/password-reset/confirmation', json, {
+      headers: { Authorization: `token ${token}` },
+    })
+    .then((response) => {
+      dispatch(setLoading(false));
+      if (response.data.status_code === 200) {
+        dispatch(setIsCorrect(true));
+        setTimeout(() => {
+          navigate('/master-schedule/signin/');
+          dispatch(setIsCorrect(false));
+        }, 3000);
+      }
+    })
+    .catch(() => {
+      dispatch(setIsCorrect(false));
       dispatch(setLoading(false));
     });
 };

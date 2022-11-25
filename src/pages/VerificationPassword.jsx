@@ -10,10 +10,10 @@ import {
   setIsCorrect,
   selectIsCorrect,
   selectLoading,
-  emailSend,
+  codeSend,
 } from '../store/slice/authSlice';
 
-function ResetPassword() {
+function VerificationPassword() {
   const {
     register,
     handleSubmit,
@@ -30,7 +30,10 @@ function ResetPassword() {
     sessionStorage.clear();
     dispatch(setIsCorrect(false));
   };
-  const emailSubmit = (data) => dispatch(emailSend(data, navigate));
+  const userEmail = sessionStorage.getItem('email');
+  const code = sessionStorage.getItem('code');
+
+  const codeSubmit = (data) => dispatch(codeSend(data, navigate));
 
   return (
     <main className='bg-white'>
@@ -53,38 +56,45 @@ function ResetPassword() {
             </div>
 
             <div className='max-w-sm mx-auto px-4 py-8'>
-              <h1 className='text-3xl text-slate-800 font-bold mb-6'>
-                Restablece tu contraseña
-              </h1>
+              <article>
+                <h1 className='text-3xl text-slate-800 font-bold mb-6'>
+                  Verifica el codigo
+                  <p className='font-normal text-sm'>
+                    Ingresa el código que te hicimos llegar al correo
+                    electrónico <span className='font-bold'>{userEmail}</span>
+                  </p>
+                  <span className='text-sm text-red-500'>{code}</span>
+                </h1>
+              </article>
 
-              <form onSubmit={handleSubmit(emailSubmit)}>
+              <form onSubmit={handleSubmit(codeSubmit)}>
                 <div className='space-y-4'>
                   <div>
                     <label
                       className='block text-sm font-medium mb-1'
                       htmlFor='email'
                     >
-                      Correo electrónico{' '}
+                      Codigo de verificación{' '}
                       <span className='text-rose-500'>*</span>
                     </label>
                     <input
                       autoComplete='off'
                       className='form-input w-full'
-                      type='email'
-                      {...register('email', {
+                      type='text'
+                      {...register('user_code', {
                         required: {
                           value: true,
                           message: 'El campo es requerido',
                         },
-                        pattern: {
-                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                          message: 'El formato no es correcto',
-                        },
+                        // pattern: {
+                        //   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                        //   message: 'El formato no es correcto',
+                        // },
                       })}
                     />
-                    {errors.email && (
+                    {errors.user_code && (
                       <span className='text-red-500 text-sm'>
-                        {errors.email.message}
+                        {errors.user_code.message}
                       </span>
                     )}
                   </div>
@@ -104,7 +114,7 @@ function ResetPassword() {
               </form>
               <footer className='pt-5 mt-6 border-t border-slate-200'>
                 {isCorrect && (
-                  <ErrorMessage message='El correo no se encuentra en nuestra base de datos.' />
+                  <ErrorMessage message='El código es invalido, verifica que el codigo de verificación sea el correcto.' />
                 )}
               </footer>
             </div>
@@ -128,4 +138,4 @@ function ResetPassword() {
   );
 }
 
-export default ResetPassword;
+export default VerificationPassword;
