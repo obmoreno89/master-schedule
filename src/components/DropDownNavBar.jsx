@@ -1,17 +1,22 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Transition from '../utils/Transition';
-import { useDispatch } from 'react-redux';
-import { logoutUser } from '../store/slice/authSlice';
 
-function DropdownProfile({ align, props }) {
+function DropDownNavBar({
+  align,
+  nameDropDown,
+  opcion1,
+  opcion2,
+  opcion3,
+  opcion4,
+  opcion5,
+}) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const trigger = useRef(null);
   const dropdown = useRef(null);
+
+  const handdleDropDown = () => setDropdownOpen(!dropdownOpen);
 
   useEffect(() => {
     const clickHandler = ({ target }) => {
@@ -56,7 +61,7 @@ function DropdownProfile({ align, props }) {
         /> */}
           <div className='flex items-center truncate'>
             <span className='truncate ml-2 text-sm font-medium group-hover:text-slate-800'>
-              Master Schedule
+              {nameDropDown}
             </span>
             <svg
               className='w-3 h-3 shrink-0 ml-1 fill-current text-slate-400'
@@ -84,30 +89,43 @@ function DropdownProfile({ align, props }) {
             onFocus={() => setDropdownOpen(true)}
             onBlur={() => setDropdownOpen(false)}
           >
-            <div className='pt-0.5 pb-2 px-3 mb-1 border-b border-slate-200'>
-              <div className='font-medium text-slate-800'> Master Schedule</div>
-              <div className='text-xs text-slate-500 italic'>Administrator</div>
-            </div>
             <ul>
               <li>
                 <Link
                   className='font-medium text-sm text-primary hover:text-indigo-600 flex items-center py-1 px-3'
                   to='/master-schedule/settings'
-                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  onClick={handdleDropDown}
                 >
-                  Configuración
+                  {opcion1}
                 </Link>
-              </li>
-              <li>
-                <button
+                <Link
                   className='font-medium text-sm text-primary hover:text-indigo-600 flex items-center py-1 px-3'
-                  onClick={() => {
-                    setDropdownOpen(!dropdownOpen);
-                    dispatch(logoutUser(navigate));
-                  }}
+                  to='/master-schedule/settings'
+                  onClick={handdleDropDown}
                 >
-                  Cerrar sesión
-                </button>
+                  {opcion2}
+                </Link>
+                <Link
+                  className='font-medium text-sm text-primary hover:text-indigo-600 flex items-center py-1 px-3'
+                  to='/master-schedule/settings'
+                  onClick={handdleDropDown}
+                >
+                  {opcion3}
+                </Link>
+                <Link
+                  className='font-medium text-sm text-primary hover:text-indigo-600 flex items-center py-1 px-3'
+                  to='/master-schedule/settings'
+                  onClick={handdleDropDown}
+                >
+                  {opcion4}
+                </Link>
+                <Link
+                  className='font-medium text-sm text-primary hover:text-indigo-600 flex items-center py-1 px-3'
+                  to='/master-schedule/settings'
+                  onClick={handdleDropDown}
+                >
+                  {opcion5}
+                </Link>
               </li>
             </ul>
           </div>
@@ -117,4 +135,4 @@ function DropdownProfile({ align, props }) {
   );
 }
 
-export default DropdownProfile;
+export default DropDownNavBar;
