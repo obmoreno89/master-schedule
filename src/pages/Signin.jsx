@@ -166,7 +166,10 @@ function Signin() {
 
               <footer className='pt-5 mt-6 border-t border-slate-200'>
                 {isCorrect && (
-                  <ErrorMessage message='El correo no se encuentra en nuestra base de datos.' />
+                  <ErrorMessage
+                    message='
+                  Correo o contraseña incorrectos.'
+                  />
                 )}
               </footer>
             </div>
