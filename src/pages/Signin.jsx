@@ -155,7 +155,7 @@ function Signin() {
                   <div className='mr-1'>
                     <Link
                       className='text-sm underline hover:no-underline'
-                      to='/master-schedule/reset-password'
+                      to='/mp-pro/reset-password'
                     >
                       ¿Olvidaste la contraseña?
                     </Link>

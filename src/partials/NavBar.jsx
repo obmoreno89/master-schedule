@@ -124,8 +124,7 @@ function NavBar({ sidebarOpen, setSidebarOpen }) {
               </section>
               <SidebarLinkGroup
                 activecondition={
-                  pathname === '/master-schedule/' ||
-                  pathname.includes('dashboard')
+                  pathname === '/mp-pro/' || pathname.includes('dashboard')
                 }
               >
                 {(handleClick, open) => {
@@ -134,7 +133,7 @@ function NavBar({ sidebarOpen, setSidebarOpen }) {
                       <a
                         href='#0'
                         className={` text-slate-200 lg:text-slate-900 hover:text-white lg:hover:text-slate-400 truncate transition duration-150 ${
-                          (pathname === '/master-schedule/' ||
+                          (pathname === '/mp-pro/' ||
                             pathname.includes('dashboard')) &&
                           'hover:text-slate-200'
                         }`}
@@ -195,7 +194,7 @@ function NavBar({ sidebarOpen, setSidebarOpen }) {
                           <li className='mb-1 last:mb-0'>
                             <NavLink
                               end
-                              to='/master-schedule/'
+                              to='/mp-pro/'
                               className={({ isActive }) =>
                                 'block text-slate-400 hover:text-slate-200 lg:hover:text-slate-400  lg:text-slate-500 transition duration-150 truncate ' +
                                 (isActive ? '!text-primary' : '')
@@ -278,8 +277,7 @@ function NavBar({ sidebarOpen, setSidebarOpen }) {
               </section>
               <SidebarLinkGroup
                 activecondition={
-                  pathname === '/master-schedule/' ||
-                  pathname.includes('dashboard')
+                  pathname === '/mp-pro/' || pathname.includes('dashboard')
                 }
               >
                 {(handleClick, open) => {
@@ -288,7 +286,7 @@ function NavBar({ sidebarOpen, setSidebarOpen }) {
                       <a
                         href='#0'
                         className={` text-slate-200 lg:text-slate-900 hover:text-white lg:hover:text-slate-400 truncate transition duration-150 ${
-                          (pathname === '/master-schedule/' ||
+                          (pathname === '/mp-pro/' ||
                             pathname.includes('dashboard')) &&
                           'hover:text-slate-200'
                         }`}
@@ -307,7 +305,7 @@ function NavBar({ sidebarOpen, setSidebarOpen }) {
                             >
                               <path
                                 className={`fill-current text-slate-400 ${
-                                  (pathname === '/master-schedule/' ||
+                                  (pathname === '/mp-pro/' ||
                                     pathname.includes('dashboard')) &&
                                   '!text-primary'
                                 }`}
@@ -315,7 +313,7 @@ function NavBar({ sidebarOpen, setSidebarOpen }) {
                               />
                               <path
                                 className={`fill-current text-slate-600 ${
-                                  (pathname === '/master-schedule/' ||
+                                  (pathname === '/mp-pro/' ||
                                     pathname.includes('dashboard')) &&
                                   'text-secondary'
                                 }`}
@@ -323,7 +321,7 @@ function NavBar({ sidebarOpen, setSidebarOpen }) {
                               />
                               <path
                                 className={`fill-current text-slate-400 ${
-                                  (pathname === '/master-schedule/' ||
+                                  (pathname === '/mp-pro/' ||
                                     pathname.includes('dashboard')) &&
                                   'text-white'
                                 }`}
@@ -352,7 +350,7 @@ function NavBar({ sidebarOpen, setSidebarOpen }) {
                           <li className='mb-1 last:mb-0'>
                             <NavLink
                               end
-                              to='/master-schedule/'
+                              to='/mp-pro/'
                               className={({ isActive }) =>
                                 'block text-slate-400 hover:text-slate-200 lg:hover:text-slate-400  lg:text-slate-500 transition duration-150 truncate ' +
                                 (isActive ? '!text-primary' : '')

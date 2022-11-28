@@ -92,7 +92,7 @@ function DropdownProfile({ align, props }) {
               <li>
                 <Link
                   className='font-medium text-sm text-primary hover:text-indigo-600 flex items-center py-1 px-3'
-                  to='/master-schedule/settings'
+                  to='/mp-pro/settings'
                   onClick={() => setDropdownOpen(!dropdownOpen)}
                 >
                   Configuración

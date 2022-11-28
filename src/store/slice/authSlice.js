@@ -44,7 +44,7 @@ export const sendData = (data, navigate) => (dispatch) => {
         localStorage.setItem('email', response.data.email);
         localStorage.setItem('first_name', response.data.first_name);
         dispatch(setIsCorrect(false));
-        navigate('/master-schedule/');
+        navigate('/mp-pro/');
       }
     })
     .catch(() => {
@@ -66,7 +66,7 @@ export const logoutUser = (navigate) => () => {
     .then((response) => {
       if (response.data.status_code === 200) {
         localStorage.clear();
-        navigate('/master-schedule/signin/');
+        navigate('/mp-pro/signin/');
       }
     });
 };
@@ -81,7 +81,7 @@ export const emailSend = (data, navigate) => (dispatch) => {
         sessionStorage.setItem('code', response.data.code);
         sessionStorage.setItem('email', data.email);
         dispatch(setIsCorrect(false));
-        navigate('/master-schedule/verification-code/');
+        navigate('/mp-pro/verification-code/');
       }
     })
     .catch(() => {
@@ -106,7 +106,7 @@ export const codeSend = (data, navigate) => (dispatch) => {
         sessionStorage.setItem('token', response.data.token);
         sessionStorage.setItem('email', response.data.email);
         dispatch(setIsCorrect(false));
-        navigate('/master-schedule/confirm-password/');
+        navigate('/mp-pro/confirm-password/');
       }
     })
     .catch(() => {
@@ -133,7 +133,7 @@ export const confirmNewPass = (data, navigate) => (dispatch) => {
       if (response.data.status_code === 200) {
         dispatch(setIsCorrect(true));
         setTimeout(() => {
-          navigate('/master-schedule/signin/');
+          navigate('/mp-pro/signin/');
           dispatch(setIsCorrect(false));
         }, 3000);
       }

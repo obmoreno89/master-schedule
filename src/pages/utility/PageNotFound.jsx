@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
-import Sidebar from '../../partials/Sidebar';
 import Header from '../../partials/Header';
-
-import NotFoundImage from '../../images/404-illustration.svg';
+import icons from '../../images/icon/icons';
 
 function PageNotFound() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -12,7 +9,6 @@ function PageNotFound() {
   return (
     <div className='flex h-screen overflow-hidden'>
       {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
       {/* Content area */}
       <div className='relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden bg-white'>
@@ -25,7 +21,7 @@ function PageNotFound() {
               <div className='text-center px-4'>
                 <div className='inline-flex mb-8'>
                   <img
-                    src={NotFoundImage}
+                    src={icons.error404}
                     width='176'
                     height='176'
                     alt='404 illustration'
@@ -33,7 +29,7 @@ function PageNotFound() {
                 </div>
                 <div className='mb-6'>Hmm... La pagina no existe!</div>
                 <Link
-                  to='master-schedule/'
+                  to='mp-pro/'
                   className='btn bg-primary hover:bg-indigo-600 text-white'
                 >
                   Regresar

@@ -47,7 +47,7 @@ function VerificationPassword() {
                 {/* Logo */}
                 <Link
                   className='block'
-                  to='/master-schedule/signin'
+                  to='/mp-pro/signin'
                   onClick={clearSessionStorage}
                 >
                   <img src={icons.logoNide} alt='Logo' className='w-36' />

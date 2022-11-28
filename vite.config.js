@@ -11,7 +11,7 @@ export default defineConfig({
     postcss,
   },
   plugins: [react()],
-  // base: '/master-schedule/',
+  base: '/mp-pro/',
   resolve: {
     alias: [
       {

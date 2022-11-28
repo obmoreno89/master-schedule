@@ -45,7 +45,7 @@ function App() {
       <Routes>
         <Route
           exact
-          path='master-schedule/'
+          path='mp-pro/'
           element={
             <PrivateRoute>
               <Dashboard />
@@ -54,7 +54,7 @@ function App() {
         />
 
         <Route
-          path='master-schedule/signin'
+          path='mp-pro/signin'
           element={
             <PublicRoute>
               <Signin />
@@ -63,7 +63,7 @@ function App() {
         />
 
         <Route
-          path='master-schedule/reset-password'
+          path='mp-pro/reset-password'
           element={
             <PublicRoute>
               <ResetPassword />
@@ -72,7 +72,7 @@ function App() {
         />
 
         <Route
-          path='/master-schedule/verification-code/'
+          path='/mp-pro/verification-code/'
           element={
             <PublicRoute>
               <VerificationPassword />
@@ -81,7 +81,7 @@ function App() {
         />
 
         <Route
-          path='/master-schedule/confirm-password/'
+          path='/mp-pro/confirm-password/'
           element={
             <PublicRoute>
               <ConfirmNewPassword />

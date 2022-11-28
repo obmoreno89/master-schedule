@@ -5,7 +5,7 @@ function PrivateRoute({ children }) {
   const token = localStorage.getItem('token');
 
   if (!token) {
-    return <Navigate to='/master-schedule/signin' />;
+    return <Navigate to='/mp-pro/signin' />;
   }
   return children;
 }

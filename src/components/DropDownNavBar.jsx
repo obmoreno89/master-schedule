@@ -93,35 +93,35 @@ function DropDownNavBar({
               <li>
                 <Link
                   className='font-medium text-sm text-primary hover:text-indigo-600 flex items-center py-1 px-3'
-                  to='/master-schedule/settings'
+                  to='/mp-pro/settings'
                   onClick={handdleDropDown}
                 >
                   {opcion1}
                 </Link>
                 <Link
                   className='font-medium text-sm text-primary hover:text-indigo-600 flex items-center py-1 px-3'
-                  to='/master-schedule/settings'
+                  to='/mp-pro/settings'
                   onClick={handdleDropDown}
                 >
                   {opcion2}
                 </Link>
                 <Link
                   className='font-medium text-sm text-primary hover:text-indigo-600 flex items-center py-1 px-3'
-                  to='/master-schedule/settings'
+                  to='/mp-pro/settings'
                   onClick={handdleDropDown}
                 >
                   {opcion3}
                 </Link>
                 <Link
                   className='font-medium text-sm text-primary hover:text-indigo-600 flex items-center py-1 px-3'
-                  to='/master-schedule/settings'
+                  to='/mp-pro/settings'
                   onClick={handdleDropDown}
                 >
                   {opcion4}
                 </Link>
                 <Link
                   className='font-medium text-sm text-primary hover:text-indigo-600 flex items-center py-1 px-3'
-                  to='/master-schedule/settings'
+                  to='/mp-pro/settings'
                   onClick={handdleDropDown}
                 >
                   {opcion5}
