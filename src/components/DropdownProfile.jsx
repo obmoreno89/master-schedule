@@ -4,7 +4,7 @@ import Transition from '../utils/Transition';
 import { useDispatch } from 'react-redux';
 import { logoutUser } from '../store/slice/authSlice';
 
-function DropdownProfile({ align, props }) {
+function DropdownProfile({ align }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const navigate = useNavigate();

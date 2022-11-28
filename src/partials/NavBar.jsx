@@ -65,7 +65,7 @@ function NavBar({ sidebarOpen, setSidebarOpen }) {
       <div
         id='sidebar'
         ref={sidebar}
-        className={`flex flex-col absolute lg:static z-40 left-0 top-0 lg:translate-x-0 transform md:h-screen lg:h-16 no-scrollbar lg:w-full bg-slate-800 lg:bg-white p-4 transition-all duration-200 ease-in-out lg:mb-10 ${
+        className={`flex flex-col absolute lg:relative z-40 lg:z-10  left-0 top-0 lg:translate-x-0 transform md:h-screen lg:h-16 no-scrollbar lg:w-full bg-slate-800 lg:bg-white p-4 transition-all duration-200 ease-in-out lg:mb-10 ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-64'
         }`}
       >
@@ -117,8 +117,6 @@ function NavBar({ sidebarOpen, setSidebarOpen }) {
                   opcion1='opcion1'
                   opcion2='opcion2'
                   opcion3='opcion3'
-                  opcion4='opcion4'
-                  opcion5='opcion5'
                   nameDropDown='Dashboard'
                 />
               </section>
@@ -270,9 +268,7 @@ function NavBar({ sidebarOpen, setSidebarOpen }) {
                   opcion1='opcion1'
                   opcion2='opcion2'
                   opcion3='opcion3'
-                  opcion4='opcion4'
-                  opcion5='opcion5'
-                  nameDropDown='Dashboard'
+                  nameDropDown='Administración'
                 />
               </section>
               <SidebarLinkGroup

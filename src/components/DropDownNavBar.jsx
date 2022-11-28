@@ -73,7 +73,7 @@ function DropDownNavBar({
         </button>
 
         <Transition
-          className={`origin-top-right z-10 absolute top-full min-w-44 bg-white border border-slate-200 py-1.5 rounded shadow-lg overflow-hidden mt-1 ${
+          className={`origin-top-right z-10 absolute top-full min-w-auto bg-white border border-slate-200 py-1.5 rounded shadow-lg overflow-hidden mt-1 ${
             align === 'right' ? 'right-0' : 'left-0'
           }`}
           show={dropdownOpen}
@@ -111,20 +111,6 @@ function DropDownNavBar({
                   onClick={handdleDropDown}
                 >
                   {opcion3}
-                </Link>
-                <Link
-                  className='font-medium text-sm text-primary hover:text-indigo-600 flex items-center py-1 px-3'
-                  to='/mp-pro/settings'
-                  onClick={handdleDropDown}
-                >
-                  {opcion4}
-                </Link>
-                <Link
-                  className='font-medium text-sm text-primary hover:text-indigo-600 flex items-center py-1 px-3'
-                  to='/mp-pro/settings'
-                  onClick={handdleDropDown}
-                >
-                  {opcion5}
                 </Link>
               </li>
             </ul>
