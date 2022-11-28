@@ -45,7 +45,7 @@ function Signin() {
       </button>
     ) : (
       <div>
-        <ButtonLoading loading='cargando' />
+        <ButtonLoading loading='Iniciando' />
       </div>
     );
   };

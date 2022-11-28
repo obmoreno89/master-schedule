@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import NavBar from '../partials/NavBar';
-import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import WelcomeBanner from '../partials/dashboard/WelcomeBanner';
 
@@ -13,12 +12,12 @@ function Dashboard() {
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
         <main>
-          <div>
+          <section>
             <NavBar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-          </div>
-          <div className='px-4 sm:px-6 lg:px-8 py-2 w-full max-w-9xl mx-auto'>
+          </section>
+          <section className='px-4 sm:px-6 lg:px-8 py-2 w-full max-w-9xl mx-auto'>
             <WelcomeBanner />
-          </div>
+          </section>
         </main>
       </div>
     </div>
