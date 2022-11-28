@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import NavBar from "../partials/NavBar";
+import { useState } from "react";
 import Header from "../partials/Header";
-import WelcomeBanner from "../partials/dashboard/WelcomeBanner";
+import NavBar from "../partials/NavBar";
 
-function Dashboard() {
+function Layout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -16,7 +15,7 @@ function Dashboard() {
             <NavBar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
           </section>
           <section className="px-4 sm:px-6 lg:px-8 py-2 w-full max-w-9xl mx-auto">
-            <WelcomeBanner />
+            {children}
           </section>
         </main>
       </div>
@@ -24,4 +23,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default Layout;

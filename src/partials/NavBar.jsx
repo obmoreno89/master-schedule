@@ -265,7 +265,7 @@ function NavBar({ sidebarOpen, setSidebarOpen }) {
                   </svg>
                 </figure>
                 <DropDownNavBar
-                  opcion1='opcion1'
+                  opcion1='Registrar usuario'
                   opcion2='opcion2'
                   opcion3='opcion3'
                   nameDropDown='Administración'
