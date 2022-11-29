@@ -1,3 +1,4 @@
+
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
@@ -8,10 +9,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#0DB1AC',
-        secondary: '#D8F6F0',
+        primary: '#009B4A',
+        secondary: "rgba(0,155,74,0.30)",
         third: '#839DE2',
-        hover: '#116361'
+        hover: 'rgba(0,155,74,0.7)'
       },
       boxShadow: {
         DEFAULT: '0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px 0 rgba(0, 0, 0, 0.02)',

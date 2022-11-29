@@ -1,16 +1,21 @@
-import { createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createAction, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
   user: null,
-  isCorrect: false,
+  isCorrect: null,
   loading: false,
   resetPassword: null,
 };
 
+export const revertAll = createAction("REVERT_ALL");
+
 const authSlice = createSlice({
   initialState,
-  name: 'auth',
+  name: "auth",
+  extraReducers: (builder) => {
+    builder.addCase(revertAll, () => initialState);
+  },
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload;
@@ -35,38 +40,80 @@ export default authSlice.reducer;
 export const sendData = (data, navigate) => (dispatch) => {
   dispatch(setLoading(true));
   axios
-    .post('http://44.211.175.241/api/auth/login/', data)
+    .post("http://44.211.175.241/api/auth/login/", data)
     .then((response) => {
       dispatch(setLoading(false));
       if (response.data.status_code === 202) {
         dispatch(setUser(response.data));
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('email', response.data.email);
-        localStorage.setItem('first_name', response.data.first_name);
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("email", response.data.email);
+        localStorage.setItem("first_name", response.data.first_name);
         dispatch(setIsCorrect(false));
-        navigate('/mp-pro/');
+        navigate("/mp-pro/");
       }
     })
-    .catch(() => {
-      dispatch(setIsCorrect(true));
+    .catch((error) => {
+      if (error.code === "ERR_NETWORK") {
+        dispatch(
+          setIsCorrect({
+            code: 500,
+            msg: "internal server error",
+            state: true,
+          })
+        );
+      } else {
+        switch (error.response.status) {
+          case 400: {
+            dispatch(
+              setIsCorrect({
+                code: 400,
+                msg: error.response.data.msg,
+                state: true,
+              })
+            );
+            break;
+          }
+          case 401: {
+            dispatch(
+              setIsCorrect({
+                code: 401,
+                msg: error.response.statusText,
+                state: true,
+              })
+            );
+            break;
+          }
+          case 500: {
+            dispatch(
+              setIsCorrect({
+                code: 500,
+                msg: "internal server error",
+                state: true,
+              })
+            );
+            break;
+          }
+        }
+      }
       dispatch(setLoading(false));
+      setTimeout(() => dispatch(revertAll()), 5000);
     });
 };
 
 export const logoutUser = (navigate) => () => {
-  const emailUser = localStorage.getItem('email');
-  const tokenUser = localStorage.getItem('token');
+  const emailUser = localStorage.getItem("email");
+  const tokenUser = localStorage.getItem("token");
   const email = {
     email: emailUser,
   };
   axios
-    .post('http://44.211.175.241/api/auth/logout/', email, {
+    .post("http://44.211.175.241/api/auth/logout/", email, {
       headers: { Authorization: `token ${tokenUser}` },
     })
     .then((response) => {
       if (response.data.status_code === 200) {
         localStorage.clear();
-        navigate('/mp-pro/signin/');
+        navigate("/mp-pro/signin/");
       }
     });
 };
@@ -74,19 +121,71 @@ export const logoutUser = (navigate) => () => {
 export const emailSend = (data, navigate) => (dispatch) => {
   dispatch(setLoading(true));
   axios
-    .post('http://44.211.175.241/api/auth/password-reset/send-code', data)
+    .post("http://44.211.175.241/api/auth/password-reset/send-code", data)
     .then((response) => {
       dispatch(setLoading(false));
       if (response.data.status_code === 200) {
-        sessionStorage.setItem('code', response.data.code);
-        sessionStorage.setItem('email', data.email);
+        sessionStorage.setItem("code", response.data.code);
+        sessionStorage.setItem("email", data.email);
         dispatch(setIsCorrect(false));
-        navigate('/mp-pro/verification-code/');
+        navigate("/mp-pro/verification-code/");
       }
     })
-    .catch((err) => {
-      dispatch(setIsCorrect(true));
+    .catch((error) => {
+      if (error.code === "ERR_NETWORK") {
+        dispatch(
+          setIsCorrect({
+            code: 500,
+            msg: "internal server error",
+            state: true,
+          })
+        );
+      } else {
+        switch (error.response.status) {
+          case 400: {
+            dispatch(
+              setIsCorrect({
+                code: 400,
+                msg: error.response.data.msg,
+                state: true,
+              })
+            );
+            break;
+          }
+          case 404: {
+            dispatch(
+              setIsCorrect({
+                code: 404,
+                msg: error.response.data.msg,
+                state: true,
+              })
+            );
+            break;
+          }
+          case 401: {
+            dispatch(
+              setIsCorrect({
+                code: 401,
+                msg: error.response.statusText,
+                state: true,
+              })
+            );
+            break;
+          }
+          case 500: {
+            dispatch(
+              setIsCorrect({
+                code: 500,
+                msg: "internal server error",
+                state: true,
+              })
+            );
+            break;
+          }
+        }
+      }
       dispatch(setLoading(false));
+      setTimeout(() => dispatch(revertAll()), 5000);
     });
 };
 
@@ -94,19 +193,19 @@ export const codeSend = (data, navigate) => (dispatch) => {
   dispatch(setLoading(true));
 
   const json = {
-    email: sessionStorage.getItem('email'),
+    email: sessionStorage.getItem("email"),
     user_code: parseInt(data.user_code),
   };
 
   axios
-    .post('http://44.211.175.241/api/auth/password-reset/verify-code', json)
+    .post("http://44.211.175.241/api/auth/password-reset/verify-code", json)
     .then((response) => {
       dispatch(setLoading(false));
       if (response.data.status_code === 202) {
-        sessionStorage.setItem('token', response.data.token);
-        sessionStorage.setItem('email', response.data.email);
+        sessionStorage.setItem("token", response.data.token);
+        sessionStorage.setItem("email", response.data.email);
         dispatch(setIsCorrect(false));
-        navigate('/mp-pro/confirm-password/');
+        navigate("/mp-pro/confirm-password/");
       }
     })
     .catch(() => {
@@ -118,14 +217,14 @@ export const codeSend = (data, navigate) => (dispatch) => {
 export const confirmNewPass = (data, navigate) => (dispatch) => {
   dispatch(setLoading(true));
 
-  const token = sessionStorage.getItem('token');
+  const token = sessionStorage.getItem("token");
   const json = {
-    email: sessionStorage.getItem('email'),
+    email: sessionStorage.getItem("email"),
     new_password: data.password,
   };
 
   axios
-    .post('http://44.211.175.241/api/auth/password-reset/confirmation', json, {
+    .post("http://44.211.175.241/api/auth/password-reset/confirmation", json, {
       headers: { Authorization: `token ${token}` },
     })
     .then((response) => {
@@ -133,7 +232,7 @@ export const confirmNewPass = (data, navigate) => (dispatch) => {
       if (response.data.status_code === 200) {
         dispatch(setIsCorrect(true));
         setTimeout(() => {
-          navigate('/mp-pro/signin/');
+          navigate("/mp-pro/signin/");
           dispatch(setIsCorrect(false));
         }, 3000);
       }
