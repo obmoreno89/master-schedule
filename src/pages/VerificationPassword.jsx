@@ -143,7 +143,7 @@ function VerificationPassword() {
                     <button
                       onClick={codeSubmit}
                       type='button'
-                      className='btn bg-primary hover:bg-indigo-600 text-white whitespace-nowrap'
+                      className='btn bg-secondary hover:bg-hover hover:text-white text-primary whitespace-nowrap'
                     >
                       Enviar link
                     </button>

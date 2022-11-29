@@ -4,7 +4,7 @@ import axios from "axios";
 const initialState = {
   user: null,
   userIsOk: false,
-  userFail: false,
+  userFail: null,
   userLoading: false,
 };
 
@@ -53,12 +53,54 @@ export const registerUser = (data) => (dispatch) => {
       dispatch(setUserLoading(false));
       if (response.data.status_code === 201) {
         dispatch(setUser(response.data));
-        dispatch(setUserFail(false));
+        dispatch(setUserFail(null));
         dispatch(setUserIsOk(true));
       }
     })
-    .catch(() => {
-      dispatch(setUserFail(true));
+    .catch((error) => {
+      if (error.code === "ERR_NETWORK") {
+        dispatch(
+          setUserFail({
+            code: 500,
+            msg: "internal server error",
+            state: true,
+          })
+        );
+      } else {
+        switch (error.response.status) {
+          case 400: {
+            dispatch(
+              setUserFail({
+                code: 400,
+                msg: error.response.data.msg,
+                state: true,
+              })
+            );
+            break;
+          }
+          case 401: {
+            dispatch(
+              setUserFail({
+                code: 401,
+                msg: error.response.statusText,
+                state: true,
+              })
+            );
+            break;
+          }
+          case 500: {
+            dispatch(
+              setUserFail({
+                code: 500,
+                msg: "internal server error",
+                state: true,
+              })
+            );
+            break;
+          }
+        }
+      }
+
       dispatch(setUserIsOk(false));
       dispatch(setUserLoading(false));
       setTimeout(() => dispatch(revertAll()), 5000);
