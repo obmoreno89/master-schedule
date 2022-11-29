@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import icons from '../images/icon/icons';
 import { useForm } from 'react-hook-form';
@@ -11,6 +11,7 @@ import {
   selectIsCorrect,
   selectLoading,
   codeSend,
+  emailSend,
 } from '../store/slice/authSlice';
 
 function VerificationPassword() {
@@ -20,20 +21,50 @@ function VerificationPassword() {
     formState: { errors },
   } = useForm();
 
+  const [otp, setOtp] = useState(new Array(6).fill(''));
+  const [counter, setCounter] = useState(2);
+  const [containerChange, setContainerChange] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const submit = (data) => console.log(data);
   const isCorrect = useSelector(selectIsCorrect);
   const loading = useSelector(selectLoading);
 
+  useEffect(() => {
+    if (counter) {
+      const timer =
+        counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
+      return () => clearInterval(timer);
+    } else if (counter === 0) {
+      setContainerChange(true);
+    }
+  }, [counter]);
+
+  const userEmail = sessionStorage.getItem('email');
+  const newCode = { email: userEmail };
+  const code = sessionStorage.getItem('code');
+
+  const codeValue = { user_code: otp.join('') };
+
+  const codeSubmit = () => dispatch(codeSend(codeValue, navigate));
+  const emailSendReturn = (data) => dispatch(emailSend(data, navigate));
+
+  const handleChange = (element, index) => {
+    if (isNaN(element.value)) return false;
+
+    setOtp([...otp.map((d, idx) => (idx === index ? element.value : d))]);
+
+    //Focus next input
+    if (element.nextSibling) {
+      element.nextSibling.focus();
+    }
+  };
+
   const clearSessionStorage = () => {
     sessionStorage.clear();
     dispatch(setIsCorrect(false));
   };
-  const userEmail = sessionStorage.getItem('email');
-  const code = sessionStorage.getItem('code');
-
-  const codeSubmit = (data) => dispatch(codeSend(data, navigate));
 
   return (
     <main className='bg-white'>
@@ -67,42 +98,51 @@ function VerificationPassword() {
                 </h1>
               </article>
 
-              <form onSubmit={handleSubmit(codeSubmit)}>
+              <form>
                 <div className='space-y-4'>
-                  <div>
-                    <label
-                      className='block text-sm font-medium mb-1'
-                      htmlFor='email'
-                    >
-                      Codigo de verificación{' '}
-                      <span className='text-rose-500'>*</span>
-                    </label>
-                    <input
-                      autoComplete='off'
-                      className='form-input w-full'
-                      type='text'
-                      {...register('user_code', {
-                        required: {
-                          value: true,
-                          message: 'El campo es requerido',
-                        },
-                        // pattern: {
-                        //   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                        //   message: 'El formato no es correcto',
-                        // },
-                      })}
-                    />
-                    {errors.user_code && (
-                      <span className='text-red-500 text-sm'>
-                        {errors.user_code.message}
-                      </span>
-                    )}
+                  <div className='space-x-3 mt-5 flex justify-center items-center'>
+                    {otp.map((data, index) => {
+                      return (
+                        <input
+                          className='form-input w-12 text-xl text-center'
+                          type='text'
+                          name='otp'
+                          maxLength='1'
+                          key={index}
+                          value={data}
+                          onChange={(e) => handleChange(e.target, index)}
+                          onFocus={(e) => e.target.select()}
+                        />
+                      );
+                    })}
                   </div>
                 </div>
+                <article className='mt-6 flex flex-col justify-center items-center'>
+                  <p className='text-gray-400 text-sm'>¿No lo recibiste?</p>
+                  {!containerChange ? (
+                    <p className='text-center text-gray-400 font-semibold'>
+                      Tu código vence en: {counter} segundos
+                    </p>
+                  ) : (
+                    <div>
+                      <button
+                        onClick={() => {
+                          emailSendReturn(newCode);
+                          setContainerChange(false);
+                          setCounter(2);
+                        }}
+                        className='text-sm font-semibold text-primary hover:text-slate-500'
+                      >
+                        Solicitar código nuevo
+                      </button>
+                    </div>
+                  )}
+                </article>
                 <div className='flex justify-end mt-6'>
                   {!loading ? (
                     <button
-                      type='submit'
+                      onClick={codeSubmit}
+                      type='button'
                       className='btn bg-primary hover:bg-indigo-600 text-white whitespace-nowrap'
                     >
                       Enviar link

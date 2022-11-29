@@ -84,7 +84,7 @@ export const emailSend = (data, navigate) => (dispatch) => {
         navigate('/mp-pro/verification-code/');
       }
     })
-    .catch(() => {
+    .catch((err) => {
       dispatch(setIsCorrect(true));
       dispatch(setLoading(false));
     });
