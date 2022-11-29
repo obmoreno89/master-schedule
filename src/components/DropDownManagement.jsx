@@ -2,15 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Transition from '../utils/Transition';
 
-function DropDownNavBar({
-  align,
-  nameDropDown,
-  opcion1,
-  opcion2,
-  opcion3,
-  opcion4,
-  opcion5,
-}) {
+function DropDownManagement({ align, nameDropDown, opcion1, opcion2 }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef(null);
@@ -92,25 +84,20 @@ function DropDownNavBar({
             <ul>
               <li>
                 <Link
-                  className='font-medium text-sm text-primary hover:text-indigo-600 flex items-center py-1 px-3'
-                  to='/mp-pro/register-user'
+                  className='font-medium text-sm text-primary hover:text-indigo-900 flex items-center py-1 px-3'
+                  to=''
                   onClick={handdleDropDown}
                 >
                   {opcion1}
                 </Link>
+              </li>
+              <li>
                 <Link
-                  className='font-medium text-sm text-primary hover:text-indigo-600 flex items-center py-1 px-3'
-                  to='/mp-pro/settings'
+                  className='font-medium text-sm text-primary hover:text-indigo-900 flex items-center py-1 px-3'
+                  to='/mp-pro/register-user/'
                   onClick={handdleDropDown}
                 >
                   {opcion2}
-                </Link>
-                <Link
-                  className='font-medium text-sm text-primary hover:text-indigo-600 flex items-center py-1 px-3'
-                  to='/mp-pro/settings'
-                  onClick={handdleDropDown}
-                >
-                  {opcion3}
                 </Link>
               </li>
             </ul>
@@ -121,4 +108,4 @@ function DropDownNavBar({
   );
 }
 
-export default DropDownNavBar;
+export default DropDownManagement;
