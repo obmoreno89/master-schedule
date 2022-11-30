@@ -7,6 +7,8 @@ import { logoutUser } from '../store/slice/authSlice';
 function DropdownProfile({ align }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
+  const userName = localStorage.getItem('first_name');
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -56,7 +58,7 @@ function DropdownProfile({ align }) {
         /> */}
           <div className='flex items-center truncate'>
             <span className='truncate ml-2 text-sm font-medium group-hover:text-slate-800'>
-              Master Schedule
+              {userName}
             </span>
             <svg
               className='w-3 h-3 shrink-0 ml-1 fill-current text-slate-400'
@@ -85,13 +87,13 @@ function DropdownProfile({ align }) {
             onBlur={() => setDropdownOpen(false)}
           >
             <div className='pt-0.5 pb-2 px-3 mb-1 border-b border-slate-200'>
-              <div className='font-medium text-slate-800'> Master Schedule</div>
-              <div className='text-xs text-slate-500 italic'>Administrator</div>
+              <div className='font-medium text-slate-800'>{userName}</div>
+              <div className='text-xs text-primary italic'>Administrator</div>
             </div>
             <ul>
               <li>
                 <Link
-                  className='font-medium text-sm text-primary hover:text-indigo-600 flex items-center py-1 px-3'
+                  className='font-medium text-sm text-gray hover:text-textHover flex items-center py-1 px-3'
                   to='/mp-pro/settings'
                   onClick={() => setDropdownOpen(!dropdownOpen)}
                 >
@@ -100,7 +102,7 @@ function DropdownProfile({ align }) {
               </li>
               <li>
                 <button
-                  className='font-medium text-sm text-primary hover:text-indigo-600 flex items-center py-1 px-3'
+                  className='font-medium text-sm text-gray hover:text-textHover flex items-center py-1 px-3'
                   onClick={() => {
                     setDropdownOpen(!dropdownOpen);
                     dispatch(logoutUser(navigate));

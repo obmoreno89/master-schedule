@@ -9,6 +9,8 @@ module.exports = {
         secondary: 'rgba(0,155,74,0.10)',
         third: '#839DE2',
         hover: 'rgba(0,155,74,0.7)',
+        gray: 'rgb(156 163 175)',
+        textHover: '#009B4A',
       },
       boxShadow: {
         DEFAULT:

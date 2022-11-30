@@ -84,7 +84,7 @@ function DropDownManagement({ align, nameDropDown, opcion1, opcion2 }) {
             <ul>
               <li>
                 <Link
-                  className='font-medium text-sm text-primary hover:text-indigo-900 flex items-center py-1 px-3'
+                  className='font-medium text-sm text-gray hover:text-textHover flex items-center py-1 px-3'
                   to=''
                   onClick={handdleDropDown}
                 >
@@ -93,7 +93,7 @@ function DropDownManagement({ align, nameDropDown, opcion1, opcion2 }) {
               </li>
               <li>
                 <Link
-                  className='font-medium text-sm text-primary hover:text-indigo-900 flex items-center py-1 px-3'
+                  className='font-medium text-sm text-gray hover:text-textHover flex items-center py-1 px-3'
                   to='/mp-pro/register-user/'
                   onClick={handdleDropDown}
                 >
