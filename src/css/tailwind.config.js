@@ -8,7 +8,7 @@ module.exports = {
         primary: '#009B4A',
         secondary: 'rgba(0,155,74,0.10)',
         third: '#839DE2',
-        hover: 'rgba(0,155,74,0.7)',
+        hover: '#009B4A',
         gray: 'rgb(156 163 175)',
         textHover: '#009B4A',
       },
