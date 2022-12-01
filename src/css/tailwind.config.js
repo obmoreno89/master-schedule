@@ -11,7 +11,7 @@ module.exports = {
         hover: '#009B4A',
         gray: 'rgb(156 163 175)',
         textHover: '#009B4A',
-        focusHover: '#009B4A',
+        focusHover: 'rgba(0,155,74,0.20)',
         focus: 'rgb(148 163 184)',
         borderInput: 'rgb(203 213 225)',
       },

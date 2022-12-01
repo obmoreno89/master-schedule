@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import icons from '../images/icon/icons';
 import Help from '../components/DropdownHelp';
 import UserMenu from '../components/DropdownProfile';
 
@@ -11,7 +11,9 @@ function Header({ sidebarOpen, setSidebarOpen }) {
       <header className='sticky top-0 bg-white border-b  border-slate-200 z-30'>
         <div className='px-4 sm:px-6 lg:px-8'>
           <div className='flex items-center justify-between h-12 -mb-px'>
-            <div>NIDE | MP-PRO</div>
+            <figure>
+              <img src={icons.nideMotors} alt='Logos' className='w-28' />
+            </figure>
             {/* Header: Left side */}
             <div className='flex'>
               {/* Hamburger button */}

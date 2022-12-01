@@ -83,11 +83,14 @@ function Signin() {
           <div className='min-h-screen h-full flex flex-col after:flex-1'>
             {/* Header */}
             <div className='flex-1'>
-              <div className='flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8'>
-                <figure className='block'>
+              <section className='flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8'>
+                <figure className='relative flex justify-between w-full items-center mt-10'>
                   <img src={icons.logoNide} alt='Logo' className='w-36' />
+                  <figure>
+                    <img src={icons.logoMotors} alt='logo' className='w-14' />
+                  </figure>
                 </figure>
-              </div>
+              </section>
             </div>
 
             <div className='w-96 mx-auto px-1 py-8'>
