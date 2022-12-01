@@ -1,11 +1,13 @@
 import { createAction, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { endpointsCodes } from "./functions";
 
 const initialState = {
   user: null,
   userIsOk: false,
   userFail: null,
   userLoading: false,
+  roles: [],
 };
 
 export const revertAll = createAction("REVERT_ALL");
@@ -14,7 +16,12 @@ const usersSlice = createSlice({
   initialState,
   name: "users",
   extraReducers: (builder) => {
-    builder.addCase(revertAll, () => initialState);
+    builder.addCase(revertAll, (state, action) => {
+      state.user = null;
+      state.userIsOk = false;
+      state.userFail = null;
+      state.userLoading = false;
+    });
   },
   reducers: {
     setUser: (state, action) => {
@@ -29,16 +36,20 @@ const usersSlice = createSlice({
     setUserFail: (state, action) => {
       state.userFail = action.payload;
     },
+    setRoles: (state, action) => {
+      state.roles = action.payload;
+    },
   },
 });
 
-export const { setUser, setUserIsOk, setUserLoading, setUserFail } =
+export const { setUser, setUserIsOk, setUserLoading, setUserFail, setRoles } =
   usersSlice.actions;
 
 export const selectUser = (state) => state.users.user;
 export const selectUserIsOk = (state) => state.users.userIsOk;
 export const selectUserLoading = (state) => state.users.userLoading;
 export const selectUserFail = (state) => state.users.userFail;
+export const selectRoles = (state) => state.users.roles;
 
 export default usersSlice.reducer;
 
@@ -58,51 +69,19 @@ export const registerUser = (data) => (dispatch) => {
       }
     })
     .catch((error) => {
-      if (error.code === "ERR_NETWORK") {
-        dispatch(
-          setUserFail({
-            code: 500,
-            msg: "internal server error",
-            state: true,
-          })
-        );
-      } else {
-        switch (error.response.status) {
-          case 400: {
-            dispatch(
-              setUserFail({
-                code: 400,
-                msg: error.response.data.msg,
-                state: true,
-              })
-            );
-            break;
-          }
-          case 401: {
-            dispatch(
-              setUserFail({
-                code: 401,
-                msg: error.response.statusText,
-                state: true,
-              })
-            );
-            break;
-          }
-          case 500: {
-            dispatch(
-              setUserFail({
-                code: 500,
-                msg: "internal server error",
-                state: true,
-              })
-            );
-            break;
-          }
-        }
-      }
+      endpointsCodes(error, dispatch, setUserFail);
 
       dispatch(setUserIsOk(false));
       dispatch(setUserLoading(false));
       setTimeout(() => dispatch(revertAll()), 5000);
     });
+};
+
+export const getRoles = () => (dispatch) => {
+  axios
+    .get("http://44.211.175.241/api/auth/list-permissions")
+    .then((response) => {
+      dispatch(setRoles(response.data));
+    })
+    .catch((err) => console.log(err));
 };
