@@ -95,8 +95,12 @@ function Signin() {
 
             <div className='w-96 mx-auto px-1 py-8'>
               <h1 className='text-3xl text-slate-800 font-bold mb-6'>
-                Bienvenido de nuevo
+                Bienvenido de nuevo{' '}
+                <p className='text-sm font-medium'>
+                  Ingresa tus credenciales para acceder al sistema MP Pro
+                </p>
               </h1>
+
               {/* Form */}
               <form onSubmit={handleSubmit(submit)}>
                 <div className='space-y-4'>
