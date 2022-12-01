@@ -1,8 +1,10 @@
 import openEye from './openEye.svg';
 import closedEye from './closedEye.svg';
-import logoNide from './logoNide.jpeg';
+import logoNide from './logoNide.svg';
 import logoMotors from './logoMotors.png';
 import error404 from './error404.png';
+import nideMotors from './nideMotors.svg';
+import logoUsmotors from './logoUsmotors.svg';
 
 export default {
   openEye,
@@ -10,4 +12,6 @@ export default {
   logoNide,
   logoMotors,
   error404,
+  nideMotors,
+  logoUsmotors,
 };
