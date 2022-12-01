@@ -1,5 +1,6 @@
 import { createAction, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { endpointsCodes } from "./functions";
 
 const initialState = {
   user: null,
@@ -53,48 +54,7 @@ export const sendData = (data, navigate) => (dispatch) => {
       }
     })
     .catch((error) => {
-      if (error.code === "ERR_NETWORK") {
-        dispatch(
-          setIsCorrect({
-            code: 500,
-            msg: "internal server error",
-            state: true,
-          })
-        );
-      } else {
-        switch (error.response.status) {
-          case 400: {
-            dispatch(
-              setIsCorrect({
-                code: 400,
-                msg: error.response.data.msg,
-                state: true,
-              })
-            );
-            break;
-          }
-          case 401: {
-            dispatch(
-              setIsCorrect({
-                code: 401,
-                msg: error.response.statusText,
-                state: true,
-              })
-            );
-            break;
-          }
-          case 500: {
-            dispatch(
-              setIsCorrect({
-                code: 500,
-                msg: "internal server error",
-                state: true,
-              })
-            );
-            break;
-          }
-        }
-      }
+      endpointsCodes(error, dispatch, setIsCorrect);
       dispatch(setLoading(false));
       setTimeout(() => dispatch(revertAll()), 5000);
     });
@@ -132,58 +92,7 @@ export const emailSend = (data, navigate) => (dispatch) => {
       }
     })
     .catch((error) => {
-      if (error.code === "ERR_NETWORK") {
-        dispatch(
-          setIsCorrect({
-            code: 500,
-            msg: "internal server error",
-            state: true,
-          })
-        );
-      } else {
-        switch (error.response.status) {
-          case 400: {
-            dispatch(
-              setIsCorrect({
-                code: 400,
-                msg: error.response.data.msg,
-                state: true,
-              })
-            );
-            break;
-          }
-          case 404: {
-            dispatch(
-              setIsCorrect({
-                code: 404,
-                msg: error.response.data.msg,
-                state: true,
-              })
-            );
-            break;
-          }
-          case 401: {
-            dispatch(
-              setIsCorrect({
-                code: 401,
-                msg: error.response.statusText,
-                state: true,
-              })
-            );
-            break;
-          }
-          case 500: {
-            dispatch(
-              setIsCorrect({
-                code: 500,
-                msg: "internal server error",
-                state: true,
-              })
-            );
-            break;
-          }
-        }
-      }
+      endpointsCodes(error, dispatch, setIsCorrect);
       dispatch(setLoading(false));
       setTimeout(() => dispatch(revertAll()), 5000);
     });
