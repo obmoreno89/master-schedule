@@ -139,9 +139,6 @@ function ResetPassword() {
                 </div>
               </form>
               <footer className="pt-5 mt-6 border-t border-slate-200">
-                {/* {isCorrect && (
-                  <ErrorMessage message="El correo no se encuentra en nuestra base de datos." />
-                )} */}
                 {handleErrorMsg()}
               </footer>
             </div>
