@@ -1,14 +1,29 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Transition from '../utils/Transition';
 
 function DropDownManagement({ align, nameDropDown, opcion1, opcion2 }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isActive, setActive] = useState(false);
+  const history = useLocation();
 
   const trigger = useRef(null);
   const dropdown = useRef(null);
 
   const handdleDropDown = () => setDropdownOpen(!dropdownOpen);
+
+  const handleIsActive = () => {
+    const pathname = history.pathname;
+    if (pathname === '/mp-pro/register-user/') {
+      setActive(true);
+    } else {
+      setActive(false);
+    }
+  };
+
+  useEffect(() => {
+    handleIsActive();
+  }, []);
 
   useEffect(() => {
     const clickHandler = ({ target }) => {
@@ -37,6 +52,31 @@ function DropDownManagement({ align, nameDropDown, opcion1, opcion2 }) {
   return (
     <>
       <div className='relative inline-flex'>
+        <figure className='flex items-center'>
+          <svg className='shrink-0 h-6 w-6' viewBox='0 0 24 24'>
+            <path
+              className={
+                `fill-current text-slate-400 ` +
+                (isActive ? '!text-green-200' : '')
+              }
+              d='M13 15l11-7L11.504.136a1 1 0 00-1.019.007L0 7l13 8z'
+            />
+            <path
+              className={
+                `fill-current text-slate-700 ` +
+                (isActive ? '!text-primary' : '')
+              }
+              d='M13 15L0 7v9c0 .355.189.685.496.864L13 24v-9z'
+            />
+            <path
+              className={
+                `fill-current text-slate-600 ` +
+                (isActive ? '!text-slate-500' : '')
+              }
+              d='M13 15.047V24l10.573-7.181A.999.999 0 0024 16V8l-11 7.047z'
+            />
+          </svg>
+        </figure>
         <button
           ref={trigger}
           className='inline-flex justify-center items-center group'
@@ -44,13 +84,6 @@ function DropDownManagement({ align, nameDropDown, opcion1, opcion2 }) {
           onClick={() => setDropdownOpen(!dropdownOpen)}
           aria-expanded={dropdownOpen}
         >
-          {/* <img
-          className='w-8 h-8 rounded-full'
-          src={UserAvatar}
-          width='32'
-          height='32'
-          alt='User'
-        /> */}
           <div className='flex items-center truncate'>
             <span className='truncate ml-2 text-sm font-medium group-hover:text-slate-800'>
               {nameDropDown}

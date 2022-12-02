@@ -17,7 +17,11 @@ import ConfirmNewPassword from './pages/ConfirmNewPassword';
 import PrivateRoute from './routes/PrivateRoute';
 import PublicRoute from './routes/PublicRoute';
 
+//STATE SYSTEM
 import StateSystem from './partials/stateSystem/StateSystem';
+
+//PLANNING
+import Planning from './partials/planning/Planning';
 
 //COMPONENTS FOR DESIGN
 import ButtonPage from './pages/component/ButtonPage';
@@ -107,6 +111,15 @@ function App() {
           element={
             <PrivateRoute>
               <StateSystem />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path='/mp-pro/planning/'
+          element={
+            <PrivateRoute>
+              <Planning />
             </PrivateRoute>
           }
         />

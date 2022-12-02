@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Transition from '../utils/Transition';
 
 function DropDownPlanning({
@@ -11,11 +11,26 @@ function DropDownPlanning({
   opcion4,
 }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [isActive, setActive] = useState(false);
+  const history = useLocation();
 
   const trigger = useRef(null);
   const dropdown = useRef(null);
 
   const handdleDropDown = () => setDropdownOpen(!dropdownOpen);
+
+  const handleIsActive = () => {
+    const pathname = history.pathname;
+    if (pathname === '/mp-pro/planning/') {
+      setActive(true);
+    } else {
+      setActive(false);
+    }
+  };
+
+  useEffect(() => {
+    handleIsActive();
+  }, []);
 
   useEffect(() => {
     const clickHandler = ({ target }) => {
@@ -44,6 +59,24 @@ function DropDownPlanning({
   return (
     <>
       <div className='relative inline-flex'>
+        <figure className='flex items-center'>
+          <svg className='shrink-0 h-6 w-6' viewBox='0 0 24 24'>
+            <path
+              className={
+                `fill-current text-slate-600 ` +
+                (isActive ? '!text-green-200' : '')
+              }
+              d='M1 1h22v23H1z'
+            />
+            <path
+              className={
+                `fill-current text-slate-400 ` +
+                (isActive ? '!text-slate-500' : '')
+              }
+              d='M15 10.586L16.414 12 11 17.414 7.586 14 9 12.586l2 2zM5 0h14v4H5z'
+            />
+          </svg>
+        </figure>
         <button
           ref={trigger}
           className='inline-flex justify-center items-center group'
@@ -92,7 +125,7 @@ function DropDownPlanning({
               <li>
                 <Link
                   className='font-medium text-sm text-gray hover:text-textHover flex items-center py-1 px-3'
-                  to=''
+                  to='/mp-pro/planning/'
                   onClick={handdleDropDown}
                 >
                   {opcion1}
