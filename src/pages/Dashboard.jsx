@@ -1,23 +1,32 @@
-import React, { useState } from "react";
-import NavBar from "../partials/NavBar";
-import Header from "../partials/Header";
-import WelcomeBanner from "../partials/dashboard/WelcomeBanner";
+import React, { useState } from 'react';
+
+import Sidebar from '../partials/Sidebar';
+import Header from '../partials/Header';
+import WelcomeBanner from '../partials/dashboard/WelcomeBanner';
 
 function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex h-screen overflow-hidden ">
-      <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+    <div className='flex h-screen overflow-hidden'>
+      {/* Sidebar */}
+      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+
+      {/* Content area */}
+      <div className='relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden'>
+        {/*  Site header */}
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
         <main>
-          <section>
-            <NavBar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-          </section>
-          <section className="px-4 sm:px-6 lg:px-8 py-2 w-full max-w-9xl mx-auto">
+          <div className='px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto'>
+            {/* Welcome banner */}
             <WelcomeBanner />
-          </section>
+
+            {/* Cards */}
+            <div className='grid grid-cols-12 gap-6'>
+              {/* <AnalyticsCard01 /> */}
+            </div>
+          </div>
         </main>
       </div>
     </div>
