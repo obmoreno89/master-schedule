@@ -10,6 +10,8 @@ module.exports = {
         third: '#839DE2',
         hover: '#009B4A',
         gray: 'rgb(156 163 175)',
+        textSidebar: 'rgba(35, 31, 32, 0.45)',
+        hoverTextSidebar: '#15B053',
         textHover: '#009B4A',
         focusHover: 'rgba(0,155,74,0.20)',
         focus: 'rgb(148 163 184)',
