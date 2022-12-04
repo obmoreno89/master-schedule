@@ -1,11 +1,10 @@
-import { Link } from 'react-router-dom';
-import icons from '../../images/icon/icons';
+import React from 'react';
 import CapabilitiesTableItem from './CapabilitiesTableItem';
 
-const CapabilitiesTable = () => {
+const CapabilitiesTable = ({ setTransactionPanelOpen }) => {
   return (
     <div className='bg-white'>
-      <div className='mt-24'>
+      <div className='mt-6'>
         <div className='overflow-x-auto rounded-xl border border-slate-300'>
           <table className='table-auto w-full'>
             {/* Table header */}
@@ -38,17 +37,13 @@ const CapabilitiesTable = () => {
             </thead>
             {/* Table body */}
             <tbody className='text-sm divide-y divide-slate-200'>
-              <CapabilitiesTableItem />
+              <CapabilitiesTableItem
+                setTransactionPanelOpen={setTransactionPanelOpen}
+              />
             </tbody>
           </table>
         </div>
       </div>
-      <section className='flex justify-center items-start'>
-        <Link
-          to='/plant/create'
-          className='flex justify-center items-center w-1/2'
-        ></Link>
-      </section>
     </div>
   );
 };

@@ -1,26 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Transition from '../utils/Transition';
 
-function DropdownFull() {
-  const options = [
-    {
-      id: 0,
-      period: 'NEMAH.140 Fr Overlap',
-    },
-    {
-      id: 1,
-      period: 'NEMAH.140 Fr Overlap',
-    },
-    {
-      id: 2,
-      period: 'NEMAH.180 Fr Overlap',
-    },
-    {
-      id: 3,
-      period: 'NEMAH.180 Fr Overlap',
-    },
-  ];
-
+function DropdownFull({ options }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selected, setSelected] = useState(0);
 

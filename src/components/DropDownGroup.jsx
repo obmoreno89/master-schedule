@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Transition from '../utils/Transition';
 
-function DropdownClassic({ options }) {
+function DropDownGroup({ options }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [selected, setSelected] = useState(2);
+  const [selected, setSelected] = useState(0);
 
   const trigger = useRef(null);
   const dropdown = useRef(null);
@@ -35,10 +35,10 @@ function DropdownClassic({ options }) {
   });
 
   return (
-    <div className='relative inline-flex'>
+    <div className='relative inline-flex w-full text-textTableItem'>
       <button
         ref={trigger}
-        className=' flex justify-center items-center space-x-5 w-14  bg-white border-slate-200 hover:border-slate-300 text-slate-500 hover:text-slate-600'
+        className=' w-full flex justify-center space-x-16 items-center min-w-44'
         aria-label='Select date range'
         aria-haspopup='true'
         onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -69,7 +69,7 @@ function DropdownClassic({ options }) {
       >
         <div
           ref={dropdown}
-          className='font-medium text-sm text-slate-600'
+          className='font-medium text-sm text-slate-600 divide-y divide-slate-200'
           onFocus={() => setDropdownOpen(true)}
           onBlur={() => setDropdownOpen(false)}
         >
@@ -78,7 +78,7 @@ function DropdownClassic({ options }) {
               <button
                 key={option.id}
                 tabIndex='0'
-                className={`flex items-center w-full hover:bg-slate-50 py-1 px-3 cursor-pointer ${
+                className={`flex items-center justify-between w-full hover:bg-slate-50 py-2 px-3 cursor-pointer ${
                   option.id === selected && 'text-primary'
                 }`}
                 onClick={() => {
@@ -86,6 +86,7 @@ function DropdownClassic({ options }) {
                   setDropdownOpen(false);
                 }}
               >
+                <span>{option.period}</span>
                 <svg
                   className={`shrink-0 mr-2 fill-current text-primary ${
                     option.id !== selected && 'invisible'
@@ -96,7 +97,6 @@ function DropdownClassic({ options }) {
                 >
                   <path d='M10.28.28L3.989 6.575 1.695 4.28A1 1 0 00.28 5.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28.28z' />
                 </svg>
-                <span>{option.period}</span>
               </button>
             );
           })}
@@ -106,4 +106,4 @@ function DropdownClassic({ options }) {
   );
 }
 
-export default DropdownClassic;
+export default DropDownGroup;

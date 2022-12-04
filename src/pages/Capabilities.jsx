@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import CapabilitiesTable from '../partials/capabilities/CapabilitiesTable';
-import PaginationClassic from '../components/PaginationClassic';
 import PaginationNumeric from '../components/PaginationNumeric';
+import CapabilitiesPanel from '../partials/capabilities/CapabilitiesPanel';
 
 function Capabilities() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const [transactionPanelOpen, setTransactionPanelOpen] = useState(true);
+
   return (
     <div className='flex h-screen overflow-hidden'>
       {/* Sidebar */}
@@ -31,12 +34,18 @@ function Capabilities() {
 
             {/* Table */}
             <div className='lg:px-8'>
-              <CapabilitiesTable />
+              <CapabilitiesTable
+                setTransactionPanelOpen={setTransactionPanelOpen}
+              />
             </div>
             {/* Pagination */}
             <div className='mt-8'>
               <PaginationNumeric />
             </div>
+            <CapabilitiesPanel
+              transactionPanelOpen={transactionPanelOpen}
+              setTransactionPanelOpen={setTransactionPanelOpen}
+            />
           </div>
         </main>
       </div>
