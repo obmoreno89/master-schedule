@@ -23,6 +23,9 @@ import StateSystem from './partials/stateSystem/StateSystem';
 //PLANNING
 import Planning from './partials/planning/Planning';
 
+//CAPABILITIES
+import Capabilities from './pages/Capabilities';
+
 //COMPONENTS FOR DESIGN
 import ButtonPage from './pages/component/ButtonPage';
 import FormPage from './pages/component/FormPage';
@@ -120,6 +123,15 @@ function App() {
           element={
             <PrivateRoute>
               <Planning />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path='/mp-pro/capabilities/'
+          element={
+            <PrivateRoute>
+              <Capabilities />
             </PrivateRoute>
           }
         />

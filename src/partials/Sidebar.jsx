@@ -232,7 +232,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className='mb-1 last:mb-0'>
                             <NavLink
                               end
-                              to='/mp-pro/planning/'
+                              to='/mp-pro/capabilities/'
                               className={({ isActive }) =>
                                 'block text-slate-400 hover:text-slate-200 transition duration-150 truncate ' +
                                 (isActive ? '!text-primary' : '')

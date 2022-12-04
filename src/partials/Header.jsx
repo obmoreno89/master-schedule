@@ -46,8 +46,7 @@ function Header({ sidebarOpen, setSidebarOpen }) {
             {/* Header: Right side */}
             <div className='flex items-center space-x-3'>
               <Help align='right' />
-              {/*  Divider */}
-              <hr className='w-px h-6 bg-slate-200 mx-3' />
+
               <UserMenu align='right' />
             </div>
           </div>

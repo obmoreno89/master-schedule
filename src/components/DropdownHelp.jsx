@@ -38,7 +38,7 @@ function DropdownHelp({ align }) {
     <div className='relative inline-flex'>
       <button
         ref={trigger}
-        className={`w-8 h-8 flex items-center justify-center bg-slate-100 hover:bg-slate-200 transition duration-150 rounded-full ${
+        className={`w-8 h-8 flex items-center justify-center hover:bg-slate-200 transition duration-150 rounded-full ${
           dropdownOpen && 'bg-slate-200'
         }`}
         aria-haspopup='true'
