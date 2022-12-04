@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
+import CapabilitiesTable from '../partials/capabilities/CapabilitiesTable';
+import PaginationClassic from '../components/PaginationClassic';
+import PaginationNumeric from '../components/PaginationNumeric';
 
 function Capabilities() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -15,10 +18,24 @@ function Capabilities() {
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
         <main>
-          <div className='px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto'>
-            {/* Cards */}
-            <div className='grid grid-cols-12 gap-6'>
-              <h1>hola</h1>
+          <div className='px-4 sm:px-6 lg:px-0 py-8 w-full max-w-9xl mx-auto'>
+            {/* Page header */}
+            <div className='sm:flex sm:justify-between sm:items-center mb-4 md:mb-2'>
+              {/* Left: Title */}
+              <div className='mb-4 sm:mb-0 lg:px-8'>
+                <h1 className='text-2xl md:text-3xl text-slate-800 font-bold'>
+                  Capacidades
+                </h1>
+              </div>
+            </div>
+
+            {/* Table */}
+            <div className='lg:px-8'>
+              <CapabilitiesTable />
+            </div>
+            {/* Pagination */}
+            <div className='mt-8'>
+              <PaginationNumeric />
             </div>
           </div>
         </main>

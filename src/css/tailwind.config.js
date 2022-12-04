@@ -16,6 +16,8 @@ module.exports = {
         focusHover: 'rgba(0,155,74,0.20)',
         focus: 'rgb(148 163 184)',
         borderInput: 'rgb(203 213 225)',
+        textTableHeader: 'rgba(45, 49, 57, 0.8)',
+        textTableItem: '#2D3139',
       },
       boxShadow: {
         DEFAULT:
