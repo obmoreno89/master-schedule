@@ -1,7 +1,7 @@
 import React from 'react';
 import icons from '../../images/icon/icons';
 
-function CapabilitiesPanelTableItem() {
+function CapabilitiesProductListPanelTableItem() {
   return (
     <>
       <tr>
@@ -28,4 +28,4 @@ function CapabilitiesPanelTableItem() {
   );
 }
 
-export default CapabilitiesPanelTableItem;
+export default CapabilitiesProductListPanelTableItem;

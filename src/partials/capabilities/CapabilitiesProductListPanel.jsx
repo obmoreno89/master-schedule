@@ -1,7 +1,10 @@
 import React, { useEffect, useRef } from 'react';
-import CapabilitiesPanelTable from './CapabilitiesPanelTable';
+import CapabilitiesProductListPanelTable from './CapabilitiesProductListPanelTable';
 
-function TransactionPanel({ transactionPanelOpen, setTransactionPanelOpen }) {
+function CapabilitiesProductListPanel({
+  transactionPanelOpen,
+  setTransactionPanelOpen,
+}) {
   const closeBtn = useRef(null);
   const panelContent = useRef(null);
 
@@ -54,10 +57,10 @@ function TransactionPanel({ transactionPanelOpen, setTransactionPanelOpen }) {
             <path d='m7.95 6.536 4.242-4.243a1 1 0 1 1 1.415 1.414L9.364 7.95l4.243 4.242a1 1 0 1 1-1.415 1.415L7.95 9.364l-4.243 4.243a1 1 0 0 1-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 0 1 1.414-1.414L7.95 6.536Z' />
           </svg>
         </button>
-        <CapabilitiesPanelTable />
+        <CapabilitiesProductListPanelTable />
       </div>
     </div>
   );
 }
 
-export default TransactionPanel;
+export default CapabilitiesProductListPanel;

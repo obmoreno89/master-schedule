@@ -1,8 +1,8 @@
 import React from 'react';
 import CapabilitiesTableItem from './CapabilitiesTableItem';
-import CapabilitiesPanelTableItem from './CapabilitiesPanelTableItem';
+import CapabilitiesProductListPanelTableItem from './CapabilitiesProductListPanelTableItem';
 
-const CapabilitiesPanelTable = () => {
+const CapabilitiesProductListPanelTable = () => {
   return (
     <div className='bg-white'>
       <div className='mt-6 px-3'>
@@ -22,7 +22,7 @@ const CapabilitiesPanelTable = () => {
               </tr>
             </thead>
             <tbody className='text-sm divide-y divide-slate-200'>
-              <CapabilitiesPanelTableItem />
+              <CapabilitiesProductListPanelTableItem />
             </tbody>
           </table>
         </div>
@@ -31,4 +31,4 @@ const CapabilitiesPanelTable = () => {
   );
 };
 
-export default CapabilitiesPanelTable;
+export default CapabilitiesProductListPanelTable;

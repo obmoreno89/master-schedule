@@ -3,7 +3,7 @@ import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import CapabilitiesTable from '../partials/capabilities/CapabilitiesTable';
 import PaginationNumeric from '../components/PaginationNumeric';
-import CapabilitiesPanel from '../partials/capabilities/CapabilitiesPanel';
+import CapabilitiesProductListPanel from '../partials/capabilities/CapabilitiesProductListPanel';
 
 function Capabilities() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -42,7 +42,7 @@ function Capabilities() {
             <div className='mt-8'>
               <PaginationNumeric />
             </div>
-            <CapabilitiesPanel
+            <CapabilitiesProductListPanel
               transactionPanelOpen={transactionPanelOpen}
               setTransactionPanelOpen={setTransactionPanelOpen}
             />
