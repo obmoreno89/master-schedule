@@ -4,11 +4,13 @@ import Header from '../partials/Header';
 import CapabilitiesTable from '../partials/capabilities/CapabilitiesTable';
 import PaginationNumeric from '../components/PaginationNumeric';
 import CapabilitiesProductListPanel from '../partials/capabilities/CapabilitiesProductListPanel';
+import CabalitiesGroupPanel from '../partials/capabilities/CapabilitiesGroupPanel';
 
 function Capabilities() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const [transactionPanelOpen, setTransactionPanelOpen] = useState(true);
+  const [transactionPanelOpen, setTransactionPanelOpen] = useState(false);
+  const [groupPanelOpen, setGroupPanelOpen] = useState(true);
 
   return (
     <div className='flex h-screen overflow-hidden'>
@@ -36,6 +38,7 @@ function Capabilities() {
             <div className='lg:px-8'>
               <CapabilitiesTable
                 setTransactionPanelOpen={setTransactionPanelOpen}
+                setGroupPanelOpen={setGroupPanelOpen}
               />
             </div>
             {/* Pagination */}
@@ -45,6 +48,10 @@ function Capabilities() {
             <CapabilitiesProductListPanel
               transactionPanelOpen={transactionPanelOpen}
               setTransactionPanelOpen={setTransactionPanelOpen}
+            />
+            <CabalitiesGroupPanel
+              groupPanelOpen={groupPanelOpen}
+              setGroupPanelOpen={setGroupPanelOpen}
             />
           </div>
         </main>

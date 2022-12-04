@@ -1,7 +1,7 @@
 import React from 'react';
 import CapabilitiesTableItem from './CapabilitiesTableItem';
 
-const CapabilitiesTable = ({ setTransactionPanelOpen }) => {
+const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
   return (
     <div className='bg-white'>
       <div className='mt-6'>
@@ -39,6 +39,7 @@ const CapabilitiesTable = ({ setTransactionPanelOpen }) => {
             <tbody className='text-sm divide-y divide-slate-200'>
               <CapabilitiesTableItem
                 setTransactionPanelOpen={setTransactionPanelOpen}
+                setGroupPanelOpen={setGroupPanelOpen}
               />
             </tbody>
           </table>
