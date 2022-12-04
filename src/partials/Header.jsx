@@ -8,9 +8,18 @@ function Header({ sidebarOpen, setSidebarOpen }) {
     <>
       <header className='sticky top-0 bg-white border-b  border-slate-200 z-30'>
         <div className='px-4 sm:px-6 lg:px-8'>
-          <div className='flex items-center justify-between h-12 -mb-px'>
-            <figure>
-              <img src={icons.nideMotors} alt='Logos' className='w-28' />
+          <div className='flex items-center justify-between h-16 -mb-px'>
+            <figure className='flex space-x-3'>
+              <img src={icons.closedEye} alt='Caja' />
+              <h5 className='capitalize font-bold text-gray-400 flex space-x-3'>
+                Ejemplo
+                <img
+                  className='ml-3'
+                  src={icons.smallArrowRight}
+                  alt='Flecha derecha'
+                />
+                <p className='text-primary font-bold'>Ejemplo</p>
+              </h5>
             </figure>
             {/* Header: Left side */}
             <div className='flex'>

@@ -5,6 +5,7 @@ import logoMotors from './logoMotors.png';
 import error404 from './error404.png';
 import nideMotors from './nideMotors.svg';
 import logoUsmotors from './logoUsmotors.svg';
+import smallArrowRight from './smallArrowRight.svg';
 
 export default {
   openEye,
@@ -14,4 +15,5 @@ export default {
   error404,
   nideMotors,
   logoUsmotors,
+  smallArrowRight,
 };
