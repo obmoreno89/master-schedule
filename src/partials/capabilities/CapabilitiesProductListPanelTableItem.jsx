@@ -5,7 +5,7 @@ import FakeProductList from '../../pages/FakeProductList';
 function CapabilitiesProductListPanelTableItem() {
   return (
     <>
-      <AddButtonForTable nameButton='Nueva línea de producto' />
+      <AddButtonForTable buttonName='Nueva línea de producto' />
       <tr className='text-textTableItem'>
         <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
           <div className='flex items-center'>
