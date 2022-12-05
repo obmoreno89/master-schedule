@@ -27,7 +27,7 @@ function Header({
                 <p className='text-primary font-bold'>{nameSubRoute}</p>
               </h5>
             </figure>
-            {/* Header: Left side */}
+
             <div className='flex'>
               {/* Hamburger button */}
               <button
