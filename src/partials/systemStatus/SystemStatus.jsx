@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '../../components/Layout';
 
-function StateSystem() {
+function SystemStatus() {
   return (
     <Layout>
       <h1>Estado del sistema</h1>
@@ -9,4 +9,4 @@ function StateSystem() {
   );
 }
 
-export default StateSystem;
+export default SystemStatus;

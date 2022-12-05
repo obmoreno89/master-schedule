@@ -8,6 +8,7 @@ function AddButtonForTable({
   setOpenModalGroup,
 }) {
   return (
+
     <tr className="relative h-9">
       <td className="absolute left-0 right-0 m-auto">
         <div className="flex justify-center items-center h-8">

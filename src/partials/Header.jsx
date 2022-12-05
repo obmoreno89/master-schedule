@@ -3,22 +3,28 @@ import icons from '../images/icon/icons';
 import Help from '../components/DropdownHelp';
 import UserMenu from '../components/DropdownProfile';
 
-function Header({ sidebarOpen, setSidebarOpen }) {
+function Header({
+  sidebarOpen,
+  setSidebarOpen,
+  icon,
+  nameRoute,
+  nameSubRoute,
+}) {
   return (
     <>
       <header className='sticky top-0 bg-white border-b  border-slate-200 z-30'>
         <div className='px-4 sm:px-6 lg:px-8'>
           <div className='flex items-center justify-between h-16 -mb-px'>
             <figure className='flex space-x-3'>
-              <img src={icons.closedEye} alt='Caja' />
+              <img src={icon} alt='Caja' />
               <h5 className='capitalize font-bold text-gray-400 flex space-x-3'>
-                Ejemplo
+                {nameRoute}
                 <img
                   className='ml-3'
                   src={icons.smallArrowRight}
                   alt='Flecha derecha'
                 />
-                <p className='text-primary font-bold'>Ejemplo</p>
+                <p className='text-primary font-bold'>{nameSubRoute}</p>
               </h5>
             </figure>
             {/* Header: Left side */}

@@ -6,7 +6,6 @@ import './charts/ChartjsConfig';
 import Dashboard from './pages/Dashboard';
 import PageNotFound from './pages/utility/PageNotFound';
 import Signin from './pages/Signin';
-import RegisterUser from './pages/RegisterUser';
 
 //COMPONENTS PASSWORD
 import ResetPassword from './pages/ResetPassword';
@@ -17,14 +16,17 @@ import ConfirmNewPassword from './pages/ConfirmNewPassword';
 import PrivateRoute from './routes/PrivateRoute';
 import PublicRoute from './routes/PublicRoute';
 
-//STATE SYSTEM
-import StateSystem from './partials/stateSystem/StateSystem';
+//SYSTEM STATUS
+import SystemStatus from './partials/systemStatus/SystemStatus';
 
 //PLANNING
 import Planning from './partials/planning/Planning';
 
 //CAPABILITIES
 import Capabilities from './pages/Capabilities';
+
+//MANAGEMENT
+import Management from './pages/Management';
 
 //COMPONENTS FOR DESIGN
 import ButtonPage from './pages/component/ButtonPage';
@@ -59,16 +61,6 @@ function App() {
           element={
             <PrivateRoute>
               <Dashboard />
-            </PrivateRoute>
-          }
-        />
-
-        <Route
-          exact
-          path='mp-pro/register-user'
-          element={
-            <PrivateRoute>
-              <RegisterUser />
             </PrivateRoute>
           }
         />
@@ -110,10 +102,10 @@ function App() {
         />
 
         <Route
-          path='/mp-pro/state-system/'
+          path='/mp-pro/system-status/'
           element={
             <PrivateRoute>
-              <StateSystem />
+              <SystemStatus />
             </PrivateRoute>
           }
         />
@@ -128,10 +120,19 @@ function App() {
         />
 
         <Route
-          path='/mp-pro/capabilities/'
+          path='/mp-pro/planning/capabilities/'
           element={
             <PrivateRoute>
               <Capabilities />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path='/mp-pro/management/register-user/'
+          element={
+            <PrivateRoute>
+              <Management />
             </PrivateRoute>
           }
         />
