@@ -102,8 +102,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               {/* Dashboard */}
               <SidebarLinkGroup
                 activecondition={
-                  pathname === '/mp-pro/dashboard' ||
-                  pathname.includes('dashboard')
+                  pathname === '/mp-pro/' || pathname.includes('dashboard')
                 }
               >
                 {(handleClick) => {
@@ -203,9 +202,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     <React.Fragment>
                       <a
                         href='#0'
-                        className={`block text-slate-200 hover:text-white truncate transition duration-150 ${
-                          pathname.includes('/mp-pro/planning/') &&
-                          'hover:text-slate-200'
+                        className={`block text-textSidebar hover:text-primary truncate transition duration-150 ${
+                          pathname.includes('planning') && ' !text-primary'
                         }`}
                         onClick={(e) => {
                           e.preventDefault();
@@ -215,37 +213,41 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                         }}
                       >
                         <div className='flex items-center justify-between'>
-                          <div className='flex items-center'>
+                          <figure className='flex items-center'>
                             <svg
                               className='shrink-0 h-6 w-6'
                               viewBox='0 0 24 24'
+                              fill='none'
                             >
                               <path
-                                className={`fill-current text-slate-400 ${
+                                className={`stroke-current text-textSidebar ${
                                   pathname.includes('planning') &&
-                                  'text-indigo-300'
+                                  '!text-primary'
                                 }`}
-                                d='M13 15l11-7L11.504.136a1 1 0 00-1.019.007L0 7l13 8z'
+                                d='M19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z'
+                                stroke-width='2'
                               />
                               <path
-                                className={`fill-current text-slate-700 ${
+                                className={`stroke-current text-textSidebar ${
                                   pathname.includes('planning') &&
-                                  '!text-indigo-600'
+                                  '!text-primary'
                                 }`}
-                                d='M13 15L0 7v9c0 .355.189.685.496.864L13 24v-9z'
+                                d='M3 9H21'
+                                stroke-width='2'
                               />
                               <path
-                                className={`fill-current text-slate-600 ${
+                                className={`stroke-current text-textSidebar ${
                                   pathname.includes('planning') &&
-                                  'text-primary'
+                                  '!text-primary'
                                 }`}
-                                d='M13 15.047V24l10.573-7.181A.999.999 0 0024 16V8l-11 7.047z'
+                                d='M9 21V9'
+                                stroke-width='2'
                               />
                             </svg>
-                            <span className='text-sm font-semibold ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 text-textSidebar hover:text-hoverTextSidebar'>
+                            <span className='text-sm font-semibold ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200  '>
                               Planeación
                             </span>
-                          </div>
+                          </figure>
                           {/* Icon */}
                           <div className='flex shrink-0 ml-2'>
                             <svg
@@ -264,13 +266,13 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className='mb-1 last:mb-0'>
                             <NavLink
                               end
-                              to='/ecommerce/customers'
+                              to='/mp-pro/planning'
                               className={({ isActive }) =>
                                 'block text-slate-400 hover:text-slate-200 transition duration-150 truncate ' +
                                 (isActive ? '!text-primary' : '')
                               }
                             >
-                              <span className='text-sm font-semibold lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 text-textSidebar hover:text-hoverTextSidebar '>
+                              <span className='text-sm lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 text-textSidebar hover:text-hoverTextSidebar '>
                                 Planeaciones
                               </span>
                             </NavLink>
@@ -278,13 +280,13 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className='mb-1 last:mb-0'>
                             <NavLink
                               end
-                              to='/mp-pro/capabilities/'
+                              to='/mp-pro/planning/capabilities/'
                               className={({ isActive }) =>
                                 'block text-slate-400 hover:text-slate-200 transition duration-150 truncate ' +
                                 (isActive ? '!text-primary' : '')
                               }
                             >
-                              <span className='text-sm font-semibold lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 text-textSidebar hover:text-hoverTextSidebar'>
+                              <span className='text-sm hover:text-hoverTextSidebar'>
                                 Capacidades
                               </span>
                             </NavLink>
@@ -298,7 +300,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                 (isActive ? '!text-primary' : '')
                               }
                             >
-                              <span className='text-sm font-semibold lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 text-textSidebar hover:text-hoverTextSidebar'>
+                              <span className='text-sm lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 text-textSidebar hover:text-hoverTextSidebar'>
                                 Calendario
                               </span>
                             </NavLink>
