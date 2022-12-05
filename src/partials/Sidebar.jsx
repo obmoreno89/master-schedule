@@ -74,7 +74,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
           {/* Close button */}
           <button
             ref={trigger}
-            className='lg:hidden text-slate-500 hover:text-slate-400'
+            className='lg:hidden text-slate-500 hover:text-sideBar'
             onClick={() => setSidebarOpen(!sidebarOpen)}
             aria-controls='sidebar'
             aria-expanded={sidebarOpen}
@@ -251,7 +251,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           {/* Icon */}
                           <div className='flex shrink-0 ml-2'>
                             <svg
-                              className={`w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 ${
+                              className={`w-3 h-3 shrink-0 ml-1 fill-current text-sideBar ${
                                 open && 'transform rotate-180'
                               }`}
                               viewBox='0 0 12 12'
@@ -268,7 +268,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               end
                               to='/mp-pro/planning'
                               className={({ isActive }) =>
-                                'block text-slate-400 hover:text-slate-200 transition duration-150 truncate ' +
+                                'block text-sideBar hover:text-slate-200 transition duration-150 truncate ' +
                                 (isActive ? '!text-primary' : '')
                               }
                             >
@@ -282,7 +282,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               end
                               to='/mp-pro/planning/capabilities/'
                               className={({ isActive }) =>
-                                'block text-slate-400 hover:text-slate-200 transition duration-150 truncate ' +
+                                'block text-sideBar hover:text-slate-200 transition duration-150 truncate ' +
                                 (isActive ? '!text-primary' : '')
                               }
                             >
@@ -296,7 +296,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               end
                               to='/mp-pro/schedule/'
                               className={({ isActive }) =>
-                                'block text-slate-400 hover:text-slate-200 transition duration-150 truncate ' +
+                                'block text-sideBar hover:text-slate-200 transition duration-150 truncate ' +
                                 (isActive ? '!text-primary' : '')
                               }
                             >
@@ -320,9 +320,8 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     <React.Fragment>
                       <a
                         href='#0'
-                        className={`block text-slate-200 hover:text-white truncate transition duration-150 ${
-                          pathname.includes('management') &&
-                          'hover:text-slate-200'
+                        className={`block text-textSidebar hover:text-primary truncate transition duration-150 ${
+                          pathname.includes('management') && ' !text-primary'
                         }`}
                         onClick={(e) => {
                           e.preventDefault();
@@ -332,34 +331,53 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                         }}
                       >
                         <div className='flex items-center justify-between'>
-                          <div className='flex items-center'>
+                          <figure className='flex items-center'>
                             <svg
                               className='shrink-0 h-6 w-6'
                               viewBox='0 0 24 24'
+                              fill='none'
                             >
                               <path
-                                className={`fill-current text-slate-600 ${
+                                className={`stroke-current text-textSidebar ${
                                   pathname.includes('management') &&
-                                  'text-primary'
+                                  '!text-primary'
                                 }`}
-                                d='M18.974 8H22a2 2 0 012 2v6h-2v5a1 1 0 01-1 1h-2a1 1 0 01-1-1v-5h-2v-6a2 2 0 012-2h.974zM20 7a2 2 0 11-.001-3.999A2 2 0 0120 7zM2.974 8H6a2 2 0 012 2v6H6v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5H0v-6a2 2 0 012-2h.974zM4 7a2 2 0 11-.001-3.999A2 2 0 014 7z'
+                                d='M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21'
+                                stroke-width='2'
                               />
                               <path
-                                className={`fill-current text-slate-400 ${
+                                className={`stroke-current text-textSidebar ${
                                   pathname.includes('management') &&
-                                  'text-secondary'
+                                  '!text-primary'
                                 }`}
-                                d='M12 6a3 3 0 110-6 3 3 0 010 6zm2 18h-4a1 1 0 01-1-1v-6H6v-6a3 3 0 013-3h6a3 3 0 013 3v6h-3v6a1 1 0 01-1 1z'
+                                d='M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z'
+                                stroke-width='2'
+                              />
+                              <path
+                                className={`stroke-current text-textSidebar ${
+                                  pathname.includes('management') &&
+                                  '!text-primary'
+                                }`}
+                                d='M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13'
+                                stroke-width='2'
+                              />
+                              <path
+                                className={`stroke-current text-textSidebar ${
+                                  pathname.includes('management') &&
+                                  '!text-primary'
+                                }`}
+                                d='M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89318 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88'
+                                stroke-width='2'
                               />
                             </svg>
-                            <span className='text-sm font-semibold ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 text-textSidebar hover:text-hoverTextSidebar'>
+                            <span className='text-sm font-semibold ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200'>
                               Administración
                             </span>
-                          </div>
+                          </figure>
                           {/* Icon */}
                           <div className='flex shrink-0 ml-2'>
                             <svg
-                              className={`w-3 h-3 shrink-0 ml-1 fill-current text-slate-400 ${
+                              className={`w-3 h-3 shrink-0 ml-1 fill-current text-sideBar ${
                                 open && 'transform rotate-180'
                               }`}
                               viewBox='0 0 12 12'
@@ -376,11 +394,11 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               end
                               to='/mp-pro/management/user/'
                               className={({ isActive }) =>
-                                'block text-slate-400 hover:text-slate-200 transition duration-150 truncate ' +
+                                'block text-textSidebar hover:text-primary transition duration-150 truncate ' +
                                 (isActive ? '!text-primary' : '')
                               }
                             >
-                              <span className='text-sm font-semibold lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 text-textSidebar hover:text-hoverTextSidebar'>
+                              <span className='text-sm  lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 '>
                                 Usuarios
                               </span>
                             </NavLink>
@@ -390,11 +408,11 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               end
                               to='/mp-pro/management/register-user/'
                               className={({ isActive }) =>
-                                'block text-slate-400 hover:text-slate-200 transition duration-150 truncate ' +
+                                'block text-textSidebar hover:text-primary transition duration-150 truncate ' +
                                 (isActive ? '!text-primary' : '')
                               }
                             >
-                              <span className='text-sm font-semibold lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 text-textSidebar hover:text-hoverTextSidebar'>
+                              <span className='text-sm lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 '>
                                 Crear cuenta
                               </span>
                             </NavLink>
@@ -424,7 +442,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                 >
                                   <path
                                     className={
-                                      `fill-current text-slate-400 ` +
+                                      `fill-current text-sideBar ` +
                                       (isActive ? '!text-primary' : '')
                                     }
                                     d='M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0z'
@@ -437,7 +455,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                     d='M12 3c-4.963 0-9 4.037-9 9s4.037 9 9 9 9-4.037 9-9-4.037-9-9-9z'
                                   />
                                   <path
-                                    className={`fill-current text-slate-400 `}
+                                    className={`fill-current text-sideBar `}
                                     d='M12 15c-1.654 0-3-1.346-3-3 0-.462.113-.894.3-1.285L6 6l4.714 3.301A2.973 2.973 0 0112 9c1.654 0 3 1.346 3 3s-1.346 3-3 3z'
                                   />
                                 </svg>

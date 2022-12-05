@@ -6,7 +6,6 @@ import './charts/ChartjsConfig';
 import Dashboard from './pages/Dashboard';
 import PageNotFound from './pages/utility/PageNotFound';
 import Signin from './pages/Signin';
-import RegisterUser from './pages/RegisterUser';
 
 //COMPONENTS PASSWORD
 import ResetPassword from './pages/ResetPassword';
@@ -25,6 +24,9 @@ import Planning from './partials/planning/Planning';
 
 //CAPABILITIES
 import Capabilities from './pages/Capabilities';
+
+//MANAGEMENT
+import Management from './pages/Management';
 
 //COMPONENTS FOR DESIGN
 import ButtonPage from './pages/component/ButtonPage';
@@ -59,16 +61,6 @@ function App() {
           element={
             <PrivateRoute>
               <Dashboard />
-            </PrivateRoute>
-          }
-        />
-
-        <Route
-          exact
-          path='mp-pro/register-user'
-          element={
-            <PrivateRoute>
-              <RegisterUser />
             </PrivateRoute>
           }
         />
@@ -132,6 +124,15 @@ function App() {
           element={
             <PrivateRoute>
               <Capabilities />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path='/mp-pro/management/register-user/'
+          element={
+            <PrivateRoute>
+              <Management />
             </PrivateRoute>
           }
         />

@@ -11,6 +11,7 @@ import downArrow from './downArrow.svg';
 import dashboardIcon from './dashboardIcon.svg';
 import alertCircle from './alertCircle.svg';
 import planningIcon from './planningIcon.svg';
+import administratorIcon from './administratorIcon.svg';
 
 export default {
   openEye,
@@ -26,4 +27,5 @@ export default {
   dashboardIcon,
   alertCircle,
   planningIcon,
+  administratorIcon,
 };
