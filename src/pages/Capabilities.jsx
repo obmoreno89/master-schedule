@@ -10,7 +10,7 @@ function Capabilities() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const [transactionPanelOpen, setTransactionPanelOpen] = useState(false);
-  const [groupPanelOpen, setGroupPanelOpen] = useState(true);
+  const [groupPanelOpen, setGroupPanelOpen] = useState(false);
 
   return (
     <div className='flex h-screen overflow-hidden'>

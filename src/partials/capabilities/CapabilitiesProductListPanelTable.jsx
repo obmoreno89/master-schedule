@@ -1,5 +1,6 @@
 import React from 'react';
 import CapabilitiesProductListPanelTableItem from './CapabilitiesProductListPanelTableItem';
+import PaginationNumeric from '../../components/PaginationNumeric';
 
 const CapabilitiesProductListPanelTable = () => {
   return (
@@ -25,6 +26,9 @@ const CapabilitiesProductListPanelTable = () => {
             </tbody>
           </table>
         </div>
+        <section className='mt-8'>
+          <PaginationNumeric />
+        </section>
       </div>
     </div>
   );

@@ -1,29 +1,31 @@
 import React from 'react';
-import icons from '../../images/icon/icons';
+import AddButtonForTable from '../../pages/component/AddButtonForTable';
+import FakeProductList from '../../pages/FakeProductList';
 
 function CapabilitiesProductListPanelTableItem() {
   return (
     <>
-      <tr>
-        <td>
-          <div className='flex justify-end items-center h-8'>
-            <img className='' src={icons.plus} alt='Mas' />
-            <button className='text-primary font-semibold'>
-              Nueva línea de producto
-            </button>
-          </div>
-        </td>
-      </tr>
-      <tr>
+      <AddButtonForTable nameButton='Nueva línea de producto' />
+      <tr className='text-textTableItem'>
         <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
           <div className='flex items-center'>
-            <p className='text-textTableItem capitalize'>hola</p>
+            <p className='capitalize'>NEMAH.140 Fr Overlap</p>
           </div>
         </td>
-        <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-          <p className='text-left '>IM</p>
+        <td className='px-4 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
+          <p className='text-left font-bold '>A</p>
         </td>
       </tr>
+      <FakeProductList />
+      <FakeProductList />
+      <FakeProductList />
+      <FakeProductList />
+      <FakeProductList />
+      <FakeProductList />
+      <FakeProductList />
+      <FakeProductList />
+      <FakeProductList />
+      <FakeProductList />
     </>
   );
 }
