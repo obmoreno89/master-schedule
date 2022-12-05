@@ -16,8 +16,8 @@ import ConfirmNewPassword from './pages/ConfirmNewPassword';
 import PrivateRoute from './routes/PrivateRoute';
 import PublicRoute from './routes/PublicRoute';
 
-//STATE SYSTEM
-import StateSystem from './partials/stateSystem/StateSystem';
+//SYSTEM STATUS
+import SystemStatus from './partials/systemStatus/SystemStatus';
 
 //PLANNING
 import Planning from './partials/planning/Planning';
@@ -102,10 +102,10 @@ function App() {
         />
 
         <Route
-          path='/mp-pro/state-system/'
+          path='/mp-pro/system-status/'
           element={
             <PrivateRoute>
-              <StateSystem />
+              <SystemStatus />
             </PrivateRoute>
           }
         />

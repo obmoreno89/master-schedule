@@ -123,7 +123,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           to='/mp-pro/'
                           className={({ isActive }) =>
                             'transition duration-150 truncate font-semibold text-sm flex items-center py-1 px-0 text-textSidebar hover:text-hoverTextSidebar space-x-[11px] ' +
-                            (isActive ? '!text-primary !font-bold' : '')
+                            (isActive ? '!text-primary' : '')
                           }
                         >
                           {({ isActive }) => (
@@ -268,7 +268,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               end
                               to='/mp-pro/planning'
                               className={({ isActive }) =>
-                                'block text-sideBar hover:text-slate-200 transition duration-150 truncate ' +
+                                'block text-sideBar hover:text-primary text-textSidebar transition duration-150 truncate ' +
                                 (isActive ? '!text-primary' : '')
                               }
                             >
@@ -282,13 +282,11 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               end
                               to='/mp-pro/planning/capabilities/'
                               className={({ isActive }) =>
-                                'block text-sideBar hover:text-slate-200 transition duration-150 truncate ' +
+                                'block hover:text-primary text-textSidebar transition duration-150 truncate ' +
                                 (isActive ? '!text-primary' : '')
                               }
                             >
-                              <span className='text-sm hover:text-hoverTextSidebar'>
-                                Capacidades
-                              </span>
+                              <span className='text-sm'>Capacidades</span>
                             </NavLink>
                           </li>
                           <li className='mb-1 last:mb-0'>
@@ -296,11 +294,11 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               end
                               to='/mp-pro/schedule/'
                               className={({ isActive }) =>
-                                'block text-sideBar hover:text-slate-200 transition duration-150 truncate ' +
+                                'block hover:text-primary text-textSidebar transition duration-150 truncate ' +
                                 (isActive ? '!text-primary' : '')
                               }
                             >
-                              <span className='text-sm lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 text-textSidebar hover:text-hoverTextSidebar'>
+                              <span className='text-sm lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 '>
                                 Calendario
                               </span>
                             </NavLink>
@@ -424,48 +422,100 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 }}
               </SidebarLinkGroup>
               {/* Finance */}
-              <SidebarLinkGroup activecondition={pathname.includes('state')}>
-                {(handleClick, open) => {
+              <SidebarLinkGroup
+                activecondition={
+                  pathname === '/mp-pro/system-status/' ||
+                  pathname.includes('dashboard')
+                }
+              >
+                {(handleClick) => {
                   return (
-                    <React.Fragment>
-                      <section className='flex md:invisible lg:visible'>
+                    <Link
+                      to='/mp-pro/system-status/'
+                      className={`block text-slate-200 hover:text-white truncate transition duration-150 ${
+                        pathname.includes('/mp-pro/state-system/') &&
+                        'hover:text-slate-200'
+                      }`}
+                      onClick={() => {
+                        sidebarExpanded
+                          ? handleClick()
+                          : setSidebarExpanded(true);
+                      }}
+                    >
+                      <section className=''>
                         <NavLink
-                          className='font-semibold text-sm flex items-center justify-center  py-1 text-textSidebar hover:text-hoverTextSidebar space-x-2 '
-                          to='/mp-pro/state-system/'
+                          to='/mp-pro/system-status/'
+                          className={({ isActive }) =>
+                            'transition duration-150 truncate font-semibold text-sm flex items-center py-1 px-0 text-textSidebar hover:text-hoverTextSidebar space-x-[11px] ' +
+                            (isActive ? '!text-primary' : '')
+                          }
                         >
                           {({ isActive }) => (
                             <>
-                              <figure className='flex items-center'>
+                              <figure>
                                 <svg
                                   className='shrink-0 h-6 w-6'
                                   viewBox='0 0 24 24'
                                 >
-                                  <path
-                                    className={
-                                      `fill-current text-sideBar ` +
-                                      (isActive ? '!text-primary' : '')
-                                    }
-                                    d='M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0z'
-                                  />
-                                  <path
-                                    className={
-                                      `fill-current text-slate-700 ` +
-                                      (isActive ? '!text-green-100' : '')
-                                    }
-                                    d='M12 3c-4.963 0-9 4.037-9 9s4.037 9 9 9 9-4.037 9-9-4.037-9-9-9z'
-                                  />
-                                  <path
-                                    className={`fill-current text-sideBar `}
-                                    d='M12 15c-1.654 0-3-1.346-3-3 0-.462.113-.894.3-1.285L6 6l4.714 3.301A2.973 2.973 0 0112 9c1.654 0 3 1.346 3 3s-1.346 3-3 3z'
-                                  />
+                                  <svg
+                                    width='24'
+                                    height='24'
+                                    viewBox='0 0 24 24'
+                                    fill='none'
+                                  >
+                                    <path
+                                      className={
+                                        `stroke-current text-textSidebar` +
+                                        (isActive ? '!text-primary' : '')
+                                      }
+                                      d='M20 2H4C2.89543 2 2 2.89543 2 4V8C2 9.10457 2.89543 10 4 10H20C21.1046 10 22 9.10457 22 8V4C22 2.89543 21.1046 2 20 2Z'
+                                      stroke='#231F20'
+                                      stroke-width='2'
+                                      stroke-linecap='round'
+                                      stroke-linejoin='round'
+                                    />
+                                    <path
+                                      className={
+                                        `stroke-current text-textSidebar` +
+                                        (isActive ? '!text-primary' : '')
+                                      }
+                                      d='M20 14H4C2.89543 14 2 14.8954 2 16V20C2 21.1046 2.89543 22 4 22H20C21.1046 22 22 21.1046 22 20V16C22 14.8954 21.1046 14 20 14Z'
+                                      stroke='#231F20'
+                                      stroke-width='2'
+                                      stroke-linecap='round'
+                                      stroke-linejoin='round'
+                                    />
+                                    <path
+                                      className={
+                                        `stroke-current text-textSidebar` +
+                                        (isActive ? '!text-primary' : '')
+                                      }
+                                      d='M6 6H6.01'
+                                      stroke='#231F20'
+                                      stroke-width='2'
+                                      stroke-linecap='round'
+                                      stroke-linejoin='round'
+                                    />
+                                    <path
+                                      className={
+                                        `stroke-current text-textSidebar ` +
+                                        (isActive ? '!text-primary' : '')
+                                      }
+                                      d='M6 18H6.01'
+                                      stroke='#231F20'
+                                      stroke-width='2'
+                                      stroke-linecap='round'
+                                      stroke-linejoin='round'
+                                    />
+                                  </svg>
                                 </svg>
                               </figure>
-                              <span>Estado sistema</span>
+                              <span>Dashboard</span>
                             </>
                           )}
                         </NavLink>
                       </section>
-                    </React.Fragment>
+                    </Link>
                   );
                 }}
               </SidebarLinkGroup>
