@@ -2,10 +2,10 @@ import React from 'react';
 import AddButtonForTable from '../../pages/component/AddButtonForTable';
 import FakeGroup from '../../pages/FakeGroup';
 
-function CapabilitiesGroupPanelTableItem() {
+function CapabilitiesGroupPanelTableItem({setOpenModalGroup}) {
   return (
     <>
-      <AddButtonForTable buttonName='Nuevo Grupo' />
+      <AddButtonForTable buttonName='Nuevo Grupo' group={true} setOpenModalGroup={setOpenModalGroup} />
       <tr>
         <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
           <div className='flex items-center'>

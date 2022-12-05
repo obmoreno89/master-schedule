@@ -31,6 +31,7 @@ module.exports = {
       },
       fontFamily: {
         inter: ['Inter', 'sans-serif'],
+        work: ['Work Sans']
       },
       fontSize: {
         xs: ['0.75rem', { lineHeight: '1.5' }],

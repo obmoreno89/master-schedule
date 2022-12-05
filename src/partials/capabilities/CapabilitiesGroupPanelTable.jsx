@@ -1,7 +1,8 @@
 import React from 'react';
 import CapabilitiesGroupPanelTableItem from './CapabilitiesGroupPanelTableItem';
 
-const CapabilitiesGroupPanelTable = () => {
+const CapabilitiesGroupPanelTable = ({setOpenModalGroup}) => {
+ 
   return (
     <div className='bg-white'>
       <div className='mt-6 px-3'>
@@ -19,7 +20,7 @@ const CapabilitiesGroupPanelTable = () => {
               </tr>
             </thead>
             <tbody className='text-sm divide-y divide-slate-200'>
-              <CapabilitiesGroupPanelTableItem />
+              <CapabilitiesGroupPanelTableItem setOpenModalGroup={setOpenModalGroup} />
             </tbody>
           </table>
         </div>

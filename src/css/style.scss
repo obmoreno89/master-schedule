@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=fallback');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -11,3 +12,8 @@
 @import 'additional-styles/flatpickr.scss';
 @import 'additional-styles/theme.scss';
 
+@layer base {
+    * {
+        font-family: "Work Sans", sans-serif;
+    }
+}
