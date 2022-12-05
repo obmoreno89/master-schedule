@@ -510,7 +510,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                   </svg>
                                 </svg>
                               </figure>
-                              <span>Dashboard</span>
+                              <span>Estado del sistema</span>
                             </>
                           )}
                         </NavLink>

@@ -18,9 +18,9 @@ function Management() {
         <Header
           sidebarOpen={sidebarOpen}
           setSidebarOpen={setSidebarOpen}
-          icon={icons.planningIcon}
-          nameRoute='Planeación'
-          nameSubRoute='Capacidades'
+          icon={icons.administratorIcon}
+          nameRoute='Administración'
+          nameSubRoute='Crear cuenta'
         />
 
         <main>
