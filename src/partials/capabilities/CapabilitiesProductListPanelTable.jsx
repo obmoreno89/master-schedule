@@ -2,7 +2,7 @@ import React from 'react';
 import CapabilitiesProductListPanelTableItem from './CapabilitiesProductListPanelTableItem';
 import PaginationNumeric from '../../components/PaginationNumeric';
 
-const CapabilitiesProductListPanelTable = () => {
+const CapabilitiesProductListPanelTable = ({setOpenModalPL}) => {
   return (
     <div className='bg-white'>
       <div className='mt-6 px-3'>
@@ -22,7 +22,7 @@ const CapabilitiesProductListPanelTable = () => {
               </tr>
             </thead>
             <tbody className='text-sm divide-y divide-slate-200'>
-              <CapabilitiesProductListPanelTableItem />
+              <CapabilitiesProductListPanelTableItem setOpenModalPL={setOpenModalPL} />
             </tbody>
           </table>
         </div>
