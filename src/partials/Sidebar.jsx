@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, Link } from 'react-router-dom';
 import icons from '../images/icon/icons';
 
 import SidebarLinkGroup from './SidebarLinkGroup';
@@ -106,39 +106,85 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   pathname.includes('dashboard')
                 }
               >
-                {(handleClick, open) => {
+                {(handleClick) => {
                   return (
-                    <React.Fragment>
-                      <section className='flex md:invisible lg:visible'>
+                    <Link
+                      to='/mp-pro/'
+                      className={`block text-slate-200 hover:text-white truncate transition duration-150 ${
+                        pathname.includes('/mp-pro/') && 'hover:text-slate-200'
+                      }`}
+                      onClick={(e) => {
+                        sidebarExpanded
+                          ? handleClick()
+                          : setSidebarExpanded(true);
+                      }}
+                    >
+                      <section className=''>
                         <NavLink
-                          className='font-semibold text-sm flex items-center justify-center  py-1 text-textSidebar hover:text-hoverTextSidebar space-x-2 '
                           to='/mp-pro/'
+                          className={({ isActive }) =>
+                            'transition duration-150 truncate font-semibold text-sm flex items-center py-1 px-0 text-textSidebar hover:text-hoverTextSidebar space-x-[11px] ' +
+                            (isActive ? '!text-primary !font-bold' : '')
+                          }
                         >
                           {({ isActive }) => (
                             <>
-                              <figure className='flex items-center'>
+                              <figure>
                                 <svg
                                   className='shrink-0 h-6 w-6'
                                   viewBox='0 0 24 24'
                                 >
-                                  <path
-                                    className={
-                                      `fill-current text-slate-400 ` +
-                                      (isActive ? '!text-primary' : '')
-                                    }
-                                    d='M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0z'
-                                  />
-                                  <path
-                                    className={
-                                      `fill-current text-slate-700 ` +
-                                      (isActive ? '!text-green-100' : '')
-                                    }
-                                    d='M12 3c-4.963 0-9 4.037-9 9s4.037 9 9 9 9-4.037 9-9-4.037-9-9-9z'
-                                  />
-                                  <path
-                                    className={`fill-current text-slate-400 `}
-                                    d='M12 15c-1.654 0-3-1.346-3-3 0-.462.113-.894.3-1.285L6 6l4.714 3.301A2.973 2.973 0 0112 9c1.654 0 3 1.346 3 3s-1.346 3-3 3z'
-                                  />
+                                  <svg
+                                    width='24'
+                                    height='24'
+                                    viewBox='0 0 24 24'
+                                    fill='none'
+                                  >
+                                    <path
+                                      className={
+                                        `stroke-current text-textSidebar` +
+                                        (isActive ? '!text-primary' : '')
+                                      }
+                                      d='M10 3H3V10H10V3Z'
+                                      stroke='#231F20'
+                                      stroke-width='2'
+                                      stroke-linecap='round'
+                                      stroke-linejoin='round'
+                                    />
+                                    <path
+                                      className={
+                                        `stroke-current text-textSidebar` +
+                                        (isActive ? '!text-primary' : '')
+                                      }
+                                      d='M21 3H14V10H21V3Z'
+                                      stroke='#231F20'
+                                      stroke-width='2'
+                                      stroke-linecap='round'
+                                      stroke-linejoin='round'
+                                    />
+                                    <path
+                                      className={
+                                        `stroke-current text-textSidebar` +
+                                        (isActive ? '!text-primary' : '')
+                                      }
+                                      d='M21 14H14V21H21V14Z'
+                                      stroke='#231F20'
+                                      stroke-width='2'
+                                      stroke-linecap='round'
+                                      stroke-linejoin='round'
+                                    />
+                                    <path
+                                      className={
+                                        `stroke-current text-textSidebar ` +
+                                        (isActive ? '!text-primary' : '')
+                                      }
+                                      d='M10 14H3V21H10V14Z'
+                                      stroke='#231F20'
+                                      stroke-width='2'
+                                      stroke-linecap='round'
+                                      stroke-linejoin='round'
+                                    />
+                                  </svg>
                                 </svg>
                               </figure>
                               <span>Dashboard</span>
@@ -146,7 +192,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           )}
                         </NavLink>
                       </section>
-                    </React.Fragment>
+                    </Link>
                   );
                 }}
               </SidebarLinkGroup>

@@ -5,6 +5,7 @@ import CapabilitiesTable from '../partials/capabilities/CapabilitiesTable';
 import PaginationNumeric from '../components/PaginationNumeric';
 import CapabilitiesProductListPanel from '../partials/capabilities/CapabilitiesProductListPanel';
 import CabalitiesGroupPanel from '../partials/capabilities/CapabilitiesGroupPanel';
+import icons from '../images/icon/icons';
 
 function Capabilities() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -20,7 +21,13 @@ function Capabilities() {
       {/* Content area */}
       <div className='relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden'>
         {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        <Header
+          sidebarOpen={sidebarOpen}
+          setSidebarOpen={setSidebarOpen}
+          icon={icons.planningIcon}
+          nameRoute='Planeación'
+          nameSubRoute='Capacidades'
+        />
 
         <main>
           <div className='px-4 sm:px-6 lg:px-0 py-8 w-full max-w-9xl mx-auto'>
@@ -42,7 +49,7 @@ function Capabilities() {
               />
             </div>
             {/* Pagination */}
-            <div className='mt-8'>
+            <div className='mt-8 flex justify-start ml-[34px]'>
               <PaginationNumeric />
             </div>
             <CapabilitiesProductListPanel

@@ -38,11 +38,13 @@ function CapabilitiesGroupPanel({ setGroupPanelOpen, groupPanelOpen }) {
       }`}
     >
       <div className='top-16 bg-white overflow-x-hidden overflow-y-auto no-scrollbar shrink-0 border-l border-slate-200 w-full sm:w-[390px] h-screen'>
-        <h2 className='mt-4 ml-4 w-48 font-bold'>Seleccione un grupo</h2>
+        <h2 className='mt-4 ml-4 w-48 font-bold text-black'>
+          Seleccione un grupo
+        </h2>
         <button
           ref={closeBtn}
           onClick={() => setGroupPanelOpen(false)}
-          className='absolute top-0 right-0 mt-6 mr-3 group p-1'
+          className='absolute top-0 right-0 mt-4 mr-3 group p-1'
         >
           <svg
             className='w-4 h-4 fill-slate-400 group-hover:fill-slate-600 pointer-events-none'

@@ -7,7 +7,9 @@ function AddButtonForTable({ buttonName }) {
       <td className='absolute left-0 right-0 m-auto'>
         <div className='flex justify-center items-center h-8'>
           <img className='' src={icons.plus} alt='Mas' />
-          <button className='text-primary font-semibold'>{buttonName}</button>
+          <button className='text-primary font-semibold text-xs'>
+            {buttonName}
+          </button>
         </div>
       </td>
     </tr>

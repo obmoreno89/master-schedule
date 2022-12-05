@@ -7,6 +7,10 @@ import nideMotors from './nideMotors.svg';
 import logoUsmotors from './logoUsmotors.svg';
 import smallArrowRight from './smallArrowRight.svg';
 import plus from './plus.svg';
+import downArrow from './downArrow.svg';
+import dashboardIcon from './dashboardIcon.svg';
+import alertCircle from './alertCircle.svg';
+import planningIcon from './planningIcon.svg';
 
 export default {
   openEye,
@@ -18,4 +22,8 @@ export default {
   logoUsmotors,
   smallArrowRight,
   plus,
+  downArrow,
+  dashboardIcon,
+  alertCircle,
+  planningIcon,
 };

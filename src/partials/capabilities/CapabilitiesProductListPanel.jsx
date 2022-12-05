@@ -41,7 +41,7 @@ function CapabilitiesProductListPanel({
       }`}
     >
       <div className='top-16 bg-white overflow-x-hidden overflow-y-auto no-scrollbar shrink-0 border-l border-slate-200 w-full sm:w-[390px] h-screen'>
-        <h2 className='mt-4 ml-4 w-48 font-bold'>
+        <h2 className='mt-4 ml-4 w-48 font-bold text-black'>
           Seleccione una línea de producto
         </h2>
         <button
