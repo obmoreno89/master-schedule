@@ -17,17 +17,19 @@ function Header({
           <div className='flex items-center justify-between h-16 -mb-px'>
             <figure className='flex space-x-3'>
               <img src={icon} alt='Caja' />
-              <h5 className='capitalize font-bold text-gray-400 flex space-x-3'>
+              <h5 className='capitalize font-semibold text-gray-400 flex space-x-3 tracking-tight'>
                 {nameRoute}
                 <img
                   className='ml-3'
                   src={icons.smallArrowRight}
                   alt='Flecha derecha'
                 />
-                <p className='text-primary font-bold'>{nameSubRoute}</p>
+                <p className='text-primary font-semibold tracking-tight'>
+                  {nameSubRoute}
+                </p>
               </h5>
             </figure>
-            {/* Header: Left side */}
+
             <div className='flex'>
               {/* Hamburger button */}
               <button
