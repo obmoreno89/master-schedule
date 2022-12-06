@@ -6,8 +6,8 @@ import PaginationNumeric from '../components/PaginationNumeric';
 import CapabilitiesProductListPanel from '../partials/capabilities/CapabilitiesProductListPanel';
 import CabalitiesGroupPanel from '../partials/capabilities/CapabilitiesGroupPanel';
 import icons from '../images/icon/icons';
-import ModalProductLine from './ModalProductLine';
-import ModalGroup from './ModalGroup';
+import ModalProductLine from './component/ModalProductLine';
+import ModalGroup from './component/ModalGroup';
 
 function Capabilities() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -75,20 +75,7 @@ function Capabilities() {
           </main>
         </div>
 
-            {/* Pagination */}
-            <div className='mt-8 flex justify-start ml-[34px]'>
-              <PaginationNumeric />
-            </div>
-            <CapabilitiesProductListPanel
-              transactionPanelOpen={transactionPanelOpen}
-              setTransactionPanelOpen={setTransactionPanelOpen}
-            />
-            <CabalitiesGroupPanel
-              groupPanelOpen={groupPanelOpen}
-              setGroupPanelOpen={setGroupPanelOpen}
-            />
-          </div>
-        </main>
+    
 
       </div>
 
