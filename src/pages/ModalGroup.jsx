@@ -15,6 +15,7 @@ function ModalGroup({ openModalGroup, setOpenModalGroup }) {
   const onSubmit = (data) => {
     console.log(data);
   };
+
   return (
     <ModalBasic
       id='basic-modal'
@@ -22,7 +23,6 @@ function ModalGroup({ openModalGroup, setOpenModalGroup }) {
       setModalOpen={() => setOpenModalGroup({ state: false, data: null })}
       title='Agregar grupo'
     >
-      {/* Modal content */}
       <div className='px-5 pt-4 pb-1'>
         <div className='text-sm'>
           <form onSubmit={handleSubmit(onSubmit)}>

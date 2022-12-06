@@ -34,7 +34,12 @@ function UserTableItem(props) {
             >
               <img src={icons.pencilIcon} alt='Lapiz' />
             </button>
-            <button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                props.setOpenModalUserDelete(true);
+              }}
+            >
               <img src={icons.garbageIcon} alt='Basura' />
             </button>
           </figure>

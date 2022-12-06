@@ -1,7 +1,7 @@
 import React from 'react';
 import UserTableItem from './UserTableItem';
 
-function UserTable({ setUserPanelOpen }) {
+function UserTable({ setUserPanelOpen, setOpenModalUserDelete }) {
   return (
     <>
       <section>
@@ -31,7 +31,10 @@ function UserTable({ setUserPanelOpen }) {
             </thead>
             {/* Table body */}
             <tbody className='text-sm divide-y divide-slate-200'>
-              <UserTableItem setUserPanelOpen={setUserPanelOpen} />
+              <UserTableItem
+                setUserPanelOpen={setUserPanelOpen}
+                setOpenModalUserDelete={setOpenModalUserDelete}
+              />
             </tbody>
           </table>
         </div>
