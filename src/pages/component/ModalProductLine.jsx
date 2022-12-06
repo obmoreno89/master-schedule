@@ -1,4 +1,4 @@
-import ModalBasic from "../components/ModalBasic";
+import ModalBasic from "../../components/ModalBasic";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 

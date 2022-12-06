@@ -1,25 +1,31 @@
-import { useState } from 'react';
-import Header from '../partials/Header';
-import Sidebar from '../partials/Sidebar';
+import { useState } from "react";
+import icons from "../images/icon/icons";
+import Header from "../partials/Header";
+import Sidebar from "../partials/Sidebar";
 
-function Layout({ children }) {
+function Layout({ icon, nameRoute, nameSubRoute, children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className='flex h-screen overflow-hidden '>
-      <div className='relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden'>
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+    <div className="flex h-screen overflow-hidden">
+      {/* Sidebar */}
+      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-        <main>
-          <section>
-            <Sidebar
-              sidebarOpen={sidebarOpen}
-              setSidebarOpen={setSidebarOpen}
-            />
-          </section>
-          <section className='px-4 sm:px-6 lg:px-8 py-2 w-full max-w-9xl mx-auto'>
-            {children}
-          </section>
+      {/* Content area */}
+      <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+        {/*  Site header */}
+        <Header
+          sidebarOpen={sidebarOpen}
+          setSidebarOpen={setSidebarOpen}
+          icon={icon}
+          nameRoute={nameRoute}
+          nameSubRoute={nameSubRoute}
+        />
+
+        <main className="bg-white h-full">
+          <div className="px-4 sm:px-6 lg:px-0 py-6 w-full max-w-9xl mx-auto">
+            <div className="lg:px-8">{children}</div>
+          </div>
         </main>
       </div>
     </div>
