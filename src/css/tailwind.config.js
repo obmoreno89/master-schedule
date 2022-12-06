@@ -13,9 +13,9 @@ module.exports = {
         textSidebar: 'rgba(35, 31, 32, 0.45)',
         hoverTextSidebar: '#15B053',
         textHover: '#009B4A',
-        focusHover: 'rgba(0,155,74,0.20)',
+        focusHover: '#009B4A',
         focus: 'rgb(148 163 184)',
-        borderInput: 'rgb(203 213 225)',
+        borderInput: '#E6E6E6',
         textTableHeader: 'rgba(45, 49, 57, 0.8)',
         textTableItem: '#2D3139',
       },
@@ -30,10 +30,8 @@ module.exports = {
         blue: '2px solid rgba(0, 112, 244, 0.5)',
       },
       fontFamily: {
-
         inter: ['Inter', 'sans-serif'],
-        work: ['Work Sans']
-
+        work: ['Work Sans'],
       },
       fontSize: {
         xs: ['0.75rem', { lineHeight: '1.5' }],
