@@ -4,16 +4,17 @@ import Header from '../partials/Header';
 import icons from '../images/icon/icons';
 import UserFilter from '../partials/user/UserFilter';
 import UserTable from '../partials/user/UserTable';
+import UserPanel from '../partials/user/UserPanel';
 
 function Management() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [userPanelOpen, setUserPanelOpen] = useState(false);
 
   return (
     <div className='flex h-screen overflow-hidden'>
       {/* Sidebar */}
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-      {/* Content area */}
       <div className='relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden'>
         {/*  Site header */}
         <Header
@@ -21,7 +22,7 @@ function Management() {
           setSidebarOpen={setSidebarOpen}
           icon={icons.administratorIcon}
           nameRoute='Administración'
-          nameSubRoute='Crear cuenta'
+          nameSubRoute='Usuario'
         />
 
         <main className='bg-white h-screen'>
@@ -42,9 +43,12 @@ function Management() {
             </section>
 
             <section className='lg:px-8 mt-5'>
-              <UserTable />
+              <UserTable setUserPanelOpen={setUserPanelOpen} />
             </section>
-
+            <UserPanel
+              userPanelOpen={userPanelOpen}
+              setUserPanelOpen={setUserPanelOpen}
+            />
             {/* Pagination */}
           </div>
         </main>

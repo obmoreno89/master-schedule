@@ -1,13 +1,12 @@
 import React from 'react';
 import UserTableItem from './UserTableItem';
 
-function UserTable() {
+function UserTable({ setUserPanelOpen }) {
   return (
     <>
       <section>
         <div className='overflow-x-auto rounded-xl border border-slate-300'>
           <table className='table-auto w-full'>
-            {/* Table header */}
             <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50'>
               <tr>
                 <th className='px-2 first:pl-5'>
@@ -32,7 +31,7 @@ function UserTable() {
             </thead>
             {/* Table body */}
             <tbody className='text-sm divide-y divide-slate-200'>
-              <UserTableItem />
+              <UserTableItem setUserPanelOpen={setUserPanelOpen} />
             </tbody>
           </table>
         </div>
