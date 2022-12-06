@@ -3,6 +3,7 @@ import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import icons from '../images/icon/icons';
 import UserFilter from '../partials/user/UserFilter';
+import UserTable from '../partials/user/UserTable';
 
 function Management() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -23,7 +24,7 @@ function Management() {
           nameSubRoute='Crear cuenta'
         />
 
-        <main className='bg-white'>
+        <main className='bg-white h-screen'>
           <div className='px-4 sm:px-6 lg:px-0 py-8 w-full max-w-9xl mx-auto'>
             {/* Page header */}
             <div className='sm:flex sm:justify-between sm:items-center mb-4 md:mb-2'>
@@ -36,9 +37,14 @@ function Management() {
             </div>
 
             {/* Table */}
-            <div className='lg:px-8'>
+            <section className='lg:px-8'>
               <UserFilter />
-            </div>
+            </section>
+
+            <section className='lg:px-8 mt-5'>
+              <UserTable />
+            </section>
+
             {/* Pagination */}
           </div>
         </main>
