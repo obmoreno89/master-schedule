@@ -4,27 +4,27 @@ import icons from '../../../images/icon/icons';
 function Calendar({ setOpenModalCalendar }) {
   const today = new Date();
   const monthNames = [
-    'January',
-    'February',
-    'March',
+    'Enero',
+    'Febrero',
+    'Marzo',
     'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
+    'Mayo',
+    'Junio',
+    'Julio',
+    'Agosto',
+    'Septiembre',
+    'Octubre',
+    'Noviembre',
+    'Diciembre',
   ];
   const dayNames = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
+    'Domingo',
+    'Lunes',
+    'Martes',
+    'Miercoles',
+    'Jueves',
+    'Viernes',
+    'Sabado',
   ];
 
   const [month, setMonth] = useState(today.getMonth());
@@ -42,12 +42,7 @@ function Calendar({ setOpenModalCalendar }) {
         8,
         3
       ),
-      eventEnd: new Date(
-        new Date().getFullYear(),
-        new Date().getMonth() - 1,
-        8,
-        7
-      ),
+
       eventName: 'festivo',
       eventColor: 'indigo',
     },
@@ -298,13 +293,13 @@ function Calendar({ setOpenModalCalendar }) {
                           </button>
                         )}
                         {/* Day number */}
-                        <button
-                          className={`inline-flex ml-auto w-6 h-6 items-center justify-center text-xs sm:text-sm font-medium text-center rounded-full hover:bg-indigo-100 ${
-                            isToday(day) && 'text-primary'
+                        <div
+                          className={`inline-flex ml-auto w-6 h-6 items-center justify-center text-xs sm:text-sm font-semibold text-center ${
+                            isToday(day) && 'text-white bg-primary rounded-full'
                           }`}
                         >
                           {day}
-                        </button>
+                        </div>
                       </div>
                     </div>
                   </div>
