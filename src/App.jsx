@@ -22,6 +22,7 @@ import SystemStatus from './pages/SystemStatus';
 //PLANNING
 import Planning from './pages/Planning';
 import Capabilities from './pages/Capabilities';
+import Calendar from './pages/Calendar';
 
 //MANAGEMENT
 import Management from './pages/Management';
@@ -123,6 +124,15 @@ function App() {
           element={
             <PrivateRoute>
               <Capabilities />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path='/mp-pro/planning/calendar/'
+          element={
+            <PrivateRoute>
+              <Calendar />
             </PrivateRoute>
           }
         />

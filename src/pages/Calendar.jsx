@@ -1,10 +1,16 @@
 import React from 'react';
 import Layout from '../components/Layout';
+import icons from '../images/icon/icons';
+import CalendarContent from '../partials/planning/calendar/CalendarContent';
 
 function Calendar() {
   return (
-    <Layout>
-      <h1>hola</h1>
+    <Layout
+      icon={icons.planningIcon}
+      nameRoute='Planeación'
+      nameSubRoute='Calendario'
+    >
+      <CalendarContent />
     </Layout>
   );
 }
