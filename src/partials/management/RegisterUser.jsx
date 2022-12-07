@@ -56,7 +56,7 @@ function RegisterUser() {
 
   const handleButtonLogin = () => {
     return !loading ? (
-      <button className="btn bg-primary hover:bg-secondary hover:text-primary text-white font-semibold text-base w-[432px] h-12 rounded-[4px] justify-center">
+      <button className="btn bg-primary hover:bg-secondary hover:text-primary text-white font-semibold text-base w-[432px] h-12 rounded-[4px]">
         <svg className="w-4 h-4 fill-current shrink-0" viewBox="0 0 16 16">
           <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
         </svg>
@@ -95,14 +95,26 @@ function RegisterUser() {
   };
 
   return (
-    <section>
-      <header className="xl:w-[65%] md:mx-auto">
+    <section
+      className={`flex flex-col border-2 w-[80%] mx-auto`}
+    >
+      {/* <header className="2xl:w-[65%] w-[75%] md:mx-auto"> */}
+      {/* <header
+        className={`2xl:w-[75%] md:ml-36 xl:ml-60 ${!sidebarOpen && "w-[90%]"}`}
+      > */}
+      <header>
         <h2 className="text-3xl text-slate-800 font-bold mb-5">Crear cuenta</h2>
       </header>
       <main>
-        <form onSubmit={handleSubmit(submitForm)}>
-          <div className="grid md:gap-5 md:grid-cols-2 xl:w-[65%] md:mx-auto">
-            <div className="input-container">
+        <form onSubmit={handleSubmit(submitForm)} className>
+          {/* <div className="grid md:gap-5 md:grid-cols-2 2xl:w-[65%] w-[75%] md:mx-auto"> */}
+          {/* <div
+            className={`2xl:w-[75%] flex md:ml-36 xl:ml-60 flex-wrap ${
+              !sidebarOpen && "w-[90%]"
+            }`}
+          > */}
+          <div className="flex flex-wrap">
+            <div className="input-container xl:mr-4 mr-1">
               <label className={styles.label} htmlFor="first_name">
                 Nombre:
               </label>
@@ -125,7 +137,7 @@ function RegisterUser() {
               )}
             </div>
 
-            <div className="input-container">
+            <div className="input-container xl:mr-4 mr-1">
               <div className="flex items-center justify-between">
                 <label className={styles.label} htmlFor="last_name">
                   Apellido:
@@ -149,7 +161,7 @@ function RegisterUser() {
               )}
             </div>
 
-            <div className="input-container">
+            <div className="input-container xl:mr-4 mr-1">
               <label className={styles.label} htmlFor="email">
                 Email:
               </label>
@@ -175,7 +187,7 @@ function RegisterUser() {
               )}
             </div>
 
-            <div className="input-container">
+            <div className="input-container xl:mr-4 mr-1">
               <label className={styles.label} htmlFor="password">
                 Contraseña:
               </label>
@@ -221,7 +233,7 @@ function RegisterUser() {
               )}
             </div>
 
-            <div className="input-container">
+            <div className="input-container xl:mr-4 mr-1">
               <label className={styles.label} htmlFor="nmc">
                 NMC:
               </label>
@@ -244,7 +256,7 @@ function RegisterUser() {
               )}
             </div>
 
-            <div className="input-container">
+            <div className="input-container xl:mr-4 mr-1">
               <label className={styles.label} htmlFor="telephone">
                 Teléfono:
               </label>
@@ -267,7 +279,7 @@ function RegisterUser() {
               )}
             </div>
 
-            <div className="input-container">
+            <div className="input-container xl:mr-4 mr-1">
               <label className={styles.label} htmlFor="position">
                 Posición:
               </label>
@@ -290,7 +302,7 @@ function RegisterUser() {
               )}
             </div>
 
-            <div className="input-container">
+            <div className="input-container xl:mr-4 mr-1">
               <label className={styles.label} htmlFor="role">
                 Rol:
               </label>
@@ -307,9 +319,8 @@ function RegisterUser() {
               </select>
             </div>
           </div>
-          <div className="mt-9 xl:w-[65%] md:mx-auto flex justify-center">
-            {handleButtonLogin()}
-          </div>
+          {/* <div className="mt-9 xl:w-[65%] md:mx-auto flex justify-center"> */}
+          <div className="w-[80%] text-center">{handleButtonLogin()}</div>
         </form>
       </main>
       <footer>
