@@ -34,7 +34,7 @@ function ModalProductLine({ openModalPL, setOpenModalPL }) {
               </label>
               <input
                 type="text"
-                className="w-full h-[50px] rounded-[4px] border-1 border-slate-100"
+                className="w-full form-input h-12 border-slate-100"
                 {...register("plName")}
               />
             </div>
@@ -46,7 +46,7 @@ function ModalProductLine({ openModalPL, setOpenModalPL }) {
                 Grupo asignado
               </label>
               <select
-                className="w-full h-[50px] rounded-[4px] border-1 border-slate-100"
+                className="w-full form-select h-12 border-slate-100"
                 {...register("plGroup")}
               >
                 {["A", "B", "C", "D"].map((letter, index) => (

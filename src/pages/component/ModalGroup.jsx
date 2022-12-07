@@ -35,7 +35,7 @@ function ModalGroup({ openModalGroup, setOpenModalGroup }) {
               </label>
               <input
                 type='text'
-                className='w-full form-input'
+                className='w-full form-input h-12'
                 {...register('gName')}
               />
             </div>
@@ -48,7 +48,7 @@ function ModalGroup({ openModalGroup, setOpenModalGroup }) {
               </label>
               <input
                 type='text'
-                className='w-full form-input'
+                className='w-full form-input h-12'
                 {...register('gDesc')}
               />
             </div>
