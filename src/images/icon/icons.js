@@ -1,5 +1,5 @@
 import openEye from './openEye.svg';
-import eye from './eye.svg'
+import eye from './eye.svg';
 import closedEye from './closedEye.svg';
 import eyeOff from './eye-off.svg';
 import logoNide from './logoNide.svg';
@@ -9,12 +9,16 @@ import nideMotors from './nideMotors.svg';
 import logoUsmotors from './logoUsmotors.svg';
 import smallArrowRight from './smallArrowRight.svg';
 import plus from './plus.svg';
+import whitePlus from './whitePlus.svg';
 import downArrow from './downArrow.svg';
 import dashboardIcon from './dashboardIcon.svg';
 import alertCircle from './alertCircle.svg';
 import planningIcon from './planningIcon.svg';
 import administratorIcon from './administratorIcon.svg';
 import systemStatusIcon from './systemStatusIcon.svg';
+import filter from './filter.svg';
+import pencilIcon from './pencilIcon.svg';
+import garbageIcon from './garbageIcon.svg';
 
 export default {
   openEye,
@@ -28,10 +32,14 @@ export default {
   logoUsmotors,
   smallArrowRight,
   plus,
+  whitePlus,
   downArrow,
   dashboardIcon,
   alertCircle,
   planningIcon,
   administratorIcon,
   systemStatusIcon,
+  filter,
+  pencilIcon,
+  garbageIcon,
 };

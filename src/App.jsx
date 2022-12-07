@@ -17,16 +17,16 @@ import PrivateRoute from './routes/PrivateRoute';
 import PublicRoute from './routes/PublicRoute';
 
 //SYSTEM STATUS
-import SystemStatus from './partials/systemStatus/SystemStatus';
+import SystemStatus from './pages/SystemStatus';
 
 //PLANNING
-import Planning from './partials/planning/Planning';
-
-//CAPABILITIES
+import Planning from './pages/Planning';
 import Capabilities from './pages/Capabilities';
+import Calendar from './pages/Calendar';
 
 //MANAGEMENT
 import Management from './pages/Management';
+import User from './pages/User';
 
 //COMPONENTS FOR DESIGN
 import ButtonPage from './pages/component/ButtonPage';
@@ -124,6 +124,24 @@ function App() {
           element={
             <PrivateRoute>
               <Capabilities />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path='/mp-pro/planning/calendar/'
+          element={
+            <PrivateRoute>
+              <Calendar />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path='/mp-pro/management/user/'
+          element={
+            <PrivateRoute>
+              <User />
             </PrivateRoute>
           }
         />
