@@ -26,19 +26,18 @@ function Capabilities() {
         {/* Sidebar */}
         <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-
-      {/* Content area */}
-      <div className='relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden'>
-        {/*  Site header */}
-        <Header
-          sidebarOpen={sidebarOpen}
-          setSidebarOpen={setSidebarOpen}
-          icon={icons.planningIcon}
-          nameRoute='Planeación'
-          nameSubRoute='Capacidades'
-        />
-          <main>
-            <div className="px-4 sm:px-6 lg:px-0 py-8 w-full max-w-9xl mx-auto">
+        {/* Content area */}
+        <div className='relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden'>
+          {/*  Site header */}
+          <Header
+            sidebarOpen={sidebarOpen}
+            setSidebarOpen={setSidebarOpen}
+            icon={icons.planningIcon}
+            nameRoute='Planeación'
+            nameSubRoute='Capacidades'
+          />
+          <main className='bg-white h-screen'>
+            <div className='px-4 sm:px-6 lg:px-0 py-8 w-full max-w-9xl mx-auto'>
               {/* Page header */}
               <div className='sm:flex sm:justify-between sm:items-center mb-4 md:mb-2'>
                 {/* Left: Title */}
@@ -71,12 +70,8 @@ function Capabilities() {
                 setOpenModalGroup={setOpenModalGroup}
               />
             </div>
-
           </main>
         </div>
-
-    
-
       </div>
 
       <ModalProductLine

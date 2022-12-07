@@ -79,11 +79,7 @@ input[type='search']::-webkit-search-results-decoration {
 .form-textarea,
 .form-multiselect,
 .form-select {
-<<<<<<< HEAD
   @apply leading-5 py-2 px-3 border-borderInput hover:border-focus focus:border-primary shadow-sm;
-=======
-  @apply leading-5 py-3 px-3 border-borderInput hover:border-focus focus:border-focusHover;
->>>>>>> aa2ce30617c89713a2036f7b845d488cf6e09f75
 }
 
 .form-input,
