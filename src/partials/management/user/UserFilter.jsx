@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import icons from '../../images/icon/icons';
+import icons from '../../../images/icon/icons';
 
 function UserFilter() {
   const {

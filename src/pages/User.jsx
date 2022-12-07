@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import icons from '../images/icon/icons';
-import UserFilter from '../partials/user/UserFilter';
-import UserTable from '../partials/user/UserTable';
-import UserPanel from '../partials/user/UserPanel';
-import ModalUserDelete from './ModalUserDelete';
+import UserFilter from '../partials/management/user/UserFilter';
+import UserTable from '../partials/management/user/UserTable';
+import UserPanel from '../partials/management/user/UserPanel';
+import ModalUserDelete from './component/ModalUserDelete';
 
 function Management() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
