@@ -43,9 +43,11 @@ function ModalProductLine({ openModalPL, setOpenModalPL }) {
                 Nombre de la línea de producto
               </label>
               <input
-                type='text'
-                className='w-full h-[50px] rounded-[4px] border-1 border-slate-100'
-                {...register('plName')}
+
+                type="text"
+                className="w-full form-input h-12 border-slate-100"
+                {...register("plName")}
+
               />
             </div>
             <div className='space-y-2 mb-5'>
@@ -56,8 +58,10 @@ function ModalProductLine({ openModalPL, setOpenModalPL }) {
                 Grupo asignado
               </label>
               <select
-                className='w-full h-[50px] rounded-[4px] border-1 border-slate-100'
-                {...register('plGroup')}
+
+                className="w-full form-select h-12 border-slate-100"
+                {...register("plGroup")}
+
               >
                 {groupList.map((group) => (
                   <option key={group.id} value={group.id}>

@@ -28,8 +28,10 @@ function ConfirmNewPassword() {
   const isCorrect = useSelector(selectIsCorrect);
   const loading = useSelector(selectLoading);
 
-  const [eye, setEye] = useState(false);
-  const toggleEye = () => setEye(!eye);
+  const [eye1, setEye1] = useState(false);
+  const toggleEye1 = () => setEye1(!eye1);
+  const [eye2, setEye2] = useState(false);
+  const toggleEye2 = () => setEye2(!eye2);
 
   const submit = (data) => {
     if (data.password === data.password2) {
@@ -92,7 +94,7 @@ function ConfirmNewPassword() {
                       <input
                         maxLength="35"
                         className="form-input w-full h-12"
-                        type={eye ? "text" : "password"}
+                        type={eye1 ? "text" : "password"}
                         autoComplete="off"
                         {...register("password", {
                           required: {
@@ -107,15 +109,15 @@ function ConfirmNewPassword() {
                           type="button"
                           className="absolute inset-2 -top-10 left-auto flex items-center mr-2"
                         >
-                          {eye ? (
+                          {eye1 ? (
                             <img
-                              onClick={toggleEye}
+                              onClick={toggleEye1}
                               src={icons.openEye}
                               alt="Ojo abierto"
                             />
                           ) : (
                             <img
-                              onClick={toggleEye}
+                              onClick={toggleEye1}
                               src={icons.closedEye}
                               alt="Ojo cerrado"
                             />
@@ -141,7 +143,7 @@ function ConfirmNewPassword() {
                       <input
                         maxLength="35"
                         className="form-input w-full h-12"
-                        type={eye ? "text" : "password"}
+                        type={eye2 ? "text" : "password"}
                         autoComplete="off"
                         {...register("password2", {
                           required: {
@@ -156,15 +158,15 @@ function ConfirmNewPassword() {
                           type="button"
                           className="absolute inset-2 -top-10 left-auto flex items-center mr-2"
                         >
-                          {eye ? (
+                          {eye2 ? (
                             <img
-                              onClick={toggleEye}
+                              onClick={toggleEye2}
                               src={icons.openEye}
                               alt="Ojo abierto"
                             />
                           ) : (
                             <img
-                              onClick={toggleEye}
+                              onClick={toggleEye2}
                               src={icons.closedEye}
                               alt="Ojo cerrado"
                             />
