@@ -24,11 +24,8 @@ function Management() {
         />
 
         <main className="bg-white h-full">
-          <div className="py-6 w-screen mx-auto">
-            <div 
-            className="w-full"
-            //className="lg:px-8"
-            >
+          <div className="px-4 sm:px-6 lg:px-0 py-6 w-full max-w-9xl mx-auto">
+            <div className="lg:px-8">
               <RegisterUser />
             </div>
           </div>
