@@ -21,9 +21,8 @@ import SystemStatus from './partials/systemStatus/SystemStatus';
 
 //PLANNING
 import Planning from './partials/planning/Planning';
-
-//CAPABILITIES
 import Capabilities from './pages/Capabilities';
+import User from './pages/User';
 
 //MANAGEMENT
 import Management from './pages/Management';
@@ -124,6 +123,15 @@ function App() {
           element={
             <PrivateRoute>
               <Capabilities />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path='/mp-pro/management/user/'
+          element={
+            <PrivateRoute>
+              <User />
             </PrivateRoute>
           }
         />
