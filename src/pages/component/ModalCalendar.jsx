@@ -51,13 +51,13 @@ function ModalCalendar({ setOpenModalCalendar, openModalCalendar }) {
                 {...register('gName')}
               />
             </div>
-            <div className='space-y-2 mb-5'>
+            <div className=' mb-5 absolute'>
               <DatePicker />
             </div>
             <div>
               <button
                 type='submit'
-                className='bg-primary text-white w-full h-[51px] rounded mb-6 font-semibold'
+                className='bg-primary text-white w-full h-[51px] rounded mb-6 font-semibold mt-16'
               >
                 Agregar dia no laborable
               </button>

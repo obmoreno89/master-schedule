@@ -3,7 +3,6 @@ import Flatpickr from 'react-flatpickr';
 
 function Datepicker({ align }) {
   const options = {
-    mode: 'range',
     static: true,
     monthSelectorType: 'static',
     dateFormat: 'M j, Y',
@@ -25,7 +24,7 @@ function Datepicker({ align }) {
   return (
     <div className='relative'>
       <Flatpickr
-        className='form-input pl-3 text-slate-500 hover:text-slate-600 font-medium focus:border-slate-300 w-[472px]'
+        className='form-input pl-3 text-slate-500 hover:text-slate-600 font-medium focus:border-primary w-[472px]'
         options={options}
       />
       <div className='absolute inset-0 right-auto flex items-center pointer-events-none'>
