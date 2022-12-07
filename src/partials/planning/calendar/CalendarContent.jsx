@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import icons from '../../../images/icon/icons';
 
-function Calendar() {
+function Calendar({ setOpenModalCalendar }) {
   const today = new Date();
   const monthNames = [
     'January',
@@ -60,8 +60,20 @@ function Calendar() {
         12,
         12
       ),
+
       eventName: 'Dia del banquero',
       eventColor: 'sky',
+    },
+    {
+      eventStart: new Date(
+        new Date().getFullYear(),
+        new Date().getMonth(),
+        24,
+        12
+      ),
+
+      eventName: 'Navidad',
+      eventColor: 'yellow',
     },
 
     // Next month
@@ -193,7 +205,13 @@ function Calendar() {
               </button>
 
               {/* Create event button */}
-              <button className='bg-primary hover:bg-indigo-600 text-white btn lg:w-56'>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setOpenModalCalendar(true);
+                }}
+                className='bg-primary hover:bg-green-600 text-white btn lg:w-56'
+              >
                 <img src={icons.whitePlus} alt='Añadir' />
                 <span className='hidden xs:block ml-2'>
                   Crear dia no laborable
