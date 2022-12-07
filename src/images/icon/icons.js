@@ -1,5 +1,7 @@
 import openEye from './openEye.svg';
+import eye from './eye.svg'
 import closedEye from './closedEye.svg';
+import eyeOff from './eye-off.svg';
 import logoNide from './logoNide.svg';
 import logoMotors from './logoMotors.png';
 import error404 from './error404.png';
@@ -19,7 +21,9 @@ import garbageIcon from './garbageIcon.svg';
 
 export default {
   openEye,
+  eye,
   closedEye,
+  eyeOff,
   logoNide,
   logoMotors,
   error404,

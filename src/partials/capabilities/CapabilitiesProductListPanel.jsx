@@ -88,7 +88,8 @@ function CapabilitiesProductListPanel({
               setOpenModalPL={setOpenModalPL}
             />
           </div>
-        </div>
+          </div>
+        
       </Transition>
     </>
   );

@@ -1,6 +1,12 @@
+<<<<<<< HEAD:src/pages/component/ModalGroup.jsx
+import ModalBasic from "../../components/ModalBasic";
+import { useForm } from "react-hook-form";
+import { useEffect } from "react";
+=======
 import ModalBasic from '../components/ModalBasic';
 import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
+>>>>>>> aa2ce30617c89713a2036f7b845d488cf6e09f75:src/pages/ModalGroup.jsx
 
 function ModalGroup({ openModalGroup, setOpenModalGroup }) {
   const { register, handleSubmit, reset } = useForm();
