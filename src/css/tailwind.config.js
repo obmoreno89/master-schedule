@@ -5,6 +5,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+<<<<<<< HEAD
         primary: "#009B4A",
         secondary: "rgba(0,155,74,0.10)",
         third: "#839DE2",
@@ -19,6 +20,21 @@ module.exports = {
         borderInput: "#E6E6E6",
         textTableHeader: "rgba(45, 49, 57, 0.8)",
         textTableItem: "#2D3139",
+=======
+        primary: '#009B4A',
+        secondary: 'rgba(0,155,74,0.10)',
+        third: '#839DE2',
+        hover: '#009B4A',
+        gray: 'rgb(156 163 175)',
+        textSidebar: 'rgba(35, 31, 32, 0.45)',
+        hoverTextSidebar: '#15B053',
+        textHover: '#009B4A',
+        focusHover: '#009B4A',
+        focus: 'rgb(148 163 184)',
+        borderInput: '#E6E6E6',
+        textTableHeader: 'rgba(45, 49, 57, 0.8)',
+        textTableItem: '#2D3139',
+>>>>>>> aa2ce30617c89713a2036f7b845d488cf6e09f75
       },
       boxShadow: {
         DEFAULT:
@@ -31,8 +47,13 @@ module.exports = {
         blue: "2px solid rgba(0, 112, 244, 0.5)",
       },
       fontFamily: {
+<<<<<<< HEAD
         inter: ["Inter", "sans-serif"],
         work: ["Work Sans"],
+=======
+        inter: ['Inter', 'sans-serif'],
+        work: ['Work Sans'],
+>>>>>>> aa2ce30617c89713a2036f7b845d488cf6e09f75
       },
       fontSize: {
         xs: ["0.75rem", { lineHeight: "1.5" }],
