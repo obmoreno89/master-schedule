@@ -45,7 +45,6 @@ function RegisterUser() {
   useEffect(() => {
     let defaultValues = {};
     defaultValues.password = 'generic';
-    defaultValues.role = 1;
     reset({ ...defaultValues });
   }, [reset]);
 
@@ -327,7 +326,9 @@ function RegisterUser() {
   return (
     <section>
       <header>
-        <h2 className='text-3xl text-slate-800 font-bold mb-5 mt-6'>Crear cuenta</h2>
+        <h2 className='text-3xl text-slate-800 font-bold mb-5 mt-6'>
+          Crear cuenta
+        </h2>
       </header>
       <main>
         <form onSubmit={handleSubmit(submitForm)}>
@@ -529,17 +530,18 @@ function RegisterUser() {
                 className='form-select w-full h-12'
                 {...register('role')}
               >
+                <option>Selecciona...</option>
                 {roles.map((rol, index) => (
-                  <option key={index} value={rol.id}>
-                    {rol.role}
-                  </option>
+                  <>
+                    <option key={index} value={rol.id}>
+                      {rol.role}
+                    </option>
+                  </>
                 ))}
               </select>
             </div>
           </div>
-          <div className='mt-4 flex justify-center'>
-            {handleButtonLogin()}
-          </div>
+          <div className='mt-4 flex justify-center'>{handleButtonLogin()}</div>
         </form>
       </main>
       <footer>
