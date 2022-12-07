@@ -48,7 +48,7 @@ function Calendar() {
         8,
         7
       ),
-      eventName: '⛱️ Relax for 2 at Marienbad',
+      eventName: 'festivo',
       eventColor: 'indigo',
     },
 
@@ -78,7 +78,7 @@ function Calendar() {
         2,
         7
       ),
-      eventName: '✍️ New Project (2)',
+      eventName: 'festivo',
       eventColor: 'yellow',
     },
   ];
