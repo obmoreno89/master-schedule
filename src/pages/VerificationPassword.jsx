@@ -73,8 +73,8 @@ function VerificationPassword() {
         <div className='md:w-1/2'>
           <div className='min-h-screen h-full flex flex-col after:flex-1'>
             {/* Header */}
-            <div className='flex-1'>
-              <div className='flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8'>
+            <div className='flex-1 w-[29rem] mx-auto'>
+              <div className='flex items-center justify-between h-16'>
                 {/* Logo */}
                 <Link
                   className='relative flex justify-between w-full items-center'
@@ -83,21 +83,20 @@ function VerificationPassword() {
                 >
                   <figure className='relative flex justify-between w-full items-center mt-10'>
                     <img src={icons.logoNide} alt='Logo' className='w-36' />
-                    <div>
+                    {/* <div>
                       <img src={icons.logoMotors} alt='logo' className='w-14' />
-                    </div>
+                    </div> */}
                   </figure>
                 </Link>
               </div>
             </div>
 
-            <div className='max-w-sm mx-auto px-4 py-8'>
+            <div className='w-[29rem] mx-auto'>
               <article>
-                <h1 className='text-3xl text-slate-800 font-bold mb-6'>
-                  Verifica el codigo
+                <h1 className='text-3xl text-slate-800 font-semibold mb-6'>
+                  Ingresa el código de recuperación
                   <p className='font-normal text-sm'>
-                    Ingresa el código que te hicimos llegar al correo
-                    electrónico <span className='font-bold'>{userEmail}</span>
+                    Ingresa el código de 6 dígitos que enviamos a <span className='text-primary'>{userEmail}</span>
                   </p>
                   <span className='text-sm text-red-500'>{code}</span>
                 </h1>
@@ -105,11 +104,11 @@ function VerificationPassword() {
 
               <form>
                 <div className='space-y-4'>
-                  <div className='space-x-3 mt-5 flex justify-center items-center'>
+                  <div className='space-x-3 mt-5 flex justify-between items-center'>
                     {otp.map((data, index) => {
                       return (
                         <input
-                          className='form-input w-12 text-xl text-center'
+                          className='form-input w-12 h-12 text-xl text-center font-semibold'
                           type='text'
                           name='otp'
                           maxLength='1'
@@ -123,7 +122,7 @@ function VerificationPassword() {
                   </div>
                 </div>
                 <article className='mt-6 flex flex-col justify-center items-center'>
-                  <p className='text-gray-400 text-sm'>¿No lo recibiste?</p>
+                  <p className='text-gray-400 text-sm font-medium text-black'>¿No lo recibiste?</p>
                   {!containerChange ? (
                     <p className='text-center text-gray-400 font-semibold'>
                       Tu código vence en: {counter} segundos
@@ -136,28 +135,28 @@ function VerificationPassword() {
                           setContainerChange(false);
                           setCounter(2);
                         }}
-                        className='text-sm font-semibold text-primary hover:text-slate-500'
+                        className='text-base font-semibold text-primary hover:text-slate-500'
                       >
-                        Solicitar código nuevo
+                        Solicitar nuevo código
                       </button>
                     </div>
                   )}
                 </article>
-                <div className='flex justify-end mt-6'>
+                <div className='flex justify-end mt-8'>
                   {!loading ? (
                     <button
                       onClick={codeSubmit}
                       type='button'
-                      className='btn bg-secondary hover:bg-hover hover:text-white text-primary whitespace-nowrap'
+                      className='btn bg-primary hover:bg-secondary hover:text-primary text-white whitespace-nowrap w-full h-12'
                     >
-                      Enviar link
+                      Verificar código
                     </button>
                   ) : (
                     <ButtonLoading loading='Enviando' />
                   )}
                 </div>
               </form>
-              <footer className='pt-5 mt-6 border-t border-slate-200'>
+              <footer className='pt-5 mt-6'>
                 {isCorrect && (
                   <ErrorMessage message='El código es invalido, verifica que el codigo de verificación sea el correcto.' />
                 )}
