@@ -1,5 +1,5 @@
 import React from 'react';
-import icons from '../../images/icon/icons';
+import icons from '../../../images/icon/icons';
 import FakeUser from './FakeUser';
 
 function UserTableItem(props) {

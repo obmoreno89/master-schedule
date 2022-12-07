@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import Transition from '../../utils/Transition';
+import Transition from '../../../utils/Transition';
 import UserPanelEdit from './UserPanelEdit';
 
 function UserPanel({ userPanelOpen, setUserPanelOpen }) {

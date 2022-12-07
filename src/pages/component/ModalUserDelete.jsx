@@ -1,5 +1,5 @@
 import React from 'react';
-import ModalBlank from '../components/ModalBlank';
+import ModalBlank from '../../components/ModalBlank';
 
 function ModalUserDelete({ setOpenModalUserDelete, openModalUserDelete }) {
   return (

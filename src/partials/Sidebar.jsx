@@ -292,7 +292,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className='mb-1 last:mb-0'>
                             <NavLink
                               end
-                              to='/mp-pro/schedule/'
+                              to='/mp-pro/planning/calendar/'
                               className={({ isActive }) =>
                                 'block hover:text-primary text-textSidebar transition duration-150 truncate ' +
                                 (isActive ? '!text-primary' : '')

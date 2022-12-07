@@ -1,6 +1,6 @@
-import { createAction, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import { endpointsCodes } from "./functions";
+import { createAction, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { endpointsCodes } from './functions';
 
 const initialState = {
   user: null,
@@ -10,11 +10,11 @@ const initialState = {
   roles: [],
 };
 
-export const revertAll = createAction("REVERT_ALL");
+export const revertAll = createAction('REVERT_ALL');
 
 const usersSlice = createSlice({
   initialState,
-  name: "users",
+  name: 'users',
   extraReducers: (builder) => {
     builder.addCase(revertAll, (state, action) => {
       state.user = null;
@@ -54,10 +54,10 @@ export const selectRoles = (state) => state.users.roles;
 export default usersSlice.reducer;
 
 export const registerUser = (data) => (dispatch) => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
   dispatch(setUserLoading(true));
   axios
-    .post("http://44.211.175.241/api/auth/register/", data, {
+    .post('http://44.211.175.241/api/auth/register/', data, {
       headers: { Authorization: `token ${token}` },
     })
     .then((response) => {
@@ -73,13 +73,13 @@ export const registerUser = (data) => (dispatch) => {
 
       dispatch(setUserIsOk(false));
       dispatch(setUserLoading(false));
-      setTimeout(() => dispatch(revertAll()), 5000);
+      setTimeout(() => dispatch(revertAll()), 3000);
     });
 };
 
 export const getRoles = () => (dispatch) => {
   axios
-    .get("http://44.211.175.241/api/auth/list-permissions")
+    .get('http://44.211.175.241/api/auth/list-permissions')
     .then((response) => {
       dispatch(setRoles(response.data));
     })

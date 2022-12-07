@@ -75,8 +75,8 @@ function ResetPassword() {
         <div className='md:w-1/2'>
           <div className='min-h-screen h-full flex flex-col after:flex-1'>
             {/* Header */}
-            <div className='flex-1'>
-              <div className='flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8'>
+            <div className='flex-1 w-[29rem] mx-auto'>
+              <div className='flex items-center justify-between h-16'>
                 <Link
                   className='relative flex justify-between w-full items-center'
                   to='/mp-pro/signin'
@@ -84,32 +84,31 @@ function ResetPassword() {
                 >
                   <figure className='relative flex justify-between w-full items-center mt-10'>
                     <img src={icons.logoNide} alt='Logo' className='w-36' />
-                    <div>
+                    {/* <div>
                       <img src={icons.logoMotors} alt='logo' className='w-14' />
-                    </div>
+                    </div> */}
                   </figure>
                 </Link>
               </div>
             </div>
 
-            <div className='max-w-sm mx-auto px-4 py-8'>
-              <h1 className='text-3xl text-slate-800 font-bold mb-6'>
-                Restablece tu contraseña
-              </h1>
+            <div className='mx-auto w-[29rem]'>
+              <h1 className='text-3xl text-slate-800 font-semibold w-[80%]'>
+                Ingresa tu correo electrónico
+              </h1><span className='text-sm text-[#646C7D] block -mt-1'>Enviaremos un link de recuperación al correo que ingreses</span>
 
               <form onSubmit={handleSubmit(emailSubmit)}>
-                <div className='space-y-4'>
-                  <div>
+                <div>
+                  <div className='mt-7'>
                     <label
-                      className='block text-sm font-medium mb-1'
+                      className='block text-sm font-semibold mb-1 text-black'
                       htmlFor='email'
                     >
-                      Correo electrónico{' '}
-                      <span className='text-rose-500'>*</span>
+                      Correo:
                     </label>
                     <input
                       autoComplete='off'
-                      className='form-input w-full'
+                      className='form-input w-full h-12'
                       type='email'
                       {...register('email', {
                         required: {
@@ -129,20 +128,20 @@ function ResetPassword() {
                     )}
                   </div>
                 </div>
-                <div className='flex justify-end mt-6'>
+                <div className='flex justify-end mt-8'>
                   {!loading ? (
                     <button
                       type='submit'
-                      className='btn bg-secondary hover:bg-hover hover:text-white text-primary font-bold whitespace-nowrap'
+                      className='btn bg-primary hover:bg-secondary hover:text-primary text-white font-bold whitespace-nowrap w-full h-12'
                     >
-                      Enviar link
+                      Enviar link de recuperación
                     </button>
                   ) : (
                     <ButtonLoading loading='Enviando' />
                   )}
                 </div>
               </form>
-              <footer className='pt-5 mt-6 border-t border-slate-200'>
+              <footer className='pt-5 mt-6'>
                 {handleErrorMsg()}
               </footer>
             </div>

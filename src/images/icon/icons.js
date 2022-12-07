@@ -1,7 +1,5 @@
-import openEye from './openEye.svg';
-import eye from './eye.svg'
-import closedEye from './closedEye.svg';
-import eyeOff from './eye-off.svg';
+import openEye from './eye.svg';
+import closedEye from './eye-off.svg';
 import logoNide from './logoNide.svg';
 import logoMotors from './logoMotors.png';
 import error404 from './error404.png';
@@ -9,6 +7,7 @@ import nideMotors from './nideMotors.svg';
 import logoUsmotors from './logoUsmotors.svg';
 import smallArrowRight from './smallArrowRight.svg';
 import plus from './plus.svg';
+import whitePlus from './whitePlus.svg';
 import downArrow from './downArrow.svg';
 import dashboardIcon from './dashboardIcon.svg';
 import alertCircle from './alertCircle.svg';
@@ -21,9 +20,7 @@ import garbageIcon from './garbageIcon.svg';
 
 export default {
   openEye,
-  eye,
   closedEye,
-  eyeOff,
   logoNide,
   logoMotors,
   error404,
@@ -31,6 +28,7 @@ export default {
   logoUsmotors,
   smallArrowRight,
   plus,
+  whitePlus,
   downArrow,
   dashboardIcon,
   alertCircle,
