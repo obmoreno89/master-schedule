@@ -54,10 +54,10 @@ function ModalBasic({ children, id, title, modalOpen, setModalOpen }) {
       >
         <div
           ref={modalContent}
-          className='bg-white rounded shadow-lg overflow-auto max-w-lg w-[480px] h-[382px] max-h-full'
+          className='bg-white rounded shadow-lg overflow-auto max-w-lg w-[480px] h-[395px] max-h-full'
         >
           {/* Modal header */}
-          <div className='pt-[32px] pr-[7px] pb-[20px] pl-[24px] border-slate-200'>
+          <div className='pt-[25px] pr-[7px] pb-[20px] pl-[24px] border-slate-200'>
             <div className='flex justify-between items-center'>
               <div className='font-bold text-slate-800 text-[24px]'>
                 {title}

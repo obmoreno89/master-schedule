@@ -14,11 +14,8 @@ function Capabilities() {
 
   const [transactionPanelOpen, setTransactionPanelOpen] = useState(false);
   const [groupPanelOpen, setGroupPanelOpen] = useState(false);
-  const [openModalPL, setOpenModalPL] = useState({ state: false, data: null });
-  const [openModalGroup, setOpenModalGroup] = useState({
-    state: false,
-    data: null,
-  });
+  const [openModalPL, setOpenModalPL] = useState(false);
+  const [openModalGroup, setOpenModalGroup] = useState(false);
 
   return (
     <>
