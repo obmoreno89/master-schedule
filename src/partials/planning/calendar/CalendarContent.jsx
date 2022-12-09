@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import icons from '../../../images/icon/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { getDate, selectDate } from '../../../store/slice/calendarSlice';
 
 function Calendar({ setOpenModalCalendar }) {
+  const dispatch = useDispatch();
+
+  const date = useSelector(selectDate);
+
   const today = new Date();
   const monthNames = [
     'Enero',
@@ -27,66 +32,43 @@ function Calendar({ setOpenModalCalendar }) {
     'Sabado',
   ];
 
+  useEffect(() => {
+    dispatch(getDate());
+  }, []);
+
+  console.log(date);
+
   const [month, setMonth] = useState(today.getMonth());
   // eslint-disable-next-line no-unused-vars
   const [year, setYear] = useState(today.getFullYear());
   const [daysInMonth, setDaysInMonth] = useState([]);
   const [startingBlankDays, setStartingBlankDays] = useState([]);
   const [endingBlankDays, setEndingBlankDays] = useState([]);
+
   const events = [
-    // Previous month
-    {
-      eventStart: new Date(
-        new Date().getFullYear(),
-        new Date().getMonth() - 1,
-        8,
-        3
-      ),
-
-      eventName: 'festivo',
-      eventColor: 'indigo',
-    },
-
-    // Current month
     {
       eventStart: new Date(
         new Date().getFullYear(),
         new Date().getMonth(),
-        12,
-        12
+
+        8,
+        11
       ),
 
-      eventName: 'Dia del banquero',
+      eventName: 'hola',
       eventColor: 'sky',
     },
     {
       eventStart: new Date(
         new Date().getFullYear(),
-        new Date().getMonth(),
-        24,
+        new Date().getMonth() - 1,
+
+        8,
         12
       ),
 
-      eventName: 'Navidad',
-      eventColor: 'yellow',
-    },
-
-    // Next month
-    {
-      eventStart: new Date(
-        new Date().getFullYear(),
-        new Date().getMonth() + 1,
-        2,
-        3
-      ),
-      eventEnd: new Date(
-        new Date().getFullYear(),
-        new Date().getMonth() + 1,
-        2,
-        7
-      ),
-      eventName: 'festivo',
-      eventColor: 'yellow',
+      eventName: 'hola',
+      eventColor: 'sky',
     },
   ];
 
@@ -198,20 +180,6 @@ function Calendar({ setOpenModalCalendar }) {
                   <path d='M6.6 13.4L5.2 12l4-4-4-4 1.4-1.4L12 8z' />
                 </svg>
               </button>
-
-              {/* Create event button */}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setOpenModalCalendar(true);
-                }}
-                className='bg-primary hover:bg-green-600 text-white btn lg:w-56'
-              >
-                <img src={icons.whitePlus} alt='Añadir' />
-                <span className='hidden xs:block ml-2'>
-                  Crear dia no laborable
-                </span>
-              </button>
             </div>
           </div>
 
@@ -284,22 +252,26 @@ function Calendar({ setOpenModalCalendar }) {
                       </div>
                       {/* Cell footer */}
                       <div className='flex justify-between items-center p-0.5 sm:p-1.5'>
-                        {/* More button (if more than 2 events) */}
+                        {/* More button (if more than 2 events)
                         {getEvents(day).length > 2 && (
                           <button className='text-xs text-slate-500 font-medium whitespace-nowrap text-center sm:py-0.5 px-0.5 sm:px-2 border border-slate-200 rounded'>
                             <span className='md:hidden'>+</span>
                             <span>{getEvents(day).length - 2}</span>{' '}
                             <span className='hidden md:inline'>more</span>
                           </button>
-                        )}
+                        )} */}
                         {/* Day number */}
-                        <div
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setOpenModalCalendar(true);
+                          }}
                           className={`inline-flex ml-auto w-6 h-6 items-center justify-center text-xs sm:text-sm font-semibold text-center ${
                             isToday(day) && 'text-white bg-primary rounded-full'
                           }`}
                         >
                           {day}
-                        </div>
+                        </button>
                       </div>
                     </div>
                   </div>
