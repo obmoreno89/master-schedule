@@ -6,6 +6,7 @@ function Calendar({ setOpenModalCalendar }) {
   const dispatch = useDispatch();
 
   const date = useSelector(selectDate);
+  console.log(date);
 
   const today = new Date();
   const monthNames = [
@@ -36,7 +37,30 @@ function Calendar({ setOpenModalCalendar }) {
     dispatch(getDate());
   }, []);
 
-  console.log(date);
+  const events = [];
+
+  const setEvents = () => {
+    date.forEach((d) => {
+      const array = d.date.split('-');
+      const day = array[2];
+
+      let event = {
+        eventStart: new Date(
+          new Date(d.date).getFullYear(),
+          new Date(d.date).getMonth(),
+
+          day
+        ),
+        eventName: `${d.description}`,
+        eventColor: 'sky',
+      };
+
+      events.push(event);
+    });
+    console.log(events);
+  };
+
+  setEvents();
 
   const [month, setMonth] = useState(today.getMonth());
   // eslint-disable-next-line no-unused-vars
@@ -44,33 +68,6 @@ function Calendar({ setOpenModalCalendar }) {
   const [daysInMonth, setDaysInMonth] = useState([]);
   const [startingBlankDays, setStartingBlankDays] = useState([]);
   const [endingBlankDays, setEndingBlankDays] = useState([]);
-
-  const events = [
-    {
-      eventStart: new Date(
-        new Date().getFullYear(),
-        new Date().getMonth(),
-
-        8,
-        11
-      ),
-
-      eventName: 'hola',
-      eventColor: 'sky',
-    },
-    {
-      eventStart: new Date(
-        new Date().getFullYear(),
-        new Date().getMonth() - 1,
-
-        8,
-        12
-      ),
-
-      eventName: 'hola',
-      eventColor: 'sky',
-    },
-  ];
 
   const isToday = (date) => {
     const day = new Date(year, month, date);
@@ -88,7 +85,7 @@ function Calendar({ setOpenModalCalendar }) {
   const eventColor = (color) => {
     switch (color) {
       case 'sky':
-        return 'text-white bg-sky-500';
+        return 'text-white bg-green-600';
       case 'indigo':
         return 'text-white bg-primary';
       case 'yellow':
@@ -230,11 +227,11 @@ function Calendar({ setOpenModalCalendar }) {
                     <div className='h-full flex flex-col justify-between'>
                       {/* Events */}
                       <div className='grow flex flex-col relative p-0.5 sm:p-1.5 overflow-hidden'>
-                        {getEvents(day).map((event) => {
+                        {getEvents(day).map((event, index) => {
                           return (
                             <section
                               className='relative w-full mt-3 '
-                              key={event.eventName}
+                              key={index}
                             >
                               <div
                                 className={`relative h-full py-0.5 rounded overflow-hidden ${eventColor(
@@ -242,7 +239,7 @@ function Calendar({ setOpenModalCalendar }) {
                                 )}`}
                               >
                                 {/* Event name */}
-                                <div className='text-sm font-semibold truncate flex justify-center items-center h-20'>
+                                <div className='text-sm font-semibold text-center flex justify-center items-center h-20'>
                                   {event.eventName}
                                 </div>
                               </div>
