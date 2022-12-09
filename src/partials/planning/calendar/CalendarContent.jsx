@@ -171,11 +171,30 @@ function Calendar({ setOpenModalCalendar }) {
                   getDays();
                 }}
               >
-                <span className='sr-only'>Next month</span>
+                <span className='sr-only'>Crear Dia no laborable</span>
                 <wbr />
                 <svg className='h-4 w-4 fill-current' viewBox='0 0 16 16'>
                   <path d='M6.6 13.4L5.2 12l4-4-4-4 1.4-1.4L12 8z' />
                 </svg>
+              </button>
+
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+
+                  setOpenModalCalendar(true);
+                }}
+                className='btn bg-primary text-white'
+              >
+                <svg
+                  className='w-4 h-4 fill-current opacity-50 shrink-0'
+                  viewBox='0 0 16 16'
+                >
+                  <path d='M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z' />
+                </svg>
+                <span className='hidden xs:block ml-2'>
+                  Crear Dia no laborable
+                </span>
               </button>
             </div>
           </div>
@@ -261,6 +280,7 @@ function Calendar({ setOpenModalCalendar }) {
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
+
                             setOpenModalCalendar(true);
                           }}
                           className={`inline-flex ml-auto w-6 h-6 items-center justify-center text-xs sm:text-sm font-semibold text-center ${

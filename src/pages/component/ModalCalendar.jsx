@@ -1,20 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ModalBlank from '../../components/ModalBlank';
+import ButtonLoading from '../../helpers/ButtonLoading';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { addHoliday, selectLoading } from '../../store/slice/calendarSlice';
 import DatePicker from '../../components/Datepicker';
 
 function ModalCalendar({ setOpenModalCalendar, openModalCalendar }) {
-  const { register, handleSubmit, reset } = useForm();
+  const dispatch = useDispatch();
+  const [valueDate, setValueDate] = useState(null);
+  const loading = useSelector(selectLoading);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    const date = new Date(valueDate);
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+
+    const json = {
+      date: `${year}-${month + 1}-${day}`,
+      description: data.description,
+    };
+
+    dispatch(addHoliday(json, setOpenModalCalendar, reset));
   };
 
   return (
     <ModalBlank
       id='success-modal'
       modalOpen={openModalCalendar}
-      SetModalOpen={setOpenModalCalendar}
+      setModalOpen={setOpenModalCalendar}
     >
       <div className='pt-[20px] pr-[7px] pb-[20px] pl-[24px] border-slate-200'>
         <div className='flex justify-between items-center'>
@@ -40,7 +62,7 @@ function ModalCalendar({ setOpenModalCalendar, openModalCalendar }) {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className='space-y-2 mb-5'>
               <label
-                htmlFor='gName'
+                htmlFor='description'
                 className='text-[14px] font-semibold leading-[17px]'
               >
                 Descripción
@@ -48,19 +70,39 @@ function ModalCalendar({ setOpenModalCalendar, openModalCalendar }) {
               <input
                 type='text'
                 className='w-full form-input'
-                {...register('gName')}
+                {...register('description', {
+                  required: {
+                    value: true,
+                    message: 'El campo es requerido',
+                  },
+                  pattern: {
+                    value: /[a-zA-Z]/,
+                    message: 'El formato no es correcto',
+                  },
+                })}
               />
+              {errors.description && (
+                <span className='text-red-500 text-sm'>
+                  {errors.description.message}
+                </span>
+              )}
             </div>
-            <div className=' mb-5 absolute'>
-              <DatePicker />
+            <div className='  absolute'>
+              <DatePicker setValueDate={setValueDate} />
             </div>
             <div>
-              <button
-                type='submit'
-                className='bg-primary text-white w-full h-[51px] rounded mb-6 font-semibold mt-16'
-              >
-                Agregar dia no laborable
-              </button>
+              {!loading ? (
+                <button
+                  type='submit'
+                  className='bg-primary text-white w-full h-[51px] rounded mt-14 mb-6 font-semibold'
+                >
+                  Agregar dia no laborable
+                </button>
+              ) : (
+                <div className='mb-10  mt-20'>
+                  <ButtonLoading loading='Enviando' calendar={true} />
+                </div>
+              )}
             </div>
           </form>
         </div>

@@ -58,7 +58,7 @@ function CapabilitiesGroupPanelTableItem() {
                   message: 'El campo es requerido',
                 },
                 pattern: {
-                  value: /[a-zA-Z0-9]/,
+                  value: /[a-zA-Z]/,
                   message: 'El formato no es correcto',
                 },
               })}
