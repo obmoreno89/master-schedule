@@ -5,12 +5,12 @@ import { useEffect } from 'react';
 function ModalGroup({ openModalGroup, setOpenModalGroup }) {
   const { register, handleSubmit, reset } = useForm();
 
-  useEffect(() => {
-    let defaultValues = {};
-    defaultValues.gName = openModalGroup?.data;
-    defaultValues.gDesc = 'Grupo destinado para...';
-    reset({ ...defaultValues });
-  }, [reset, openModalGroup]);
+  // useEffect(() => {
+  //   let defaultValues = {};
+  //   defaultValues.gName = openModalGroup?.data;
+  //   defaultValues.gDesc = 'Grupo destinado para...';
+  //   reset({ ...defaultValues });
+  // }, [reset, openModalGroup]);
 
   const onSubmit = (data) => {
     console.log(data);
@@ -19,8 +19,8 @@ function ModalGroup({ openModalGroup, setOpenModalGroup }) {
   return (
     <ModalBasic
       id='basic-modal'
-      modalOpen={openModalGroup.state}
-      setModalOpen={() => setOpenModalGroup({ state: false, data: null })}
+      modalOpen={openModalGroup}
+      setModalOpen={() => setOpenModalGroup(false)}
       title='Agregar grupo'
     >
       <div className='px-5 pt-4 pb-1'>

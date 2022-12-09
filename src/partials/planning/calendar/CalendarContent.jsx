@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import icons from '../../../images/icon/icons';
 
 function Calendar({ setOpenModalCalendar }) {
   const today = new Date();
@@ -198,20 +197,6 @@ function Calendar({ setOpenModalCalendar }) {
                   <path d='M6.6 13.4L5.2 12l4-4-4-4 1.4-1.4L12 8z' />
                 </svg>
               </button>
-
-              {/* Create event button */}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setOpenModalCalendar(true);
-                }}
-                className='bg-primary hover:bg-green-600 text-white btn lg:w-56'
-              >
-                <img src={icons.whitePlus} alt='Añadir' />
-                <span className='hidden xs:block ml-2'>
-                  Crear dia no laborable
-                </span>
-              </button>
             </div>
           </div>
 
@@ -293,13 +278,17 @@ function Calendar({ setOpenModalCalendar }) {
                           </button>
                         )}
                         {/* Day number */}
-                        <div
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setOpenModalCalendar(true);
+                          }}
                           className={`inline-flex ml-auto w-6 h-6 items-center justify-center text-xs sm:text-sm font-semibold text-center ${
                             isToday(day) && 'text-white bg-primary rounded-full'
                           }`}
                         >
                           {day}
-                        </div>
+                        </button>
                       </div>
                     </div>
                   </div>
