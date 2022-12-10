@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDate, selectDate } from '../../../store/slice/calendarSlice';
+import QuickSelection from '../../../components/QuickSelection';
 
 function Calendar({ setOpenModalCalendar }) {
   const dispatch = useDispatch();
 
   const date = useSelector(selectDate);
-  console.log(date);
 
   const today = new Date();
   const monthNames = [
@@ -57,8 +57,11 @@ function Calendar({ setOpenModalCalendar }) {
 
       events.push(event);
     });
-    console.log(events);
   };
+
+  useEffect(() => {
+    setEvents();
+  }, [date]);
 
   setEvents();
 
@@ -200,7 +203,7 @@ function Calendar({ setOpenModalCalendar }) {
           </div>
 
           {/* Calendar table */}
-          <div className='border border-borderInput rounded shadow overflow-hidden'>
+          <div className='border border-borderInput rounded shadow overflow-hidden '>
             {/* Days of the week */}
             <div className='grid grid-cols-7 gap-px border-b border-slate-200'>
               {dayNames.map((day) => {
@@ -248,25 +251,31 @@ function Calendar({ setOpenModalCalendar }) {
                       <div className='grow flex flex-col relative p-0.5 sm:p-1.5 overflow-hidden'>
                         {getEvents(day).map((event, index) => {
                           return (
-                            <section
-                              className='relative w-full mt-3 '
-                              key={index}
-                            >
-                              <div
-                                className={`relative h-full py-0.5 rounded overflow-hidden ${eventColor(
-                                  event.eventColor
-                                )}`}
+                            <>
+                              <section
+                                className='relative w-full mt-3 '
+                                key={index}
                               >
-                                {/* Event name */}
-                                <div className='text-sm font-semibold text-center flex justify-center items-center h-20'>
-                                  {event.eventName}
+                                <div
+                                  className={`relative h-full py-0.5 rounded overflow-hidden ${eventColor(
+                                    event.eventColor
+                                  )}`}
+                                >
+                                  <section className='absolute'>
+                                    <QuickSelection />
+                                  </section>
+                                  {/* Event name */}
+                                  <div className='text-sm font-semibold text-center flex justify-center items-center h-20'>
+                                    {event.eventName}
+                                  </div>
                                 </div>
-                              </div>
-                            </section>
+                              </section>
+                            </>
                           );
                         })}
                       </div>
                       {/* Cell footer */}
+
                       <div className='flex justify-between items-center p-0.5 sm:p-1.5'>
                         {/* More button (if more than 2 events)
                         {getEvents(day).length > 2 && (
@@ -276,19 +285,20 @@ function Calendar({ setOpenModalCalendar }) {
                             <span className='hidden md:inline'>more</span>
                           </button>
                         )} */}
-                        {/* Day number */}
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
 
-                            setOpenModalCalendar(true);
-                          }}
+                        {/* Day number */}
+                        <div
+                          // onClick={(e) => {
+                          //   e.stopPropagation();
+
+                          //   setOpenModalCalendar(true);
+                          // }}
                           className={`inline-flex ml-auto w-6 h-6 items-center justify-center text-xs sm:text-sm font-semibold text-center ${
                             isToday(day) && 'text-white bg-primary rounded-full'
                           }`}
                         >
                           {day}
-                        </button>
+                        </div>
                       </div>
                     </div>
                   </div>
