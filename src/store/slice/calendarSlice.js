@@ -53,3 +53,16 @@ export const addHoliday = (data, setOpenModalCalendar, reset) => (dispatch) => {
       dispatch(setLoading(false));
     });
 };
+
+export const deleteHoliday = (eventId, setDropdownOpen) => (dispatch) => {
+  axios
+    .delete(
+      `http://44.211.175.241/api/calendar/delete-non-working-day/${eventId}/`
+    )
+    .then((response) => {
+      if (response.status === 204) {
+        setDropdownOpen(false);
+      }
+    })
+    .catch((err) => console.log(err));
+};

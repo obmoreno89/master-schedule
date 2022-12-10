@@ -1,26 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DropdownEditMenu from './DropdownEditMenu';
+import { deleteHoliday } from '../store/slice/calendarSlice';
+import { useDispatch } from 'react-redux';
 
-function QuickSelection() {
+function QuickSelection({ eventId }) {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dispatch = useDispatch();
+
   return (
-    <div className=''>
-      <DropdownEditMenu>
+    <div>
+      <DropdownEditMenu
+        dropdownOpen={dropdownOpen}
+        setDropdownOpen={setDropdownOpen}
+      >
         <li>
-          <a
-            className='font-medium text-sm text-slate-600 hover:text-slate-800 flex py-0 px-3'
-            href='#0'
-          >
+          <button className='font-medium text-sm text-slate-600 hover:text-slate-800 flex py-0 px-3'>
             Editar
-          </a>
+          </button>
         </li>
 
         <li>
-          <a
+          <button
+            onClick={(e) => {
+              dispatch(deleteHoliday(eventId, setDropdownOpen));
+            }}
             className='font-medium text-sm text-rose-500 hover:text-rose-600 flex py-1 px-3'
-            href='#0'
           >
             Eliminar
-          </a>
+          </button>
         </li>
       </DropdownEditMenu>
     </div>

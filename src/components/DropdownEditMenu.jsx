@@ -1,9 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Transition from '../utils/Transition';
 
-function DropdownEditMenu({ children, align, ...rest }) {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-
+function DropdownEditMenu({
+  setDropdownOpen,
+  dropdownOpen,
+  children,
+  align,
+  ...rest
+}) {
   const trigger = useRef(null);
   const dropdown = useRef(null);
 

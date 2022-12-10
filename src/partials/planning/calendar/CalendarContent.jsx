@@ -53,6 +53,7 @@ function Calendar({ setOpenModalCalendar }) {
         ),
         eventName: `${d.description}`,
         eventColor: 'sky',
+        id: `${d.id}`,
       };
 
       events.push(event);
@@ -253,7 +254,7 @@ function Calendar({ setOpenModalCalendar }) {
                           return (
                             <>
                               <section
-                                className='relative w-full mt-3 '
+                                className='relative w-full mt-3'
                                 key={index}
                               >
                                 <div
@@ -262,7 +263,10 @@ function Calendar({ setOpenModalCalendar }) {
                                   )}`}
                                 >
                                   <section className='absolute'>
-                                    <QuickSelection />
+                                    <QuickSelection
+                                      eventId={event.id}
+                                      key={event.id}
+                                    />
                                   </section>
                                   {/* Event name */}
                                   <div className='text-sm font-semibold text-center flex justify-center items-center h-20'>
