@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import icons from '../../../images/icon/icons';
 import FakeUser from './FakeUser';
 
@@ -8,21 +8,21 @@ function UserTableItem(props) {
       <tr>
         <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap md:w-1/5 lg:w-1/4'>
           <p className='text-textTableItem font-medium  capitalize'>
-            Omar Barragán Moreno
+            {props.first_name} {props.last_name}
           </p>
           <span className='text-primary'>Administrador</span>
         </td>
         <td className='px-3 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-          <p className='text-left font-semibold'>omarbm@nidec.systems.com</p>
+          <p className='text-left font-semibold'>{props.email}</p>
         </td>
         <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-          <p className='text-left '>758491</p>
+          <p className='text-left '>{props.nmc}</p>
         </td>
         <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-          <p className='text-center'>2721195055</p>
+          <p className='text-center'>{props.telephone}</p>
         </td>
         <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-          <p className='text-center'>jefe de linea</p>
+          <p className='text-center'>{props.position}</p>
         </td>
         <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
           <figure className='flex justify-end items-center space-x-3'>
@@ -45,11 +45,6 @@ function UserTableItem(props) {
           </figure>
         </td>
       </tr>
-      <FakeUser />
-      <FakeUser />
-      <FakeUser />
-      <FakeUser />
-      <FakeUser />
     </>
   );
 }

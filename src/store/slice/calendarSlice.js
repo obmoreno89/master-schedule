@@ -69,6 +69,7 @@ export const deleteHoliday = (eventId, setDropdownOpen) => (dispatch) => {
 
 export const editHoliday =
   (data, setOpenModalCalendarEdit, setReloadEvent) => (dispatch) => {
+    dispatch(setLoading(true));
     const idEvent = sessionStorage.getItem('idEvent');
 
     axios
@@ -78,9 +79,11 @@ export const editHoliday =
       )
       .then((response) => {
         if (response.status === 200) {
+          dispatch(setLoading(false));
           setOpenModalCalendarEdit(false);
           console.log(response);
         }
+        setReloadEvent(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => dispatch(setLoading(false)));
   };

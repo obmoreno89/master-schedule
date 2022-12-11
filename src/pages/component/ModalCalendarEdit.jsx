@@ -98,13 +98,13 @@ function ModalCalendarEdit({
               {!loading ? (
                 <button
                   type='submit'
-                  className='bg-primary text-white w-full h-[51px] rounded mb-6 font-semibold'
+                  className='bg-primary text-white w-full h-[51px] rounded mt-14 mb-6 font-semibold'
                 >
-                  Editar dia no laborable
+                  Agregar dia no laborable
                 </button>
               ) : (
-                <div className=' mb-6'>
-                  <ButtonLoading loading='Enviando' />
+                <div className='mb-10  mt-20'>
+                  <ButtonLoading loading='Enviando' calendarEdit={true} />
                 </div>
               )}
             </div>
