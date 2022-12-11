@@ -3,9 +3,12 @@ import Flatpickr from 'react-flatpickr';
 
 function Datepicker({ align, setValueDate }) {
   const options = {
+    mode: 'range',
     static: true,
     monthSelectorType: 'static',
-    dateFormat: 'M j, Y',
+    dateFormat: 'Y-m-d',
+    defaultDate: [new Date()],
+
     prevArrow:
       '<svg class="fill-current" width="7" height="11" viewBox="0 0 7 11"><path d="M5.4 10.8l1.4-1.4-4-4 4-4L5.4 0 0 5.4z" /></svg>',
     nextArrow:
@@ -15,8 +18,8 @@ function Datepicker({ align, setValueDate }) {
       const customClass = align ? align : '';
       instance.calendarContainer.classList.add(`flatpickr-${customClass}`);
     },
+
     onChange: (selectedDates, dateStr, instance) => {
-      instance.element.value = dateStr.replace('to', '-');
       setValueDate(selectedDates);
     },
   };
