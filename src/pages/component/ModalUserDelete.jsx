@@ -1,7 +1,16 @@
 import React from 'react';
 import ModalBlank from '../../components/ModalBlank';
+import { deleteUser } from '../../store/slice/usersSlice.js';
+import { useDispatch, useSelector } from 'react-redux';
 
-function ModalUserDelete({ setOpenModalUserDelete, openModalUserDelete }) {
+function ModalUserDelete({
+  setOpenModalUserDelete,
+  openModalUserDelete,
+  id,
+  first_name,
+  last_name,
+}) {
+  const dispatch = useDispatch();
   return (
     <ModalBlank
       id='success-modal'
@@ -12,8 +21,8 @@ function ModalUserDelete({ setOpenModalUserDelete, openModalUserDelete }) {
         <div>
           {/* Modal header */}
           <div className='mb-2 flex justify-between items-center'>
-            <div className='text-lg font-bold text-slate-800 w-64'>
-              ¿Estas seguro de eliminar al usuario Omar Barragán?
+            <div className='text-lg font-bold text-slate-800 w-72'>
+              ¿Estas seguro de eliminar al usuario {first_name} {last_name}?
             </div>
             <button
               onClick={(e) => {
@@ -45,6 +54,7 @@ function ModalUserDelete({ setOpenModalUserDelete, openModalUserDelete }) {
               onClick={(e) => {
                 e.stopPropagation();
                 setOpenModalUserDelete(false);
+                dispatch(deleteUser(id));
               }}
               className='btn-lg bg-red-500 font-semibold text-white w-full'
             >

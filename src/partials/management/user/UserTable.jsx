@@ -3,15 +3,17 @@ import UserTableItem from './UserTableItem';
 import { getAlluser, selectAllUser } from '../../../store/slice/usersSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
-function UserTable({ setUserPanelOpen, setOpenModalUserDelete }) {
+function UserTable({
+  setUserPanelOpen,
+  setOpenModalUserDelete,
+  openModalUserDelete,
+}) {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getAlluser());
-  }, [dispatch]);
-
   const dataUser = useSelector(selectAllUser);
 
-  console.log(dataUser);
+  useEffect(() => {
+    dispatch(getAlluser());
+  }, [dataUser]);
 
   return (
     <>
@@ -47,6 +49,7 @@ function UserTable({ setUserPanelOpen, setOpenModalUserDelete }) {
                   <UserTableItem
                     setUserPanelOpen={setUserPanelOpen}
                     setOpenModalUserDelete={setOpenModalUserDelete}
+                    openModalUserDelete={openModalUserDelete}
                     first_name={data.first_name}
                     last_name={data.last_name}
                     email={data.email}
@@ -54,6 +57,7 @@ function UserTable({ setUserPanelOpen, setOpenModalUserDelete }) {
                     position={data.position}
                     telephone={data.telephone}
                     key={data.id}
+                    id={data.id}
                   />
                 ))}
               </tbody>

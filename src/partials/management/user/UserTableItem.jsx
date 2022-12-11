@@ -1,10 +1,19 @@
 import React, { useEffect } from 'react';
 import icons from '../../../images/icon/icons';
-import FakeUser from './FakeUser';
+
+import ModalUserDelete from '../../../pages/component/ModalUserDelete';
 
 function UserTableItem(props) {
   return (
     <>
+      <ModalUserDelete
+        openModalUserDelete={props.openModalUserDelete}
+        setOpenModalUserDelete={props.setOpenModalUserDelete}
+        id={props.id}
+        first_name={props.first_name}
+        last_name={props.last_name}
+        key={props.id}
+      />
       <tr>
         <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap md:w-1/5 lg:w-1/4'>
           <p className='text-textTableItem font-medium  capitalize'>
