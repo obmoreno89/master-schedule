@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
-import ModalBlank from '../../components/ModalBlank';
+import React, { useState, useEffect } from 'react';
+import ModalAction from '../../components/ModalAction';
 import ButtonLoading from '../../helpers/ButtonLoading';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { addHoliday, selectLoading } from '../../store/slice/calendarSlice';
-import DatePicker from '../../components/Datepicker';
+import { editHoliday, selectLoading } from '../../store/slice/calendarSlice';
 
-function ModalCalendar({ setOpenModalCalendar, openModalCalendar }) {
+function ModalCalendarEdit({
+  setOpenModalCalendarEdit,
+  openModalCalendarEdit,
+  description,
+}) {
   const dispatch = useDispatch();
-  const [valueDate, setValueDate] = useState(null);
+  const holiday = description;
+
   const loading = useSelector(selectLoading);
 
   const {
@@ -19,24 +23,24 @@ function ModalCalendar({ setOpenModalCalendar, openModalCalendar }) {
   } = useForm();
 
   const onSubmit = (data) => {
-    const date = new Date(valueDate);
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    const day = date.getDate();
-
     const json = {
-      date: `${year}-${month + 1}-${day}`,
       description: data.description,
     };
 
-    dispatch(addHoliday(json, setOpenModalCalendar, reset));
+    dispatch(editHoliday(json, reset));
   };
 
+  useEffect(() => {
+    let defaultValues = {};
+    defaultValues.description = `${holiday}`;
+    reset({ ...defaultValues });
+  }, [reset]);
+
   return (
-    <ModalBlank
+    <ModalAction
       id='success-modal'
-      modalOpen={openModalCalendar}
-      setModalOpen={setOpenModalCalendar}
+      modalOpen={openModalCalendarEdit}
+      setModalOpen={setOpenModalCalendarEdit}
     >
       <div className='pt-[20px] pr-[7px] pb-[20px] pl-[24px] border-slate-200'>
         <div className='flex justify-between items-center'>
@@ -47,7 +51,7 @@ function ModalCalendar({ setOpenModalCalendar, openModalCalendar }) {
             className='text-slate-400 hover:text-slate-500 mt-3'
             onClick={(e) => {
               e.stopPropagation();
-              setOpenModalCalendar(false);
+              setOpenModalCalendarEdit(false);
             }}
           >
             <div className='sr-only'>Close</div>
@@ -63,7 +67,7 @@ function ModalCalendar({ setOpenModalCalendar, openModalCalendar }) {
             <div className='space-y-2 mb-5'>
               <label
                 htmlFor='description'
-                className='text-[14px] font-semibold leading-[17px]'
+                className='text-[14px] font-semibold leading-[17px] text-black'
               >
                 Descripción
               </label>
@@ -87,28 +91,25 @@ function ModalCalendar({ setOpenModalCalendar, openModalCalendar }) {
                 </span>
               )}
             </div>
-            <div className='absolute'>
-              <DatePicker setValueDate={setValueDate} />
-            </div>
             <div>
               {!loading ? (
                 <button
                   type='submit'
-                  className='bg-primary text-white w-full h-[51px] rounded mt-14 mb-6 font-semibold'
+                  className='bg-primary text-white w-full h-[51px] rounded mb-6 font-semibold'
                 >
-                  Agregar dia no laborable
+                  Editar dia no laborable
                 </button>
               ) : (
-                <div className='mb-10  mt-20'>
-                  <ButtonLoading loading='Enviando' calendar={true} />
+                <div className=' mb-6'>
+                  <ButtonLoading loading='Enviando' />
                 </div>
               )}
             </div>
           </form>
         </div>
       </div>
-    </ModalBlank>
+    </ModalAction>
   );
 }
 
-export default ModalCalendar;
+export default ModalCalendarEdit;

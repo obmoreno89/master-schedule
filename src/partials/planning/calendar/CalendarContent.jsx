@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDate, selectDate } from '../../../store/slice/calendarSlice';
 import QuickSelection from '../../../components/QuickSelection';
+import ModalCalendarEdit from '../../../pages/component/ModalCalendarEdit';
 
 function Calendar({ setOpenModalCalendar }) {
+  const [openModalCalendarEdit, setOpenModalCalendarEdit] = useState(false);
+
   const dispatch = useDispatch();
 
   const date = useSelector(selectDate);
@@ -244,12 +247,12 @@ function Calendar({ setOpenModalCalendar }) {
               {daysInMonth.map((day) => {
                 return (
                   <div
-                    className='relative bg-white h-20 sm:h-28 lg:h-36 overflow-hidden'
+                    className=' bg-white h-20 sm:h-28 lg:h-36 overflow-hidden'
                     key={day}
                   >
                     <div className='h-full flex flex-col justify-between'>
                       {/* Events */}
-                      <div className='grow flex flex-col relative p-0.5 sm:p-1.5 overflow-hidden'>
+                      <div className='grow flex flex-col  p-0.5 sm:p-1.5 overflow-hidden relative'>
                         {getEvents(day).map((event, index) => {
                           return (
                             <>
@@ -264,10 +267,17 @@ function Calendar({ setOpenModalCalendar }) {
                                 >
                                   <section className='absolute'>
                                     <QuickSelection
+                                      setOpenModalCalendarEdit={
+                                        setOpenModalCalendarEdit
+                                      }
+                                      openModalCalendarEdit={
+                                        openModalCalendarEdit
+                                      }
                                       eventId={event.id}
-                                      key={event.id}
+                                      description={event.eventName}
                                     />
                                   </section>
+
                                   {/* Event name */}
                                   <div className='text-sm font-semibold text-center flex justify-center items-center h-20'>
                                     {event.eventName}

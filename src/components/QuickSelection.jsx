@@ -2,8 +2,14 @@ import React, { useState } from 'react';
 import DropdownEditMenu from './DropdownEditMenu';
 import { deleteHoliday } from '../store/slice/calendarSlice';
 import { useDispatch } from 'react-redux';
+import ModalCalendarEdit from '../pages/component/ModalCalendarEdit';
 
-function QuickSelection({ eventId }) {
+function QuickSelection({
+  eventId,
+  setOpenModalCalendarEdit,
+  openModalCalendarEdit,
+  description,
+}) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -14,14 +20,21 @@ function QuickSelection({ eventId }) {
         setDropdownOpen={setDropdownOpen}
       >
         <li>
-          <button className='font-medium text-sm text-slate-600 hover:text-slate-800 flex py-0 px-3'>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setOpenModalCalendarEdit(true);
+              console.log(eventId);
+            }}
+            className='font-medium text-sm text-slate-600 hover:text-slate-800 flex py-0 px-3'
+          >
             Editar
           </button>
         </li>
 
         <li>
           <button
-            onClick={(e) => {
+            onClick={() => {
               dispatch(deleteHoliday(eventId, setDropdownOpen));
             }}
             className='font-medium text-sm text-rose-500 hover:text-rose-600 flex py-1 px-3'
@@ -30,6 +43,12 @@ function QuickSelection({ eventId }) {
           </button>
         </li>
       </DropdownEditMenu>
+      <ModalCalendarEdit
+        description={description}
+        setOpenModalCalendarEdit={setOpenModalCalendarEdit}
+        openModalCalendarEdit={openModalCalendarEdit}
+        id={eventId}
+      />
     </div>
   );
 }
