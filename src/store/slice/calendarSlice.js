@@ -67,12 +67,19 @@ export const deleteHoliday = (eventId, setDropdownOpen) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export const editHoliday = (eventId, data, reset) => (dispatch) => {
-  axios
-    .put(
-      `http://44.211.175.241/api/calendar/update-non-working-day/${eventId}/`,
-      data
-    )
-    .then((response) => console.log(response))
-    .catch((err) => console.log(err));
-};
+export const editHoliday =
+  (data, reset, setOpenModalCalendarEdit) => (dispatch) => {
+    const idEvent = sessionStorage.getItem('idEvent');
+
+    axios
+      .put(
+        `http://44.211.175.241/api/calendar/update-non-working-day/${idEvent}/`,
+        data
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          setOpenModalCalendarEdit(false);
+        }
+      })
+      .catch((err) => console.log(err));
+  };

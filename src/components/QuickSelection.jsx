@@ -24,7 +24,7 @@ function QuickSelection({
             onClick={(e) => {
               e.stopPropagation();
               setOpenModalCalendarEdit(true);
-              console.log(eventId);
+              sessionStorage.setItem('idEvent', eventId);
             }}
             className='font-medium text-sm text-slate-600 hover:text-slate-800 flex py-0 px-3'
           >
@@ -47,7 +47,6 @@ function QuickSelection({
         description={description}
         setOpenModalCalendarEdit={setOpenModalCalendarEdit}
         openModalCalendarEdit={openModalCalendarEdit}
-        id={eventId}
       />
     </div>
   );

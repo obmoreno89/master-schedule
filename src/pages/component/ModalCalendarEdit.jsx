@@ -4,6 +4,7 @@ import ButtonLoading from '../../helpers/ButtonLoading';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { editHoliday, selectLoading } from '../../store/slice/calendarSlice';
+import { useParams } from 'react-router-dom';
 
 function ModalCalendarEdit({
   setOpenModalCalendarEdit,
@@ -27,7 +28,7 @@ function ModalCalendarEdit({
       description: data.description,
     };
 
-    dispatch(editHoliday(json, reset));
+    dispatch(editHoliday(json, reset, setOpenModalCalendarEdit));
   };
 
   useEffect(() => {
