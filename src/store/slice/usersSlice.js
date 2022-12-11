@@ -108,8 +108,9 @@ export const getAlluser = () => (dispatch) => {
 
 export const deleteUser = (idUser) => (dispatch) => {
   const token = localStorage.getItem('token');
+  const userId = sessionStorage.getItem('userId');
   axios
-    .delete(`http://44.211.175.241/api/auth/delete-user/${idUser}`, {
+    .delete(`http://44.211.175.241/api/auth/delete-user/${userId}`, {
       headers: { Authorization: `token ${token}` },
     })
     .then((response) => console.log(response))

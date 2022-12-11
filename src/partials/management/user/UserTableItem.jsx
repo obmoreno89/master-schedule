@@ -1,18 +1,25 @@
 import React, { useEffect } from 'react';
 import icons from '../../../images/icon/icons';
-
+import UserPanel from '../../../partials/management/user/UserPanel';
 import ModalUserDelete from '../../../pages/component/ModalUserDelete';
 
 function UserTableItem(props) {
   return (
     <>
+      <UserPanel
+        setUserPanelOpen={props.setUserPanelOpen}
+        userPanelOpen={props.userPanelOpen}
+        first_name={props.first_name}
+        last_name={props.last_name}
+        id={props.id}
+        email={props.email}
+        nmc={props.nmc}
+        telephone={props.telephone}
+        position={props.position}
+      />
       <ModalUserDelete
         openModalUserDelete={props.openModalUserDelete}
         setOpenModalUserDelete={props.setOpenModalUserDelete}
-        id={props.id}
-        first_name={props.first_name}
-        last_name={props.last_name}
-        key={props.id}
       />
       <tr>
         <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap md:w-1/5 lg:w-1/4'>
@@ -47,6 +54,9 @@ function UserTableItem(props) {
               onClick={(e) => {
                 e.stopPropagation();
                 props.setOpenModalUserDelete(true);
+                sessionStorage.setItem('userId', props.id);
+                sessionStorage.setItem('first_name', props.first_name);
+                sessionStorage.setItem('last_name', props.last_name);
               }}
             >
               <img src={icons.garbageIcon} alt='Basura' />

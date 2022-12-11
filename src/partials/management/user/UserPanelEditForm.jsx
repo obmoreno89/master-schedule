@@ -1,31 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import icons from '../../../images/icon/icons';
 
-function CapabilitiesGroupPanelTableItem() {
+function CapabilitiesGroupPanelTableItem({ first_name, last_name }) {
   const [eye, setEye] = useState(false);
   const toggleEye = () => setEye(!eye);
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
+
+  useEffect(() => {
+    let defaultValues = {};
+    defaultValues.first_name = `${first_name}`;
+    defaultValues.last_name = `${last_name}`;
+    reset({ ...defaultValues });
+  }, []);
+
   return (
     <>
       <form>
         <section className='grid gap-5 md:grid-cols-1'>
           {/* NAME */}
           <div>
-            <label className='block text-sm font-semibold mb-1' htmlFor='name'>
+            <label
+              className='block text-sm font-semibold mb-1'
+              htmlFor='first_name'
+            >
               Nombre
             </label>
             <input
-              id='name'
+              id='first_name'
               className='form-input w-full'
               type='text'
               autoComplete='off'
-              {...register('name', {
+              {...register('first_name', {
                 required: {
                   value: true,
                   message: 'El campo es requerido',
@@ -36,23 +48,26 @@ function CapabilitiesGroupPanelTableItem() {
                 },
               })}
             />
-            {errors.email && (
+            {errors.first_name && (
               <span className='text-red-500 text-sm'>
-                {errors.email.message}
+                {errors.first_name.message}
               </span>
             )}
           </div>
           {/* LAST NAME */}
           <div>
-            <label className='block text-sm font-semibold mb-1' htmlFor='name'>
+            <label
+              className='block text-sm font-semibold mb-1'
+              htmlFor='last_name'
+            >
               Apellido
             </label>
             <input
-              id='name'
+              id='last_name'
               className='form-input w-full'
               type='text'
               autoComplete='off'
-              {...register('name', {
+              {...register('last_name', {
                 required: {
                   value: true,
                   message: 'El campo es requerido',
@@ -63,9 +78,9 @@ function CapabilitiesGroupPanelTableItem() {
                 },
               })}
             />
-            {errors.email && (
+            {errors.last_name && (
               <span className='text-red-500 text-sm'>
-                {errors.email.message}
+                {errors.last_name.message}
               </span>
             )}
           </div>

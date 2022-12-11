@@ -7,6 +7,7 @@ function UserTable({
   setUserPanelOpen,
   setOpenModalUserDelete,
   openModalUserDelete,
+  userPanelOpen,
 }) {
   const dispatch = useDispatch();
   const dataUser = useSelector(selectAllUser);
@@ -47,6 +48,7 @@ function UserTable({
               <tbody className='text-sm divide-y divide-slate-200'>
                 {dataUser.map((data) => (
                   <UserTableItem
+                    userPanelOpen={userPanelOpen}
                     setUserPanelOpen={setUserPanelOpen}
                     setOpenModalUserDelete={setOpenModalUserDelete}
                     openModalUserDelete={openModalUserDelete}

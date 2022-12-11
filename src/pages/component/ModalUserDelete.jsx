@@ -3,14 +3,11 @@ import ModalBlank from '../../components/ModalBlank';
 import { deleteUser } from '../../store/slice/usersSlice.js';
 import { useDispatch, useSelector } from 'react-redux';
 
-function ModalUserDelete({
-  setOpenModalUserDelete,
-  openModalUserDelete,
-  id,
-  first_name,
-  last_name,
-}) {
+function ModalUserDelete({ setOpenModalUserDelete, openModalUserDelete }) {
   const dispatch = useDispatch();
+  const idUser = sessionStorage.getItem('userId');
+  const first_name = sessionStorage.getItem('first_name');
+  const last_name = sessionStorage.getItem('last_name');
   return (
     <ModalBlank
       id='success-modal'
@@ -54,7 +51,7 @@ function ModalUserDelete({
               onClick={(e) => {
                 e.stopPropagation();
                 setOpenModalUserDelete(false);
-                dispatch(deleteUser(id));
+                dispatch(deleteUser());
               }}
               className='btn-lg bg-red-500 font-semibold text-white w-full'
             >
