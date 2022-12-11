@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDate, selectDate } from '../../../store/slice/calendarSlice';
 import QuickSelection from '../../../components/QuickSelection';
-import ModalCalendarEdit from '../../../pages/component/ModalCalendarEdit';
 
 function Calendar({ setOpenModalCalendar }) {
   const [openModalCalendarEdit, setOpenModalCalendarEdit] = useState(false);
+  const [reloadEvent, setReloadEvent] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -38,7 +38,7 @@ function Calendar({ setOpenModalCalendar }) {
 
   useEffect(() => {
     dispatch(getDate());
-  }, []);
+  }, [date]);
 
   const events = [];
 
@@ -137,7 +137,7 @@ function Calendar({ setOpenModalCalendar }) {
   useEffect(() => {
     getDays();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [date]);
 
   return (
     <div className='flex bg-white overflow-hidden'>
@@ -188,7 +188,6 @@ function Calendar({ setOpenModalCalendar }) {
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-
                   setOpenModalCalendar(true);
                 }}
                 className='btn bg-primary text-white'
@@ -253,12 +252,12 @@ function Calendar({ setOpenModalCalendar }) {
                     <div className='h-full flex flex-col justify-between'>
                       {/* Events */}
                       <div className='grow flex flex-col  p-0.5 sm:p-1.5 overflow-hidden relative'>
-                        {getEvents(day).map((event, index) => {
+                        {getEvents(day).map((event) => {
                           return (
                             <>
                               <section
                                 className='relative w-full mt-3'
-                                key={index}
+                                key={day}
                               >
                                 <div
                                   className={`relative h-full py-0.5 rounded overflow-hidden ${eventColor(
@@ -275,6 +274,8 @@ function Calendar({ setOpenModalCalendar }) {
                                       }
                                       eventId={event.id}
                                       description={event.eventName}
+                                      setReloadEvent={setReloadEvent}
+                                      reloadEvent={reloadEvent}
                                     />
                                   </section>
 

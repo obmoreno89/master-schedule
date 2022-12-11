@@ -9,6 +9,8 @@ function QuickSelection({
   setOpenModalCalendarEdit,
   openModalCalendarEdit,
   description,
+  setReloadEvent,
+  reloadEvent,
 }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dispatch = useDispatch();
@@ -25,6 +27,7 @@ function QuickSelection({
               e.stopPropagation();
               setOpenModalCalendarEdit(true);
               sessionStorage.setItem('idEvent', eventId);
+              sessionStorage.setItem('description', description);
             }}
             className='font-medium text-sm text-slate-600 hover:text-slate-800 flex py-0 px-3'
           >
@@ -47,6 +50,9 @@ function QuickSelection({
         description={description}
         setOpenModalCalendarEdit={setOpenModalCalendarEdit}
         openModalCalendarEdit={openModalCalendarEdit}
+        setReloadEvent={setReloadEvent}
+        reloadEvent={reloadEvent}
+        key={eventId}
       />
     </div>
   );

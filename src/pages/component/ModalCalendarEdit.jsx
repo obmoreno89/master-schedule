@@ -4,15 +4,15 @@ import ButtonLoading from '../../helpers/ButtonLoading';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { editHoliday, selectLoading } from '../../store/slice/calendarSlice';
-import { useParams } from 'react-router-dom';
 
 function ModalCalendarEdit({
   setOpenModalCalendarEdit,
   openModalCalendarEdit,
-  description,
+  setReloadEvent,
+  reloadEvent,
 }) {
   const dispatch = useDispatch();
-  const holiday = description;
+  const holiday = sessionStorage.getItem('description');
 
   const loading = useSelector(selectLoading);
 
@@ -28,14 +28,16 @@ function ModalCalendarEdit({
       description: data.description,
     };
 
-    dispatch(editHoliday(json, reset, setOpenModalCalendarEdit));
+    dispatch(
+      editHoliday(json, reset, setOpenModalCalendarEdit, setReloadEvent)
+    );
   };
 
   useEffect(() => {
     let defaultValues = {};
     defaultValues.description = `${holiday}`;
     reset({ ...defaultValues });
-  }, [reset]);
+  }, [reset, holiday, reloadEvent]);
 
   return (
     <ModalAction
