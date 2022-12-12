@@ -35,7 +35,7 @@ export const getDate = () => (dispatch) => {
 
 export const addHoliday = (data, setOpenModalCalendar, reset) => (dispatch) => {
   dispatch(setLoading(true));
-  const id = localStorage.getItem('id');
+  const id = sessionStorage.getItem('id');
   axios
     .post(
       `http://44.211.175.241/api/calendar/register-non-working-day/${id}/`,
@@ -81,7 +81,6 @@ export const editHoliday =
         if (response.status === 200) {
           dispatch(setLoading(false));
           setOpenModalCalendarEdit(false);
-          console.log(response);
         }
         setReloadEvent(false);
       })

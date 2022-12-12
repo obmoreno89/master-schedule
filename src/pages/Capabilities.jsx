@@ -53,7 +53,7 @@ function Capabilities() {
                 />
               </div>
               {/* Pagination */}
-              <div className='mt-8'>
+              <div className='mt-4'>
                 <PaginationNumeric />
               </div>
               <CapabilitiesProductListPanel

@@ -7,7 +7,7 @@ import { logoutUser } from '../store/slice/authSlice';
 function DropdownProfile({ align }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const userName = localStorage.getItem('first_name');
+  const userName = sessionStorage.getItem('first_name');
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -88,7 +88,7 @@ function DropdownProfile({ align }) {
           >
             <div className='pt-0.5 pb-2 px-3 mb-1 border-b border-slate-200'>
               <div className='font-medium text-slate-800'>{userName}</div>
-              <div className='text-xs text-primary italic'>Administrator</div>
+              {/* <div className='text-xs text-primary italic'>Administrator</div> */}
             </div>
             <ul>
               <li>
