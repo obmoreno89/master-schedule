@@ -1,7 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CapabilitiesGroupPanelTableItem from './CapabilitiesGroupPanelTableItem';
+import PaginationGroup from '../../components/PaginationGroup';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectGroup,
+  getGroupList,
+} from '../../store/slice/capabilitiesSlice.js';
 
 const CapabilitiesGroupPanelTable = ({ setOpenModalGroup }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(12);
+
+  const dispatch = useDispatch();
+  const groups = useSelector(selectGroup);
+
+  useEffect(() => {
+    dispatch(getGroupList());
+  }, [groups]);
+
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
+  const currentPost = groups.slice(firstPostIndex, lastPostIndex);
+
   return (
     <div className='bg-white'>
       <div className='mt-6 px-3'>
@@ -21,10 +41,18 @@ const CapabilitiesGroupPanelTable = ({ setOpenModalGroup }) => {
             <tbody className='text-sm divide-y divide-slate-200'>
               <CapabilitiesGroupPanelTableItem
                 setOpenModalGroup={setOpenModalGroup}
+                groups={currentPost}
               />
             </tbody>
           </table>
         </div>
+        <section className='mt-8'>
+          <PaginationGroup
+            totalPosts={groups.length}
+            postsPerPage={postsPerPage}
+            setCurrentPage={setCurrentPage}
+          />
+        </section>
       </div>
     </div>
   );
