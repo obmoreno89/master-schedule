@@ -10,8 +10,8 @@ const CapabilitiesTableItem = ({
 
   return (
     <>
-      {capabilitiesList.map((data) => (
-        <tr>
+      {capabilitiesList.map((data, index) => (
+        <tr key={index}>
           <td
             onClick={(e) => {
               e.stopPropagation();

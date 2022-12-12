@@ -65,7 +65,7 @@ export const selectAllUser = (state) => state.users.allUser;
 export default usersSlice.reducer;
 
 export const registerUser = (data) => (dispatch) => {
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
   dispatch(setUserLoading(true));
   axios
     .post('http://44.211.175.241/api/auth/register/', data, {
