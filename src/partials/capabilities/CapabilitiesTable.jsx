@@ -33,7 +33,7 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
                   <tr>
                     <th className='px-2 first:pl-5 w-1/4'>
                       <div className='font-semibold text-left'>
-                        Lista de productos
+                        Línea de productos
                       </div>
                     </th>
                     <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap '>
