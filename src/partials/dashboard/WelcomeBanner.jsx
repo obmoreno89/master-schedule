@@ -7,7 +7,7 @@ function WelcomeBanner() {
         <h1 className='text-2xl md:text-3xl text-slate-800 font-bold mb-1'>
           Bienvenido 👋
         </h1>
-        <p>Sistema master schedule</p>
+        <p>Sistema MP Pro</p>
       </div>
     </div>
   );
