@@ -5,6 +5,7 @@ const initialState = {
   groupList: [],
   producLines: [],
   loading: null,
+  capabilitiesList: [],
 };
 
 const capabilitiesSlice = createSlice({
@@ -20,15 +21,19 @@ const capabilitiesSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
+    setCapabilitiesList: (state, action) => {
+      state.capabilitiesList = action.payload;
+    },
   },
 });
 
-export const { setGroup, setProductLines, setLoading } =
+export const { setGroup, setProductLines, setLoading, setCapabilitiesList } =
   capabilitiesSlice.actions;
 
 export const selectGroup = (state) => state.group.groupList;
 export const selectPLines = (state) => state.group.producLines;
 export const selectLoading = (state) => state.group.loading;
+export const selectCapabilitiesList = (state) => state.group.capabilitiesList;
 
 export default capabilitiesSlice.reducer;
 
@@ -65,4 +70,13 @@ export const createPLines = (data, setOpenModalPL, reset) => (dispatch) => {
       console.log(err);
       dispatch(setLoading(false));
     });
+};
+
+export const getCapabilitiesList = () => (dispatch) => {
+  axios
+    .get('http://44.211.175.241/api/capacities/list-default-capacities')
+    .then((response) => {
+      dispatch(setCapabilitiesList(response.data));
+    })
+    .catch((err) => console.log(err));
 };
