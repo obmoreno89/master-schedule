@@ -3,7 +3,6 @@ import Flatpickr from 'react-flatpickr';
 
 function Datepicker({ align, setValueDate }) {
   const options = {
-    mode: 'range',
     static: true,
     monthSelectorType: 'static',
     dateFormat: 'Y-m-d',

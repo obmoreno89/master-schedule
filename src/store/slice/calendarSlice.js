@@ -43,6 +43,7 @@ export const addHoliday = (data, setOpenModalCalendar, reset) => (dispatch) => {
     )
     .then((response) => {
       if (response.status === 201) {
+        console.log(response.data);
         dispatch(setLoading(false));
         reset();
         setOpenModalCalendar(false);

@@ -38,7 +38,7 @@ function Calendar({ setOpenModalCalendar }) {
 
   useEffect(() => {
     dispatch(getDate());
-  }, [date]);
+  }, []);
 
   const events = [];
 
@@ -46,11 +46,12 @@ function Calendar({ setOpenModalCalendar }) {
     date.forEach((d) => {
       const array = d.date.split('-');
       const day = array[2];
+      const month = array[1];
 
       let event = {
         eventStart: new Date(
           new Date(d.date).getFullYear(),
-          new Date(d.date).getMonth(),
+          day == 1 ? month - 1 : new Date(d.date).getMonth(),
 
           day
         ),
@@ -65,7 +66,7 @@ function Calendar({ setOpenModalCalendar }) {
 
   useEffect(() => {
     setEvents();
-  }, [date]);
+  }, []);
 
   setEvents();
 
@@ -75,6 +76,8 @@ function Calendar({ setOpenModalCalendar }) {
   const [daysInMonth, setDaysInMonth] = useState([]);
   const [startingBlankDays, setStartingBlankDays] = useState([]);
   const [endingBlankDays, setEndingBlankDays] = useState([]);
+
+  console.log(events);
 
   const isToday = (date) => {
     const day = new Date(year, month, date);
