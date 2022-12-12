@@ -30,7 +30,7 @@ function CapabilitiesGroupPanelTableItem() {
   const telephone = sessionStorage.getItem('telephone');
   const position = sessionStorage.getItem('position');
   // Rol debe ser 1 siempre para que permita editar la API (Este es un parche nada más.)
-  const role = "1";
+  const role = '1';
 
   const {
     register,
