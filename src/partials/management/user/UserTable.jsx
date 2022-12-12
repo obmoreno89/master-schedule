@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import UserTableItem from './UserTableItem';
-import { getAlluser, selectAllUser } from '../../../store/slice/usersSlice';
+import { getAlluser, selectAllUser, selectReload } from '../../../store/slice/usersSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import PaginationUser from '../../../components/PaginationUser';
 function UserTable({
@@ -13,10 +13,11 @@ function UserTable({
   const [postsPerPage, setPostsPerPage] = useState(11);
   const dispatch = useDispatch();
   const dataUser = useSelector(selectAllUser);
+  const reload = useSelector(selectReload)
 
   useEffect(() => {
     dispatch(getAlluser());
-  }, [dataUser]);
+  }, [reload]);
 
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
