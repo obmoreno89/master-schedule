@@ -9,13 +9,6 @@ function UserTableItem(props) {
       <UserPanel
         setUserPanelOpen={props.setUserPanelOpen}
         userPanelOpen={props.userPanelOpen}
-        first_name={props.first_name}
-        last_name={props.last_name}
-        id={props.id}
-        email={props.email}
-        nmc={props.nmc}
-        telephone={props.telephone}
-        position={props.position}
       />
       <ModalUserDelete
         openModalUserDelete={props.openModalUserDelete}
@@ -26,7 +19,7 @@ function UserTableItem(props) {
           <p className='text-textTableItem font-medium  capitalize'>
             {props.first_name} {props.last_name}
           </p>
-          <span className='text-primary'>Administrador</span>
+          <span className='text-primary'>{props.role}</span>
         </td>
         <td className='px-3 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
           <p className='text-left font-semibold'>{props.email}</p>
@@ -46,6 +39,14 @@ function UserTableItem(props) {
               onClick={(e) => {
                 e.stopPropagation();
                 props.setUserPanelOpen(true);
+                sessionStorage.setItem('first_name', props.first_name);
+                sessionStorage.setItem('last_name', props.last_name);
+                sessionStorage.setItem('telephone', props.telephone);
+                sessionStorage.setItem('nmc', props.nmc);
+                sessionStorage.setItem('position', props.position);
+                sessionStorage.setItem('email', props.email);
+                sessionStorage.setItem('role', props.id);
+                sessionStorage.setItem('id', props.id);
               }}
             >
               <img src={icons.pencilIcon} alt='Lapiz' />

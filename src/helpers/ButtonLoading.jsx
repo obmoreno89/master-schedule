@@ -5,7 +5,7 @@ function ButtonLoading(props) {
     <div
       className={`${props.register ? 'w-[27rem]' : 'w-[28.5rem]'} ${
         props.calendar && 'w-[100%]'
-      }  ${props.calendarEdit && 'w-[100%]'}`}
+      }  ${props.calendarEdit && 'w-[100%]'} ${props.update && 'w-[100%]'}`}
     >
       {/* Start */}
       <button

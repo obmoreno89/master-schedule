@@ -60,6 +60,7 @@ function UserTable({
                     telephone={data.telephone}
                     key={data.id}
                     id={data.id}
+                    role={data.role.name}
                   />
                 ))}
               </tbody>

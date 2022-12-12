@@ -116,3 +116,13 @@ export const deleteUser = (idUser) => (dispatch) => {
     .then((response) => console.log(response))
     .catch((err) => console.log(err));
 };
+
+export const updateUser = (data) => (dispatch) => {
+  dispatch(setUserLoading(true));
+  const userId = sessionStorage.getItem('id');
+  console.log(userId);
+  axios
+    .put(`http://44.211.175.241/api/auth/update-user-data/${userId}`, data)
+    .then((response) => dispatch(setUserLoading(false)))
+    .catch((err) => dispatch(setUserLoading(false)));
+};
