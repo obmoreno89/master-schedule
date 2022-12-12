@@ -107,7 +107,7 @@ export const getAlluser = () => (dispatch) => {
 };
 
 export const deleteUser = (idUser) => (dispatch) => {
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
   const userId = sessionStorage.getItem('userId');
   axios
     .delete(`http://44.211.175.241/api/auth/delete-user/${userId}`, {
