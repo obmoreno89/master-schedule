@@ -86,10 +86,13 @@ export const editHoliday =
       )
       .then((response) => {
         if (response.status === 200) {
+          dispatch(setReload())
           dispatch(setLoading(false));
           setOpenModalCalendarEdit(false);
         }
-        setReloadEvent(false);
+
+        setReloadEvent(false)
+       
       })
       .catch(() => dispatch(setLoading(false)));
   };
