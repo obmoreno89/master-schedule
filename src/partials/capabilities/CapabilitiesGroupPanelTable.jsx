@@ -1,5 +1,6 @@
 import React from 'react';
 import CapabilitiesGroupPanelTableItem from './CapabilitiesGroupPanelTableItem';
+import PaginationNumeric from '../../components/PaginationNumeric';
 
 const CapabilitiesGroupPanelTable = ({setOpenModalGroup}) => {
  
@@ -23,6 +24,9 @@ const CapabilitiesGroupPanelTable = ({setOpenModalGroup}) => {
               <CapabilitiesGroupPanelTableItem setOpenModalGroup={setOpenModalGroup} />
             </tbody>
           </table>
+          <section className='mt-8'>
+          <PaginationNumeric />
+        </section>
         </div>
       </div>
     </div>
