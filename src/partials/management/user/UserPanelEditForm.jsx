@@ -1,31 +1,93 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import icons from '../../../images/icon/icons';
+
+import {
+  getRoles,
+  selectRoles,
+  selectUserLoading,
+  updateUser,
+} from '../../../store/slice/usersSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import ButtonLoading from '../../../helpers/ButtonLoading';
 
 function CapabilitiesGroupPanelTableItem() {
   const [eye, setEye] = useState(false);
   const toggleEye = () => setEye(!eye);
 
+  const dispatch = useDispatch();
+
+  const roles = useSelector(selectRoles);
+  const loading = useSelector(selectUserLoading);
+
+  useEffect(() => {
+    dispatch(getRoles());
+  }, []);
+
+  const first_name = sessionStorage.getItem('first_name');
+  const last_name = sessionStorage.getItem('last_name');
+  const email = sessionStorage.getItem('email');
+  const nmc = sessionStorage.getItem('nmc');
+  const telephone = sessionStorage.getItem('telephone');
+  const position = sessionStorage.getItem('position');
+  // Rol debe ser 1 siempre para que permita editar la API (Este es un parche nada más.)
+  const role = "1";
+
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
+
+  const onSubmit = (data) => {
+    dispatch(updateUser(data));
+  };
+
+  useEffect(() => {
+    let defaultValues = {};
+    defaultValues.first_name = `${first_name}`;
+    defaultValues.last_name = `${last_name}`;
+    defaultValues.email = `${email}`;
+    // defaultValues.password = `${'FJGKGLE23238'}`;
+    defaultValues.nmc = `${nmc}`;
+    defaultValues.telephone = `${telephone}`;
+    defaultValues.position = `${position}`;
+    defaultValues.role = `${role}`;
+    reset({ ...defaultValues });
+  }, [first_name]);
+
+  const handleButtonLogin = () => {
+    return !loading ? (
+      <button className='btn bg-primary hover:bg-secondary hover:text-primary text-white font-semibold text-base w-[27rem] h-12 rounded-[4px]'>
+        <svg className='w-4 h-4 fill-current shrink-0 mb-1' viewBox='0 0 16 16'>
+          <path d='M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z' />
+        </svg>
+        <span className='ml-3 align-baseline'>Editar usuario</span>
+      </button>
+    ) : (
+      <div>
+        <ButtonLoading loading='Creando' update={true} />
+      </div>
+    );
+  };
+
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <section className='grid gap-5 md:grid-cols-1'>
           {/* NAME */}
           <div>
-            <label className='block text-sm font-semibold mb-1' htmlFor='name'>
+            <label
+              className='block text-sm font-semibold mb-1'
+              htmlFor='first_name'
+            >
               Nombre
             </label>
             <input
-              id='name'
               className='form-input w-full'
               type='text'
               autoComplete='off'
-              {...register('name', {
+              {...register('first_name', {
                 required: {
                   value: true,
                   message: 'El campo es requerido',
@@ -36,50 +98,51 @@ function CapabilitiesGroupPanelTableItem() {
                 },
               })}
             />
-            {errors.email && (
+            {errors.first_name && (
               <span className='text-red-500 text-sm'>
-                {errors.email.message}
+                {errors.first_name.message}
               </span>
             )}
           </div>
           {/* LAST NAME */}
           <div>
-            <label className='block text-sm font-semibold mb-1' htmlFor='name'>
+            <label
+              className='block text-sm font-semibold mb-1'
+              htmlFor='last_name'
+            >
               Apellido
             </label>
             <input
-              id='name'
               className='form-input w-full'
               type='text'
               autoComplete='off'
-              {...register('name', {
+              {...register('last_name', {
                 required: {
                   value: true,
                   message: 'El campo es requerido',
                 },
                 pattern: {
-                  value: /[a-zA-Z0-9]/,
+                  value: /[a-zA-Z]/,
                   message: 'El formato no es correcto',
                 },
               })}
             />
-            {errors.email && (
+            {errors.last_name && (
               <span className='text-red-500 text-sm'>
-                {errors.email.message}
+                {errors.last_name.message}
               </span>
             )}
           </div>
           {/* EMAIL */}
           <div>
-            <label className='block text-sm font-semibold mb-1' htmlFor='name'>
+            <label className='block text-sm font-semibold mb-1' htmlFor='email'>
               Email
             </label>
             <input
-              id='name'
               className='form-input w-full'
               type='text'
               autoComplete='off'
-              {...register('name', {
+              {...register('email', {
                 required: {
                   value: true,
                   message: 'El campo es requerido',
@@ -97,7 +160,7 @@ function CapabilitiesGroupPanelTableItem() {
             )}
           </div>
           {/* PASSWORD */}
-          <div className='relative'>
+          {/* <div className='relative'>
             <label
               className='block text-sm font-medium mb-1'
               htmlFor='password'
@@ -145,18 +208,17 @@ function CapabilitiesGroupPanelTableItem() {
                 {errors.password.message}
               </span>
             )}
-          </div>
+          </div> */}
           {/* NMC */}
           <div>
-            <label className='block text-sm font-semibold mb-1' htmlFor='name'>
+            <label className='block text-sm font-semibold mb-1' htmlFor='nmc'>
               NMC
             </label>
             <input
-              id='name'
               className='form-input w-full'
               type='text'
               autoComplete='off'
-              {...register('name', {
+              {...register('nmc', {
                 required: {
                   value: true,
                   message: 'El campo es requerido',
@@ -167,23 +229,23 @@ function CapabilitiesGroupPanelTableItem() {
                 },
               })}
             />
-            {errors.email && (
-              <span className='text-red-500 text-sm'>
-                {errors.email.message}
-              </span>
+            {errors.nmc && (
+              <span className='text-red-500 text-sm'>{errors.nmc.message}</span>
             )}
           </div>
           {/* PHONE */}
           <div>
-            <label className='block text-sm font-semibold mb-1' htmlFor='name'>
+            <label
+              className='block text-sm font-semibold mb-1'
+              htmlFor='telephone'
+            >
               Telefono
             </label>
             <input
-              id='name'
               className='form-input w-full'
               type='number'
               autoComplete='off'
-              {...register('name', {
+              {...register('telephone', {
                 required: {
                   value: true,
                   message: 'El campo es requerido',
@@ -194,23 +256,25 @@ function CapabilitiesGroupPanelTableItem() {
                 },
               })}
             />
-            {errors.email && (
+            {errors.telephone && (
               <span className='text-red-500 text-sm'>
-                {errors.email.message}
+                {errors.telephone.message}
               </span>
             )}
           </div>
           {/* POSITION */}
           <div>
-            <label className='block text-sm font-semibold mb-1' htmlFor='name'>
+            <label
+              className='block text-sm font-semibold mb-1'
+              htmlFor='position'
+            >
               Posición
             </label>
             <input
-              id='name'
               className='form-input w-full'
               type='text'
               autoComplete='off'
-              {...register('name', {
+              {...register('position', {
                 required: {
                   value: true,
                   message: 'El campo es requerido',
@@ -221,9 +285,9 @@ function CapabilitiesGroupPanelTableItem() {
                 },
               })}
             />
-            {errors.email && (
+            {errors.position && (
               <span className='text-red-500 text-sm'>
-                {errors.email.message}
+                {errors.position.message}
               </span>
             )}
           </div>
@@ -232,26 +296,30 @@ function CapabilitiesGroupPanelTableItem() {
             <label className='block text-sm font-semibold mb-1'>Rol</label>
             <select
               className='form-select w-full'
-              {...register('unity_id', {
+              {...register('role', {
                 required: {
                   value: true,
                   message: 'El campo es requerido',
                 },
               })}
             >
-              <option value=''>Administrador</option>+
-              <option value=''>Master Schedule</option>
+              <option value='' disabled>
+                Selecciona...
+              </option>
+              {roles.map((rol) => (
+                <option value={rol.id} key={rol.id}>
+                  {rol.role}
+                </option>
+              ))}
             </select>
-            {errors.unity_id && (
+            {errors.role && (
               <span className='text-red-500 text-sm'>
-                {errors.unity_id.message}
+                {errors.role.message}
               </span>
             )}
           </div>
-          <button className='h-12 rounded bg-primary flex justify-center items-center text-white font-semibold mb-5'>
-            Actualizar usuario
-          </button>
         </section>
+        <div className='mt-10 flex justify-center'>{handleButtonLogin()}</div>
       </form>
     </>
   );

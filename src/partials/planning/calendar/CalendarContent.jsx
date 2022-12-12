@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDate, selectDate } from '../../../store/slice/calendarSlice';
+import QuickSelection from '../../../components/QuickSelection';
 
 function Calendar({ setOpenModalCalendar }) {
+  const [openModalCalendarEdit, setOpenModalCalendarEdit] = useState(false);
+  const [reloadEvent, setReloadEvent] = useState(null);
+
   const dispatch = useDispatch();
 
   const date = useSelector(selectDate);
@@ -34,9 +38,36 @@ function Calendar({ setOpenModalCalendar }) {
 
   useEffect(() => {
     dispatch(getDate());
-  }, []);
+  }, [date]);
 
-  console.log(date);
+  const events = [];
+
+  const setEvents = () => {
+    date.forEach((d) => {
+      const array = d.date.split('-');
+      const day = array[2];
+
+      let event = {
+        eventStart: new Date(
+          new Date(d.date).getFullYear(),
+          new Date(d.date).getMonth(),
+
+          day
+        ),
+        eventName: `${d.description}`,
+        eventColor: 'sky',
+        id: `${d.id}`,
+      };
+
+      events.push(event);
+    });
+  };
+
+  useEffect(() => {
+    setEvents();
+  }, [date]);
+
+  setEvents();
 
   const [month, setMonth] = useState(today.getMonth());
   // eslint-disable-next-line no-unused-vars
@@ -44,33 +75,6 @@ function Calendar({ setOpenModalCalendar }) {
   const [daysInMonth, setDaysInMonth] = useState([]);
   const [startingBlankDays, setStartingBlankDays] = useState([]);
   const [endingBlankDays, setEndingBlankDays] = useState([]);
-
-  const events = [
-    {
-      eventStart: new Date(
-        new Date().getFullYear(),
-        new Date().getMonth(),
-
-        8,
-        11
-      ),
-
-      eventName: 'hola',
-      eventColor: 'sky',
-    },
-    {
-      eventStart: new Date(
-        new Date().getFullYear(),
-        new Date().getMonth() - 1,
-
-        8,
-        12
-      ),
-
-      eventName: 'hola',
-      eventColor: 'sky',
-    },
-  ];
 
   const isToday = (date) => {
     const day = new Date(year, month, date);
@@ -88,7 +92,7 @@ function Calendar({ setOpenModalCalendar }) {
   const eventColor = (color) => {
     switch (color) {
       case 'sky':
-        return 'text-white bg-sky-500';
+        return 'text-white bg-green-600';
       case 'indigo':
         return 'text-white bg-primary';
       case 'yellow':
@@ -133,7 +137,7 @@ function Calendar({ setOpenModalCalendar }) {
   useEffect(() => {
     getDays();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [date]);
 
   return (
     <div className='flex bg-white overflow-hidden'>
@@ -174,17 +178,35 @@ function Calendar({ setOpenModalCalendar }) {
                   getDays();
                 }}
               >
-                <span className='sr-only'>Next month</span>
+                <span className='sr-only'>Crear Dia no laborable</span>
                 <wbr />
                 <svg className='h-4 w-4 fill-current' viewBox='0 0 16 16'>
                   <path d='M6.6 13.4L5.2 12l4-4-4-4 1.4-1.4L12 8z' />
                 </svg>
               </button>
+
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setOpenModalCalendar(true);
+                }}
+                className='btn bg-primary text-white'
+              >
+                <svg
+                  className='w-4 h-4 fill-current opacity-50 shrink-0'
+                  viewBox='0 0 16 16'
+                >
+                  <path d='M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z' />
+                </svg>
+                <span className='hidden xs:block ml-2'>
+                  Crear Dia no laborable
+                </span>
+              </button>
             </div>
           </div>
 
           {/* Calendar table */}
-          <div className='border border-borderInput rounded shadow overflow-hidden'>
+          <div className='border border-borderInput rounded shadow overflow-hidden '>
             {/* Days of the week */}
             <div className='grid grid-cols-7 gap-px border-b border-slate-200'>
               {dayNames.map((day) => {
@@ -224,33 +246,51 @@ function Calendar({ setOpenModalCalendar }) {
               {daysInMonth.map((day) => {
                 return (
                   <div
-                    className='relative bg-white h-20 sm:h-28 lg:h-36 overflow-hidden'
+                    className=' bg-white h-20 sm:h-28 lg:h-36 overflow-hidden'
                     key={day}
                   >
                     <div className='h-full flex flex-col justify-between'>
                       {/* Events */}
-                      <div className='grow flex flex-col relative p-0.5 sm:p-1.5 overflow-hidden'>
+                      <div className='grow flex flex-col  p-0.5 sm:p-1.5 overflow-hidden relative'>
                         {getEvents(day).map((event) => {
                           return (
-                            <section
-                              className='relative w-full mt-3 '
-                              key={event.eventName}
-                            >
-                              <div
-                                className={`relative h-full py-0.5 rounded overflow-hidden ${eventColor(
-                                  event.eventColor
-                                )}`}
+                            <>
+                              <section
+                                className='relative w-full mt-3'
+                                key={day}
                               >
-                                {/* Event name */}
-                                <div className='text-sm font-semibold truncate flex justify-center items-center h-20'>
-                                  {event.eventName}
+                                <div
+                                  className={`relative h-full py-0.5 rounded overflow-hidden ${eventColor(
+                                    event.eventColor
+                                  )}`}
+                                >
+                                  <section className='absolute'>
+                                    <QuickSelection
+                                      setOpenModalCalendarEdit={
+                                        setOpenModalCalendarEdit
+                                      }
+                                      openModalCalendarEdit={
+                                        openModalCalendarEdit
+                                      }
+                                      eventId={event.id}
+                                      description={event.eventName}
+                                      setReloadEvent={setReloadEvent}
+                                      reloadEvent={reloadEvent}
+                                    />
+                                  </section>
+
+                                  {/* Event name */}
+                                  <div className='text-sm font-semibold text-center flex justify-center items-center h-20'>
+                                    {event.eventName}
+                                  </div>
                                 </div>
-                              </div>
-                            </section>
+                              </section>
+                            </>
                           );
                         })}
                       </div>
                       {/* Cell footer */}
+
                       <div className='flex justify-between items-center p-0.5 sm:p-1.5'>
                         {/* More button (if more than 2 events)
                         {getEvents(day).length > 2 && (
@@ -260,18 +300,20 @@ function Calendar({ setOpenModalCalendar }) {
                             <span className='hidden md:inline'>more</span>
                           </button>
                         )} */}
+
                         {/* Day number */}
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setOpenModalCalendar(true);
-                          }}
+                        <div
+                          // onClick={(e) => {
+                          //   e.stopPropagation();
+
+                          //   setOpenModalCalendar(true);
+                          // }}
                           className={`inline-flex ml-auto w-6 h-6 items-center justify-center text-xs sm:text-sm font-semibold text-center ${
                             isToday(day) && 'text-white bg-primary rounded-full'
                           }`}
                         >
                           {day}
-                        </button>
+                        </div>
                       </div>
                     </div>
                   </div>

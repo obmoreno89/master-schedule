@@ -8,6 +8,7 @@ const initialState = {
   userFail: null,
   userLoading: false,
   roles: [],
+  allUser: [],
 };
 
 export const revertAll = createAction('REVERT_ALL');
@@ -39,17 +40,27 @@ const usersSlice = createSlice({
     setRoles: (state, action) => {
       state.roles = action.payload;
     },
+    setAllUser: (state, action) => {
+      state.allUser = action.payload;
+    },
   },
 });
 
-export const { setUser, setUserIsOk, setUserLoading, setUserFail, setRoles } =
-  usersSlice.actions;
+export const {
+  setUser,
+  setUserIsOk,
+  setUserLoading,
+  setUserFail,
+  setRoles,
+  setAllUser,
+} = usersSlice.actions;
 
 export const selectUser = (state) => state.users.user;
 export const selectUserIsOk = (state) => state.users.userIsOk;
 export const selectUserLoading = (state) => state.users.userLoading;
 export const selectUserFail = (state) => state.users.userFail;
 export const selectRoles = (state) => state.users.roles;
+export const selectAllUser = (state) => state.users.allUser;
 
 export default usersSlice.reducer;
 
@@ -84,4 +95,34 @@ export const getRoles = () => (dispatch) => {
       dispatch(setRoles(response.data));
     })
     .catch((err) => console.log(err));
+};
+
+export const getAlluser = () => (dispatch) => {
+  axios
+    .get('http://44.211.175.241/api/auth/list-users')
+    .then((response) => {
+      dispatch(setAllUser(response.data));
+    })
+    .catch((err) => console.log(err));
+};
+
+export const deleteUser = (idUser) => (dispatch) => {
+  const token = localStorage.getItem('token');
+  const userId = sessionStorage.getItem('userId');
+  axios
+    .delete(`http://44.211.175.241/api/auth/delete-user/${userId}`, {
+      headers: { Authorization: `token ${token}` },
+    })
+    .then((response) => console.log(response))
+    .catch((err) => console.log(err));
+};
+
+export const updateUser = (data) => (dispatch) => {
+  dispatch(setUserLoading(true));
+  const userId = sessionStorage.getItem('id');
+  console.log(userId);
+  axios
+    .put(`http://44.211.175.241/api/auth/update-user-data/${userId}`, data)
+    .then((response) => dispatch(setUserLoading(false)))
+    .catch((err) => dispatch(setUserLoading(false)));
 };

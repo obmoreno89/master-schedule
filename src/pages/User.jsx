@@ -4,8 +4,6 @@ import Header from '../partials/Header';
 import icons from '../images/icon/icons';
 import UserFilter from '../partials/management/user/UserFilter';
 import UserTable from '../partials/management/user/UserTable';
-import UserPanel from '../partials/management/user/UserPanel';
-import ModalUserDelete from './component/ModalUserDelete';
 
 function Management() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -49,20 +47,14 @@ function Management() {
                 <UserTable
                   setUserPanelOpen={setUserPanelOpen}
                   setOpenModalUserDelete={setOpenModalUserDelete}
+                  openModalUserDelete={openModalUserDelete}
+                  userPanelOpen={userPanelOpen}
                 />
               </section>
-              <UserPanel
-                userPanelOpen={userPanelOpen}
-                setUserPanelOpen={setUserPanelOpen}
-              />
             </div>
           </main>
         </div>
       </div>
-      <ModalUserDelete
-        openModalUserDelete={openModalUserDelete}
-        setOpenModalUserDelete={setOpenModalUserDelete}
-      />
     </>
   );
 }

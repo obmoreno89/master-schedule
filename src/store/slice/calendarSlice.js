@@ -22,6 +22,7 @@ const calendarSlice = createSlice({
 export const { setCalendar, setLoading } = calendarSlice.actions;
 
 export const selectDate = (state) => state.calendar.datelist;
+export const selectLoading = (state) => state.calendar.loading;
 
 export default calendarSlice.reducer;
 
@@ -31,3 +32,58 @@ export const getDate = () => (dispatch) => {
     .then((response) => dispatch(setCalendar(response.data)))
     .catch((err) => console.log(err));
 };
+
+export const addHoliday = (data, setOpenModalCalendar, reset) => (dispatch) => {
+  dispatch(setLoading(true));
+  const id = localStorage.getItem('id');
+  axios
+    .post(
+      `http://44.211.175.241/api/calendar/register-non-working-day/${id}/`,
+      data
+    )
+    .then((response) => {
+      if (response.status === 201) {
+        dispatch(setLoading(false));
+        reset();
+        setOpenModalCalendar(false);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch(setLoading(false));
+    });
+};
+
+export const deleteHoliday = (eventId, setDropdownOpen) => (dispatch) => {
+  axios
+    .delete(
+      `http://44.211.175.241/api/calendar/delete-non-working-day/${eventId}/`
+    )
+    .then((response) => {
+      if (response.status === 204) {
+        setDropdownOpen(false);
+      }
+    })
+    .catch((err) => console.log(err));
+};
+
+export const editHoliday =
+  (data, setOpenModalCalendarEdit, setReloadEvent) => (dispatch) => {
+    dispatch(setLoading(true));
+    const idEvent = sessionStorage.getItem('idEvent');
+
+    axios
+      .put(
+        `http://44.211.175.241/api/calendar/update-non-working-day/${idEvent}/`,
+        data
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          dispatch(setLoading(false));
+          setOpenModalCalendarEdit(false);
+          console.log(response);
+        }
+        setReloadEvent(false);
+      })
+      .catch((err) => dispatch(setLoading(false)));
+  };

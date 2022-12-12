@@ -1,7 +1,13 @@
 import React from 'react';
 import ModalBlank from '../../components/ModalBlank';
+import { deleteUser } from '../../store/slice/usersSlice.js';
+import { useDispatch, useSelector } from 'react-redux';
 
 function ModalUserDelete({ setOpenModalUserDelete, openModalUserDelete }) {
+  const dispatch = useDispatch();
+  const idUser = sessionStorage.getItem('userId');
+  const first_name = sessionStorage.getItem('first_name');
+  const last_name = sessionStorage.getItem('last_name');
   return (
     <ModalBlank
       id='success-modal'
@@ -12,8 +18,8 @@ function ModalUserDelete({ setOpenModalUserDelete, openModalUserDelete }) {
         <div>
           {/* Modal header */}
           <div className='mb-2 flex justify-between items-center'>
-            <div className='text-lg font-bold text-slate-800 w-64'>
-              ¿Estas seguro de eliminar al usuario Omar Barragán?
+            <div className='text-lg font-bold text-slate-800 w-72'>
+              ¿Estas seguro de eliminar al usuario {first_name} {last_name}?
             </div>
             <button
               onClick={(e) => {
@@ -34,8 +40,8 @@ function ModalUserDelete({ setOpenModalUserDelete, openModalUserDelete }) {
           <div className='text-sm mb-10'>
             <div className='space-y-2'>
               <p>
-                Esta acción no se podrá revertir y tendrás que crearlo
-                nuevamente en caso desear usarlo mas adelante.
+                Esta acción no se puede revertir, estás a punto de 
+                eliminar el usuario y todos sus datos asociados.
               </p>
             </div>
           </div>
@@ -45,6 +51,7 @@ function ModalUserDelete({ setOpenModalUserDelete, openModalUserDelete }) {
               onClick={(e) => {
                 e.stopPropagation();
                 setOpenModalUserDelete(false);
+                dispatch(deleteUser());
               }}
               className='btn-lg bg-red-500 font-semibold text-white w-full'
             >
