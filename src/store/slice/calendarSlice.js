@@ -1,14 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
   datelist: [],
   loading: null,
+  reload: false,
 };
 
 const calendarSlice = createSlice({
   initialState,
-  name: 'calendar',
+  name: "calendar",
   reducers: {
     setCalendar: (state, action) => {
       state.datelist = action.payload;
@@ -16,26 +17,30 @@ const calendarSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
+    setReload: (state, action) => {
+      state.reload = !state.reload;
+    },
   },
 });
 
-export const { setCalendar, setLoading } = calendarSlice.actions;
+export const { setCalendar, setLoading, setReload } = calendarSlice.actions;
 
 export const selectDate = (state) => state.calendar.datelist;
 export const selectLoading = (state) => state.calendar.loading;
+export const selectReload = (state) => state.calendar.reload;
 
 export default calendarSlice.reducer;
 
 export const getDate = () => (dispatch) => {
   axios
-    .get('http://44.211.175.241/api/calendar/list-all-non-working-day')
+    .get("http://44.211.175.241/api/calendar/list-all-non-working-day")
     .then((response) => dispatch(setCalendar(response.data)))
     .catch((err) => console.log(err));
 };
 
 export const addHoliday = (data, setOpenModalCalendar, reset) => (dispatch) => {
   dispatch(setLoading(true));
-  const id = sessionStorage.getItem('id');
+  const id = sessionStorage.getItem("id");
   axios
     .post(
       `http://44.211.175.241/api/calendar/register-non-working-day/${id}/`,
@@ -43,9 +48,9 @@ export const addHoliday = (data, setOpenModalCalendar, reset) => (dispatch) => {
     )
     .then((response) => {
       if (response.status === 201) {
-        console.log(response.data);
         dispatch(setLoading(false));
         reset();
+        dispatch(setReload())
         setOpenModalCalendar(false);
       }
     })
@@ -62,6 +67,7 @@ export const deleteHoliday = (eventId, setDropdownOpen) => (dispatch) => {
     )
     .then((response) => {
       if (response.status === 204) {
+        dispatch(setReload())
         setDropdownOpen(false);
       }
     })
@@ -71,7 +77,7 @@ export const deleteHoliday = (eventId, setDropdownOpen) => (dispatch) => {
 export const editHoliday =
   (data, setOpenModalCalendarEdit, setReloadEvent) => (dispatch) => {
     dispatch(setLoading(true));
-    const idEvent = sessionStorage.getItem('idEvent');
+    const idEvent = sessionStorage.getItem("idEvent");
 
     axios
       .put(
@@ -85,5 +91,5 @@ export const editHoliday =
         }
         setReloadEvent(false);
       })
-      .catch((err) => dispatch(setLoading(false)));
+      .catch(() => dispatch(setLoading(false)));
   };
