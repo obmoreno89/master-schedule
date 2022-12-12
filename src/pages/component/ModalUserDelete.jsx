@@ -40,8 +40,8 @@ function ModalUserDelete({ setOpenModalUserDelete, openModalUserDelete }) {
           <div className='text-sm mb-10'>
             <div className='space-y-2'>
               <p>
-                Esta acción no se podrá revertir y tendrás que crearlo
-                nuevamente en caso desear usarlo mas adelante.
+                Esta acción no se puede revertir, estás a punto de 
+                eliminar el usuario y todos sus datos asociados.
               </p>
             </div>
           </div>
