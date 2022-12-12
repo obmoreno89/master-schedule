@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CapabilitiesProductListPanelTableItem from './CapabilitiesProductListPanelTableItem';
-import PaginationNumeric from '../../components/PaginationNumeric';
+import PaginationProductList from '../../components/PaginationProductList';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectPLines,
@@ -47,7 +47,7 @@ const CapabilitiesProductListPanelTable = ({ setOpenModalPL }) => {
           </table>
         </div>
         <section className='mt-8'>
-          <PaginationNumeric
+          <PaginationProductList
             totalPosts={productLines.length}
             postsPerPage={postsPerPage}
             setCurrentPage={setCurrentPage}

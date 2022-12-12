@@ -6,8 +6,6 @@ const CapabilitiesTableItem = ({
   setGroupPanelOpen,
   capabilitiesList,
 }) => {
-  console.log(capabilitiesList);
-
   return (
     <>
       {capabilitiesList.map((data, index) => (

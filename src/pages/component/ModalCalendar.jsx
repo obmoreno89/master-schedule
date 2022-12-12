@@ -23,7 +23,6 @@ function ModalCalendar({ setOpenModalCalendar, openModalCalendar }) {
     const year = date.getFullYear();
     const month = date.getMonth();
     const day = date.getDate();
-
     const json = {
       date: `${year}-${month + 1}-${day}`,
       description: data.description,

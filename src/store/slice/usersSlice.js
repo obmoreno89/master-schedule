@@ -9,6 +9,7 @@ const initialState = {
   userLoading: false,
   roles: [],
   allUser: [],
+  reload: false,
 };
 
 export const revertAll = createAction('REVERT_ALL');
@@ -43,6 +44,9 @@ const usersSlice = createSlice({
     setAllUser: (state, action) => {
       state.allUser = action.payload;
     },
+    setReload: (state, action) => {
+      state.reload = !state.reload;
+    }
   },
 });
 
@@ -53,6 +57,7 @@ export const {
   setUserFail,
   setRoles,
   setAllUser,
+  setReload
 } = usersSlice.actions;
 
 export const selectUser = (state) => state.users.user;
@@ -61,6 +66,7 @@ export const selectUserLoading = (state) => state.users.userLoading;
 export const selectUserFail = (state) => state.users.userFail;
 export const selectRoles = (state) => state.users.roles;
 export const selectAllUser = (state) => state.users.allUser;
+export const selectReload = (state) => state.users.reload
 
 export default usersSlice.reducer;
 
@@ -113,16 +119,21 @@ export const deleteUser = (idUser) => (dispatch) => {
     .delete(`http://44.211.175.241/api/auth/delete-user/${userId}`, {
       headers: { Authorization: `token ${token}` },
     })
-    .then((response) => console.log(response))
+    .then(() => {
+      dispatch(setReload())
+    })
     .catch((err) => console.log(err));
 };
 
 export const updateUser = (data) => (dispatch) => {
   dispatch(setUserLoading(true));
   const userId = sessionStorage.getItem('id');
-  console.log(userId);
+  //console.log(userId);
   axios
     .put(`http://44.211.175.241/api/auth/update-user-data/${userId}`, data)
-    .then((response) => dispatch(setUserLoading(false)))
-    .catch((err) => dispatch(setUserLoading(false)));
+    .then(() => {
+      dispatch(setUserLoading(false))
+      dispatch(setReload())
+    })
+    .catch(() => dispatch(setUserLoading(false)));
 };

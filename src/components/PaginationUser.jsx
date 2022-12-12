@@ -1,6 +1,6 @@
 import React from 'react';
 
-function PaginationNumeric({ totalPosts, postsPerPage, setCurrentPage }) {
+function PaginationUser({ totalPosts, postsPerPage, setCurrentPage }) {
   let pages = [];
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
@@ -49,4 +49,4 @@ function PaginationNumeric({ totalPosts, postsPerPage, setCurrentPage }) {
   );
 }
 
-export default PaginationNumeric;
+export default PaginationUser;

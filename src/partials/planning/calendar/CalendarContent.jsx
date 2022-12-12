@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDate, selectDate } from '../../../store/slice/calendarSlice';
+import { getDate, selectDate, selectReload } from '../../../store/slice/calendarSlice';
 import QuickSelection from '../../../components/QuickSelection';
 
 function Calendar({ setOpenModalCalendar }) {
@@ -10,6 +10,7 @@ function Calendar({ setOpenModalCalendar }) {
   const dispatch = useDispatch();
 
   const date = useSelector(selectDate);
+  const reload = useSelector(selectReload)
 
   const today = new Date();
   const monthNames = [
@@ -38,19 +39,20 @@ function Calendar({ setOpenModalCalendar }) {
 
   useEffect(() => {
     dispatch(getDate());
-  }, [date]);
+  }, [reload]);
 
   const events = [];
 
-  const setEvents = () => {
+  const setAllEvents = () => {
     date.forEach((d) => {
       const array = d.date.split('-');
       const day = array[2];
+      const month = array[1];
 
       let event = {
         eventStart: new Date(
           new Date(d.date).getFullYear(),
-          new Date(d.date).getMonth(),
+          day == 1 ? month - 1 : new Date(d.date).getMonth(),
 
           day
         ),
@@ -63,11 +65,12 @@ function Calendar({ setOpenModalCalendar }) {
     });
   };
 
-  useEffect(() => {
-    setEvents();
-  }, [date]);
 
-  setEvents();
+  useEffect(() => {
+    setAllEvents();
+  }, [reload]);
+
+ setAllEvents();
 
   const [month, setMonth] = useState(today.getMonth());
   // eslint-disable-next-line no-unused-vars
@@ -75,6 +78,8 @@ function Calendar({ setOpenModalCalendar }) {
   const [daysInMonth, setDaysInMonth] = useState([]);
   const [startingBlankDays, setStartingBlankDays] = useState([]);
   const [endingBlankDays, setEndingBlankDays] = useState([]);
+
+  // console.log(events);
 
   const isToday = (date) => {
     const day = new Date(year, month, date);
@@ -209,9 +214,9 @@ function Calendar({ setOpenModalCalendar }) {
           <div className='border border-borderInput rounded shadow overflow-hidden '>
             {/* Days of the week */}
             <div className='grid grid-cols-7 gap-px border-b border-slate-200'>
-              {dayNames.map((day) => {
+              {dayNames.map((day, index) => {
                 return (
-                  <div className='px-1 py-3' key={day}>
+                  <div key={index} className='px-1 py-3' key={day}>
                     <div className='text-slate-500 text-sm font-medium text-center lg:hidden'>
                       {day.substring(0, 3)}
                     </div>
@@ -226,11 +231,11 @@ function Calendar({ setOpenModalCalendar }) {
             {/* Day cells */}
             <div className='grid grid-cols-7 gap-px bg-slate-200'>
               {/* Empty cells (previous month) */}
-              {startingBlankDays.map((blankday) => {
+              {startingBlankDays.map((blankday, index) => {
                 return (
                   <div
                     className='bg-slate-50 h-20 sm:h-28 lg:h-36'
-                    key={blankday}
+                    key={index}
                   >
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
@@ -243,11 +248,11 @@ function Calendar({ setOpenModalCalendar }) {
                 );
               })}
               {/* Days of the current month */}
-              {daysInMonth.map((day) => {
+              {daysInMonth.map((day, index) => {
                 return (
                   <div
                     className=' bg-white h-20 sm:h-28 lg:h-36 overflow-hidden'
-                    key={day}
+                    key={index}
                   >
                     <div className='h-full flex flex-col justify-between'>
                       {/* Events */}
@@ -320,11 +325,11 @@ function Calendar({ setOpenModalCalendar }) {
                 );
               })}
               {/* Empty cells (next month) */}
-              {endingBlankDays.map((blankday) => {
+              {endingBlankDays.map((blankday, index) => {
                 return (
                   <div
                     className='bg-slate-50 h-20 sm:h-28 lg:h-36'
-                    key={blankday}
+                    key={index}
                   >
                     <svg
                       xmlns='http://www.w3.org/2000/svg'

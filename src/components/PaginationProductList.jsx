@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-function PaginationNumeric({ totalPosts, postsPerPage, setCurrentPage }) {
+function PaginationProductList({ totalPosts, postsPerPage, setCurrentPage }) {
   let pages = [];
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
@@ -8,8 +8,8 @@ function PaginationNumeric({ totalPosts, postsPerPage, setCurrentPage }) {
   }
 
   return (
-    <div className='flex justify-center'>
-      <nav className='flex space-x-2' role='navigation' aria-label='Navigation'>
+    <div className="flex justify-center">
+      <nav className="flex space-x-2" role="navigation" aria-label="Navigation">
         {/* <div className='mr-2'>
           <span className='inline-flex items-center justify-center rounded leading-5 px-2.5 py-2 bg-white border-slate-200 text-slate-300'>
             <span className='sr-only'>Previous</span>
@@ -20,12 +20,12 @@ function PaginationNumeric({ totalPosts, postsPerPage, setCurrentPage }) {
           </span>
         </div> */}
         {pages.map((page, index) => (
-          <section className='text-sm font-bold  shadow-sm'>
+          <section className="text-sm font-bold  shadow-sm">
             <div>
               <button
                 onClick={() => setCurrentPage(page)}
                 key={index}
-                className=' items-center justify-center rounded leading-5 px-3.5 py-2 bg-white border border-slate-50 text-primary hover:bg-primary hover:text-white'
+                className={`items-center justify-center rounded leading-5 px-3.5 py-2 bg-white border border-slate-50 text-primary hover:bg-primary hover:text-white`}
               >
                 {page}
               </button>
@@ -49,4 +49,4 @@ function PaginationNumeric({ totalPosts, postsPerPage, setCurrentPage }) {
   );
 }
 
-export default PaginationNumeric;
+export default PaginationProductList;
