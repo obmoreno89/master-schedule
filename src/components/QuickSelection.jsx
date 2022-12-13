@@ -52,7 +52,6 @@ function QuickSelection({
         openModalCalendarEdit={openModalCalendarEdit}
         setReloadEvent={setReloadEvent}
         reloadEvent={reloadEvent}
-        key={eventId}
       />
     </div>
   );

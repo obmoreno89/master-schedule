@@ -30,7 +30,6 @@ function CapabilitiesGroupPanelTableItem({ setUserPanelOpen }) {
   const telephone = JSON.parse(sessionStorage.getItem('userEdit'))?.telephone;
   const position = JSON.parse(sessionStorage.getItem('userEdit'))?.position;
   const role = JSON.parse(sessionStorage.getItem('userEdit'))?.role;
-  // Rol debe ser 1 siempre para que permita editar la API (Este es un parche nada más.)
 
   const {
     register,

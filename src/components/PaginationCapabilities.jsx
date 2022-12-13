@@ -20,11 +20,10 @@ function PaginationCapabilities({ totalPosts, postsPerPage, setCurrentPage }) {
           </span>
         </div> */}
         {pages.map((page, index) => (
-          <section className='text-sm font-bold  shadow-sm'>
+          <section key={index} className='text-sm font-bold  shadow-sm'>
             <div>
               <button
                 onClick={() => setCurrentPage(page)}
-                key={index}
                 className=' items-center justify-center rounded leading-5 px-3.5 py-2 bg-white border border-slate-50 text-primary hover:bg-primary hover:text-white'
               >
                 {page}

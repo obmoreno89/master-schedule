@@ -219,7 +219,7 @@ function Calendar({ setOpenModalCalendar }) {
             <div className='grid grid-cols-7 gap-px border-b border-slate-200'>
               {dayNames.map((day, index) => {
                 return (
-                  <div className='px-1 py-3' key={day}>
+                  <div className='px-1 py-3' key={index}>
                     <div className='text-slate-500 text-sm font-medium text-center lg:hidden'>
                       {day.substring(0, 3)}
                     </div>
@@ -257,42 +257,33 @@ function Calendar({ setOpenModalCalendar }) {
                     <div className='h-full flex flex-col justify-between'>
                       {/* Events */}
                       <div className='grow flex flex-col  p-0.5 sm:p-1.5 overflow-hidden relative'>
-                        {getEvents(day).map((event) => {
-                          return (
-                            <>
-                              <section
-                                className='relative w-full mt-3'
-                                key={day}
-                              >
-                                <div
-                                  className={`relative h-full py-0.5 rounded overflow-hidden ${eventColor(
-                                    event.eventColor
-                                  )}`}
-                                >
-                                  <section className='absolute'>
-                                    <QuickSelection
-                                      setOpenModalCalendarEdit={
-                                        setOpenModalCalendarEdit
-                                      }
-                                      openModalCalendarEdit={
-                                        openModalCalendarEdit
-                                      }
-                                      eventId={event.id}
-                                      description={event.eventName}
-                                      setReloadEvent={setReloadEvent}
-                                      reloadEvent={reloadEvent}
-                                    />
-                                  </section>
-
-                                  {/* Event name */}
-                                  <div className='text-sm font-semibold text-center flex justify-center items-center h-20'>
-                                    {event.eventName}
-                                  </div>
-                                </div>
+                        {getEvents(day).map((event, index) => (
+                          <section className='relative w-full mt-3' key={index}>
+                            <div
+                              className={`relative h-full py-0.5 rounded overflow-hidden ${eventColor(
+                                event.eventColor
+                              )}`}
+                            >
+                              <section className='absolute'>
+                                <QuickSelection
+                                  setOpenModalCalendarEdit={
+                                    setOpenModalCalendarEdit
+                                  }
+                                  openModalCalendarEdit={openModalCalendarEdit}
+                                  eventId={event.id}
+                                  description={event.eventName}
+                                  setReloadEvent={setReloadEvent}
+                                  reloadEvent={reloadEvent}
+                                />
                               </section>
-                            </>
-                          );
-                        })}
+
+                              {/* Event name */}
+                              <div className='text-sm font-semibold text-center flex justify-center items-center h-20'>
+                                {event.eventName}
+                              </div>
+                            </div>
+                          </section>
+                        ))}
                       </div>
                       {/* Cell footer */}
 
