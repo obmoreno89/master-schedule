@@ -46,7 +46,7 @@ const usersSlice = createSlice({
     },
     setReload: (state, action) => {
       state.reload = !state.reload;
-    }
+    },
   },
 });
 
@@ -57,7 +57,7 @@ export const {
   setUserFail,
   setRoles,
   setAllUser,
-  setReload
+  setReload,
 } = usersSlice.actions;
 
 export const selectUser = (state) => state.users.user;
@@ -66,7 +66,7 @@ export const selectUserLoading = (state) => state.users.userLoading;
 export const selectUserFail = (state) => state.users.userFail;
 export const selectRoles = (state) => state.users.roles;
 export const selectAllUser = (state) => state.users.allUser;
-export const selectReload = (state) => state.users.reload
+export const selectReload = (state) => state.users.reload;
 
 export default usersSlice.reducer;
 
@@ -112,15 +112,15 @@ export const getAlluser = () => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export const deleteUser = (idUser) => (dispatch) => {
+export const deleteUser = () => (dispatch) => {
   const token = sessionStorage.getItem('token');
-  const userId = sessionStorage.getItem('userId');
+  const userId = JSON.parse(sessionStorage.getItem('userDelete')).id;
   axios
     .delete(`http://44.211.175.241/api/auth/delete-user/${userId}`, {
       headers: { Authorization: `token ${token}` },
     })
     .then(() => {
-      dispatch(setReload())
+      dispatch(setReload());
     })
     .catch((err) => console.log(err));
 };
@@ -132,8 +132,8 @@ export const updateUser = (data) => (dispatch) => {
   axios
     .put(`http://44.211.175.241/api/auth/update-user-data/${userId}`, data)
     .then(() => {
-      dispatch(setUserLoading(false))
-      dispatch(setReload())
+      dispatch(setUserLoading(false));
+      dispatch(setReload());
     })
     .catch(() => dispatch(setUserLoading(false)));
 };

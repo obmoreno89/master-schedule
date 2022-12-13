@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDate, selectDate, selectReload } from '../../../store/slice/calendarSlice';
+import {
+  getDate,
+  selectDate,
+  selectReload,
+} from '../../../store/slice/calendarSlice';
 import QuickSelection from '../../../components/QuickSelection';
 
 function Calendar({ setOpenModalCalendar }) {
@@ -10,7 +14,7 @@ function Calendar({ setOpenModalCalendar }) {
   const dispatch = useDispatch();
 
   const date = useSelector(selectDate);
-  const reload = useSelector(selectReload)
+  const reload = useSelector(selectReload);
 
   const today = new Date();
   const monthNames = [
@@ -65,12 +69,11 @@ function Calendar({ setOpenModalCalendar }) {
     });
   };
 
-
   useEffect(() => {
     setAllEvents();
   }, [reload]);
 
- setAllEvents();
+  setAllEvents();
 
   const [month, setMonth] = useState(today.getMonth());
   // eslint-disable-next-line no-unused-vars
@@ -216,7 +219,7 @@ function Calendar({ setOpenModalCalendar }) {
             <div className='grid grid-cols-7 gap-px border-b border-slate-200'>
               {dayNames.map((day, index) => {
                 return (
-                  <div key={index} className='px-1 py-3' key={day}>
+                  <div className='px-1 py-3' key={day}>
                     <div className='text-slate-500 text-sm font-medium text-center lg:hidden'>
                       {day.substring(0, 3)}
                     </div>
@@ -233,10 +236,7 @@ function Calendar({ setOpenModalCalendar }) {
               {/* Empty cells (previous month) */}
               {startingBlankDays.map((blankday, index) => {
                 return (
-                  <div
-                    className='bg-slate-50 h-20 sm:h-28 lg:h-36'
-                    key={index}
-                  >
+                  <div className='bg-slate-50 h-20 sm:h-28 lg:h-36' key={index}>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       width='100%'
@@ -327,10 +327,7 @@ function Calendar({ setOpenModalCalendar }) {
               {/* Empty cells (next month) */}
               {endingBlankDays.map((blankday, index) => {
                 return (
-                  <div
-                    className='bg-slate-50 h-20 sm:h-28 lg:h-36'
-                    key={index}
-                  >
+                  <div className='bg-slate-50 h-20 sm:h-28 lg:h-36' key={index}>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       width='100%'

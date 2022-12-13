@@ -46,14 +46,18 @@ function UserTableItem({
                 onClick={(e) => {
                   e.stopPropagation();
                   setUserPanelOpen(true);
-                  sessionStorage.setItem('first_name', data.first_name);
-                  sessionStorage.setItem('last_name', data.last_name);
-                  sessionStorage.setItem('telephone', data.telephone);
-                  sessionStorage.setItem('nmc', data.nmc);
-                  sessionStorage.setItem('position', data.position);
-                  sessionStorage.setItem('email', data.email);
-                  sessionStorage.setItem('role', data.role.id);
-                  sessionStorage.setItem('id', data.id);
+                  const json = {
+                    first_name: data.first_name,
+                    last_name: data.last_name,
+                    telephone: data.telephone,
+                    nmc: data.nmc,
+                    position: data.position,
+                    email: data.email,
+                    role: data.role.id,
+                    id: data.id,
+                  };
+
+                  sessionStorage.setItem('userEdit', JSON.stringify(json));
                 }}
               >
                 <img src={icons.pencilIcon} alt='Lapiz' />
@@ -62,9 +66,13 @@ function UserTableItem({
                 onClick={(e) => {
                   e.stopPropagation();
                   setOpenModalUserDelete(true);
-                  sessionStorage.setItem('userId', data.id);
-                  sessionStorage.setItem('first_name', data.first_name);
-                  sessionStorage.setItem('last_name', data.last_name);
+                  const json = {
+                    id: data.id,
+                    first_name: data.first_name,
+                    last_name: data.last_name,
+                  };
+
+                  sessionStorage.setItem('userDelete', JSON.stringify(json));
                 }}
               >
                 <img src={icons.garbageIcon} alt='Basura' />
