@@ -121,19 +121,22 @@ export const deleteUser = () => (dispatch) => {
     })
     .then(() => {
       dispatch(setReload());
+      sessionStorage.removeItem('userDelete');
     })
     .catch((err) => console.log(err));
 };
 
-export const updateUser = (data) => (dispatch) => {
+export const updateUser = (data, setUserPanelOpen) => (dispatch) => {
   dispatch(setUserLoading(true));
-  const userId = sessionStorage.getItem('id');
-  //console.log(userId);
+  const userId = JSON.parse(sessionStorage.getItem('userEdit')).id;
+
   axios
     .put(`http://44.211.175.241/api/auth/update-user-data/${userId}`, data)
     .then(() => {
       dispatch(setUserLoading(false));
+      setUserPanelOpen(false);
       dispatch(setReload());
+      sessionStorage.removeItem('userEdit');
     })
     .catch(() => dispatch(setUserLoading(false)));
 };

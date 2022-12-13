@@ -8,8 +8,8 @@ function ModalUserDelete({ setOpenModalUserDelete, openModalUserDelete }) {
 
   const first_name = JSON.parse(
     sessionStorage.getItem('userDelete')
-  ).first_name;
-  const last_name = JSON.parse(sessionStorage.getItem('userDelete')).last_name;
+  )?.first_name;
+  const last_name = JSON.parse(sessionStorage.getItem('userDelete'))?.last_name;
   return (
     <ModalBlank
       id='success-modal'
