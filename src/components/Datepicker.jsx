@@ -32,7 +32,7 @@ function Datepicker({ align, setValueDate, dateChosen }) {
       <Flatpickr
         className='form-input pl-3 text-slate-500 hover:text-slate-600 font-medium focus:border-primary w-[472px]'
         options={options}
-        disabled={dateChosen ? true : false}
+        //disabled={dateChosen ? true : false}
       />
       <div className='absolute inset-0 right-auto flex items-center pointer-events-none'>
         <svg

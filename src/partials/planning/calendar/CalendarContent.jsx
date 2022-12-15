@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getDate,
   openModal,
+  revertDateChosen,
   selectDate,
   selectReload,
 } from "../../../store/slice/calendarSlice";
@@ -149,8 +150,12 @@ function Calendar({ setOpenModalCalendar }) {
   }, [date, month]);
 
   const addHoliday = (day, e) => {
-    const data = `${year}-${month + 1}-${day}`;
-    dispatch(openModal(data, setOpenModalCalendar));
+    if (e.target.innerHTML === "") {
+      const data = `${year}-${month + 1}-${day}`;
+      dispatch(openModal(data, setOpenModalCalendar));
+    } else {
+      dispatch(revertDateChosen());
+    }
   };
 
   //funciomn para definir que pasara al hacer click en boton next del calendar
@@ -165,12 +170,12 @@ function Calendar({ setOpenModalCalendar }) {
     }
   };
 
-   //funciomn para definir que pasara al hacer click en boton prev del calendar
+  //funciomn para definir que pasara al hacer click en boton prev del calendar
   const setPrevCalendar = () => {
     if (month === 0) {
-      setYear(year-1);
-      setMonth(11)
-      getDays()
+      setYear(year - 1);
+      setMonth(11);
+      getDays();
     } else {
       setMonth(month - 1);
       getDays();
@@ -296,11 +301,7 @@ function Calendar({ setOpenModalCalendar }) {
                       {/* Events */}
                       <div className="grow flex flex-col  p-0.5 sm:p-1.5 overflow-hidden relative">
                         {getEvents(day).map((event, index) => (
-                          <section
-                            className="relative w-full mt-3"
-                            key={index}
-                            onClick={(e) => e.stopPropagation()}
-                          >
+                          <section className="relative w-full mt-3" key={index} onClick={(e)=> e.stopPropagation()}>
                             <div
                               className={`relative h-full py-0.5 rounded overflow-hidden ${eventColor(
                                 event.eventColor

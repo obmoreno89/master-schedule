@@ -69,6 +69,7 @@ export const addHoliday = (data, setOpenModalCalendar, reset) => (dispatch) => {
         reset();
         dispatch(setReload());
         setOpenModalCalendar(false);
+        dispatch(revertDateChosen())
       }
     })
     .catch((err) => {
