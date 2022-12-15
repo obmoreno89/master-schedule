@@ -150,7 +150,11 @@ function Calendar({ setOpenModalCalendar }) {
   }, [date, month]);
 
   const addHoliday = (day, e) => {
-    if (e.target.innerHTML === "") {
+    if (
+      e.target.innerHTML === "" ||
+      e.target.children[0]?.innerHTML == day ||
+      e.target.innerHTML == day
+    ) {
       const data = `${year}-${month + 1}-${day}`;
       dispatch(openModal(data, setOpenModalCalendar));
     } else {
@@ -301,7 +305,11 @@ function Calendar({ setOpenModalCalendar }) {
                       {/* Events */}
                       <div className="grow flex flex-col  p-0.5 sm:p-1.5 overflow-hidden relative">
                         {getEvents(day).map((event, index) => (
-                          <section className="relative w-full mt-3" key={index} onClick={(e)=> e.stopPropagation()}>
+                          <section
+                            className="relative w-full mt-3"
+                            key={index}
+                            onClick={(e) => e.stopPropagation()}
+                          >
                             <div
                               className={`relative h-full py-0.5 rounded overflow-hidden ${eventColor(
                                 event.eventColor
