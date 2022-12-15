@@ -48,7 +48,7 @@ function ModalCalendarEdit({
       <div className='pt-[20px] pr-[7px] pb-[20px] pl-[24px] border-slate-200'>
         <div className='flex justify-between items-center'>
           <div className='font-bold text-slate-800 text-[24px]'>
-            Agregar dia no laborable
+            Editar dia no laborable
           </div>
           <button
             className='text-slate-400 hover:text-slate-500 mt-3'
@@ -100,7 +100,7 @@ function ModalCalendarEdit({
                   type='submit'
                   className='bg-primary text-white w-full h-[51px] rounded mt-14 mb-6 font-semibold'
                 >
-                  Agregar dia no laborable
+                  Editar dia no laborable
                 </button>
               ) : (
                 <div className='mb-10  mt-20'>
