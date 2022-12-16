@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   selectCapabilitiesList,
   getCapabilitiesList,
-  setCapabilitiesList,
   setCapabilitiesSearch,
   revertSearch,
   selectCapabilitiesSearch,
@@ -19,14 +18,14 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
   );
   const [orderPL, setOrderPL] = useState({ state: false, asc: false });
   const [orderG, setOrderG] = useState({ state: false, asc: false });
-  const [startSearch, setStartSearch] = useState(false)
+  const [startSearch, setStartSearch] = useState(false);
 
   const capabilitiesList = useSelector(selectCapabilitiesList);
   const searchItems = useSelector(selectCapabilitiesSearch);
 
   const handleSearch = (e) => {
     if (e.target.value.length > 0) {
-      setStartSearch(true)
+      setStartSearch(true);
       let result = capabilities.filter((element) => {
         if (
           element.product_line.name
@@ -44,7 +43,7 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
       dispatch(setCapabilitiesSearch(result));
     } else {
       dispatch(revertSearch());
-      setStartSearch(false)
+      setStartSearch(false);
     }
   };
 
@@ -87,7 +86,7 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
             onChange={handleSearch}
           />
         </section>
-        {capabilities?.length > 0  ? (
+        {capabilities?.length > 0 ? (
           <>
             <div className="overflow-x-auto rounded-xl border border-slate-300 h-[550px]">
               <table className="table-auto w-full table">
@@ -145,21 +144,23 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
                 </thead>
                 {/* Table body */}
                 <tbody className="text-sm divide-y divide-slate-200">
-                  {startSearch ? (
+                  {!startSearch ? (
+                    <CapabilitiesTableItem
+                      setTransactionPanelOpen={setTransactionPanelOpen}
+                      setGroupPanelOpen={setGroupPanelOpen}
+                      capabilitiesList={capabilities}
+                    />
+                  ) : startSearch && searchItems.length > 0 ? (
                     <CapabilitiesTableItem
                       setTransactionPanelOpen={setTransactionPanelOpen}
                       setGroupPanelOpen={setGroupPanelOpen}
                       capabilitiesList={searchItems}
                     />
                   ) : (
-                    <CapabilitiesTableItem
-                      setTransactionPanelOpen={setTransactionPanelOpen}
-                      setGroupPanelOpen={setGroupPanelOpen}
-                      capabilitiesList={capabilities}
-                    />
+                    <h2 className="font-semibold text-2xl">
+                      Sin datos que mostrar
+                    </h2>
                   )}
-
-                
                 </tbody>
               </table>
             </div>
