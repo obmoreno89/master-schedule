@@ -10,6 +10,7 @@ import {
 const CapabilitiesProductListPanelTable = ({ setOpenModalPL }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(11);
+  const [pl, setPl] = useState(useSelector(selectPLines))
   const dispatch = useDispatch();
   const productLines = useSelector(selectPLines);
 
@@ -18,9 +19,33 @@ const CapabilitiesProductListPanelTable = ({ setOpenModalPL }) => {
   }, []);
   //productLines
 
+  // useEffect(() => {
+  //   setPl(productLines);
+  // }, [productLines]);
+
+  // useEffect(() => {
+  //   if (orderPL.state) {
+  //     if (!orderPL.asc) {
+  //       orderPLAsc(capabilitiesList, setCapabilities);
+  //     } else {
+  //       orderPLDesc(capabilitiesList, setCapabilities);
+  //     }
+  //   }
+  // }, [orderPL]);
+
+  // useEffect(() => {
+  //   if (orderG.state) {
+  //     if (!orderG.asc) {
+  //       orderGAsc(capabilitiesList, setCapabilities);
+  //     } else {
+  //       orderGDesc(capabilitiesList, setCapabilities);
+  //     }
+  //   }
+  // }, [orderG]);
+
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
-  const currentPost = productLines.slice(firstPostIndex, lastPostIndex);
+  const currentPost = pl.slice(firstPostIndex, lastPostIndex);
   return (
     <div className='bg-white'>
       <div className='mt-6 px-3'>
