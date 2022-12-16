@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAction, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = {
@@ -6,11 +6,19 @@ const initialState = {
   producLines: [],
   loading: null,
   capabilitiesList: [],
+  capabilitiesSearch: [],
 };
+
+export const revertSearch = createAction("REVERT_SEARCH");
 
 const capabilitiesSlice = createSlice({
   initialState,
   name: 'group',
+  extraReducers: (builder) => {
+    builder.addCase(revertSearch, (state, action) => {
+      state.capabilitiesSearch = [];
+    });
+  },
   reducers: {
     setGroup: (state, action) => {
       state.groupList = action.payload;
@@ -24,16 +32,20 @@ const capabilitiesSlice = createSlice({
     setCapabilitiesList: (state, action) => {
       state.capabilitiesList = action.payload;
     },
+    setCapabilitiesSearch: (state, action) => {
+      state.capabilitiesSearch = action.payload;
+    }
   },
 });
 
-export const { setGroup, setProductLines, setLoading, setCapabilitiesList } =
+export const { setGroup, setProductLines, setLoading, setCapabilitiesList, setCapabilitiesSearch } =
   capabilitiesSlice.actions;
 
 export const selectGroup = (state) => state.group.groupList;
 export const selectPLines = (state) => state.group.producLines;
 export const selectLoading = (state) => state.group.loading;
 export const selectCapabilitiesList = (state) => state.group.capabilitiesList;
+export const selectCapabilitiesSearch = (state) => state.group.capabilitiesSearch
 
 export default capabilitiesSlice.reducer;
 

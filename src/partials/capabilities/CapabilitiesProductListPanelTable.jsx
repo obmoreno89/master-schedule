@@ -17,6 +17,30 @@ const CapabilitiesProductListPanelTable = ({ setOpenModalPL }) => {
   }, []);
   //productLines
 
+  // useEffect(() => {
+  //   setPl(productLines);
+  // }, [productLines]);
+
+  // useEffect(() => {
+  //   if (orderPL.state) {
+  //     if (!orderPL.asc) {
+  //       orderPLAsc(capabilitiesList, setCapabilities);
+  //     } else {
+  //       orderPLDesc(capabilitiesList, setCapabilities);
+  //     }
+  //   }
+  // }, [orderPL]);
+
+  // useEffect(() => {
+  //   if (orderG.state) {
+  //     if (!orderG.asc) {
+  //       orderGAsc(capabilitiesList, setCapabilities);
+  //     } else {
+  //       orderGDesc(capabilitiesList, setCapabilities);
+  //     }
+  //   }
+  // }, [orderG]);
+
   useEffect(() => {
     setPl(productLines);
   }, [productLines]);
