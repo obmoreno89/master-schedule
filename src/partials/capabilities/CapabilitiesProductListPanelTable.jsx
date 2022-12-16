@@ -15,7 +15,8 @@ const CapabilitiesProductListPanelTable = ({ setOpenModalPL }) => {
 
   useEffect(() => {
     dispatch(getProductLines());
-  }, [productLines]);
+  }, []);
+  //productLines
 
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
