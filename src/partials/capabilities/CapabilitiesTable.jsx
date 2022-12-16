@@ -5,28 +5,59 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   selectCapabilitiesList,
   getCapabilitiesList,
+  setCapabilitiesList,
 } from '../../store/slice/capabilitiesSlice';
 
 const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(10);
   const capabilitiesList = useSelector(selectCapabilitiesList);
+  const [search, setSearch] = useState('');
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCapabilitiesList());
-  }, [capabilitiesList]);
+  }, []);
 
-  const lastPostIndex = currentPage * postsPerPage;
-  const firstPostIndex = lastPostIndex - postsPerPage;
-  const currentPost = capabilitiesList.slice(firstPostIndex, lastPostIndex);
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+    filter(e.target.value);
+  };
+
+  const filter = (searchTerm) => {
+    let searchResult = capabilitiesList.filter((element) => {
+      if (
+        element.product_line.name
+          .toString()
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase()) ||
+        element.product_line.group.name
+          .toString()
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase())
+      ) {
+        return element;
+      }
+    });
+    dispatch(setCapabilitiesList(searchResult));
+  };
 
   return (
     <div className='bg-white'>
+      <form className='flex justify-end'>
+        <div className='relative'>
+          <input
+            className='form-input w-72'
+            type='search'
+            placeholder='Buscar...'
+            value={search}
+            onChange={handleSearch}
+          />
+        </div>
+      </form>
       <div className='mt-6'>
         {capabilitiesList.length ? (
           <>
-            <div className='overflow-x-auto rounded-xl border border-slate-300'>
+            <div className='overflow-x-auto rounded-xl border border-slate-300 h-[500px] overflow-auto'>
               <table className='table-auto w-full table'>
                 {/* Table header */}
                 <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50'>
@@ -61,18 +92,11 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
                   <CapabilitiesTableItem
                     setTransactionPanelOpen={setTransactionPanelOpen}
                     setGroupPanelOpen={setGroupPanelOpen}
-                    capabilitiesList={currentPost}
+                    capabilitiesList={capabilitiesList}
                   />
                 </tbody>
               </table>
             </div>
-            <section className='mt-5'>
-              <PaginationCapabilities
-                totalPosts={capabilitiesList.length}
-                postsPerPage={postsPerPage}
-                setCurrentPage={setCurrentPage}
-              />
-            </section>
           </>
         ) : (
           <>
