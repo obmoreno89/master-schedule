@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   selectCapabilitiesList,
   getCapabilitiesList,
+  setCapabilitiesList,
 } from "../../store/slice/capabilitiesSlice";
 import icons from "../../images/icon/icons";
 import { orderGAsc, orderGDesc, orderPLAsc, orderPLDesc } from "./orderFunc";
@@ -12,110 +13,26 @@ import { orderGAsc, orderGDesc, orderPLAsc, orderPLDesc } from "./orderFunc";
 const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(10);
-  const [capabilities, setCapabilities] = useState(
-    useSelector(selectCapabilitiesList)
-  );
-  const [orderPL, setOrderPL] = useState({ state: false, asc: false });
-  const [orderG, setOrderG] = useState({ state: false, asc: false });
   const capabilitiesList = useSelector(selectCapabilitiesList);
+  const [search, setSearch] = useState('');
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getCapabilitiesList());
-  }, []);
-
-  useEffect(() => {
-    setCapabilities(capabilitiesList);
   }, [capabilitiesList]);
-
-  useEffect(() => {
-    if (orderPL.state) {
-      if (!orderPL.asc) {
-        orderPLAsc(capabilitiesList, setCapabilities);
-      } else {
-        orderPLDesc(capabilitiesList, setCapabilities);
-      }
-    }
-  }, [orderPL]);
-
-  useEffect(() => {
-    if (orderG.state) {
-      if (!orderG.asc) {
-        orderGAsc(capabilitiesList, setCapabilities);
-      } else {
-        orderGDesc(capabilitiesList, setCapabilities);
-      }
-    }
-  }, [orderG]);
 
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
-  const currentPost = capabilities.slice(firstPostIndex, lastPostIndex);
-
-  // const orderPLAsc = () => {
-  //   const arrayForSort = [...capabilitiesList];
-  //   const sortArray = arrayForSort.sort((a, b) => {
-  //     if (a.product_line.name < b.product_line.name) {
-  //       return 1;
-  //     }
-  //     if (a.product_line.name > b.product_line.name) {
-  //       return -1;
-  //     }
-  //     return 0;
-  //   });
-  //   setCapabilities(sortArray);
-  // };
-
-  // const orderGAsc = () => {
-  //   const arrayForSort = [...capabilitiesList];
-  //   const sortArray = arrayForSort.sort((a, b) => {
-  //     if (a.product_line.group.name < b.product_line.group.name) {
-  //       return 1;
-  //     }
-  //     if (a.product_line.group.name > b.product_line.group.name) {
-  //       return -1;
-  //     }
-  //     return 0;
-  //   });
-  //   setCapabilities(sortArray);
-  // };
-
-  // const orderPLDesc = () => {
-  //   const arrayForSort = [...capabilitiesList];
-  //   const sortArray = arrayForSort.sort((a, b) => {
-  //     if (a.product_line.name > b.product_line.name) {
-  //       return 1;
-  //     }
-  //     if (a.product_line.name < b.product_line.name) {
-  //       return -1;
-  //     }
-  //     return 0;
-  //   });
-  //   setCapabilities(sortArray);
-  // };
-
-  // const orderGDesc = () => {
-  //   const arrayForSort = [...capabilitiesList];
-  //   const sortArray = arrayForSort.sort((a, b) => {
-  //     if (a.product_line.group.name > b.product_line.group.name) {
-  //       return 1;
-  //     }
-  //     if (a.product_line.group.name < b.product_line.group.name) {
-  //       return -1;
-  //     }
-  //     return 0;
-  //   });
-
-  //   setCapabilities(sortArray);
-  // };
+  const currentPost = capabilitiesList.slice(firstPostIndex, lastPostIndex);
 
   return (
-    <div className="bg-white">
-      <div className="mt-6">
-        {capabilities?.length ? (
+    <div className='bg-white'>
+      <div className='mt-6'>
+        {capabilitiesList.length ? (
           <>
-            <div className="overflow-x-auto rounded-xl border border-slate-300">
-              <table className="table-auto w-full table">
+            <div className='overflow-x-auto rounded-xl border border-slate-300'>
+              <table className='table-auto w-full table'>
                 {/* Table header */}
                 <thead className="text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50">
                   <tr>
@@ -173,12 +90,12 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
                   <CapabilitiesTableItem
                     setTransactionPanelOpen={setTransactionPanelOpen}
                     setGroupPanelOpen={setGroupPanelOpen}
-                    capabilitiesList={currentPost}
+                    capabilitiesList={capabilitiesList}
                   />
                 </tbody>
               </table>
             </div>
-            <section className="mt-5">
+            <section className='mt-5'>
               <PaginationCapabilities
                 totalPosts={capabilitiesList.length}
                 postsPerPage={postsPerPage}
