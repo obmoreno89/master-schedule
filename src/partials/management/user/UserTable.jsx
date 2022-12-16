@@ -6,15 +6,13 @@ import {
   selectReload,
 } from '../../../store/slice/usersSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import PaginationUser from '../../../components/PaginationUser';
+
 function UserTable({
   setUserPanelOpen,
   setOpenModalUserDelete,
   openModalUserDelete,
   userPanelOpen,
 }) {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(11);
   const dispatch = useDispatch();
   const dataUser = useSelector(selectAllUser);
   const reload = useSelector(selectReload);
@@ -23,14 +21,17 @@ function UserTable({
     dispatch(getAlluser());
   }, [reload]);
 
-  const lastPostIndex = currentPage * postsPerPage;
-  const firstPostIndex = lastPostIndex - postsPerPage;
-  const currentPost = dataUser.slice(firstPostIndex, lastPostIndex);
-
   return (
     <>
       {dataUser.length ? (
         <>
+          <section className='mb-5 flex justify-end'>
+            <input
+              className='form-input w-72'
+              placeholder='Buscar...'
+              type='search'
+            />
+          </section>
           <section>
             <div className='overflow-x-auto rounded-xl border border-slate-300'>
               <UserTableItem
@@ -38,16 +39,9 @@ function UserTable({
                 setUserPanelOpen={setUserPanelOpen}
                 setOpenModalUserDelete={setOpenModalUserDelete}
                 openModalUserDelete={openModalUserDelete}
-                dataUser={currentPost}
+                dataUser={dataUser}
               />
             </div>
-          </section>
-          <section className='mt-5'>
-            <PaginationUser
-              totalPosts={dataUser.length}
-              postsPerPage={postsPerPage}
-              setCurrentPage={setCurrentPage}
-            />
           </section>
         </>
       ) : (
