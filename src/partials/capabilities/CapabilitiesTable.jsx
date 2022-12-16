@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import CapabilitiesTableItem from './CapabilitiesTableItem';
+import PaginationCapabilities from '../../components/PaginationCapabilities';
 import { useSelector, useDispatch } from 'react-redux';
-import { useForm } from 'react-hook-form';
 import {
   selectCapabilitiesList,
   getCapabilitiesList,
-  setCapabilitiesList,
 } from '../../store/slice/capabilitiesSlice';
+import icons from '../../images/icon/icons';
+import { orderGAsc, orderGDesc, orderPLAsc, orderPLDesc } from './orderFunc';
 
 const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
+  const [capabilities, setCapabilities] = useState(
+    useSelector(selectCapabilitiesList)
+  );
+  const [orderPL, setOrderPL] = useState({ state: false, asc: false });
+  const [orderG, setOrderG] = useState({ state: false, asc: false });
+
   const capabilitiesList = useSelector(selectCapabilitiesList);
   const [search, setSearch] = useState('');
 
@@ -18,65 +25,74 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
     dispatch(getCapabilitiesList());
   }, []);
 
-  const handleSearch = (e) => {
-    if (e.target.value === '') {
-      dispatch(getCapabilitiesList());
-    } else {
-      setSearch(e.target.value);
-      filter(e.target.value);
-    }
-  };
+  useEffect(() => {
+    setCapabilities(capabilitiesList);
+  }, [capabilitiesList]);
 
-  const filter = (searchTerm) => {
-    let searchResult = [];
-    searchResult = capabilitiesList.filter((element) => {
-      if (
-        element.product_line.name
-          .toString()
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase()) ||
-        element.product_line.group.name
-          .toString()
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase())
-      ) {
-        return element;
+  useEffect(() => {
+    if (orderPL.state) {
+      if (!orderPL.asc) {
+        orderPLAsc(capabilitiesList, setCapabilities);
+      } else {
+        orderPLDesc(capabilitiesList, setCapabilities);
       }
-    });
-    dispatch(setCapabilitiesList(searchResult));
-  };
+    }
+  }, [orderPL]);
+
+  useEffect(() => {
+    if (orderG.state) {
+      if (!orderG.asc) {
+        orderGAsc(capabilitiesList, setCapabilities);
+      } else {
+        orderGDesc(capabilitiesList, setCapabilities);
+      }
+    }
+  }, [orderG]);
 
   return (
     <div className='bg-white'>
-      <form className='flex justify-end space-x-2'>
-        <div className='relative'>
-          <input
-            className='form-input w-72'
-            type='search'
-            placeholder='Buscar...'
-            value={search}
-            onChange={handleSearch}
-          />
-        </div>
-      </form>
       <div className='mt-6'>
-        {capabilitiesList.length ? (
+        {capabilities?.length ? (
           <>
-            <div className='overflow-x-auto rounded-xl border border-slate-300 h-[500px] overflow-auto'>
+            <div className='overflow-x-auto rounded-xl border border-slate-300 h-[550px]'>
               <table className='table-auto w-full table'>
                 {/* Table header */}
                 <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50'>
                   <tr>
-                    <th className='px-2 first:pl-5 w-1/4'>
-                      <div className='font-semibold text-left'>
-                        Línea de productos
+                    <th
+                      className='px-2 first:pl-5 w-1/4 cursor-pointer'
+                      onClick={() => {
+                        setOrderPL({ state: true, asc: !orderPL.asc });
+                      }}
+                    >
+                      <div className='flex items-center space-x-10'>
+                        <div className='font-semibold text-left'>
+                          Línea de productos
+                        </div>
+                        <img
+                          src={orderPL.asc ? icons.doubleDown : icons.doubleUp}
+                          alt='Flecha abajo'
+                          className='w-5'
+                        />
                       </div>
                     </th>
                     <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap '>
                       <p className='font-semibold text-left'>Tipo</p>
                     </th>
-                    <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap '>
-                      <p className='font-semibold text-left'>Grupo</p>
+                    <th
+                      className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap cursor-pointer '
+                      onClick={() => {
+                        setOrderG({ state: true, asc: !orderG.asc });
+                      }}
+                    >
+                      <div className='flex items-center space-x-2'>
+                        <p className='font-semibold text-left'>Grupo</p>
+                        <img
+                          src={orderG.asc ? icons.doubleDown : icons.doubleUp}
+                          alt='Flecha abajo'
+                          className='w-5'
+                        />
+                      </div>
                     </th>
                     <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
                       <p className='font-semibold text-center'>Pz/Hora</p>

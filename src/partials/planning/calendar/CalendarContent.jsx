@@ -52,15 +52,17 @@ function Calendar({ setOpenModalCalendar }) {
   const setAllEvents = () => {
     date.forEach((d) => {
       const array = d.date.split("-");
-      const day = array[2];
-      const month = array[1];
+      const dayDB = array[2];
+      const monthDB = array[1];
+      const yearDB = array[0];
 
       let event = {
         eventStart: new Date(
-          new Date(d.date).getFullYear(),
-          day == 1 ? month - 1 : new Date(d.date).getMonth(),
+          //new Date(d.date).getFullYear(),
+          yearDB,
+          dayDB == 1 ? monthDB - 1 : new Date(d.date).getMonth(),
 
-          day
+          dayDB
         ),
         eventName: `${d.description}`,
         eventColor: "sky",
@@ -150,15 +152,15 @@ function Calendar({ setOpenModalCalendar }) {
   }, [date, month]);
 
   const addHoliday = (day, e) => {
-    if (
-      e.target.innerHTML === "" ||
-      e.target.children[0]?.innerHTML == day ||
-      e.target.innerHTML == day
-    ) {
+    const eventExists = getEvents(day).filter((event) => {
+      return event;
+    });
+
+    if (eventExists.length > 0) {
+      dispatch(revertDateChosen());
+    } else {
       const data = `${year}-${month + 1}-${day}`;
       dispatch(openModal(data, setOpenModalCalendar));
-    } else {
-      dispatch(revertDateChosen());
     }
   };
 

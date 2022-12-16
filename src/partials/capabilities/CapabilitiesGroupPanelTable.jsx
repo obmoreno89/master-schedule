@@ -16,7 +16,8 @@ const CapabilitiesGroupPanelTable = ({ setOpenModalGroup }) => {
 
   useEffect(() => {
     dispatch(getGroupList());
-  }, [groups]);
+  }, []);
+  //groups
 
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
