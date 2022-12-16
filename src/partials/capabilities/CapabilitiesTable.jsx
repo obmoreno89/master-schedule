@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CapabilitiesTableItem from './CapabilitiesTableItem';
-import PaginationCapabilities from '../../components/PaginationCapabilities';
 import { useSelector, useDispatch } from 'react-redux';
+import { useForm } from 'react-hook-form';
 import {
   selectCapabilitiesList,
   getCapabilitiesList,
@@ -19,12 +19,17 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
   }, []);
 
   const handleSearch = (e) => {
-    setSearch(e.target.value);
-    filter(e.target.value);
+    if (e.target.value === '') {
+      dispatch(getCapabilitiesList());
+    } else {
+      setSearch(e.target.value);
+      filter(e.target.value);
+    }
   };
 
   const filter = (searchTerm) => {
-    let searchResult = capabilitiesList.filter((element) => {
+    let searchResult = [];
+    searchResult = capabilitiesList.filter((element) => {
       if (
         element.product_line.name
           .toString()
@@ -43,7 +48,7 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
 
   return (
     <div className='bg-white'>
-      <form className='flex justify-end'>
+      <form className='flex justify-end space-x-2'>
         <div className='relative'>
           <input
             className='form-input w-72'
