@@ -80,3 +80,20 @@ export const getCapabilitiesList = () => (dispatch) => {
     })
     .catch((err) => console.log(err));
 };
+
+export const createGroup = (data, setOpenModalPL, reset) => (dispatch) => {
+  dispatch(setLoading(true));
+  axios
+    .post('http://44.211.175.241/api/capacities/create-product-line', data)
+    .then((response) => {
+      if (response.status === 201) {
+        dispatch(setLoading(false));
+        setOpenModalPL(false);
+        reset;
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch(setLoading(false));
+    });
+};

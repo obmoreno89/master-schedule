@@ -29,7 +29,7 @@ function UserPanel({ userPanelOpen, setUserPanelOpen }) {
     };
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
-  });
+  }, []);
 
   return (
     <>

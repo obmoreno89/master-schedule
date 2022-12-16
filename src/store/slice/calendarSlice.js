@@ -1,15 +1,25 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAction, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
   datelist: [],
   loading: null,
   reload: false,
+  dateChosen: null,
+  dateState: false,
 };
+
+export const revertDateChosen = createAction("REVERT_DATECHOSEN");
 
 const calendarSlice = createSlice({
   initialState,
   name: "calendar",
+  extraReducers: (builder) => {
+    builder.addCase(revertDateChosen, (state, action) => {
+      state.dateChosen = null;
+      state.dateState = false;
+    });
+  },
   reducers: {
     setCalendar: (state, action) => {
       state.datelist = action.payload;
@@ -20,14 +30,21 @@ const calendarSlice = createSlice({
     setReload: (state, action) => {
       state.reload = !state.reload;
     },
+    setDateChosen: (state, action) => {
+      state.dateChosen = action.payload;
+      state.dateState = true;
+    },
   },
 });
 
-export const { setCalendar, setLoading, setReload } = calendarSlice.actions;
+export const { setCalendar, setLoading, setReload, setDateChosen } =
+  calendarSlice.actions;
 
 export const selectDate = (state) => state.calendar.datelist;
 export const selectLoading = (state) => state.calendar.loading;
 export const selectReload = (state) => state.calendar.reload;
+export const selectDateChosen = (state) => state.calendar.dateChosen;
+export const selectDateState = (state) => state.calendar.dateState;
 
 export default calendarSlice.reducer;
 
@@ -50,8 +67,9 @@ export const addHoliday = (data, setOpenModalCalendar, reset) => (dispatch) => {
       if (response.status === 201) {
         dispatch(setLoading(false));
         reset();
-        dispatch(setReload())
+        dispatch(setReload());
         setOpenModalCalendar(false);
+        dispatch(revertDateChosen())
       }
     })
     .catch((err) => {
@@ -67,7 +85,7 @@ export const deleteHoliday = (eventId, setDropdownOpen) => (dispatch) => {
     )
     .then((response) => {
       if (response.status === 204) {
-        dispatch(setReload())
+        dispatch(setReload());
         setDropdownOpen(false);
       }
     })
@@ -86,13 +104,17 @@ export const editHoliday =
       )
       .then((response) => {
         if (response.status === 200) {
-          dispatch(setReload())
+          dispatch(setReload());
           dispatch(setLoading(false));
           setOpenModalCalendarEdit(false);
         }
 
-        setReloadEvent(false)
-       
+        setReloadEvent(false);
       })
       .catch(() => dispatch(setLoading(false)));
   };
+
+export const openModal = (data, setOpenModalCalendar) => (dispatch) => {
+  dispatch(setDateChosen(data));
+  setOpenModalCalendar(true);
+};
