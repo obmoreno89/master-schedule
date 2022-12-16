@@ -8,9 +8,7 @@ import {
 } from '../../store/slice/capabilitiesSlice.js';
 
 const CapabilitiesProductListPanelTable = ({ setOpenModalPL }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(11);
-  const [pl, setPl] = useState(useSelector(selectPLines))
+  const [pl, setPl] = useState(useSelector(selectPLines));
   const dispatch = useDispatch();
   const productLines = useSelector(selectPLines);
 
@@ -43,9 +41,10 @@ const CapabilitiesProductListPanelTable = ({ setOpenModalPL }) => {
   //   }
   // }, [orderG]);
 
-  const lastPostIndex = currentPage * postsPerPage;
-  const firstPostIndex = lastPostIndex - postsPerPage;
-  const currentPost = pl.slice(firstPostIndex, lastPostIndex);
+  useEffect(() => {
+    setPl(productLines);
+  }, [productLines]);
+
   return (
     <div className='bg-white'>
       <div className='mt-6 px-3'>
@@ -67,18 +66,11 @@ const CapabilitiesProductListPanelTable = ({ setOpenModalPL }) => {
             <tbody className='text-sm divide-y divide-slate-200'>
               <CapabilitiesProductListPanelTableItem
                 setOpenModalPL={setOpenModalPL}
-                currentPost={currentPost}
+                currentPost={pl}
               />
             </tbody>
           </table>
         </div>
-        <section className='mt-8'>
-          <PaginationProductList
-            totalPosts={productLines.length}
-            postsPerPage={postsPerPage}
-            setCurrentPage={setCurrentPage}
-          />
-        </section>
       </div>
     </div>
   );

@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import CapabilitiesTableItem from './CapabilitiesTableItem';
-import PaginationCapabilities from '../../components/PaginationCapabilities';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   selectCapabilitiesList,
   getCapabilitiesList,
+  setCapabilitiesList,
 } from '../../store/slice/capabilitiesSlice';
 import icons from '../../images/icon/icons';
 import { orderGAsc, orderGDesc, orderPLAsc, orderPLDesc } from './orderFunc';
 
 const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
+  const dispatch = useDispatch();
   const [capabilities, setCapabilities] = useState(
     useSelector(selectCapabilitiesList)
   );
@@ -18,8 +19,35 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
 
   const capabilitiesList = useSelector(selectCapabilitiesList);
   const [search, setSearch] = useState('');
+  const [tableCapabilities, setTableCapabilities] = useState(
+    useSelector(selectCapabilitiesList)
+  );
 
-  const dispatch = useDispatch();
+  const handleSearch = (e) => {
+    //console.log(e.target.value);
+    setSearch(e.target.value);
+    filter(e.target.value);
+  };
+
+  const filter = (searchTerm) => {
+    let result = capabilities.filter((element) => {
+      if (
+        element.product_line.name
+          .toString()
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase()) ||
+        element.product_line.group.name
+          .toString()
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase())
+      ) {
+        return element;
+      }
+    });
+
+    dispatch(setCapabilitiesList(result));
+    //setTableCapabilities(result);
+  };
 
   useEffect(() => {
     dispatch(getCapabilitiesList());
@@ -52,6 +80,15 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
   return (
     <div className='bg-white'>
       <div className='mt-6'>
+        <section className='flex justify-end mb-5'>
+          <input
+            className='form-input w-72'
+            placeholder='Buscar...'
+            type='search'
+            value={search}
+            onChange={handleSearch}
+          />
+        </section>
         {capabilities?.length ? (
           <>
             <div className='overflow-x-auto rounded-xl border border-slate-300 h-[550px]'>
