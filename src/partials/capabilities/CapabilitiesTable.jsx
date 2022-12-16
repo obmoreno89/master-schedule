@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   selectCapabilitiesList,
   getCapabilitiesList,
+
 } from "../../store/slice/capabilitiesSlice";
 import icons from "../../images/icon/icons";
 import { orderGAsc, orderGDesc, orderPLAsc, orderPLDesc } from "./orderFunc";
@@ -17,7 +18,10 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
   );
   const [orderPL, setOrderPL] = useState({ state: false, asc: false });
   const [orderG, setOrderG] = useState({ state: false, asc: false });
+
   const capabilitiesList = useSelector(selectCapabilitiesList);
+  const [search, setSearch] = useState('');
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -116,6 +120,8 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
           <>
             <div className="overflow-x-auto rounded-xl border border-slate-300">
               <table className="table-auto w-full table">
+
+ 
                 {/* Table header */}
                 <thead className="text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50">
                   <tr>
@@ -173,11 +179,12 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
                   <CapabilitiesTableItem
                     setTransactionPanelOpen={setTransactionPanelOpen}
                     setGroupPanelOpen={setGroupPanelOpen}
-                    capabilitiesList={currentPost}
+                    capabilitiesList={capabilitiesList}
                   />
                 </tbody>
               </table>
             </div>
+
             <section className="mt-5">
               <PaginationCapabilities
                 totalPosts={capabilitiesList.length}
@@ -185,6 +192,8 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
                 setCurrentPage={setCurrentPage}
               />
             </section>
+
+
           </>
         ) : (
           <>
