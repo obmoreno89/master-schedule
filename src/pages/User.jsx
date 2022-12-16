@@ -38,11 +38,6 @@ function Management() {
                 </div>
               </div>
 
-              {/* Table */}
-              <section className='lg:px-8'>
-                <UserFilter />
-              </section>
-
               <section className='lg:px-8 mt-5'>
                 <UserTable
                   setUserPanelOpen={setUserPanelOpen}

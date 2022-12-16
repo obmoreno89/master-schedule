@@ -17,6 +17,10 @@ import systemStatusIcon from './systemStatusIcon.svg';
 import filter from './filter.svg';
 import pencilIcon from './pencilIcon.svg';
 import garbageIcon from './garbageIcon.svg';
+import arrowUpCircle from './arrow-up-circle.svg'
+import arrowDownCircle from './arrow-down-circle.svg'
+import doubleUp from './chevrons-up.svg'
+import doubleDown from './chevrons-down.svg'
 
 export default {
   openEye,
@@ -38,4 +42,8 @@ export default {
   filter,
   pencilIcon,
   garbageIcon,
+  arrowUpCircle,
+  arrowDownCircle,
+  doubleUp,
+  doubleDown
 };

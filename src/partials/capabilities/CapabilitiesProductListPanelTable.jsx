@@ -8,18 +8,43 @@ import {
 } from '../../store/slice/capabilitiesSlice.js';
 
 const CapabilitiesProductListPanelTable = ({ setOpenModalPL }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(11);
+  const [pl, setPl] = useState(useSelector(selectPLines));
   const dispatch = useDispatch();
   const productLines = useSelector(selectPLines);
 
   useEffect(() => {
     dispatch(getProductLines());
+  }, []);
+  //productLines
+
+  // useEffect(() => {
+  //   setPl(productLines);
+  // }, [productLines]);
+
+  // useEffect(() => {
+  //   if (orderPL.state) {
+  //     if (!orderPL.asc) {
+  //       orderPLAsc(capabilitiesList, setCapabilities);
+  //     } else {
+  //       orderPLDesc(capabilitiesList, setCapabilities);
+  //     }
+  //   }
+  // }, [orderPL]);
+
+  // useEffect(() => {
+  //   if (orderG.state) {
+  //     if (!orderG.asc) {
+  //       orderGAsc(capabilitiesList, setCapabilities);
+  //     } else {
+  //       orderGDesc(capabilitiesList, setCapabilities);
+  //     }
+  //   }
+  // }, [orderG]);
+
+  useEffect(() => {
+    setPl(productLines);
   }, [productLines]);
 
-  const lastPostIndex = currentPage * postsPerPage;
-  const firstPostIndex = lastPostIndex - postsPerPage;
-  const currentPost = productLines.slice(firstPostIndex, lastPostIndex);
   return (
     <div className='bg-white'>
       <div className='mt-6 px-3'>
@@ -30,7 +55,7 @@ const CapabilitiesProductListPanelTable = ({ setOpenModalPL }) => {
               <tr>
                 <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
                   <div className='font-semibold text-left'>
-                    Lista de productos
+                    Línea de productos
                   </div>
                 </th>
                 <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
@@ -41,18 +66,11 @@ const CapabilitiesProductListPanelTable = ({ setOpenModalPL }) => {
             <tbody className='text-sm divide-y divide-slate-200'>
               <CapabilitiesProductListPanelTableItem
                 setOpenModalPL={setOpenModalPL}
-                currentPost={currentPost}
+                currentPost={pl}
               />
             </tbody>
           </table>
         </div>
-        <section className='mt-8'>
-          <PaginationProductList
-            totalPosts={productLines.length}
-            postsPerPage={postsPerPage}
-            setCurrentPage={setCurrentPage}
-          />
-        </section>
       </div>
     </div>
   );
