@@ -117,7 +117,7 @@ export const deleteUser = () => (dispatch) => {
   const userId = JSON.parse(sessionStorage.getItem('userDelete')).id;
   axios
     .delete(`http://44.211.175.241/api/auth/delete-user/${userId}`, {
-      headers: { Authorization: `token ${token}` },
+      headers: { Authorization: `Token ${token}` },
     })
     .then(() => {
       dispatch(setReload());
