@@ -34,7 +34,7 @@ function Capabilities() {
             nameSubRoute='Capacidades'
           />
           <main className='bg-white h-screen'>
-            <div className='px-4 sm:px-6 lg:px-0 py-8 w-full max-w-9xl mx-auto'>
+            <div className='px-4 sm:px-6 lg:px-0 py-1 w-full max-w-9xl mx-auto'>
               {/* Page header */}
               <div className='sm:flex sm:justify-between sm:items-center mb-4 md:mb-2'>
                 {/* Left: Title */}
