@@ -97,7 +97,7 @@ export const createPLines = (data, setOpenModalPL, reset) => (dispatch) => {
     });
 };
 
-export const getCapabilitiesList = () => (dispatch) => {
+export const getCapabilitiesList = (data) => (dispatch) => {
   axios
     .get('http://44.211.175.241/api/capacities/list-default-capacities')
     .then((response) => {
@@ -106,15 +106,16 @@ export const getCapabilitiesList = () => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export const createGroup = (data, setOpenModalPL, reset) => (dispatch) => {
+export const createGroup = (data, setOpenModalGroup, reset) => (dispatch) => {
   dispatch(setLoading(true));
   axios
-    .post('http://44.211.175.241/api/capacities/create-product-line', data)
+    .post('http://44.211.175.241/api/capacities/new-group', data)
     .then((response) => {
-      if (response.status === 201) {
+      if (response.status === 200) {
         dispatch(setLoading(false));
-        setOpenModalPL(false);
+        setOpenModalGroup(false);
         reset;
+        dispatch(setReload());
       }
     })
     .catch((err) => {

@@ -75,7 +75,7 @@ export const registerUser = (data) => (dispatch) => {
   dispatch(setUserLoading(true));
   axios
     .post('http://44.211.175.241/api/auth/register/', data, {
-      headers: { Authorization: `token ${token}` },
+      headers: { Authorization: `Token ${token}` },
     })
     .then((response) => {
       dispatch(setUserLoading(false));

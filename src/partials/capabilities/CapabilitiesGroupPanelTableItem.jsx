@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import AddButtonForTable from '../../pages/component/AddButtonForTable';
 
 function CapabilitiesGroupPanelTableItem({ setOpenModalGroup, groups }) {
