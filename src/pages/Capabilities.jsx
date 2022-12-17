@@ -38,11 +38,6 @@ function Capabilities() {
               {/* Page header */}
               <div className='sm:flex sm:justify-between sm:items-center mb-4 md:mb-2'>
                 {/* Left: Title */}
-                <div className='mb-4 sm:mb-0 lg:px-8'>
-                  <h1 className='text-2xl md:text-3xl text-slate-800 font-bold'>
-                    Capacidades
-                  </h1>
-                </div>
               </div>
 
               {/* Table */}

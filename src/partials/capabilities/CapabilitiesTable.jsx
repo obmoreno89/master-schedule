@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import CapabilitiesTableItem from "./CapabilitiesTableItem";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import CapabilitiesTableItem from './CapabilitiesTableItem';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   selectCapabilitiesList,
   getCapabilitiesList,
   setCapabilitiesSearch,
   revertSearch,
   selectCapabilitiesSearch,
-} from "../../store/slice/capabilitiesSlice";
-import icons from "../../images/icon/icons";
-import { orderGAsc, orderGDesc, orderPLAsc, orderPLDesc } from "./orderFunc";
+} from '../../store/slice/capabilitiesSlice';
+import icons from '../../images/icon/icons';
+import { orderGAsc, orderGDesc, orderPLAsc, orderPLDesc } from './orderFunc';
 
 const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
   const dispatch = useDispatch();
@@ -76,74 +76,79 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
   }, [orderG]);
 
   return (
-    <div className="bg-white">
-      <div className="mt-6">
-        <section className="flex justify-end mb-5">
+    <div className='bg-white'>
+      <div className='mt-6'>
+        <section className='flex justify-between mb-5'>
+          <div className='mb-4 sm:mb-0'>
+            <h1 className='text-2xl md:text-3xl text-slate-800 font-bold'>
+              Capacidades
+            </h1>
+          </div>
           <input
-            className="form-input w-72"
-            placeholder="Buscar..."
-            type="search"
+            className='form-input w-72'
+            placeholder='Buscar...'
+            type='search'
             onChange={handleSearch}
           />
         </section>
         {capabilities?.length > 0 ? (
           <>
-            <div className="overflow-x-auto rounded-xl border border-slate-300 h-[550px]">
-              <table className="table-auto w-full table">
+            <div className='overflow-x-auto rounded-xl border border-slate-300 h-[550px]'>
+              <table className='table-auto w-full table'>
                 {/* Table header */}
-                <thead className="text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50">
+                <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50'>
                   <tr>
                     <th
-                      className="px-2 first:pl-5 w-1/4 cursor-pointer"
+                      className='px-2 first:pl-5 w-1/4 cursor-pointer'
                       onClick={() => {
                         setOrderPL({ state: true, asc: !orderPL.asc });
                       }}
                     >
-                      <div className="flex items-center space-x-10">
-                        <div className="font-semibold text-left">
+                      <div className='flex items-center space-x-10'>
+                        <div className='font-semibold text-left'>
                           Línea de productos
                         </div>
                         <img
                           src={orderPL.asc ? icons.doubleDown : icons.doubleUp}
-                          alt="Flecha abajo"
-                          className="w-5"
+                          alt='Flecha abajo'
+                          className='w-5'
                         />
                       </div>
                     </th>
-                    <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap ">
-                      <p className="font-semibold text-left">Tipo</p>
+                    <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap '>
+                      <p className='font-semibold text-left'>Tipo</p>
                     </th>
                     <th
-                      className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap cursor-pointer "
+                      className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap cursor-pointer '
                       onClick={() => {
                         setOrderG({ state: true, asc: !orderG.asc });
                       }}
                     >
-                      <div className="flex items-center space-x-2">
-                        <p className="font-semibold text-left">Grupo</p>
+                      <div className='flex items-center space-x-2'>
+                        <p className='font-semibold text-left'>Grupo</p>
                         <img
                           src={orderG.asc ? icons.doubleDown : icons.doubleUp}
-                          alt="Flecha abajo"
-                          className="w-5"
+                          alt='Flecha abajo'
+                          className='w-5'
                         />
                       </div>
                     </th>
-                    <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                      <p className="font-semibold text-center">Pz/Hora</p>
+                    <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
+                      <p className='font-semibold text-center'>Pz/Hora</p>
                     </th>
-                    <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap ">
-                      <p className="font-semibold text-center">Turno/Dia</p>
+                    <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap '>
+                      <p className='font-semibold text-center'>Turno/Dia</p>
                     </th>
-                    <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap ">
-                      <p className="font-semibold text-center">Pz/Dia</p>
+                    <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap '>
+                      <p className='font-semibold text-center'>Pz/Dia</p>
                     </th>
-                    <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-2/5">
-                      <p className="font-semibold text-center">Comentario</p>
+                    <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-2/5'>
+                      <p className='font-semibold text-center'>Comentario</p>
                     </th>
                   </tr>
                 </thead>
                 {/* Table body */}
-                <tbody className="text-sm divide-y divide-slate-200">
+                <tbody className='text-sm divide-y divide-slate-200'>
                   {!startSearch ? (
                     <CapabilitiesTableItem
                       setTransactionPanelOpen={setTransactionPanelOpen}
@@ -157,9 +162,9 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
                       capabilitiesList={searchItems}
                     />
                   ) : (
-                    <h2 className="font-semibold text-2xl">
-                      Sin datos que mostrar
-                    </h2>
+                    <section className='relative left-[475px] top-[200px]'>
+                      <h2 className='font-semibold text-2xl'>Sin resultado</h2>
+                    </section>
                   )}
                 </tbody>
               </table>
@@ -167,8 +172,8 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
           </>
         ) : (
           <>
-            <section className="justify-center items-center flex h-96">
-              <h2 className="font-semibold text-2xl">Sin datos que mostrar</h2>
+            <section className='justify-center items-center flex h-96'>
+              <h2 className='font-semibold text-2xl'>Sin datos que mostrar</h2>
             </section>
           </>
         )}

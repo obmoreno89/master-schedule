@@ -5,16 +5,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   selectPLines,
   getProductLines,
+  selectReload,
 } from '../../store/slice/capabilitiesSlice.js';
 
 const CapabilitiesProductListPanelTable = ({ setOpenModalPL }) => {
   const [pl, setPl] = useState(useSelector(selectPLines));
   const dispatch = useDispatch();
   const productLines = useSelector(selectPLines);
+  const reload = useSelector(selectReload);
 
   useEffect(() => {
     dispatch(getProductLines());
-  }, []);
+  }, [reload]);
   //productLines
 
   // useEffect(() => {
@@ -48,7 +50,7 @@ const CapabilitiesProductListPanelTable = ({ setOpenModalPL }) => {
   return (
     <div className='bg-white'>
       <div className='mt-6 px-3'>
-        <div className='overflow-x-auto rounded-xl border border-slate-300'>
+        <div className='overflow-x-auto rounded-xl border border-slate-300 h-[650px]'>
           <table className='table-auto w-full table'>
             {/* Table header */}
             <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50'>
