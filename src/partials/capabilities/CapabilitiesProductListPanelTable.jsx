@@ -1,75 +1,86 @@
-import React, { useState, useEffect } from 'react';
-import CapabilitiesProductListPanelTableItem from './CapabilitiesProductListPanelTableItem';
-import PaginationProductList from '../../components/PaginationProductList';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import CapabilitiesProductListPanelTableItem from "./CapabilitiesProductListPanelTableItem";
+import { useDispatch, useSelector } from "react-redux";
 import {
   selectPLines,
   getProductLines,
-} from '../../store/slice/capabilitiesSlice.js';
+  setCapabilitiesSearch,
+  revertSearch,
+  selectCapabilitiesSearch,
+} from "../../store/slice/capabilitiesSlice.js";
 
 const CapabilitiesProductListPanelTable = ({ setOpenModalPL }) => {
   const [pl, setPl] = useState(useSelector(selectPLines));
+  const [startSearch, setStartSearch] = useState(false);
   const dispatch = useDispatch();
   const productLines = useSelector(selectPLines);
+  const searchItems = useSelector(selectCapabilitiesSearch);
 
   useEffect(() => {
     dispatch(getProductLines());
   }, []);
   //productLines
 
-  // useEffect(() => {
-  //   setPl(productLines);
-  // }, [productLines]);
-
-  // useEffect(() => {
-  //   if (orderPL.state) {
-  //     if (!orderPL.asc) {
-  //       orderPLAsc(capabilitiesList, setCapabilities);
-  //     } else {
-  //       orderPLDesc(capabilitiesList, setCapabilities);
-  //     }
-  //   }
-  // }, [orderPL]);
-
-  // useEffect(() => {
-  //   if (orderG.state) {
-  //     if (!orderG.asc) {
-  //       orderGAsc(capabilitiesList, setCapabilities);
-  //     } else {
-  //       orderGDesc(capabilitiesList, setCapabilities);
-  //     }
-  //   }
-  // }, [orderG]);
-
   useEffect(() => {
     setPl(productLines);
   }, [productLines]);
 
+  const handleSearch = (e) => {
+    if (e.target.value.length > 0) {
+      setStartSearch(true);
+      let result = pl.filter((element) => {
+        if (
+          element.name
+            .toString()
+            .toLowerCase()
+            .includes(e.target.value.toLowerCase()) ||
+          element.group.name
+            .toString()
+            .toLowerCase()
+            .includes(e.target.value.toLowerCase())
+        ) {
+          return element;
+        }
+      });
+      dispatch(setCapabilitiesSearch(result));
+    } else {
+      dispatch(revertSearch());
+      setStartSearch(false);
+    }
+  };
+
   return (
-    <div className='bg-white'>
-      <div className='mt-6 px-3'>
-        <div className='overflow-x-auto rounded-xl border border-slate-300'>
-          <table className='table-auto w-full table'>
-            {/* Table header */}
-            <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50'>
-              <tr>
-                <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                  <div className='font-semibold text-left'>
-                    Línea de productos
-                  </div>
-                </th>
-                <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                  <p className='font-semibold text-left'>Grupo</p>
-                </th>
-              </tr>
-            </thead>
-            <tbody className='text-sm divide-y divide-slate-200'>
-              <CapabilitiesProductListPanelTableItem
-                setOpenModalPL={setOpenModalPL}
-                currentPost={pl}
-              />
-            </tbody>
-          </table>
+    <div className="bg-white">
+      <div className="mt-6 px-3">
+        <div className="mb-3">
+          <input
+            className="form-input w-full"
+            placeholder="Buscar..."
+            type="search"
+            onChange={handleSearch}
+          />
+        </div>
+
+        <div className="overflow-x-auto rounded-xl border border-slate-300 h-[500px]">
+          {!startSearch ? (
+            <CapabilitiesProductListPanelTableItem
+              setOpenModalPL={setOpenModalPL}
+              currentPost={pl}
+              productLines={productLines}
+              setPl={setPl}
+            />
+          ) : startSearch && searchItems.length > 0 ? (
+            <CapabilitiesProductListPanelTableItem
+              setOpenModalPL={setOpenModalPL}
+              currentPost={searchItems}
+              productLines={productLines}
+              setPl={setPl}
+            />
+          ) : (
+            <section className="justify-center items-center flex h-96">
+              <h2 className="font-semibold text-2xl">Sin datos que mostrar</h2>
+            </section>
+          )}
         </div>
       </div>
     </div>
