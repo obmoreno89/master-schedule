@@ -1,10 +1,15 @@
-import React from 'react';
-import Layout from '../components/Layout';
+import Layout from "../components/Layout";
+import icons from "../images/icon/icons";
+import PlanningOptions from "../partials/planning/plannings/PlanningOptions";
 
 function Planning() {
   return (
-    <Layout>
-      <h1>Planeacion</h1>
+    <Layout
+      icon={icons.planningIcon}
+      nameRoute={"Planeación"}
+      nameSubRoute={"Planeaciones"}
+    >
+      <PlanningOptions />
     </Layout>
   );
 }
