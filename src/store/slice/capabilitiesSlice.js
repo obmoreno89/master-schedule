@@ -7,9 +7,10 @@ const initialState = {
   loading: null,
   capabilitiesList: [],
   capabilitiesSearch: [],
+  reload: false,
 };
 
-export const revertSearch = createAction("REVERT_SEARCH");
+export const revertSearch = createAction('REVERT_SEARCH');
 
 const capabilitiesSlice = createSlice({
   initialState,
@@ -34,18 +35,29 @@ const capabilitiesSlice = createSlice({
     },
     setCapabilitiesSearch: (state, action) => {
       state.capabilitiesSearch = action.payload;
-    }
+    },
+    setReload: (state, action) => {
+      state.reload = !state.reload;
+    },
   },
 });
 
-export const { setGroup, setProductLines, setLoading, setCapabilitiesList, setCapabilitiesSearch } =
-  capabilitiesSlice.actions;
+export const {
+  setGroup,
+  setProductLines,
+  setLoading,
+  setCapabilitiesList,
+  setCapabilitiesSearch,
+  setReload,
+} = capabilitiesSlice.actions;
 
 export const selectGroup = (state) => state.group.groupList;
 export const selectPLines = (state) => state.group.producLines;
 export const selectLoading = (state) => state.group.loading;
 export const selectCapabilitiesList = (state) => state.group.capabilitiesList;
-export const selectCapabilitiesSearch = (state) => state.group.capabilitiesSearch
+export const selectCapabilitiesSearch = (state) =>
+  state.group.capabilitiesSearch;
+export const selectReload = (state) => state.group.reload;
 
 export default capabilitiesSlice.reducer;
 
@@ -76,6 +88,7 @@ export const createPLines = (data, setOpenModalPL, reset) => (dispatch) => {
         dispatch(setLoading(false));
         setOpenModalPL(false);
         reset;
+        dispatch(setReload());
       }
     })
     .catch((err) => {
@@ -84,7 +97,7 @@ export const createPLines = (data, setOpenModalPL, reset) => (dispatch) => {
     });
 };
 
-export const getCapabilitiesList = () => (dispatch) => {
+export const getCapabilitiesList = (data) => (dispatch) => {
   axios
     .get('http://44.211.175.241/api/capacities/list-default-capacities')
     .then((response) => {
@@ -93,15 +106,16 @@ export const getCapabilitiesList = () => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export const createGroup = (data, setOpenModalPL, reset) => (dispatch) => {
+export const createGroup = (data, setOpenModalGroup, reset) => (dispatch) => {
   dispatch(setLoading(true));
   axios
-    .post('http://44.211.175.241/api/capacities/create-product-line', data)
+    .post('http://44.211.175.241/api/capacities/new-group', data)
     .then((response) => {
-      if (response.status === 201) {
+      if (response.status === 200) {
         dispatch(setLoading(false));
-        setOpenModalPL(false);
+        setOpenModalGroup(false);
         reset;
+        dispatch(setReload());
       }
     })
     .catch((err) => {

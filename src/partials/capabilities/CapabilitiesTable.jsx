@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import CapabilitiesTableItem from "./CapabilitiesTableItem";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import CapabilitiesTableItem from './CapabilitiesTableItem';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   selectCapabilitiesList,
   getCapabilitiesList,
   setCapabilitiesSearch,
   revertSearch,
   selectCapabilitiesSearch,
-} from "../../store/slice/capabilitiesSlice";
-import icons from "../../images/icon/icons";
-import { orderGAsc, orderGDesc, orderPLAsc, orderPLDesc } from "./orderFunc";
+} from '../../store/slice/capabilitiesSlice';
+import icons from '../../images/icon/icons';
+import { orderGAsc, orderGDesc, orderPLAsc, orderPLDesc } from './orderFunc';
 
 const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
   const dispatch = useDispatch();
@@ -54,13 +54,18 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
   }, [capabilitiesList]);
 
   return (
-    <div className="bg-white">
-      <div className="mt-6">
-        <section className="flex justify-end mb-5">
+    <div className='bg-white'>
+      <div className='mt-6'>
+        <section className='flex justify-between mb-5'>
+          <div className='mb-4 sm:mb-0'>
+            <h1 className='text-2xl md:text-3xl text-slate-800 font-bold'>
+              Capacidades
+            </h1>
+          </div>
           <input
-            className="form-input w-72"
-            placeholder="Buscar..."
-            type="search"
+            className='form-input w-72'
+            placeholder='Buscar...'
+            type='search'
             onChange={handleSearch}
           />
         </section>
@@ -88,12 +93,13 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
                   </h2>
                 </section>
               )}
+
             </div>
           </>
         ) : (
           <>
-            <section className="justify-center items-center flex h-96">
-              <h2 className="font-semibold text-2xl">Sin datos que mostrar</h2>
+            <section className='justify-center items-center flex h-96'>
+              <h2 className='font-semibold text-2xl'>Sin datos que mostrar</h2>
             </section>
           </>
         )}

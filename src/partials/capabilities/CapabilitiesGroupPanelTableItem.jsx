@@ -1,7 +1,9 @@
+
 import { useEffect, useState } from "react";
 import icons from "../../images/icon/icons";
 import AddButtonForTable from "../../pages/component/AddButtonForTable";
 import { orderGAsc, orderGDesc } from "./orderFunc";
+
 
 function CapabilitiesGroupPanelTableItem({
   setOpenModalGroup,
