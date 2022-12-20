@@ -84,8 +84,10 @@ export const registerUser = (data) => (dispatch) => {
   const token = sessionStorage.getItem("token");
   dispatch(setUserLoading(true));
   axios
-    .post("http://44.211.175.241/api/auth/register/", data, {
-      headers: { Authorization: `token ${token}` },
+
+    .post('http://44.211.175.241/api/auth/register/', data, {
+      headers: { Authorization: `Token ${token}` },
+
     })
     .then((response) => {
       dispatch(setUserLoading(false));
@@ -127,7 +129,7 @@ export const deleteUser = () => (dispatch) => {
   const userId = JSON.parse(sessionStorage.getItem("userDelete")).id;
   axios
     .delete(`http://44.211.175.241/api/auth/delete-user/${userId}`, {
-      headers: { Authorization: `token ${token}` },
+      headers: { Authorization: `Token ${token}` },
     })
     .then(() => {
       dispatch(setReload());

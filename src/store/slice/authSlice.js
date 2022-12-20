@@ -69,7 +69,7 @@ export const logoutUser = (navigate) => () => {
   };
   axios
     .post('http://44.211.175.241/api/auth/logout/', email, {
-      headers: { Authorization: `token ${tokenUser}` },
+      headers: { Authorization: `Token ${tokenUser}` },
     })
     .then((response) => {
       if (response.data.status_code === 200) {
@@ -135,7 +135,7 @@ export const confirmNewPass = (data, navigate) => (dispatch) => {
 
   axios
     .post('http://44.211.175.241/api/auth/password-reset/confirmation', json, {
-      headers: { Authorization: `token ${token}` },
+      headers: { Authorization: `Token ${token}` },
     })
     .then((response) => {
       dispatch(setLoading(false));

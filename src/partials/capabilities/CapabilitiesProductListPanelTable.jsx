@@ -4,21 +4,25 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   selectPLines,
   getProductLines,
+
   setCapabilitiesSearch,
   revertSearch,
   selectCapabilitiesSearch,
 } from "../../store/slice/capabilitiesSlice.js";
+
 
 const CapabilitiesProductListPanelTable = ({ setOpenModalPL }) => {
   const [pl, setPl] = useState(useSelector(selectPLines));
   const [startSearch, setStartSearch] = useState(false);
   const dispatch = useDispatch();
   const productLines = useSelector(selectPLines);
+
   const searchItems = useSelector(selectCapabilitiesSearch);
+
 
   useEffect(() => {
     dispatch(getProductLines());
-  }, []);
+  }, [reload]);
   //productLines
 
   useEffect(() => {
@@ -50,6 +54,7 @@ const CapabilitiesProductListPanelTable = ({ setOpenModalPL }) => {
   };
 
   return (
+
     <div className="bg-white">
       <div className="mt-6 px-3">
         <div className="mb-3">
@@ -81,6 +86,7 @@ const CapabilitiesProductListPanelTable = ({ setOpenModalPL }) => {
               <h2 className="font-semibold text-2xl">Sin datos que mostrar</h2>
             </section>
           )}
+
         </div>
       </div>
     </div>

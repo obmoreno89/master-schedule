@@ -59,7 +59,14 @@ function UserTable({
     <>
       {user?.length > 0 ? (
         <>
-          <section className="mb-5 flex justify-end">
+
+          <section className='mb-5 flex justify-between'>
+            <div className='mb-4 sm:mb-0'>
+              <h1 className='text-2xl md:text-3xl text-slate-800 font-bold'>
+                Usuarios
+              </h1>
+            </div>
+
             <input
               className="form-input w-72"
               placeholder="Buscar..."

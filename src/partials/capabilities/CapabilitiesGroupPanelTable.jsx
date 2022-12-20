@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import CapabilitiesGroupPanelTableItem from "./CapabilitiesGroupPanelTableItem";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,14 +13,17 @@ import {
 const CapabilitiesGroupPanelTable = ({ setOpenModalGroup }) => {
   const [group, setGroup] = useState(useSelector(selectGroup));
   const [startSearch, setStartSearch] = useState(false);
+
   const dispatch = useDispatch();
   const searchItems = useSelector(selectCapabilitiesSearch);
   const groups = useSelector(selectGroup);
+  const reload = useSelector(selectReload);
 
   useEffect(() => {
     dispatch(getGroupList());
-  }, []);
+  }, [reload]);
   //groups
+
 
   useEffect(() => {
     setGroup(groups);
@@ -74,6 +78,7 @@ const CapabilitiesGroupPanelTable = ({ setOpenModalGroup }) => {
               <h2 className="font-semibold text-2xl">Sin datos que mostrar</h2>
             </section>
           )}
+
         </div>
       </div>
     </div>
