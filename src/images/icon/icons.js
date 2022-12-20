@@ -54,6 +54,6 @@ export default {
   check,
   refresh,
   warning,
-  circleDown,,
+  circleDown,
   arrowRight
 };
