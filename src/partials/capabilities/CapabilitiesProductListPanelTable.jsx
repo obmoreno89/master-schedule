@@ -20,7 +20,6 @@ const CapabilitiesProductListPanelTable = ({ setOpenModalPL }) => {
   useEffect(() => {
     dispatch(getProductLines());
   }, []);
-  //productLines
 
   useEffect(() => {
     setPl(productLines);
