@@ -1,16 +1,15 @@
-import React from 'react';
 import Layout from '../components/Layout';
 import icons from '../images/icon/icons';
-import GanttPlanning from '../partials/planning/plannings/GanttPlanning';
+import PlanningOptions from '../partials/planning/plannings/PlanningOptions';
 
 function Planning() {
   return (
     <Layout
       icon={icons.planningIcon}
-      nameRoute='Planeación'
-      nameSubRoute='Planeaciones'
+      nameRoute={'Planeación'}
+      nameSubRoute={'Planeaciones'}
     >
-      <GanttPlanning />
+      <PlanningOptions />
     </Layout>
   );
 }
