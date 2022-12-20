@@ -16,4 +16,8 @@
     font-family: 'Work Sans', sans-serif;
     letter-spacing: -0.05em;
   }
+
+  .layout-height {
+    height: calc(100vh - 64px);
+  }
 }

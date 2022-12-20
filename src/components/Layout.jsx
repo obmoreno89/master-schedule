@@ -23,8 +23,8 @@ function Layout({ icon, nameRoute, nameSubRoute, children }) {
         />
 
         <main className='h-auto bg-white'>
-          <div className='px-4 sm:px-6 lg:px-0 py-6 w-full max-w-9xl mx-auto'>
-            <div className='lg:px-8'>{children}</div>
+          <div className='px-4 sm:px-6 lg:px-0 w-full max-w-9xl mx-auto'>
+            <div className='lg:px-8 layout-height'>{children}</div>
           </div>
         </main>
       </div>
