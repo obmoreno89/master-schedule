@@ -21,6 +21,7 @@ import arrowUpCircle from './arrow-up-circle.svg'
 import arrowDownCircle from './arrow-down-circle.svg'
 import doubleUp from './chevrons-up.svg'
 import doubleDown from './chevrons-down.svg'
+import arrowRight from './arrow-right.svg'
 
 export default {
   openEye,
@@ -45,5 +46,6 @@ export default {
   arrowUpCircle,
   arrowDownCircle,
   doubleUp,
-  doubleDown
+  doubleDown,
+  arrowRight
 };
