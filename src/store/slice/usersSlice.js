@@ -1,6 +1,6 @@
-import { createAction, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { endpointsCodes } from './functions';
+import { createAction, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { endpointsCodes } from "./functions";
 
 const initialState = {
   user: null,
@@ -10,19 +10,24 @@ const initialState = {
   roles: [],
   allUser: [],
   reload: false,
+  search: [],
 };
 
-export const revertAll = createAction('REVERT_ALL');
+export const revertAll = createAction("REVERT_ALL");
+export const revertSearch = createAction("REVERT_SEARCH");
 
 const usersSlice = createSlice({
   initialState,
-  name: 'users',
+  name: "users",
   extraReducers: (builder) => {
     builder.addCase(revertAll, (state, action) => {
       state.user = null;
       state.userIsOk = false;
       state.userFail = null;
       state.userLoading = false;
+    });
+    builder.addCase(revertSearch, (state, action) => {
+      state.search = [];
     });
   },
   reducers: {
@@ -47,6 +52,9 @@ const usersSlice = createSlice({
     setReload: (state, action) => {
       state.reload = !state.reload;
     },
+    setSearch: (state, action) => {
+      state.search = action.payload;
+    },
   },
 });
 
@@ -58,6 +66,7 @@ export const {
   setRoles,
   setAllUser,
   setReload,
+  setSearch,
 } = usersSlice.actions;
 
 export const selectUser = (state) => state.users.user;
@@ -67,15 +76,18 @@ export const selectUserFail = (state) => state.users.userFail;
 export const selectRoles = (state) => state.users.roles;
 export const selectAllUser = (state) => state.users.allUser;
 export const selectReload = (state) => state.users.reload;
+export const selectUserSearch = (state) => state.users.search;
 
 export default usersSlice.reducer;
 
 export const registerUser = (data) => (dispatch) => {
-  const token = sessionStorage.getItem('token');
+  const token = sessionStorage.getItem("token");
   dispatch(setUserLoading(true));
   axios
+
     .post('http://44.211.175.241/api/auth/register/', data, {
-      headers: { Authorization: `token ${token}` },
+      headers: { Authorization: `Token ${token}` },
+
     })
     .then((response) => {
       dispatch(setUserLoading(false));
@@ -96,7 +108,7 @@ export const registerUser = (data) => (dispatch) => {
 
 export const getRoles = () => (dispatch) => {
   axios
-    .get('http://44.211.175.241/api/auth/list-permissions')
+    .get("http://44.211.175.241/api/auth/list-permissions")
     .then((response) => {
       dispatch(setRoles(response.data));
     })
@@ -105,7 +117,7 @@ export const getRoles = () => (dispatch) => {
 
 export const getAlluser = () => (dispatch) => {
   axios
-    .get('http://44.211.175.241/api/auth/list-users')
+    .get("http://44.211.175.241/api/auth/list-users")
     .then((response) => {
       dispatch(setAllUser(response.data));
     })
@@ -113,22 +125,22 @@ export const getAlluser = () => (dispatch) => {
 };
 
 export const deleteUser = () => (dispatch) => {
-  const token = sessionStorage.getItem('token');
-  const userId = JSON.parse(sessionStorage.getItem('userDelete')).id;
+  const token = sessionStorage.getItem("token");
+  const userId = JSON.parse(sessionStorage.getItem("userDelete")).id;
   axios
     .delete(`http://44.211.175.241/api/auth/delete-user/${userId}`, {
-      headers: { Authorization: `token ${token}` },
+      headers: { Authorization: `Token ${token}` },
     })
     .then(() => {
       dispatch(setReload());
-      sessionStorage.removeItem('userDelete');
+      sessionStorage.removeItem("userDelete");
     })
     .catch((err) => console.log(err));
 };
 
 export const updateUser = (data, setUserPanelOpen) => (dispatch) => {
   dispatch(setUserLoading(true));
-  const userId = JSON.parse(sessionStorage.getItem('userEdit')).id;
+  const userId = JSON.parse(sessionStorage.getItem("userEdit")).id;
 
   axios
     .put(`http://44.211.175.241/api/auth/update-user-data/${userId}`, data)
@@ -136,7 +148,7 @@ export const updateUser = (data, setUserPanelOpen) => (dispatch) => {
       dispatch(setUserLoading(false));
       setUserPanelOpen(false);
       dispatch(setReload());
-      sessionStorage.removeItem('userEdit');
+      sessionStorage.removeItem("userEdit");
     })
     .catch(() => dispatch(setUserLoading(false)));
 };

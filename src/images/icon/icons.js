@@ -17,10 +17,14 @@ import systemStatusIcon from './systemStatusIcon.svg';
 import filter from './filter.svg';
 import pencilIcon from './pencilIcon.svg';
 import garbageIcon from './garbageIcon.svg';
-import arrowUpCircle from './arrow-up-circle.svg'
-import arrowDownCircle from './arrow-down-circle.svg'
-import doubleUp from './chevrons-up.svg'
-import doubleDown from './chevrons-down.svg'
+import arrowUpCircle from './arrow-up-circle.svg';
+import arrowDownCircle from './arrow-down-circle.svg';
+import doubleUp from './chevrons-up.svg';
+import doubleDown from './chevrons-down.svg';
+import check from './check.svg';
+import refresh from './refresh.svg';
+import warning from './warning.svg';
+import circleDown from './circleDown.svg';
 
 export default {
   openEye,
@@ -45,5 +49,9 @@ export default {
   arrowUpCircle,
   arrowDownCircle,
   doubleUp,
-  doubleDown
+  doubleDown,
+  check,
+  refresh,
+  warning,
+  circleDown,
 };
