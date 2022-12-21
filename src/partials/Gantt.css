@@ -126,3 +126,7 @@
 .b-fa-save{
     color: white !important;
 }
+
+.b-gantt-task-content { 
+    padding: 20px !important 
+}

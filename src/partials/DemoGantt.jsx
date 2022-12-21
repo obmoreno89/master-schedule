@@ -2,7 +2,7 @@ import Layout from '../components/Layout';
 import icons from '../images/icon/icons';
 import { useState, useEffect, useRef } from 'react'
 import './Gantt.css'
-import { Gantt } from '@bryntum/gantt';
+import { Gantt, StringHelper } from '@bryntum/gantt';
 import { BryntumGantt, BryntumToolbar } from '@bryntum/gantt-react';
 import { ganttConfig } from './AppConfig'
 import '@bryntum/gantt/gantt.material.css';
@@ -149,6 +149,12 @@ function DemoGantt() {
         ref={ganttRef}
         pdfExportFeature = {true}
         enableDeleteKey = {false}
+        taskRenderer = {({ taskRecord }) => {
+          return {
+              tag  : 'p',
+              html : StringHelper.encodeHtml(taskRecord.name)
+          }
+       }}
         taskNonWorkingTime = {{
           tooltipTemplate({ startDate, endDate, iconCls }) {
               return `                   

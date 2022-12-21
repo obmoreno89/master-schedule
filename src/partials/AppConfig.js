@@ -66,6 +66,7 @@ export const ganttConfig =  {
         { type: 'date', field: 'startDate', width: 110 , text: "Start Date" },
         { type: 'date', field: 'endDate', width: 110 , text: "End Date" },
     ],
+    
     // project : {
     //     autoLoad  : true,
     //     transport : {
