@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import icons from '../images/icon/icons';
 import { useForm } from 'react-hook-form';
-import AuthImage from '../images/auth-image.jpg';
+import {AuthImage} from '../images/auth-image.jpg';
 import ButtonLoading from '../helpers/ButtonLoading';
 import ErrorMessage from '../helpers/ErrorMessage';
 import { useDispatch, useSelector } from 'react-redux';

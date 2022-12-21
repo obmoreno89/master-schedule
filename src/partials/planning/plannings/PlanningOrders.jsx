@@ -3,25 +3,36 @@ import icons from "../../../images/icon/icons";
 import PlanningOrdersPanel from "./PlanningOrdersPanel";
 import { useState } from "react";
 import PlanningOrdersTable from "./PlanningOrdersTable";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrders, selectOrders } from "../../../store/slice/planningSlice";
+import {
+  getOrders,
+  selectGroups,
+  selectNotFound,
+  selectOrders,
+} from "../../../store/slice/planningSlice";
 
 const PlanningOrders = ({}) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [ordersPanelOpen, setOrdersPanelOpen] = useState(false);
-  const orders = useSelector(selectOrders)
+  const orders = useSelector(selectOrders);
+  const groups = useSelector(selectGroups);
+  const notFound = useSelector(selectNotFound);
 
-  useEffect(()=> {
+  useEffect(() => {
     const data = {
-      group: ["A"]
+      group: groups,
+    };
+    dispatch(getOrders(data));
+  }, [groups]);
+
+  useEffect(() => {
+    if (groups.length === 0) {
+      navigate("/mp-pro/planning/");
     }
-    dispatch(getOrders(data))
-
-  }, [])
-
-  console.log(orders)
+  }, [groups]);
 
   return (
     <Layout
@@ -30,24 +41,42 @@ const PlanningOrders = ({}) => {
       nameSubRoute={"Planeaciones"}
     >
       <section>
-        <header>
-          <h2 className="text-3xl font-semibold text-black py-5">
+        <header className="flex flex-1 py-5 justify-between">
+          <h2 className="text-3xl font-semibold text-black my-auto">
             Órdenes a planear
           </h2>
+          {!notFound && orders?.length > 0 && (
+            <p className="my-auto mb-1 font-medium">Total de órdenes: <span className="font-bold text-primary">{orders?.length}</span></p>
+          )}
         </header>
         <main>
-          <PlanningOrdersTable />
+          {notFound ? (
+            <section className="justify-center items-center flex h-96">
+              <h2 className="font-semibold text-2xl">Sin datos para mostrar</h2>
+            </section>
+          ) : orders?.length > 0 ? (
+            <PlanningOrdersTable orders={orders} />
+          ) : (
+            // <div className="flex justify-center py-5">
+            <section className="justify-center items-center flex h-96">
+              <div className="loader"></div>
+              <span className="ml-3 text-primary font-semibold">Cargando</span>
+            </section>
+          )}
 
           <div className="flex justify-end pt-7">
             <Link to="/mp-pro/planning/">
-            <button className="border border-slate-300 rounded w-64 h-12 text-base font-semibold mr-6">
-              Cancelar
-            </button>
+              <button className="border border-slate-300 rounded w-64 h-12 text-base font-semibold mr-6">
+                Cancelar
+              </button>
             </Link>
-           
+
             <button
               onClick={() => setOrdersPanelOpen(true)}
-              className="w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-secondary hover:text-primary "
+              className={`w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-secondary hover:text-primary ${
+                notFound && "cursor-not-allowed"
+              }`}
+              disabled={notFound ? true : false}
             >
               <span className="my-auto">Continuar</span>
 
