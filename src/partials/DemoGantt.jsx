@@ -1,11 +1,13 @@
-import React from 'react';
 import Layout from '../components/Layout';
+import icons from '../images/icon/icons';
 
 function DemoGantt() {
   return (
-    <Layout>
+    <Layout icon={icons.systemStatusIcon}
+    nameRoute={'Demo gantt'}
+    nameSubRoute={'Demo gantt'}>
       {' '}
-      <div>hola</div>
+      <div>Demo Gantt</div>
     </Layout>
   );
 }

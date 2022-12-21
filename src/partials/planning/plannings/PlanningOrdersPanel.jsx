@@ -1,10 +1,12 @@
 import { useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import icons from "../../../images/icon/icons";
 import Transition from "../../../utils/Transition";
 
 const PlanningOrdersPanel = ({ ordersPanelOpen, setOrdersPanelOpen }) => {
   const closeBtn = useRef(null);
   const panelContent = useRef(null);
+  const navigate = useNavigate()
 
   // close on click outside
   // useEffect(() => {
@@ -39,6 +41,10 @@ const PlanningOrdersPanel = ({ ordersPanelOpen, setOrdersPanelOpen }) => {
     { title: "ACB Code", tag: "Ascendente" },
   ];
 
+  const goToGantt = ()=> {
+    navigate("/mp-pro/demo-gantt/")
+  }
+
   return (
     <>
       <Transition
@@ -71,8 +77,6 @@ const PlanningOrdersPanel = ({ ordersPanelOpen, setOrdersPanelOpen }) => {
             ordersPanelOpen ? "translate-x-" : "translate-x-full"
           }`}
         >
-          {/* <div className="top-16 bg-white overflow-x-hidden overflow-y-auto no-scrollbar shrink-0 border-l border-slate-200 w-full sm:w-[390px] h-screen">
-           */}
           <div className="top-16 bg-white overflow-x-hidden overflow-y-auto no-scrollbar shrink-0 w-full h-screen">
             <h2 className="mt-4 ml-5 w-full font-bold text-black text-2xl">
               Elegir criterios de ordenamiento
@@ -91,7 +95,7 @@ const PlanningOrdersPanel = ({ ordersPanelOpen, setOrdersPanelOpen }) => {
               </svg>
             </button>
 
-            <div className="mx-5 pt-8">
+            <div className="mx-5 pt-4 2xl:pt-8">
               <div>
                 {data.map((each, index) => (
                   <div
@@ -127,7 +131,7 @@ const PlanningOrdersPanel = ({ ordersPanelOpen, setOrdersPanelOpen }) => {
                   </div>
                 ))}
               </div>
-              <button className="h-12 bg-primary text-white rounded w-full text-base font-semibold mt-6">
+              <button onClick={()=>goToGantt()} className="h-12 bg-primary text-white rounded w-full text-base font-semibold 2xl:mt-6 hover:bg-secondary hover:text-primary">
                 Ir a la planeación de órdenes
               </button>
             </div>
