@@ -4,9 +4,24 @@ import PlanningOrdersPanel from "./PlanningOrdersPanel";
 import { useState } from "react";
 import PlanningOrdersTable from "./PlanningOrdersTable";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getOrders, selectOrders } from "../../../store/slice/planningSlice";
 
 const PlanningOrders = ({}) => {
+  const dispatch = useDispatch()
   const [ordersPanelOpen, setOrdersPanelOpen] = useState(false);
+  const orders = useSelector(selectOrders)
+
+  useEffect(()=> {
+    const data = {
+      group: ["A"]
+    }
+    dispatch(getOrders(data))
+
+  }, [])
+
+  console.log(orders)
 
   return (
     <Layout

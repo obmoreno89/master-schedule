@@ -3,7 +3,7 @@ import React from "react";
 const PlanningOrdersTable = () => {
   return (
     <>
-      <div className="border border-slate-300 rounded-xl h-[530px] overflow-x-auto">
+      <div className="border border-slate-300 rounded-xl h-[440px] 2xl:h-[550px] overflow-x-auto">
         <table className="table-auto w-full table rounded-xl">
           {/* Table header */}
           <thead className="text-[14px] text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50">

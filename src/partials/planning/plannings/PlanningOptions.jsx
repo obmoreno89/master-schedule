@@ -158,7 +158,7 @@ const PlanningOptions = () => {
         </h2>
       </div>
       <form>
-        <div className="h-[450px] overflow-y-auto mb-8">
+        <div className="h-[400px] 2xl:h-[500px] overflow-y-auto mb-8">
           <div className="mt-5 mb-7">
             <label className="flex items-center">
               <input
