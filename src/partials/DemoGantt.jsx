@@ -1,4 +1,5 @@
 import Layout from '../components/Layout';
+import icons from '../images/icon/icons';
 import { useState, useEffect, useRef } from 'react'
 import './Gantt.css'
 import { Gantt } from '@bryntum/gantt';
@@ -72,7 +73,11 @@ function DemoGantt() {
   }
 
   return (
-    <Layout>
+    <Layout
+    icon={icons.planningIcon}
+    nameRoute='Planeación'
+    nameSubRoute='Gantt'
+    >
       {' '}
       <div className="App">
         <BryntumToolbar
