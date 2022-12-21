@@ -64,7 +64,8 @@ const PlanningOrders = ({}) => {
             </section>
           )}
 
-          <div className="flex justify-end pt-7">
+<div className="absolute bottom-10 right-7">
+<div className="flex">
             <Link to="/mp-pro/planning/">
               <button className="border border-slate-300 rounded w-64 h-12 text-base font-semibold mr-6">
                 Cancelar
@@ -87,6 +88,9 @@ const PlanningOrders = ({}) => {
               />
             </button>
           </div>
+
+</div>
+         
           <div>
             <PlanningOrdersPanel
               ordersPanelOpen={ordersPanelOpen}
