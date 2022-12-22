@@ -52,7 +52,7 @@ const PlanningOptions = () => {
 
         dispatch(setGroups(groupsSelected));
       }
-      navigate('/mp-pro/planning/orders');
+      navigate('/mp-pro/planning/plannings/orders/');
     } else {
       setError(true);
     }
