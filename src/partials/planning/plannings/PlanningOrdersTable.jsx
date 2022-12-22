@@ -18,7 +18,7 @@ const PlanningOrdersTable = ({ orders }) => {
 
   return (
     <>
-      <div className="border border-slate-300 rounded-xl h-[430px] 2xl:h-[500px] overflow-x-auto">
+      <div className="border border-slate-300 rounded-xl orders-table overflow-x-auto">
         <table className="table-auto w-full table rounded-xl">
           <thead className="text-[14px] text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50">
             <tr>
