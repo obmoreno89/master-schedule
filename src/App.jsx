@@ -115,7 +115,7 @@ function App() {
         />
 
         <Route
-          path='/mp-pro/planning/'
+          path='/mp-pro/planning/plannings/'
           element={
             <PrivateRoute>
               <Planning />
