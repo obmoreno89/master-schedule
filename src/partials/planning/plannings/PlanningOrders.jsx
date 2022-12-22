@@ -46,26 +46,28 @@ const PlanningOrders = ({}) => {
             Órdenes a planear
           </h2>
           {!notFound && orders?.length > 0 && (
-            <p className="my-auto mb-1 font-medium">Total de órdenes: <span className="font-bold text-primary">{orders?.length}</span></p>
+            <p className="my-auto mb-1 font-medium">
+              Total de órdenes:{" "}
+              <span className="font-bold text-primary">{orders?.length}</span>
+            </p>
           )}
         </header>
         <main>
           {notFound ? (
-            <section className="justify-center items-center flex h-96">
+            <section className="justify-center items-center flex orders-table">
               <h2 className="font-semibold text-2xl">Sin datos para mostrar</h2>
             </section>
           ) : orders?.length > 0 ? (
             <PlanningOrdersTable orders={orders} />
           ) : (
             // <div className="flex justify-center py-5">
-            <section className="justify-center items-center flex h-96">
+            <section className="justify-center items-center flex orders-table">
               <div className="loader"></div>
               <span className="ml-3 text-primary font-semibold">Cargando</span>
             </section>
           )}
 
-<div className="absolute bottom-10 right-7">
-<div className="flex">
+          <div className="flex justify-end py-5">
             <Link to="/mp-pro/planning/">
               <button className="border border-slate-300 rounded w-64 h-12 text-base font-semibold mr-6">
                 Cancelar
@@ -89,8 +91,6 @@ const PlanningOrders = ({}) => {
             </button>
           </div>
 
-</div>
-         
           <div>
             <PlanningOrdersPanel
               ordersPanelOpen={ordersPanelOpen}

@@ -21,6 +21,10 @@
     height: calc(100vh - 64px);
   }
 
+  .orders-table {
+    height: calc(100vh - 80px - 90px - 70px);
+  }
+
   .loader {
     border: 5px solid #f3f3f3;
     border-top: 5px solid #009B4A;
