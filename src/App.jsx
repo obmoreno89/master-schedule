@@ -124,7 +124,7 @@ function App() {
         />
 
         <Route
-          path='/mp-pro/planning/orders'
+          path='/mp-pro/planning/plannings/orders/'
           element={
             <PrivateRoute>
               <PlanningOrders />
