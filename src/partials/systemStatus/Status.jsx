@@ -5,6 +5,11 @@ import icons from '../../images/icon/icons';
 function Status() {
   return (
     <>
+      <article>
+        <h2 className='text-2xl md:text-3xl text-slate-800 font-bold'>
+          Estado del sistema
+        </h2>
+      </article>
       <figure className='flex justify-center items-center'>
         <img src={status} alt='server' />
       </figure>

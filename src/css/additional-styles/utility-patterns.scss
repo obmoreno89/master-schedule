@@ -101,6 +101,10 @@ input[type='search']::-webkit-search-results-decoration {
   @apply text-primary border border-slate-300;
 }
 
+.form-checkbox {
+  @apply w-6 h-6 border-primary
+}
+
 .table tbody tr:nth-child(2n + 2) {
   @apply bg-slate-50;
 }

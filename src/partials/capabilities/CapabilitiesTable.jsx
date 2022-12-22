@@ -71,7 +71,7 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
         </section>
         {capabilities?.length > 0 ? (
           <>
-            <div className="overflow-x-auto rounded-xl border border-slate-300 h-[550px]">
+            <div className='overflow-x-auto rounded-xl border border-slate-300 h-[550px]'>
               {!startSearch ? (
                 <CapabilitiesTableItem
                   setTransactionPanelOpen={setTransactionPanelOpen}
@@ -87,13 +87,12 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
                   setCapabilities={setCapabilities}
                 />
               ) : (
-                <section className="justify-center items-center flex h-96">
-                  <h2 className="font-semibold text-2xl">
+                <section className='justify-center items-center flex h-96'>
+                  <h2 className='font-semibold text-2xl'>
                     Sin datos que mostrar
                   </h2>
                 </section>
               )}
-
             </div>
           </>
         ) : (
