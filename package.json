@@ -9,6 +9,7 @@
   "dependencies": {
     "@bryntum/gantt": "npm:@bryntum/gantt-trial@^5.2.5",
     "@bryntum/gantt-react": "^5.2.5",
+    "@hello-pangea/dnd": "^16.2.0",
     "@reduxjs/toolkit": "^1.9.0",
     "@tailwindcss/forms": "^0.4.0",
     "antd": "^4.24.1",
