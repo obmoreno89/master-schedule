@@ -20,7 +20,7 @@ function DemoGantt() {
   },[])
 
   const loadData = async () =>  {
-    const data = await axios.get('https://hubmine-d.s3.amazonaws.com/launch_saas.json');
+    const data = await axios.get('http://44.211.175.241/api/gantt/list');
 
     const project = ganttRef.current.instance.project;
     // Feed it to the project
