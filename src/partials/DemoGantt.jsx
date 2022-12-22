@@ -8,6 +8,7 @@ import { ganttConfig } from './AppConfig'
 import '@bryntum/gantt/gantt.material.css';
 import axios from 'axios';
 
+
 function DemoGantt() {
   const ganttRef = useRef();
   useEffect(()=>{
