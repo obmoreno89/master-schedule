@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import UserTableItem from "./UserTableItem";
+import React, { useEffect, useState } from 'react';
+import UserTableItem from './UserTableItem';
 import {
   getAlluser,
   revertSearch,
@@ -7,8 +7,8 @@ import {
   selectReload,
   selectUserSearch,
   setSearch,
-} from "../../../store/slice/usersSlice";
-import { useDispatch, useSelector } from "react-redux";
+} from '../../../store/slice/usersSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 function UserTable({
   setUserPanelOpen,
@@ -59,7 +59,6 @@ function UserTable({
     <>
       {user?.length > 0 ? (
         <>
-
           <section className='mb-5 flex justify-between'>
             <div className='mb-4 sm:mb-0'>
               <h1 className='text-2xl md:text-3xl text-slate-800 font-bold'>
@@ -68,14 +67,14 @@ function UserTable({
             </div>
 
             <input
-              className="form-input w-72"
-              placeholder="Buscar..."
-              type="search"
+              className='form-input w-72'
+              placeholder='Buscar...'
+              type='search'
               onChange={handleSearch}
             />
           </section>
           <section>
-            <div>
+            <div className='overflow-x-auto rounded-xl border border-slate-300 h-[550px]'>
               {!startSearch ? (
                 <UserTableItem
                   userPanelOpen={userPanelOpen}
@@ -97,8 +96,8 @@ function UserTable({
                   selectUser={dataUser}
                 />
               ) : (
-                <section className="justify-center items-center flex h-96">
-                  <h2 className="font-semibold text-2xl">
+                <section className='justify-center items-center flex h-96'>
+                  <h2 className='font-semibold text-2xl'>
                     Sin datos que mostrar
                   </h2>
                 </section>
@@ -108,8 +107,8 @@ function UserTable({
         </>
       ) : (
         <>
-          <div className="justify-center items-center flex h-96">
-            <h1 className="font-semibold text-2xl">Sin datos por mostrar</h1>
+          <div className='justify-center items-center flex h-96'>
+            <h1 className='font-semibold text-2xl'>Sin datos por mostrar</h1>
           </div>
         </>
       )}
