@@ -4,6 +4,7 @@ import axios from 'axios';
 const initialState = {
   totalNumberOfOrders: [],
   totalAmountOfOrders: [],
+  ordersProgrammed: [],
 };
 
 const kpiSlice = createSlice({
@@ -16,17 +17,25 @@ const kpiSlice = createSlice({
     setTotalAmountOfOrders: (state, action) => {
       state.totalAmountOfOrders = action.payload;
     },
+    setOrdersProgrammed: (state, action) => {
+      state.ordersProgrammed = action.payload;
+    },
   },
 });
 
-export const { setTotalNumberOfOrders, setTotalAmountOfOrders } =
-  kpiSlice.actions;
+export const {
+  setTotalNumberOfOrders,
+  setTotalAmountOfOrders,
+  setOrdersProgrammed,
+} = kpiSlice.actions;
 
 export const selectTotalNumberOfOrders = (state) =>
   state.kpi.totalNumberOfOrders;
 
 export const selectTotalAmountOfOrders = (state) =>
   state.kpi.totalAmountOfOrders;
+
+export const selectOrdersProgrammed = (state) => state.kpi.ordersProgrammed;
 
 export default kpiSlice.reducer;
 
@@ -41,5 +50,12 @@ export const getKpiAmountOfOrders = () => (dispatch) => {
   axios
     .get('http://44.211.175.241/api/kpis/total-amount-orders-in-past-due')
     .then((response) => dispatch(setTotalAmountOfOrders(response.data)))
+    .catch((err) => console.log(err));
+};
+
+export const getOrdersProgrammed = () => (dispatch) => {
+  axios
+    .get('http://44.211.175.241/api/kpis/orders-without-ship-date')
+    .then((response) => dispatch(setOrdersProgrammed(response.data)))
     .catch((err) => console.log(err));
 };

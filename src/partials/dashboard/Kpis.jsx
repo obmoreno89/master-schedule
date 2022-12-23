@@ -3,18 +3,22 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   getKpiNumberOfOrders,
   getKpiAmountOfOrders,
+  getOrdersProgrammed,
   selectTotalNumberOfOrders,
   selectTotalAmountOfOrders,
+  selectOrdersProgrammed,
 } from '../../store/slice/kpiSlice';
 
 function Kpis() {
   const dispatch = useDispatch();
   const kpiTotalNumberOfOrders = useSelector(selectTotalNumberOfOrders);
   const kpiTotalAmountOfOrders = useSelector(selectTotalAmountOfOrders);
+  const kpiOrdersProgrammed = useSelector(selectOrdersProgrammed);
 
   useEffect(() => {
     dispatch(getKpiNumberOfOrders());
     dispatch(getKpiAmountOfOrders());
+    dispatch(getOrdersProgrammed());
   }, []);
 
   return (
@@ -64,7 +68,13 @@ function Kpis() {
                   <h3 className='text-sm leading-6 font-medium text-gray-400'>
                     Órdenes por programar
                   </h3>
-                  <p className='text-3xl font-bold text-black'>23</p>
+                  {!kpiOrdersProgrammed.length ? (
+                    <p className='text-3xl font-bold text-black'>
+                      {kpiOrdersProgrammed.orders_without_ship_date}
+                    </p>
+                  ) : (
+                    <p className='text-3xl font-bold text-black'>Sin datos</p>
+                  )}
                 </div>
               </div>
             </div>
