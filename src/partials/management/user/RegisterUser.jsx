@@ -302,11 +302,11 @@ function RegisterUser() {
               >
                 <option>Selecciona...</option>
                 {roles.map((rol, index) => (
-                  <>
+                 
                     <option key={index} value={rol.id}>
                       {rol.role}
                     </option>
-                  </>
+                  
                 ))}
               </select>
             </div>
