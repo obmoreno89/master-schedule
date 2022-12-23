@@ -1,13 +1,20 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getKpi, selectTotalNumberOfOrders } from '../../store/slice/kpiSlice';
+import {
+  getKpiNumberOfOrders,
+  getKpiAmountOfOrders,
+  selectTotalNumberOfOrders,
+  selectTotalAmountOfOrders,
+} from '../../store/slice/kpiSlice';
 
 function Kpis() {
   const dispatch = useDispatch();
   const kpiTotalNumberOfOrders = useSelector(selectTotalNumberOfOrders);
+  const kpiTotalAmountOfOrders = useSelector(selectTotalAmountOfOrders);
 
   useEffect(() => {
-    dispatch(getKpi());
+    dispatch(getKpiNumberOfOrders());
+    dispatch(getKpiAmountOfOrders());
   }, []);
 
   return (
@@ -39,7 +46,13 @@ function Kpis() {
                   <h3 className='text-sm leading-6 font-medium text-gray-400'>
                     Monto en PastDue
                   </h3>
-                  <p className='text-3xl font-bold text-black'>16MDD</p>
+                  {!kpiTotalAmountOfOrders.length ? (
+                    <p className='text-3xl font-bold text-black'>
+                      {kpiTotalAmountOfOrders.total_amount_orders_in_past_due}
+                    </p>
+                  ) : (
+                    <p className='text-3xl font-bold text-black'>Sin datos</p>
+                  )}
                 </div>
               </div>
             </div>
