@@ -3,7 +3,9 @@ import icons from '../../../images/icon/icons';
 import PlanningOrdersPanel from './PlanningOrdersPanel';
 import { useState } from 'react';
 import PlanningOrdersTable from './PlanningOrdersTable';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+
+import { Link, useNavigate } from 'react-router-dom';
+
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -30,7 +32,11 @@ const PlanningOrders = ({}) => {
 
   useEffect(() => {
     if (groups.length === 0) {
-      navigate('/mp-pro/planning/plannings/');
+
+
+      navigate("/mp-pro/planning/plannings/");
+
+
     }
   }, [groups]);
 
@@ -40,9 +46,11 @@ const PlanningOrders = ({}) => {
       nameRoute={'Planeación'}
       nameSubRoute={'Planeaciones'}
     >
+
       <section>
         <header className='flex flex-1 py-5 justify-between'>
           <h2 className='text-3xl font-semibold text-black my-auto'>
+
             Órdenes a planear
           </h2>
           {!notFound && orders?.length > 0 && (
@@ -67,9 +75,12 @@ const PlanningOrders = ({}) => {
             </section>
           )}
 
-          <div className='flex justify-end py-5'>
-            <Link to='/mp-pro/planning/plannings/'>
-              <button className='border border-slate-300 rounded w-64 h-12 text-base font-semibold mr-6'>
+
+          <div className="flex justify-end py-5">
+            <Link to="/mp-pro/planning/plannings/">
+              <button className="border border-slate-300 rounded w-64 h-12 text-base font-semibold mr-6">
+
+
                 Cancelar
               </button>
             </Link>
@@ -99,6 +110,7 @@ const PlanningOrders = ({}) => {
           </div>
         </main>
       </section>
+      </div>
     </Layout>
   );
 };

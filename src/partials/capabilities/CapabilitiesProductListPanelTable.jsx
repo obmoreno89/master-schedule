@@ -7,19 +7,21 @@ import {
   setCapabilitiesSearch,
   revertSearch,
   selectCapabilitiesSearch,
+  selectReload
 } from '../../store/slice/capabilitiesSlice.js';
 
-const CapabilitiesProductListPanelTable = ({ setOpenModalPL }) => {
+const CapabilitiesProductListPanelTable = ({ setOpenModalPL, setOpenModalPLEdit, setOpenModalPLDelete }) => {
   const [pl, setPl] = useState(useSelector(selectPLines));
   const [startSearch, setStartSearch] = useState(false);
   const dispatch = useDispatch();
   const productLines = useSelector(selectPLines);
+  const reload = useSelector(selectReload);
 
   const searchItems = useSelector(selectCapabilitiesSearch);
 
   useEffect(() => {
     dispatch(getProductLines());
-  }, []);
+  }, [reload]);
 
   useEffect(() => {
     setPl(productLines);
@@ -68,6 +70,8 @@ const CapabilitiesProductListPanelTable = ({ setOpenModalPL }) => {
               currentPost={pl}
               productLines={productLines}
               setPl={setPl}
+              setOpenModalPLEdit={setOpenModalPLEdit}
+              setOpenModalPLDelete={setOpenModalPLDelete}
             />
           ) : startSearch && searchItems.length > 0 ? (
             <CapabilitiesProductListPanelTableItem
@@ -75,6 +79,8 @@ const CapabilitiesProductListPanelTable = ({ setOpenModalPL }) => {
               currentPost={searchItems}
               productLines={productLines}
               setPl={setPl}
+              setOpenModalPLEdit={setOpenModalPLEdit}
+              setOpenModalPLDelete={setOpenModalPLDelete}
             />
           ) : (
             <section className='justify-center items-center flex h-96'>

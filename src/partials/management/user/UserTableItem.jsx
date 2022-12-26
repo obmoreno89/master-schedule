@@ -98,21 +98,21 @@ function UserTableItem({
             <tr key={index}>
               <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap md:w-1/5 lg:w-1/4'>
                 <p className='text-textTableItem font-medium  capitalize'>
-                  {data.first_name} {data.last_name}
+                  {data?.first_name} {data?.last_name}
                 </p>
-                <span className='text-primary'>{data.role.name}</span>
+                <span className='text-primary'>{data.role?.name}</span>
               </td>
               <td className='px-3 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                <p className='text-left font-semibold'>{data.email}</p>
+                <p className='text-left font-semibold'>{data?.email}</p>
               </td>
               <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                <p className='text-left '>{data.nmc}</p>
+                <p className='text-left '>{data?.nmc}</p>
               </td>
               <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                <p className='text-center'>{data.telephone}</p>
+                <p className='text-center'>{data?.telephone}</p>
               </td>
               <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                <p className='text-center'>{data.position}</p>
+                <p className='text-center'>{data?.position}</p>
               </td>
               <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
                 <figure className='flex justify-end items-center space-x-3'>

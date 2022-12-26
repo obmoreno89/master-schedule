@@ -90,7 +90,7 @@ function ModalGroup({ openModalGroup, setOpenModalGroup }) {
                 type='submit'
                 className='bg-primary text-white w-full h-[51px] rounded-[4px] font-semibold'
               >
-                Guardar línea de producto
+                Guardar grupo
               </button>
             ) : (
               <ButtonLoading loading='Creando' createGroup={true} />
