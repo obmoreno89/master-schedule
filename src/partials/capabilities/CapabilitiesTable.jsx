@@ -8,8 +8,6 @@ import {
   revertSearch,
   selectCapabilitiesSearch,
 } from '../../store/slice/capabilitiesSlice';
-import icons from '../../images/icon/icons';
-import { orderGAsc, orderGDesc, orderPLAsc, orderPLDesc } from './orderFunc';
 
 const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
   const dispatch = useDispatch();

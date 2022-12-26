@@ -8,26 +8,24 @@ function Management() {
   const [openModalUserDelete, setOpenModalUserDelete] = useState(false);
 
   return (
-    <>
-      <Layout
-        icon={icons.administratorIcon}
-        nameRoute={"Administración"}
-        nameSubRoute={"Usuario"}
-      >
-        <div className="px-4 sm:px-6 lg:px-0 py-1 w-full max-w-9xl mx-auto pb-10">
-          <div className="sm:flex sm:justify-between sm:items-center mb-4 md:mb-2"></div>
+    <Layout
+      icon={icons.administratorIcon}
+      nameRoute={"Administración"}
+      nameSubRoute={"Usuario"}
+    >
+      <div className="px-4 sm:px-6 lg:px-0 py-1 w-full max-w-9xl mx-auto pb-10">
+        <div className="sm:flex sm:justify-between sm:items-center mb-4 md:mb-2"></div>
 
-          <section className="lg:px-8 mt-5">
-            <UserTable
-              setUserPanelOpen={setUserPanelOpen}
-              setOpenModalUserDelete={setOpenModalUserDelete}
-              openModalUserDelete={openModalUserDelete}
-              userPanelOpen={userPanelOpen}
-            />
-          </section>
-        </div>
-      </Layout>
-    </>
+        <section className="lg:px-8 mt-5">
+          <UserTable
+            setUserPanelOpen={setUserPanelOpen}
+            setOpenModalUserDelete={setOpenModalUserDelete}
+            openModalUserDelete={openModalUserDelete}
+            userPanelOpen={userPanelOpen}
+          />
+        </section>
+      </div>
+    </Layout>
   );
 }
 
