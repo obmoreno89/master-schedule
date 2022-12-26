@@ -3,9 +3,7 @@ import icons from '../../../images/icon/icons';
 import PlanningOrdersPanel from './PlanningOrdersPanel';
 import { useState } from 'react';
 import PlanningOrdersTable from './PlanningOrdersTable';
-
 import { Link, useNavigate } from 'react-router-dom';
-
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -42,8 +40,8 @@ const PlanningOrders = ({}) => {
       nameRoute={'Planeación'}
       nameSubRoute={'Planeaciones'}
     >
-      <div>
-        <section>
+      <div className='px-4 sm:px-6 lg:px-0 py-1 w-full max-w-9xl mx-auto'>
+        <section className='lg:px-8'>
           <header className='flex flex-1 py-5 justify-between'>
             <h2 className='text-3xl font-semibold text-black my-auto'>
               Órdenes a planear
