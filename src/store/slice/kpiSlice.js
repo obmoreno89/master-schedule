@@ -5,6 +5,7 @@ const initialState = {
   totalNumberOfOrders: [],
   totalAmountOfOrders: [],
   ordersProgrammed: [],
+  reload: false,
 };
 
 const kpiSlice = createSlice({
@@ -20,6 +21,10 @@ const kpiSlice = createSlice({
     setOrdersProgrammed: (state, action) => {
       state.ordersProgrammed = action.payload;
     },
+
+    setReload: (state, action) => {
+      state.reload = !state.reload;
+    },
   },
 });
 
@@ -27,15 +32,15 @@ export const {
   setTotalNumberOfOrders,
   setTotalAmountOfOrders,
   setOrdersProgrammed,
+  setReload,
 } = kpiSlice.actions;
 
 export const selectTotalNumberOfOrders = (state) =>
   state.kpi.totalNumberOfOrders;
-
 export const selectTotalAmountOfOrders = (state) =>
   state.kpi.totalAmountOfOrders;
-
 export const selectOrdersProgrammed = (state) => state.kpi.ordersProgrammed;
+export const selectReload = (state) => state.kpi.reload;
 
 export default kpiSlice.reducer;
 
