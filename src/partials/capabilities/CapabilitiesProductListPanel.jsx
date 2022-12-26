@@ -6,6 +6,8 @@ function CapabilitiesProductListPanel({
   transactionPanelOpen,
   setTransactionPanelOpen,
   setOpenModalPL,
+  setOpenModalPLEdit,
+  setOpenModalPLDelete
 }) {
   const closeBtn = useRef(null);
   const panelContent = useRef(null);
@@ -88,6 +90,8 @@ function CapabilitiesProductListPanel({
             </section>
             <CapabilitiesProductListPanelTable
               setOpenModalPL={setOpenModalPL}
+              setOpenModalPLEdit={setOpenModalPLEdit}
+              setOpenModalPLDelete={setOpenModalPLDelete}
             />
           </div>
         </div>
