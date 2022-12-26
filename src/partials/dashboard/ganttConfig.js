@@ -23,7 +23,7 @@ export const ganttConfig = {
     columnReorder: false,
     contextMenu: false,
     dependencyEdit: false,
-    filter: true,
+    filter: false,
     indicators: true,
     taskCopyPaste: false,
     projectLines: {

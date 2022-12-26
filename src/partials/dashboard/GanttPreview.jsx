@@ -4,7 +4,6 @@ import { Gantt, StringHelper } from '@bryntum/gantt';
 import { BryntumGantt, BryntumToolbar } from '@bryntum/gantt-react';
 import { ganttConfig } from './ganttConfig';
 import '@bryntum/gantt/gantt.material.css';
-import './prueba.css';
 import axios from 'axios';
 
 function DemoGantt() {
@@ -35,7 +34,7 @@ function DemoGantt() {
 
   return (
     <>
-      <div>
+      <div className='border-borderInput border rounded'>
         <BryntumGantt
           ref={ganttRef}
           pdfExportFeature={true}

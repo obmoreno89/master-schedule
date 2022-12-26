@@ -78,7 +78,7 @@ function DemoGantt() {
       nameRoute='Planeación'
       nameSubRoute='Gantt'
     >
-      <div>
+      <div className='px-4'>
         <BryntumToolbar
           items={[
             {
@@ -143,7 +143,7 @@ function DemoGantt() {
             },
           ]}
         />
-        <div className='px-3'>
+        <div className='border-borderInput border rounded'>
           <BryntumGantt
             ref={ganttRef}
             pdfExportFeature={true}
