@@ -1,0 +1,129 @@
+{
+    "project": {
+      "calendar": "general",
+      "hoursPerDay": 24,
+      "daysPerWeek": 5,
+      "daysPerMonth": 20
+    },
+  
+    "calendars": {
+      "rows": [
+        {
+          "id": "general",
+          "name": "General",
+          "intervals": [
+            {
+              "recurrentStartDate": "on Sat at 0:00",
+              "recurrentEndDate": "on Mon at 0:00",
+              "isWorking": false
+            }
+          ],
+          "expanded": true,
+          "children": [
+            {
+              "id": "business",
+              "name": "Business",
+              "intervals": [
+                {
+                  "recurrentStartDate": "every weekday at 12:00",
+                  "recurrentEndDate": "every weekday at 13:00",
+                  "isWorking": false
+                },
+                {
+                  "recurrentStartDate": "every weekday at 17:00",
+                  "recurrentEndDate": "every weekday at 08:00",
+                  "isWorking": false
+                }
+              ]
+            },
+            {
+              "id": "night",
+              "name": "Night shift",
+              "intervals": [
+                {
+                  "recurrentStartDate": "every weekday at 6:00",
+                  "recurrentEndDate": "every weekday at 22:00",
+                  "isWorking": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+  
+    "tasks": {
+      "rows": [
+        {
+         
+              "id": 1,
+              "name": "Order: 7816114 - Item: GB49",
+              "order": "7816114",
+              "item": "GB49",
+              "productLine": "NEMAH.250 Fr OL",
+              "quantity": 11,
+              "percentDone": 50,
+              "style" : "background:red",
+              "duration": 3,
+              "startDate": "2022-12-20",
+              "endDate": "2022-12-23",
+              "expanded": true
+        },
+        {
+         
+            "id": 2,
+            "name": "Order: 7816114 - Item: GB49",
+            "order": "7816115",
+            "item": "GB49",
+            "productLine": "NEMAH.250 Fr OL",
+            "quantity": 6,
+            "style":"background:#15B053",
+            "percentDone": 50,
+            "duration": 2.3,
+            "startDate": "2022-12-21",
+            "endDate": "2022-12-24",
+            "expanded": true
+            }
+    ],
+  
+    "dependencies": {
+      "rows": [
+        {
+          "id": 1,
+          "fromTask": 2,
+          "toTask": 3,
+          "lag": 2
+        }
+      ]
+    },
+  
+    "resources": {
+      "rows": [
+        {
+          "id": 1,
+          "name": "Celia",
+          "city": "Barcelona",
+          "calendar": null,
+          "image": "celia.jpg"
+        }
+      ]
+    },
+  
+    "assignments": {
+      "rows": [
+        { "id": 1, "event": 1, "resource": 1 }
+      ]
+    },
+  
+    "timeRanges": {
+      "rows": [
+        {
+          "id": 1,
+          "name": "Important date",
+          "startDate": "2019-01-30",
+          "duration": 0,
+          "durationUnit": "d",
+          "cls": "b-fa b-fa-diamond"
+        }
+      ]
+    }}}

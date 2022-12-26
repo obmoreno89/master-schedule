@@ -1,7 +1,8 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import icons from '../../../images/icon/icons';
 import UserPanel from '../../../partials/management/user/UserPanel';
 import ModalUserDelete from '../../../pages/component/ModalUserDelete';
+import { orderUserAsc, orderUserDesc } from '../../capabilities/orderFunc';
 
 function UserTableItem({
   dataUser,
@@ -9,7 +10,32 @@ function UserTableItem({
   setUserPanelOpen,
   setOpenModalUserDelete,
   openModalUserDelete,
+  setUser,
+  selectUser,
 }) {
+  const [orderName, setOrderName] = useState({ state: false, asc: false });
+  const [orderEmail, setOrderEmail] = useState({ state: false, asc: false });
+
+  useEffect(() => {
+    if (orderName.state) {
+      if (!orderName.asc) {
+        orderUserAsc(selectUser, setUser, 'first_name');
+      } else {
+        orderUserDesc(selectUser, setUser, 'first_name');
+      }
+    }
+  }, [orderName]);
+
+  useEffect(() => {
+    if (orderEmail.state) {
+      if (!orderEmail.asc) {
+        orderUserAsc(selectUser, setUser, 'email');
+      } else {
+        orderUserDesc(selectUser, setUser, 'email');
+      }
+    }
+  }, [orderEmail]);
+
   return (
     <>
       <UserPanel
@@ -20,14 +46,38 @@ function UserTableItem({
         openModalUserDelete={openModalUserDelete}
         setOpenModalUserDelete={setOpenModalUserDelete}
       />
-      <table className='table-auto w-full'>
+      <table className='table-auto w-full table'>
         <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50'>
           <tr>
-            <th className='px-2 first:pl-5'>
-              <div className='font-semibold text-left'>Nombre</div>
+            <th
+              className='px-2 first:pl-5 cursor-pointer'
+              onClick={() => {
+                setOrderName({ state: true, asc: !orderName.asc });
+              }}
+            >
+              <div className='flex items-center space-x-2'>
+                <div className='font-semibold text-left'>Nombre</div>
+                <img
+                  src={orderName.asc ? icons.doubleDown : icons.doubleUp}
+                  alt='Flecha abajo'
+                  className='w-5'
+                />
+              </div>
             </th>
-            <th className='px-24 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-              <p className='font-semibold text-left'>Email</p>
+            <th
+              className='px-24 first:pl-5 last:pr-5 py-3 whitespace-nowrap cursor-pointer'
+              onClick={() => {
+                setOrderEmail({ state: true, asc: !orderEmail.asc });
+              }}
+            >
+              <div className='flex items-center space-x-2'>
+                <p className='font-semibold text-left'>Email</p>
+                <img
+                  src={orderEmail.asc ? icons.doubleDown : icons.doubleUp}
+                  alt='Flecha abajo'
+                  className='w-5'
+                />
+              </div>
             </th>
             <th className='px-4 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
               <p className='font-semibold text-left'>NMC</p>
