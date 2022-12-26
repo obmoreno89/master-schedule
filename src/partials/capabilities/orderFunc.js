@@ -4,20 +4,20 @@ export const orderPLAsc = (array, setState, type) => {
 
   if (type === "capabilities") {
     sortArray = arrayForSort.sort((a, b) => {
-      if (a.product_line.name < b.product_line.name) {
+      if (a.product_line.name.toLowerCase() < b.product_line.name.toLowerCase()) {
         return 1;
       }
-      if (a.product_line.name > b.product_line.name) {
+      if (a.product_line.name.toLowerCase() > b.product_line.name.toLowerCase()) {
         return -1;
       }
       return 0;
     });
   } else {
     sortArray = arrayForSort.sort((a, b) => {
-      if (a.name < b.name) {
+      if (a.name.toLowerCase() < b.name.toLowerCase()) {
         return 1;
       }
-      if (a.name > b.name) {
+      if (a.name.toLowerCase() > b.name.toLowerCase()) {
         return -1;
       }
       return 0;
@@ -32,20 +32,20 @@ export const orderPLDesc = (array, setState, type) => {
 
   if (type === "capabilities") {
     sortArray = arrayForSort.sort((a, b) => {
-      if (a.product_line.name > b.product_line.name) {
+      if (a.product_line.name.toLowerCase() > b.product_line.name.toLowerCase()) {
         return 1;
       }
-      if (a.product_line.name < b.product_line.name) {
+      if (a.product_line.name.toLowerCase() < b.product_line.name.toLowerCase()) {
         return -1;
       }
       return 0;
     });
   } else {
     sortArray = arrayForSort.sort((a, b) => {
-      if (a.name > b.name) {
+      if (a.name.toLowerCase() > b.name.toLowerCase()) {
         return 1;
       }
-      if (a.name < b.name) {
+      if (a.name.toLowerCase() < b.name.toLowerCase()) {
         return -1;
       }
       return 0;
@@ -60,30 +60,30 @@ export const orderGAsc = (array, setState, type) => {
 
   if (type === "capabilities") {
     sortArray = arrayForSort.sort((a, b) => {
-      if (a.product_line.group.name < b.product_line.group.name) {
+      if (a.product_line.group.name.toLowerCase() < b.product_line.group.name.toLowerCase()) {
         return 1;
       }
-      if (a.product_line.group.name > b.product_line.group.name) {
+      if (a.product_line.group.name.toLowerCase() > b.product_line.group.name.toLowerCase()) {
         return -1;
       }
       return 0;
     });
   } else if (type === "productLine") {
     sortArray = arrayForSort.sort((a, b) => {
-      if (a.group.name < b.group.name) {
+      if (a.group.name.toLowerCase() < b.group.name.toLowerCase()) {
         return 1;
       }
-      if (a.group.name > b.group.name) {
+      if (a.group.name.toLowerCase() > b.group.name.toLowerCase()) {
         return -1;
       }
       return 0;
     });
   } else {
     sortArray = arrayForSort.sort((a, b) => {
-      if (a.group < b.group) {
+      if (a.group.toLowerCase() < b.group.toLowerCase()) {
         return 1;
       }
-      if (a.group > b.group) {
+      if (a.group.toLowerCase() > b.group.toLowerCase()) {
         return -1;
       }
       return 0;
@@ -98,30 +98,30 @@ export const orderGDesc = (array, setState, type) => {
 
   if (type === "capabilities") {
     sortArray = arrayForSort.sort((a, b) => {
-      if (a.product_line.group.name > b.product_line.group.name) {
+      if (a.product_line.group.name.toLowerCase() > b.product_line.group.name.toLowerCase()) {
         return 1;
       }
-      if (a.product_line.group.name < b.product_line.group.name) {
+      if (a.product_line.group.name.toLowerCase() < b.product_line.group.name.toLowerCase()) {
         return -1;
       }
       return 0;
     });
   } else if (type === "productLine") {
     sortArray = arrayForSort.sort((a, b) => {
-      if (a.group.name > b.group.name) {
+      if (a.group.name.toLowerCase() > b.group.name.toLowerCase()) {
         return 1;
       }
-      if (a.group.name < b.group.name) {
+      if (a.group.name.toLowerCase() < b.group.name.toLowerCase()) {
         return -1;
       }
       return 0;
     });
   } else {
     sortArray = arrayForSort.sort((a, b) => {
-      if (a.group > b.group) {
+      if (a.group.toLowerCase() > b.group.toLowerCase()) {
         return 1;
       }
-      if (a.group < b.group) {
+      if (a.group.toLowerCase() < b.group.toLowerCase()) {
         return -1;
       }
       return 0;
@@ -134,10 +134,10 @@ export const orderUserAsc = (array, setState, attr) => {
   const arrayForSort = [...array];
 
   const sortArray = arrayForSort.sort((a, b) => {
-    if (a[attr] < b[attr]) {
+    if (a[attr].toLowerCase() < b[attr].toLowerCase()) {
       return 1;
     }
-    if (a[attr] > b[attr]) {
+    if (a[attr].toLowerCase() > b[attr].toLowerCase()) {
       return -1;
     }
     return 0;
@@ -150,10 +150,10 @@ export const orderUserDesc = (array, setState, attr) => {
   const arrayForSort = [...array];
 
   const sortArray = arrayForSort.sort((a, b) => {
-    if (a[attr] > b[attr]) {
+    if (a[attr].toLowerCase() > b[attr].toLowerCase()) {
       return 1;
     }
-    if (a[attr] < b[attr]) {
+    if (a[attr].toLowerCase() < b[attr].toLowerCase()) {
       return -1;
     }
     return 0;

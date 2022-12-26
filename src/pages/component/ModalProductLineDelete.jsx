@@ -1,35 +1,34 @@
-import React from "react";
 import ModalBlank from "../../components/ModalBlank";
-import { deleteUser } from "../../store/slice/usersSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  deleteGroup,
-  revertGroupDelete,
-  selectGroupDelete,
+  deletePLine,
+  revertPLDelete,
+  selectPLDelete,
 } from "../../store/slice/capabilitiesSlice";
 
-function ModalGroupDelete({ setOpenModalGroupDelete, openModalGroupDelete }) {
+function ModalProductLineDelete({ setOpenModalPLDelete, openModalPLDelete }) {
   const dispatch = useDispatch();
-  const groupFromTable = useSelector(selectGroupDelete);
+  const plFromTable = useSelector(selectPLDelete);
 
   return (
     <ModalBlank
       id="success-modal"
-      modalOpen={openModalGroupDelete}
-      setModalOpen={setOpenModalGroupDelete}
+      modalOpen={openModalPLDelete}
+      setModalOpen={setOpenModalPLDelete}
     >
       <div className="p-5 flex space-x-4">
         <div>
           {/* Modal header */}
           <div className="mb-2 flex justify-between items-center">
             <div className="text-lg font-bold text-slate-800 w-72">
-              ¿Estás seguro de eliminar el grupo {groupFromTable?.group?.toUpperCase()} ?
+              ¿Estás seguro de eliminar la línea de producto{" "}
+              {plFromTable?.name?.toUpperCase()}?
             </div>
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                dispatch(revertGroupDelete());
-                setOpenModalGroupDelete(false);
+                dispatch(revertPLDelete());
+                setOpenModalPLDelete(false);
               }}
             >
               <svg
@@ -45,8 +44,8 @@ function ModalGroupDelete({ setOpenModalGroupDelete, openModalGroupDelete }) {
           <div className="text-sm mb-10">
             <div className="space-y-2">
               <p>
-                Esta acción no se puede revertir, estás a punto de eliminar el
-                grupo y todos sus datos asociados.
+                Esta acción no se puede revertir, estás a punto de eliminar la
+                línea de producto y todos sus datos asociados.
               </p>
             </div>
           </div>
@@ -55,13 +54,11 @@ function ModalGroupDelete({ setOpenModalGroupDelete, openModalGroupDelete }) {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                dispatch(
-                  deleteGroup(groupFromTable?.id, setOpenModalGroupDelete)
-                );
+                dispatch(deletePLine(plFromTable?.id, setOpenModalPLDelete));
               }}
               className="btn-lg bg-red-500 font-semibold text-white w-full"
             >
-              Eliminar Grupo
+              Eliminar línea de producto
             </button>
           </div>
         </div>
@@ -70,4 +67,4 @@ function ModalGroupDelete({ setOpenModalGroupDelete, openModalGroupDelete }) {
   );
 }
 
-export default ModalGroupDelete;
+export default ModalProductLineDelete;

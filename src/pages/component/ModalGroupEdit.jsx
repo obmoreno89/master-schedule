@@ -4,7 +4,9 @@ import ButtonLoading from '../../helpers/ButtonLoading';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   editGroup,
+  revertError,
   revertGroupEdit,
+  selectError,
   selectGroupEdit,
   selectLoading,
 } from '../../store/slice/capabilitiesSlice';
@@ -21,6 +23,15 @@ function ModalGroupEdit({ openModalGroupEdit, setOpenModalGroupEdit }) {
   const dispatch = useDispatch();
   const loading = useSelector(selectLoading);
   const groupFromTable = useSelector(selectGroupEdit);
+  const error = useSelector(selectError);
+
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        dispatch(revertError());
+      }, 4000);
+    }
+  }, [error]);
 
   useEffect(() => {
     let defaultValues = {};
@@ -103,6 +114,11 @@ function ModalGroupEdit({ openModalGroupEdit, setOpenModalGroupEdit }) {
                   </button>
                 ) : (
                   <ButtonLoading loading='Creando' createGroup={true} />
+                )}
+                 {error && (
+                  <span className="text-red-500 text-sm font-bold">
+                    Ocurrió un error. Por favor vuelva a intentarlo.
+                  </span>
                 )}
               </form>
             </div>

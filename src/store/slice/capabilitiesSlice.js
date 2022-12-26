@@ -6,15 +6,21 @@ const initialState = {
   groupEdit: [],
   groupDelete: [],
   producLines: [],
+  plEdit: [],
+  plDelete: [],
   loading: null,
   capabilitiesList: [],
   capabilitiesSearch: [],
   reload: false,
+  error: false,
 };
 
 export const revertSearch = createAction("REVERT_SEARCH");
 export const revertGroupEdit = createAction("REVERT_GROUPEDIT");
 export const revertGroupDelete = createAction("REVERT_GROUPDELETE");
+export const revertPLEdit = createAction("REVERT_PLEDIT");
+export const revertPLDelete = createAction("REVERT_PLDELETE");
+export const revertError = createAction("REVERT_ERROR");
 
 const capabilitiesSlice = createSlice({
   initialState,
@@ -28,6 +34,15 @@ const capabilitiesSlice = createSlice({
     });
     builder.addCase(revertGroupDelete, (state, action) => {
       state.groupDelete = [];
+    });
+    builder.addCase(revertPLEdit, (state, action) => {
+      state.plEdit = [];
+    });
+    builder.addCase(revertPLDelete, (state, action) => {
+      state.plDelete = [];
+    });
+    builder.addCase(revertError, (state, action) => {
+      state.error = false;
     });
   },
   reducers: {
@@ -55,6 +70,15 @@ const capabilitiesSlice = createSlice({
     setGroupDelete: (state, action) => {
       state.groupDelete = action.payload;
     },
+    setPLEdit: (state, action) => {
+      state.plEdit = action.payload;
+    },
+    setPLDelete: (state, action) => {
+      state.plDelete = action.payload;
+    },
+    setError: (state, action) => {
+      state.error = action.payload;
+    },
   },
 });
 
@@ -67,6 +91,9 @@ export const {
   setReload,
   setGroupEdit,
   setGroupDelete,
+  setPLEdit,
+  setPLDelete,
+  setError,
 } = capabilitiesSlice.actions;
 
 export const selectGroup = (state) => state.group.groupList;
@@ -78,6 +105,9 @@ export const selectCapabilitiesSearch = (state) =>
 export const selectReload = (state) => state.group.reload;
 export const selectGroupEdit = (state) => state.group.groupEdit;
 export const selectGroupDelete = (state) => state.group.groupDelete;
+export const selectPLEdit = (state) => state.group.plEdit;
+export const selectPLDelete = (state) => state.group.plDelete;
+export const selectError = (state) => state.group.error;
 
 export default capabilitiesSlice.reducer;
 
@@ -107,7 +137,7 @@ export const createPLines = (data, setOpenModalPL, reset) => (dispatch) => {
       if (response.status === 201) {
         dispatch(setLoading(false));
         setOpenModalPL(false);
-        reset;
+        reset();
         dispatch(setReload());
       }
     })
@@ -117,7 +147,46 @@ export const createPLines = (data, setOpenModalPL, reset) => (dispatch) => {
     });
 };
 
-export const getCapabilitiesList = (data) => (dispatch) => {
+export const editPLine = (data, id, setOpenModalPLEdit) => (dispatch) => {
+  dispatch(setLoading(true));
+  axios
+    .put(
+      `http://44.211.175.241/api/capacities/update-product-line/${id}`,
+      data
+    )
+    .then((response) => {
+      if (response.status === 200) {
+        dispatch(setLoading(false));
+        setOpenModalPLEdit(false);
+        dispatch(setReload());
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch(setLoading(false));
+      dispatch(setError(true));
+    });
+};
+
+export const deletePLine = (id, setOpenModalPLDelete) => (dispatch) => {
+  dispatch(setLoading(true));
+  axios
+    .delete(`http://44.211.175.241/api/capacities/delete-product-line/${id}`)
+    .then((response) => {
+      if (response.status === 200) {
+        dispatch(setLoading(false));
+        setOpenModalPLDelete(false);
+        dispatch(setReload());
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch(setLoading(false));
+      dispatch(setError(true));
+    });
+};
+
+export const getCapabilitiesList = () => (dispatch) => {
   axios
     .get("http://44.211.175.241/api/capacities/list-default-capacities")
     .then((response) => {
@@ -158,6 +227,7 @@ export const editGroup = (data, id, setOpenModalGroupEdit) => (dispatch) => {
     .catch((err) => {
       console.log(err);
       dispatch(setLoading(false));
+      dispatch(setError(true));
     });
 };
 
@@ -175,5 +245,6 @@ export const deleteGroup = (id, setOpenModalGroupDelete) => (dispatch) => {
     .catch((err) => {
       console.log(err);
       dispatch(setLoading(false));
+      dispatch(setError(true));
     });
 };

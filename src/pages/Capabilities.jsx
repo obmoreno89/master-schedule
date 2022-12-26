@@ -9,6 +9,8 @@ import ModalGroup from "./component/ModalGroup";
 import Layout from "../components/Layout";
 import ModalGroupEdit from "./component/ModalGroupEdit";
 import ModalGroupDelete from "./component/ModalGroupDelete";
+import ModalProductLineEdit from "./component/ModalProductLineEdit";
+import ModalProductLineDelete from "./component/ModalProductLineDelete";
 
 function Capabilities() {
   const [transactionPanelOpen, setTransactionPanelOpen] = useState(false);
@@ -17,6 +19,8 @@ function Capabilities() {
   const [openModalGroup, setOpenModalGroup] = useState(false);
   const [openModalGroupEdit, setOpenModalGroupEdit] = useState(false);
   const [openModalGroupDelete, setOpenModalGroupDelete] = useState(false);
+  const [openModalPLEdit, setOpenModalPLEdit] = useState(false);
+  const [openModalPLDelete, setOpenModalPLDelete] = useState(false);
 
   return (
     <>
@@ -43,6 +47,8 @@ function Capabilities() {
             transactionPanelOpen={transactionPanelOpen}
             setTransactionPanelOpen={setTransactionPanelOpen}
             setOpenModalPL={setOpenModalPL}
+            setOpenModalPLEdit={setOpenModalPLEdit}
+            setOpenModalPLDelete={setOpenModalPLDelete}
           />
           <CabalitiesGroupPanel
             groupPanelOpen={groupPanelOpen}
@@ -67,8 +73,16 @@ function Capabilities() {
         setOpenModalGroupEdit={setOpenModalGroupEdit}
       />
       <ModalGroupDelete
-      openModalGroupDelete={openModalGroupDelete}
-      setOpenModalGroupDelete={setOpenModalGroupDelete}
+        openModalGroupDelete={openModalGroupDelete}
+        setOpenModalGroupDelete={setOpenModalGroupDelete}
+      />
+      <ModalProductLineEdit
+        openModalPLEdit={openModalPLEdit}
+        setOpenModalPLEdit={setOpenModalPLEdit}
+      />
+      <ModalProductLineDelete
+        openModalPLDelete={openModalPLDelete}
+        setOpenModalPLDelete={setOpenModalPLDelete}
       />
     </>
   );
