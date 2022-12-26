@@ -3,7 +3,9 @@ import icons from '../../../images/icon/icons';
 import PlanningOrdersPanel from './PlanningOrdersPanel';
 import { useState } from 'react';
 import PlanningOrdersTable from './PlanningOrdersTable';
+
 import { Link, useNavigate } from 'react-router-dom';
+
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -31,7 +33,9 @@ const PlanningOrders = ({}) => {
   useEffect(() => {
     if (groups.length === 0) {
 
+
       navigate("/mp-pro/planning/plannings/");
+
 
     }
   }, [groups]);
@@ -43,10 +47,9 @@ const PlanningOrders = ({}) => {
       nameSubRoute={'Planeaciones'}
     >
 
-        <div className='px-4 sm:px-6 lg:px-0 py-1 w-full max-w-9xl mx-auto'>
-      <section className='lg:px-8'>
-        <header className="flex flex-1 py-5 justify-between">
-          <h2 className="text-3xl font-semibold text-black my-auto">
+      <section>
+        <header className='flex flex-1 py-5 justify-between'>
+          <h2 className='text-3xl font-semibold text-black my-auto'>
 
             Órdenes a planear
           </h2>
@@ -76,6 +79,7 @@ const PlanningOrders = ({}) => {
           <div className="flex justify-end py-5">
             <Link to="/mp-pro/planning/plannings/">
               <button className="border border-slate-300 rounded w-64 h-12 text-base font-semibold mr-6">
+
 
                 Cancelar
               </button>
