@@ -4,9 +4,11 @@ import {
   getKpiNumberOfOrders,
   getKpiAmountOfOrders,
   getOrdersProgrammed,
+  getExcessInventory,
   selectTotalNumberOfOrders,
   selectTotalAmountOfOrders,
   selectOrdersProgrammed,
+  selectExcessInventory,
 } from '../../store/slice/kpiSlice';
 
 function Kpis() {
@@ -14,11 +16,13 @@ function Kpis() {
   const kpiTotalNumberOfOrders = useSelector(selectTotalNumberOfOrders);
   const kpiTotalAmountOfOrders = useSelector(selectTotalAmountOfOrders);
   const kpiOrdersProgrammed = useSelector(selectOrdersProgrammed);
+  const kpiExcessInventory = useSelector(selectExcessInventory);
 
   useEffect(() => {
     dispatch(getKpiNumberOfOrders());
     dispatch(getKpiAmountOfOrders());
     dispatch(getOrdersProgrammed());
+    dispatch(getExcessInventory());
   }, []);
 
   return (
@@ -86,7 +90,13 @@ function Kpis() {
                   <h3 className='text-sm leading-6 font-medium text-gray-400'>
                     Exceso de Inventario
                   </h3>
-                  <p className='text-3xl font-bold text-black'>30 Pz</p>
+                  {!kpiExcessInventory.length ? (
+                    <p className='text-3xl font-bold text-black'>
+                      {kpiExcessInventory.excess_inventory} <span>Pzas</span>
+                    </p>
+                  ) : (
+                    <p className='text-3xl font-bold text-black'>Sin datos</p>
+                  )}
                 </div>
               </div>
             </div>
