@@ -20,8 +20,6 @@ function CapabilitiesEditForm({
   const ProductLineList = useSelector(selectPLines);
   const error = useSelector(selectError);
 
-  console.log(editCap);
-
   const {
     register,
     handleSubmit,
