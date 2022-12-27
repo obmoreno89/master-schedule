@@ -19,6 +19,7 @@ export const revertSearch = createAction('REVERT_SEARCH');
 export const revertGroupEdit = createAction('REVERT_GROUPEDIT');
 export const revertGroupDelete = createAction('REVERT_GROUPDELETE');
 export const revertPLEdit = createAction('REVERT_PLEDIT');
+export const revertPList = createAction('REVERT_PLIST');
 export const revertPLDelete = createAction('REVERT_PLDELETE');
 export const revertError = createAction('REVERT_ERROR');
 
@@ -40,6 +41,9 @@ const capabilitiesSlice = createSlice({
     });
     builder.addCase(revertPLDelete, (state, action) => {
       state.plDelete = [];
+    });
+    builder.addCase(revertPList, (state, action) => {
+      state.capabilitiesList = [];
     });
     builder.addCase(revertError, (state, action) => {
       state.error = false;

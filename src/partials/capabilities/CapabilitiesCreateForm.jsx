@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import ButtonLoading from '../../helpers/ButtonLoading';
 import {
-  getProductLines,
   selectLoading,
   selectPLines,
   createCapabilities,
@@ -31,10 +30,6 @@ function CapabilitiesCreateForm({
     dispatch(createCapabilities(data, setCapabilitiesOpenPanel, reset));
   };
 
-  useEffect(() => {
-    getProductLines();
-  }, []);
-
   const handleButtonCreate = () => {
     return !loading ? (
       <button className='btn bg-primary hover:bg-secondary hover:text-primary text-white font-semibold text-base w-[27rem] h-12 rounded-[4px]'>
@@ -58,6 +53,7 @@ function CapabilitiesCreateForm({
     defaultValues.comments = '';
     reset({ ...defaultValues });
   }, [reset, capabilitiesPanelOpen]);
+
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
