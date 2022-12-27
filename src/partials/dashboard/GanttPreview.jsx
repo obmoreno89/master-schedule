@@ -10,10 +10,10 @@ function DemoGantt() {
   const ganttRef = useRef();
   useEffect(() => {
     // the instance is available as
-    console.log(ganttRef.current.instance);
+    // console.log(ganttRef.current.instance);
     const dataInitial = ganttRef.current.instance.project.inlineData;
     loadData();
-    console.log(dataInitial);
+    // console.log(dataInitial);
   }, []);
 
   const loadData = async () => {
@@ -29,7 +29,7 @@ function DemoGantt() {
       calendarsData: data['data']['calendars']['rows'],
       dependenciesData: data['data']['tasks']['dependencies'],
     });
-    console.log(project.inlineData);
+    // console.log(project.inlineData);
   };
 
   return (
