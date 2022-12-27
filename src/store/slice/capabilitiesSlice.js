@@ -193,6 +193,29 @@ export const getCapabilitiesList = () => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
+export const createCapabilities =
+  (data, setCapabilitiesOpenPanel, reset) => (dispatch) => {
+    dispatch(setLoading(true));
+    const userId = sessionStorage.getItem('id');
+    axios
+      .post(
+        `http://44.211.175.241/api/capacities/new-register-default/${userId}/`,
+        data
+      )
+      .then((response) => {
+        if (response.status === 201) {
+          dispatch(setLoading(false));
+          setCapabilitiesOpenPanel(false);
+          reset();
+          dispatch(setReload());
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch(setLoading(false));
+      });
+  };
+
 export const createGroup = (data, setOpenModalGroup, reset) => (dispatch) => {
   dispatch(setLoading(true));
   axios

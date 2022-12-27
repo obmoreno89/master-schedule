@@ -1,13 +1,18 @@
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import ButtonLoading from '../../helpers/ButtonLoading';
 import {
   getProductLines,
   selectLoading,
   selectPLines,
+  createCapabilities,
 } from '../../store/slice/capabilitiesSlice';
 
-function CapabilitiesCreateForm({ capabilitiesPanelOpen }) {
+function CapabilitiesCreateForm({
+  capabilitiesPanelOpen,
+  setCapabilitiesOpenPanel,
+}) {
   const dispatch = useDispatch();
   const loading = useSelector(selectLoading);
   const ProductLineList = useSelector(selectPLines);
@@ -20,7 +25,10 @@ function CapabilitiesCreateForm({ capabilitiesPanelOpen }) {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    data.piece_per_hour = parseInt(data.piece_per_hour, 10);
+    data.shift_per_day = parseInt(data.shift_per_day, 10);
+    data.piece_per_day = parseInt(data.piece_per_day, 10);
+    dispatch(createCapabilities(data, setCapabilitiesOpenPanel, reset));
   };
 
   useEffect(() => {
