@@ -8,6 +8,7 @@ import {
   revertSearch,
   selectCapabilitiesSearch,
 } from '../../store/slice/capabilitiesSlice';
+import Loading from '../../pages/component/Loading';
 
 const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
   const dispatch = useDispatch();
@@ -90,14 +91,16 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
                     Sin datos que mostrar
                   </h2>
                 </section>
+                
               )}
             </div>
           </>
         ) : (
           <>
-            <section className='justify-center items-center flex h-96'>
+            {/* <section className='justify-center items-center flex h-96'>
               <h2 className='font-semibold text-2xl'>Sin datos que mostrar</h2>
-            </section>
+            </section> */}
+            <Loading />
           </>
         )}
       </div>

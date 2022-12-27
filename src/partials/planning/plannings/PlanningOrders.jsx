@@ -12,6 +12,7 @@ import {
   selectNotFound,
   selectOrders,
 } from '../../../store/slice/planningSlice';
+import Loading from '../../../pages/component/Loading';
 
 const PlanningOrders = ({}) => {
   const dispatch = useDispatch();
@@ -66,10 +67,11 @@ const PlanningOrders = ({}) => {
             <PlanningOrdersTable orders={orders} />
           ) : (
             // <div className="flex justify-center py-5">
-            <section className='justify-center items-center flex orders-table'>
-              <div className='loader'></div>
-              <span className='ml-3 text-primary font-semibold'>Cargando</span>
-            </section>
+            // <section className='justify-center items-center flex orders-table'>
+            //   <div className='loader'></div>
+            //   <span className='ml-3 text-primary font-semibold'>Cargando</span>
+            // </section>
+            <Loading />
           )}
 
 
