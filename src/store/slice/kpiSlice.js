@@ -5,6 +5,8 @@ const initialState = {
   totalNumberOfOrders: [],
   totalAmountOfOrders: [],
   ordersProgrammed: [],
+  excessInventory: [],
+  reload: false,
 };
 
 const kpiSlice = createSlice({
@@ -20,6 +22,12 @@ const kpiSlice = createSlice({
     setOrdersProgrammed: (state, action) => {
       state.ordersProgrammed = action.payload;
     },
+    setExcessInventory: (state, action) => {
+      state.excessInventory = action.payload;
+    },
+    setReload: (state, action) => {
+      state.reload = !state.reload;
+    },
   },
 });
 
@@ -27,15 +35,17 @@ export const {
   setTotalNumberOfOrders,
   setTotalAmountOfOrders,
   setOrdersProgrammed,
+  setExcessInventory,
+  setReload,
 } = kpiSlice.actions;
 
 export const selectTotalNumberOfOrders = (state) =>
   state.kpi.totalNumberOfOrders;
-
 export const selectTotalAmountOfOrders = (state) =>
   state.kpi.totalAmountOfOrders;
-
 export const selectOrdersProgrammed = (state) => state.kpi.ordersProgrammed;
+export const selectReload = (state) => state.kpi.reload;
+export const selectExcessInventory = (state) => state.kpi.excessInventory;
 
 export default kpiSlice.reducer;
 
@@ -57,5 +67,12 @@ export const getOrdersProgrammed = () => (dispatch) => {
   axios
     .get('http://44.211.175.241/api/kpis/orders-without-ship-date')
     .then((response) => dispatch(setOrdersProgrammed(response.data)))
+    .catch((err) => console.log(err));
+};
+
+export const getExcessInventory = () => (dispatch) => {
+  axios
+    .get('http://44.211.175.241/api/kpis/excess-inventory')
+    .then((response) => dispatch(setExcessInventory(response.data)))
     .catch((err) => console.log(err));
 };

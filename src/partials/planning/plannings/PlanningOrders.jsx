@@ -31,9 +31,7 @@ const PlanningOrders = ({}) => {
 
   useEffect(() => {
     if (groups.length === 0) {
-
-      navigate("/mp-pro/planning/plannings/");
-
+      navigate('/mp-pro/planning/plannings/');
     }
   }, [groups]);
 
@@ -74,40 +72,38 @@ const PlanningOrders = ({}) => {
             <Loading />
           )}
 
+            <div className='flex justify-end py-5'>
+              <Link to='/mp-pro/planning/plannings/'>
+                <button className='border border-slate-300 rounded w-64 h-12 text-base font-semibold mr-6'>
+                  Cancelar
+                </button>
+              </Link>
 
-          <div className="flex justify-end py-5">
-            <Link to="/mp-pro/planning/plannings/">
-              <button className="border border-slate-300 rounded w-64 h-12 text-base font-semibold mr-6">
+              <button
+                onClick={() => setOrdersPanelOpen(true)}
+                className={`w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-secondary hover:text-primary ${
+                  notFound && 'cursor-not-allowed'
+                }`}
+                disabled={notFound ? true : false}
+              >
+                <span className='my-auto'>Continuar</span>
 
-                Cancelar
+                <img
+                  src={icons.arrowRight}
+                  alt='icon-arrow-right'
+                  className='my-auto ml-3 text-white'
+                />
               </button>
-            </Link>
+            </div>
 
-            <button
-              onClick={() => setOrdersPanelOpen(true)}
-              className={`w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-secondary hover:text-primary ${
-                notFound && 'cursor-not-allowed'
-              }`}
-              disabled={notFound ? true : false}
-            >
-              <span className='my-auto'>Continuar</span>
-
-              <img
-                src={icons.arrowRight}
-                alt='icon-arrow-right'
-                className='my-auto ml-3 text-white'
+            <div>
+              <PlanningOrdersPanel
+                ordersPanelOpen={ordersPanelOpen}
+                setOrdersPanelOpen={setOrdersPanelOpen}
               />
-            </button>
-          </div>
-
-          <div>
-            <PlanningOrdersPanel
-              ordersPanelOpen={ordersPanelOpen}
-              setOrdersPanelOpen={setOrdersPanelOpen}
-            />
-          </div>
-        </main>
-      </section>
+            </div>
+          </main>
+        </section>
       </div>
     </Layout>
   );
