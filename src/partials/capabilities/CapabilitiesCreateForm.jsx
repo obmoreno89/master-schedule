@@ -106,7 +106,7 @@ function CapabilitiesCreateForm({
               autoComplete='off'
               {...register('type_name', {
                 required: {
-                  value: true,
+                  value: false,
                   message: 'El campo es requerido',
                 },
                 pattern: {
@@ -251,7 +251,7 @@ function CapabilitiesCreateForm({
               autoComplete='off'
               {...register('comments', {
                 required: {
-                  value: true,
+                  value: false,
                   message: 'El campo es requerido',
                 },
                 pattern: {
