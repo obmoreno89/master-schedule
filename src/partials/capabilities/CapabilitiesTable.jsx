@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import CapabilitiesTableItem from './CapabilitiesTableItem';
 import { useSelector, useDispatch } from 'react-redux';
 import {
+  selectReload,
   selectCapabilitiesList,
   getCapabilitiesList,
   setCapabilitiesSearch,
@@ -18,6 +19,7 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
 
   const capabilitiesList = useSelector(selectCapabilitiesList);
   const searchItems = useSelector(selectCapabilitiesSearch);
+  const reload = useSelector(selectReload);
 
   const handleSearch = (e) => {
     if (e.target.value.length > 0) {
@@ -45,7 +47,7 @@ const CapabilitiesTable = ({ setTransactionPanelOpen, setGroupPanelOpen }) => {
 
   useEffect(() => {
     dispatch(getCapabilitiesList());
-  }, []);
+  }, [reload]);
 
   useEffect(() => {
     setCapabilities(capabilitiesList);

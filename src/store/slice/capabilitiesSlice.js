@@ -1,5 +1,5 @@
-import { createAction, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createAction, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const initialState = {
   groupList: [],
@@ -15,16 +15,16 @@ const initialState = {
   error: false,
 };
 
-export const revertSearch = createAction("REVERT_SEARCH");
-export const revertGroupEdit = createAction("REVERT_GROUPEDIT");
-export const revertGroupDelete = createAction("REVERT_GROUPDELETE");
-export const revertPLEdit = createAction("REVERT_PLEDIT");
-export const revertPLDelete = createAction("REVERT_PLDELETE");
-export const revertError = createAction("REVERT_ERROR");
+export const revertSearch = createAction('REVERT_SEARCH');
+export const revertGroupEdit = createAction('REVERT_GROUPEDIT');
+export const revertGroupDelete = createAction('REVERT_GROUPDELETE');
+export const revertPLEdit = createAction('REVERT_PLEDIT');
+export const revertPLDelete = createAction('REVERT_PLDELETE');
+export const revertError = createAction('REVERT_ERROR');
 
 const capabilitiesSlice = createSlice({
   initialState,
-  name: "group",
+  name: 'group',
   extraReducers: (builder) => {
     builder.addCase(revertSearch, (state, action) => {
       state.capabilitiesSearch = [];
@@ -113,7 +113,7 @@ export default capabilitiesSlice.reducer;
 
 export const getGroupList = () => (dispatch) => {
   axios
-    .get("http://44.211.175.241/api/capacities/list-groups")
+    .get('http://44.211.175.241/api/capacities/list-groups')
     .then((response) => {
       dispatch(setGroup(response.data));
     })
@@ -122,7 +122,7 @@ export const getGroupList = () => (dispatch) => {
 
 export const getProductLines = () => (dispatch) => {
   axios
-    .get("http://44.211.175.241/api/capacities/list-product-line")
+    .get('http://44.211.175.241/api/capacities/list-product-line')
     .then((response) => {
       dispatch(setProductLines(response.data));
     })
@@ -132,7 +132,7 @@ export const getProductLines = () => (dispatch) => {
 export const createPLines = (data, setOpenModalPL, reset) => (dispatch) => {
   dispatch(setLoading(true));
   axios
-    .post("http://44.211.175.241/api/capacities/create-product-line", data)
+    .post('http://44.211.175.241/api/capacities/create-product-line', data)
     .then((response) => {
       if (response.status === 201) {
         dispatch(setLoading(false));
@@ -150,10 +150,7 @@ export const createPLines = (data, setOpenModalPL, reset) => (dispatch) => {
 export const editPLine = (data, id, setOpenModalPLEdit) => (dispatch) => {
   dispatch(setLoading(true));
   axios
-    .put(
-      `http://44.211.175.241/api/capacities/update-product-line/${id}`,
-      data
-    )
+    .put(`http://44.211.175.241/api/capacities/update-product-line/${id}`, data)
     .then((response) => {
       if (response.status === 200) {
         dispatch(setLoading(false));
@@ -188,9 +185,10 @@ export const deletePLine = (id, setOpenModalPLDelete) => (dispatch) => {
 
 export const getCapabilitiesList = () => (dispatch) => {
   axios
-    .get("http://44.211.175.241/api/capacities/list-default-capacities")
+    .get('http://44.211.175.241/api/capacities/list-default-capacities')
     .then((response) => {
       dispatch(setCapabilitiesList(response.data));
+      dispatch(setReload());
     })
     .catch((err) => console.log(err));
 };
@@ -198,7 +196,7 @@ export const getCapabilitiesList = () => (dispatch) => {
 export const createGroup = (data, setOpenModalGroup, reset) => (dispatch) => {
   dispatch(setLoading(true));
   axios
-    .post("http://44.211.175.241/api/capacities/new-group", data)
+    .post('http://44.211.175.241/api/capacities/new-group', data)
     .then((response) => {
       if (response.status === 200) {
         dispatch(setLoading(false));
