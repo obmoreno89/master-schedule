@@ -7,7 +7,7 @@ import {
   selectPLines,
 } from '../../store/slice/capabilitiesSlice';
 
-function CapabilitiesCreateForm() {
+function CapabilitiesCreateForm({ capabilitiesPanelOpen }) {
   const dispatch = useDispatch();
   const loading = useSelector(selectLoading);
   const ProductLineList = useSelector(selectPLines);
@@ -39,6 +39,17 @@ function CapabilitiesCreateForm() {
     );
   };
 
+  useEffect(() => {
+    let defaultValues = {};
+    defaultValues.planner_code = '';
+    defaultValues.p_line_id = '';
+    defaultValues.type_name = '';
+    defaultValues.piece_per_hour = '';
+    defaultValues.shift_per_day = '';
+    defaultValues.piece_per_day = '';
+    defaultValues.comments = '';
+    reset({ ...defaultValues });
+  }, [reset, capabilitiesPanelOpen]);
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -47,13 +58,13 @@ function CapabilitiesCreateForm() {
           <div>
             <label
               className='block text-sm font-semibold mb-1'
-              htmlFor='first_name'
+              htmlFor='p_line_id'
             >
               Lista de producto y grupo
             </label>
             <select
               className='form-select w-full'
-              {...register('role', {
+              {...register('p_line_id', {
                 required: {
                   value: true,
                   message: 'El campo es requerido',
@@ -67,9 +78,183 @@ function CapabilitiesCreateForm() {
                 </option>
               ))}
             </select>
-            {errors.role && (
+            {errors.p_line_id && (
               <span className='text-red-500 text-sm'>
-                {errors.role.message}
+                {errors.p_line_id.message}
+              </span>
+            )}
+          </div>
+          {/* TYPE */}
+          <div>
+            <label
+              className='block text-sm font-semibold mb-1'
+              htmlFor='type_name'
+            >
+              Tipo
+            </label>
+            <input
+              className='form-input w-full'
+              type='text'
+              autoComplete='off'
+              {...register('type_name', {
+                required: {
+                  value: true,
+                  message: 'El campo es requerido',
+                },
+                pattern: {
+                  value: /[a-zA-Z0-9]/,
+                  message: 'El formato no es correcto',
+                },
+              })}
+            />
+            {errors.type_name && (
+              <span className='text-red-500 text-sm'>
+                {errors.type_name.message}
+              </span>
+            )}
+          </div>
+          {/* PZ/HOURS */}
+          <div>
+            <label
+              className='block text-sm font-semibold mb-1'
+              htmlFor='piece_per_hour'
+            >
+              Piezas por hora
+            </label>
+            <input
+              className='form-input w-full'
+              type='number'
+              autoComplete='off'
+              {...register('piece_per_hour', {
+                required: {
+                  value: true,
+                  message: 'El campo es requerido',
+                },
+                pattern: {
+                  value: /[0-9]/,
+                  message: 'El formato no es correcto',
+                },
+              })}
+            />
+            {errors.piece_per_hour && (
+              <span className='text-red-500 text-sm'>
+                {errors.piece_per_hour.message}
+              </span>
+            )}
+          </div>
+          {/* SHIFT/DAY */}
+          <div>
+            <label
+              className='block text-sm font-semibold mb-1'
+              htmlFor='shift_per_day'
+            >
+              Turno por dia
+            </label>
+            <input
+              className='form-input w-full'
+              type='number'
+              autoComplete='off'
+              {...register('shift_per_day', {
+                required: {
+                  value: true,
+                  message: 'El campo es requerido',
+                },
+                pattern: {
+                  value: /[0-9]/,
+                  message: 'El formato no es correcto',
+                },
+              })}
+            />
+            {errors.shift_per_day && (
+              <span className='text-red-500 text-sm'>
+                {errors.shift_per_day.message}
+              </span>
+            )}
+          </div>
+          {/* PIECE/DAY */}
+          <div>
+            <label
+              className='block text-sm font-semibold mb-1'
+              htmlFor='piece_per_day'
+            >
+              Piezas por dia
+            </label>
+            <input
+              className='form-input w-full'
+              type='number'
+              autoComplete='off'
+              {...register('piece_per_day', {
+                required: {
+                  value: true,
+                  message: 'El campo es requerido',
+                },
+                pattern: {
+                  value: /[0-9]/,
+                  message: 'El formato no es correcto',
+                },
+              })}
+            />
+            {errors.piece_per_day && (
+              <span className='text-red-500 text-sm'>
+                {errors.piece_per_day.message}
+              </span>
+            )}
+          </div>
+          {/*PLANNER CODE */}
+          <div>
+            <label
+              className='block text-sm font-semibold mb-1'
+              htmlFor='planner_code'
+            >
+              Codigo del planificador
+            </label>
+            <input
+              className='form-input w-full'
+              type='number'
+              autoComplete='off'
+              {...register('planner_code', {
+                required: {
+                  value: true,
+                  message: 'El campo es requerido',
+                },
+                pattern: {
+                  value: /[0-9]/,
+                  message: 'El formato no es correcto',
+                },
+              })}
+            />
+            {errors.planner_code && (
+              <span className='text-red-500 text-sm'>
+                {errors.planner_code.message}
+              </span>
+            )}
+          </div>
+          {/* COMMENTS */}
+          <div>
+            <label
+              className='block text-sm font-semibold mb-1'
+              htmlFor='comments'
+            >
+              Comentarios
+            </label>
+            <input
+              className='form-input w-full'
+              type='text'
+              autoComplete='off'
+              {...register('comments', {
+                required: {
+                  value: true,
+                  message: 'El campo es requerido',
+                },
+                pattern: {
+                  value: /[a-zA-Z0-9]/,
+                  message: 'El formato no es correcto',
+                },
+              })}
+            />
+            {errors.comments && (
+              <span className='text-red-500 text-sm'>
+                {errors.comments.message}
               </span>
             )}
           </div>
