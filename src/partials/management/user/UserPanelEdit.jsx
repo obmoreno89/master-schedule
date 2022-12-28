@@ -1,12 +1,12 @@
 import React from 'react';
 import UserPanelEditForm from './UserPanelEditForm';
 
-const CapabilitiesGroupPanelTable = () => {
+const CapabilitiesGroupPanelTable = ({ setUserPanelOpen }) => {
   return (
     <div className='bg-white'>
       <div className='mt-6 px-3'>
         <section>
-          <UserPanelEditForm />
+          <UserPanelEditForm setUserPanelOpen={setUserPanelOpen} />
         </section>
       </div>
     </div>

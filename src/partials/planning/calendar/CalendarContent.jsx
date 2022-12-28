@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDate, selectDate } from '../../../store/slice/calendarSlice';
+import {
+  getDate,
+  openModal,
+  revertDateChosen,
+  selectDate,
+  selectReload,
+} from '../../../store/slice/calendarSlice';
 import QuickSelection from '../../../components/QuickSelection';
 
 function Calendar({ setOpenModalCalendar }) {
@@ -10,6 +16,7 @@ function Calendar({ setOpenModalCalendar }) {
   const dispatch = useDispatch();
 
   const date = useSelector(selectDate);
+  const reload = useSelector(selectReload);
 
   const today = new Date();
   const monthNames = [
@@ -38,21 +45,24 @@ function Calendar({ setOpenModalCalendar }) {
 
   useEffect(() => {
     dispatch(getDate());
-  }, [date]);
+  }, [reload]);
 
   const events = [];
 
-  const setEvents = () => {
+  const setAllEvents = () => {
     date.forEach((d) => {
       const array = d.date.split('-');
-      const day = array[2];
+      const dayDB = array[2];
+      const monthDB = array[1];
+      const yearDB = array[0];
 
       let event = {
         eventStart: new Date(
-          new Date(d.date).getFullYear(),
-          new Date(d.date).getMonth(),
+          //new Date(d.date).getFullYear(),
+          yearDB,
+          dayDB == 1 ? monthDB - 1 : new Date(d.date).getMonth(),
 
-          day
+          dayDB
         ),
         eventName: `${d.description}`,
         eventColor: 'sky',
@@ -64,10 +74,10 @@ function Calendar({ setOpenModalCalendar }) {
   };
 
   useEffect(() => {
-    setEvents();
-  }, [date]);
+    setAllEvents();
+  }, [reload]);
 
-  setEvents();
+  setAllEvents();
 
   const [month, setMonth] = useState(today.getMonth());
   // eslint-disable-next-line no-unused-vars
@@ -75,6 +85,8 @@ function Calendar({ setOpenModalCalendar }) {
   const [daysInMonth, setDaysInMonth] = useState([]);
   const [startingBlankDays, setStartingBlankDays] = useState([]);
   const [endingBlankDays, setEndingBlankDays] = useState([]);
+
+  // console.log(events);
 
   const isToday = (date) => {
     const day = new Date(year, month, date);
@@ -137,10 +149,47 @@ function Calendar({ setOpenModalCalendar }) {
   useEffect(() => {
     getDays();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [date]);
+  }, [date, month]);
+
+  const addHoliday = (day, e) => {
+    const eventExists = getEvents(day).filter((event) => {
+      return event;
+    });
+
+    if (eventExists.length > 0) {
+      dispatch(revertDateChosen());
+    } else {
+      const data = `${year}-${month + 1}-${day}`;
+      dispatch(openModal(data, setOpenModalCalendar));
+    }
+  };
+
+  //funciomn para definir que pasara al hacer click en boton next del calendar
+  const setNextCalendar = () => {
+    if (month === 11) {
+      setYear(year + 1);
+      setMonth(0);
+      getDays();
+    } else {
+      setMonth(month + 1);
+      getDays();
+    }
+  };
+
+  //funciomn para definir que pasara al hacer click en boton prev del calendar
+  const setPrevCalendar = () => {
+    if (month === 0) {
+      setYear(year - 1);
+      setMonth(11);
+      getDays();
+    } else {
+      setMonth(month - 1);
+      getDays();
+    }
+  };
 
   return (
-    <div className='flex bg-white overflow-hidden'>
+    <div className='flex  overflow-hidden'>
       <main>
         <div className=' w-full max-w-9xl mx-auto'>
           <div className='sm:flex sm:justify-between sm:items-center mb-4'>
@@ -156,10 +205,12 @@ function Calendar({ setOpenModalCalendar }) {
               {/* Previous month button */}
               <button
                 className='btn px-2.5 bg-white border-slate-200 hover:border-slate-300 text-slate-500 hover:text-slate-600 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed'
-                disabled={month === 0 ? true : false}
+                //disabled={month === 0 ? true : false}
+                disabled={false}
                 onClick={() => {
-                  setMonth(month - 1);
-                  getDays();
+                  setPrevCalendar();
+                  // setMonth(month - 1);
+                  // getDays();
                 }}
               >
                 <span className='sr-only'>Previous month</span>
@@ -172,10 +223,12 @@ function Calendar({ setOpenModalCalendar }) {
               {/* Next month button */}
               <button
                 className='btn px-2.5 bg-white border-slate-200 hover:border-slate-300 text-slate-500 hover:text-slate-600 disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed'
-                disabled={month === 11 ? true : false}
+                //disabled={month === 11 ? true : false}
+                disabled={false}
                 onClick={() => {
-                  setMonth(month + 1);
-                  getDays();
+                  setNextCalendar();
+                  // setMonth(month + 1);
+                  // getDays();
                 }}
               >
                 <span className='sr-only'>Crear Dia no laborable</span>
@@ -209,9 +262,9 @@ function Calendar({ setOpenModalCalendar }) {
           <div className='border border-borderInput rounded shadow overflow-hidden '>
             {/* Days of the week */}
             <div className='grid grid-cols-7 gap-px border-b border-slate-200'>
-              {dayNames.map((day) => {
+              {dayNames.map((day, index) => {
                 return (
-                  <div className='px-1 py-3' key={day}>
+                  <div className='px-1 py-3' key={index}>
                     <div className='text-slate-500 text-sm font-medium text-center lg:hidden'>
                       {day.substring(0, 3)}
                     </div>
@@ -224,14 +277,11 @@ function Calendar({ setOpenModalCalendar }) {
             </div>
 
             {/* Day cells */}
-            <div className='grid grid-cols-7 gap-px bg-slate-200'>
+            <div className='grid grid-cols-7 gap-px bg-slate-200 '>
               {/* Empty cells (previous month) */}
-              {startingBlankDays.map((blankday) => {
+              {startingBlankDays.map((blankday, index) => {
                 return (
-                  <div
-                    className='bg-slate-50 h-20 sm:h-28 lg:h-36'
-                    key={blankday}
-                  >
+                  <div className='bg-slate-50 h-20 sm:h-28 lg:h-36' key={index}>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       width='100%'
@@ -243,51 +293,50 @@ function Calendar({ setOpenModalCalendar }) {
                 );
               })}
               {/* Days of the current month */}
-              {daysInMonth.map((day) => {
+              {daysInMonth.map((day, index) => {
                 return (
                   <div
-                    className=' bg-white h-20 sm:h-28 lg:h-36 overflow-hidden'
-                    key={day}
+                    className=' bg-white h-20 sm:h-28 lg:h-36 overflow-hidden cursor-pointer'
+                    key={index}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      addHoliday(day, e);
+                    }}
                   >
                     <div className='h-full flex flex-col justify-between'>
                       {/* Events */}
                       <div className='grow flex flex-col  p-0.5 sm:p-1.5 overflow-hidden relative'>
-                        {getEvents(day).map((event) => {
-                          return (
-                            <>
-                              <section
-                                className='relative w-full mt-3'
-                                key={day}
-                              >
-                                <div
-                                  className={`relative h-full py-0.5 rounded overflow-hidden ${eventColor(
-                                    event.eventColor
-                                  )}`}
-                                >
-                                  <section className='absolute'>
-                                    <QuickSelection
-                                      setOpenModalCalendarEdit={
-                                        setOpenModalCalendarEdit
-                                      }
-                                      openModalCalendarEdit={
-                                        openModalCalendarEdit
-                                      }
-                                      eventId={event.id}
-                                      description={event.eventName}
-                                      setReloadEvent={setReloadEvent}
-                                      reloadEvent={reloadEvent}
-                                    />
-                                  </section>
-
-                                  {/* Event name */}
-                                  <div className='text-sm font-semibold text-center flex justify-center items-center h-20'>
-                                    {event.eventName}
-                                  </div>
-                                </div>
+                        {getEvents(day).map((event, index) => (
+                          <section
+                            className='relative w-full mt-3'
+                            key={index}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <div
+                              className={`relative h-full py-0.5 rounded overflow-hidden ${eventColor(
+                                event.eventColor
+                              )}`}
+                            >
+                              <section className='absolute'>
+                                <QuickSelection
+                                  setOpenModalCalendarEdit={
+                                    setOpenModalCalendarEdit
+                                  }
+                                  openModalCalendarEdit={openModalCalendarEdit}
+                                  eventId={event.id}
+                                  description={event.eventName}
+                                  setReloadEvent={setReloadEvent}
+                                  reloadEvent={reloadEvent}
+                                />
                               </section>
-                            </>
-                          );
-                        })}
+
+                              {/* Event name */}
+                              <div className='text-sm font-semibold text-center flex justify-center items-center h-20'>
+                                {event.eventName}
+                              </div>
+                            </div>
+                          </section>
+                        ))}
                       </div>
                       {/* Cell footer */}
 
@@ -320,12 +369,9 @@ function Calendar({ setOpenModalCalendar }) {
                 );
               })}
               {/* Empty cells (next month) */}
-              {endingBlankDays.map((blankday) => {
+              {endingBlankDays.map((blankday, index) => {
                 return (
-                  <div
-                    className='bg-slate-50 h-20 sm:h-28 lg:h-36'
-                    key={blankday}
-                  >
+                  <div className='bg-slate-50 h-20 sm:h-28 lg:h-36' key={index}>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       width='100%'

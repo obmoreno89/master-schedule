@@ -1,7 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import UserTableItem from './UserTableItem';
-import { getAlluser, selectAllUser } from '../../../store/slice/usersSlice';
+import {
+  getAlluser,
+  revertSearch,
+  selectAllUser,
+  selectReload,
+  selectUserSearch,
+  setSearch,
+} from '../../../store/slice/usersSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import Loading from '../../../pages/component/Loading';
 
 function UserTable({
   setUserPanelOpen,
@@ -9,69 +17,101 @@ function UserTable({
   openModalUserDelete,
   userPanelOpen,
 }) {
+  const [user, setUser] = useState(useSelector(selectAllUser));
+  const [startSearch, setStartSearch] = useState(false);
   const dispatch = useDispatch();
   const dataUser = useSelector(selectAllUser);
+  const reload = useSelector(selectReload);
+  const searchItems = useSelector(selectUserSearch);
 
   useEffect(() => {
     dispatch(getAlluser());
+  }, [reload]);
+
+  useEffect(() => {
+    setUser(dataUser);
   }, [dataUser]);
+
+  const handleSearch = (e) => {
+    if (e.target.value.length > 0) {
+      setStartSearch(true);
+      let result = user.filter((element) => {
+        if (
+          element.first_name
+            .toString()
+            .toLowerCase()
+            .includes(e.target.value.toLowerCase()) ||
+          element.last_name
+            .toString()
+            .toLowerCase()
+            .includes(e.target.value.toLowerCase())
+        ) {
+          return element;
+        }
+      });
+      dispatch(setSearch(result));
+    } else {
+      dispatch(revertSearch());
+      setStartSearch(false);
+    }
+  };
 
   return (
     <>
-      {dataUser.length ? (
-        <section>
-          <div className='overflow-x-auto rounded-xl border border-slate-300'>
-            <table className='table-auto w-full'>
-              <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50'>
-                <tr>
-                  <th className='px-2 first:pl-5'>
-                    <div className='font-semibold text-left'>Nombre</div>
-                  </th>
-                  <th className='px-24 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                    <p className='font-semibold text-left'>Email</p>
-                  </th>
-                  <th className='px-4 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                    <p className='font-semibold text-left'>NMC</p>
-                  </th>
-                  <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                    <p className='font-semibold text-center'>Teléfono</p>
-                  </th>
-                  <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap '>
-                    <p className='font-semibold text-center'>Posición</p>
-                  </th>
-                  <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap '>
-                    <p className='font-semibold text-center'></p>
-                  </th>
-                </tr>
-              </thead>
-              {/* Table body */}
-              <tbody className='text-sm divide-y divide-slate-200'>
-                {dataUser.map((data) => (
-                  <UserTableItem
-                    userPanelOpen={userPanelOpen}
-                    setUserPanelOpen={setUserPanelOpen}
-                    setOpenModalUserDelete={setOpenModalUserDelete}
-                    openModalUserDelete={openModalUserDelete}
-                    first_name={data.first_name}
-                    last_name={data.last_name}
-                    email={data.email}
-                    nmc={data.nmc}
-                    position={data.position}
-                    telephone={data.telephone}
-                    key={data.id}
-                    id={data.id}
-                    role={data.role.name}
-                  />
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
+      {user?.length > 0 ? (
+        <>
+          <section className='mb-5 flex justify-between'>
+            <div className='mb-4 sm:mb-0'>
+              <h1 className='text-2xl md:text-3xl text-slate-800 font-bold'>
+                Usuarios
+              </h1>
+            </div>
+
+            <input
+              className='form-input w-72'
+              placeholder='Buscar...'
+              type='search'
+              onChange={handleSearch}
+            />
+          </section>
+          <section>
+            <div className='overflow-x-auto rounded-xl border border-slate-300 h-[550px]'>
+              {!startSearch ? (
+                <UserTableItem
+                  userPanelOpen={userPanelOpen}
+                  setUserPanelOpen={setUserPanelOpen}
+                  setOpenModalUserDelete={setOpenModalUserDelete}
+                  openModalUserDelete={openModalUserDelete}
+                  dataUser={user}
+                  setUser={setUser}
+                  selectUser={dataUser}
+                />
+              ) : startSearch && searchItems.length > 0 ? (
+                <UserTableItem
+                  userPanelOpen={userPanelOpen}
+                  setUserPanelOpen={setUserPanelOpen}
+                  setOpenModalUserDelete={setOpenModalUserDelete}
+                  openModalUserDelete={openModalUserDelete}
+                  dataUser={searchItems}
+                  setUser={setUser}
+                  selectUser={dataUser}
+                />
+              ) : (
+                <section className='justify-center items-center flex h-96'>
+                  <h2 className='font-semibold text-2xl'>
+                    Sin datos que mostrar
+                  </h2>
+                </section>
+              )}
+            </div>
+          </section>
+        </>
       ) : (
         <>
-          <div className='justify-center items-center flex h-96'>
+          {/* <div className='justify-center items-center flex h-96'>
             <h1 className='font-semibold text-2xl'>Sin datos por mostrar</h1>
-          </div>
+          </div> */}
+          <Loading />
         </>
       )}
     </>

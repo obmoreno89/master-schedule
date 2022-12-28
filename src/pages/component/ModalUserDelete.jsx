@@ -5,9 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 function ModalUserDelete({ setOpenModalUserDelete, openModalUserDelete }) {
   const dispatch = useDispatch();
-  const idUser = sessionStorage.getItem('userId');
-  const first_name = sessionStorage.getItem('first_name');
-  const last_name = sessionStorage.getItem('last_name');
+
+  const first_name = JSON.parse(
+    sessionStorage.getItem('userDelete')
+  )?.first_name;
+  const last_name = JSON.parse(sessionStorage.getItem('userDelete'))?.last_name;
   return (
     <ModalBlank
       id='success-modal'
@@ -40,8 +42,8 @@ function ModalUserDelete({ setOpenModalUserDelete, openModalUserDelete }) {
           <div className='text-sm mb-10'>
             <div className='space-y-2'>
               <p>
-                Esta acción no se puede revertir, estás a punto de 
-                eliminar el usuario y todos sus datos asociados.
+                Esta acción no se puede revertir, estás a punto de eliminar el
+                usuario y todos sus datos asociados.
               </p>
             </div>
           </div>

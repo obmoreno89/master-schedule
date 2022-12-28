@@ -1,9 +1,19 @@
 import ModalBasic from '../../components/ModalBasic';
 import { useForm } from 'react-hook-form';
-import { useEffect } from 'react';
+import ButtonLoading from '../../helpers/ButtonLoading';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  createGroup,
+  selectLoading,
+} from '../../store/slice/capabilitiesSlice';
 
 function ModalGroup({ openModalGroup, setOpenModalGroup }) {
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   // useEffect(() => {
   //   let defaultValues = {};
@@ -12,8 +22,11 @@ function ModalGroup({ openModalGroup, setOpenModalGroup }) {
   //   reset({ ...defaultValues });
   // }, [reset, openModalGroup]);
 
+  const dispatch = useDispatch();
+  const loading = useSelector(selectLoading);
+
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(createGroup(data, setOpenModalGroup, reset));
   };
 
   return (
@@ -23,12 +36,12 @@ function ModalGroup({ openModalGroup, setOpenModalGroup }) {
       setModalOpen={() => setOpenModalGroup(false)}
       title='Agregar grupo'
     >
-      <div className='px-5 pt-4 pb-1'>
+      <div className='px-5 pt-1 pb-1'>
         <div className='text-sm'>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className='space-y-2 mb-5'>
               <label
-                htmlFor='gName'
+                htmlFor='group'
                 className='text-[14px] font-semibold leading-[17px] font-work'
               >
                 Nombre del grupo
@@ -36,12 +49,22 @@ function ModalGroup({ openModalGroup, setOpenModalGroup }) {
               <input
                 type='text'
                 className='w-full form-input h-12'
-                {...register('gName')}
+                {...register('group', {
+                  required: {
+                    value: true,
+                    message: 'El campo es requerido',
+                  },
+                })}
               />
+              {errors.group && (
+                <span className='text-red-500 text-sm'>
+                  {errors.group.message}
+                </span>
+              )}
             </div>
             <div className='space-y-2 mb-5'>
               <label
-                htmlFor='gDesc'
+                htmlFor='comments'
                 className='text-[14px] font-semibold leading-[17px]'
               >
                 Descripción
@@ -49,17 +72,29 @@ function ModalGroup({ openModalGroup, setOpenModalGroup }) {
               <input
                 type='text'
                 className='w-full form-input h-12'
-                {...register('gDesc')}
+                {...register('comments', {
+                  required: {
+                    value: false,
+                    message: 'El campo es requerido',
+                  },
+                })}
               />
+              {errors.comments && (
+                <span className='text-red-500 text-sm'>
+                  {errors.comments.message}
+                </span>
+              )}
             </div>
-            <div>
+            {!loading ? (
               <button
                 type='submit'
                 className='bg-primary text-white w-full h-[51px] rounded-[4px] font-semibold'
               >
                 Guardar grupo
               </button>
-            </div>
+            ) : (
+              <ButtonLoading loading='Creando' createGroup={true} />
+            )}
           </form>
         </div>
       </div>

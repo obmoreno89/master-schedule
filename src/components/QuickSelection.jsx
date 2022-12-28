@@ -20,6 +20,7 @@ function QuickSelection({
       <DropdownEditMenu
         dropdownOpen={dropdownOpen}
         setDropdownOpen={setDropdownOpen}
+        
       >
         <li>
           <button
@@ -52,7 +53,6 @@ function QuickSelection({
         openModalCalendarEdit={openModalCalendarEdit}
         setReloadEvent={setReloadEvent}
         reloadEvent={reloadEvent}
-        key={eventId}
       />
     </div>
   );

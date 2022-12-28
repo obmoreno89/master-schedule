@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import ButtonLoading from '../../../helpers/ButtonLoading';
 
-function CapabilitiesGroupPanelTableItem() {
+function CapabilitiesGroupPanelTableItem({ setUserPanelOpen }) {
   const [eye, setEye] = useState(false);
   const toggleEye = () => setEye(!eye);
 
@@ -23,14 +23,13 @@ function CapabilitiesGroupPanelTableItem() {
     dispatch(getRoles());
   }, []);
 
-  const first_name = sessionStorage.getItem('first_name');
-  const last_name = sessionStorage.getItem('last_name');
-  const email = sessionStorage.getItem('email');
-  const nmc = sessionStorage.getItem('nmc');
-  const telephone = sessionStorage.getItem('telephone');
-  const position = sessionStorage.getItem('position');
-  // Rol debe ser 1 siempre para que permita editar la API (Este es un parche nada más.)
-  const role = "1";
+  const first_name = JSON.parse(sessionStorage.getItem('userEdit'))?.first_name;
+  const last_name = JSON.parse(sessionStorage.getItem('userEdit'))?.last_name;
+  const email = JSON.parse(sessionStorage.getItem('userEdit'))?.email;
+  const nmc = JSON.parse(sessionStorage.getItem('userEdit'))?.nmc;
+  const telephone = JSON.parse(sessionStorage.getItem('userEdit'))?.telephone;
+  const position = JSON.parse(sessionStorage.getItem('userEdit'))?.position;
+  const role = JSON.parse(sessionStorage.getItem('userEdit'))?.role;
 
   const {
     register,
@@ -40,7 +39,7 @@ function CapabilitiesGroupPanelTableItem() {
   } = useForm();
 
   const onSubmit = (data) => {
-    dispatch(updateUser(data));
+    dispatch(updateUser(data, setUserPanelOpen));
   };
 
   useEffect(() => {

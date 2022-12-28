@@ -46,10 +46,10 @@ export const sendData = (data, navigate) => (dispatch) => {
       dispatch(setLoading(false));
       if (response.data.status_code === 202) {
         dispatch(setUser(response.data));
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('email', response.data.email);
-        localStorage.setItem('first_name', response.data.first_name);
-        localStorage.setItem('id', response.data.id);
+        sessionStorage.setItem('token', response.data.token);
+        sessionStorage.setItem('email', response.data.email);
+        sessionStorage.setItem('first_name', response.data.first_name);
+        sessionStorage.setItem('id', response.data.id);
         dispatch(setIsCorrect(false));
         navigate('/mp-pro/');
       }
@@ -62,18 +62,18 @@ export const sendData = (data, navigate) => (dispatch) => {
 };
 
 export const logoutUser = (navigate) => () => {
-  const emailUser = localStorage.getItem('email');
-  const tokenUser = localStorage.getItem('token');
+  const emailUser = sessionStorage.getItem('email');
+  const tokenUser = sessionStorage.getItem('token');
   const email = {
     email: emailUser,
   };
   axios
     .post('http://44.211.175.241/api/auth/logout/', email, {
-      headers: { Authorization: `token ${tokenUser}` },
+      headers: { Authorization: `Token ${tokenUser}` },
     })
     .then((response) => {
       if (response.data.status_code === 200) {
-        localStorage.clear();
+        sessionStorage.clear();
         navigate('/mp-pro/signin/');
       }
     });
@@ -135,7 +135,7 @@ export const confirmNewPass = (data, navigate) => (dispatch) => {
 
   axios
     .post('http://44.211.175.241/api/auth/password-reset/confirmation', json, {
-      headers: { Authorization: `token ${token}` },
+      headers: { Authorization: `Token ${token}` },
     })
     .then((response) => {
       dispatch(setLoading(false));

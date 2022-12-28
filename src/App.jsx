@@ -28,6 +28,9 @@ import Calendar from './pages/Calendar';
 import Management from './pages/Management';
 import User from './pages/User';
 
+//DEMO GANTT
+import DemoGantt from './partials/DemoGantt';
+
 //COMPONENTS FOR DESIGN
 import ButtonPage from './pages/component/ButtonPage';
 import FormPage from './pages/component/FormPage';
@@ -42,6 +45,7 @@ import AvatarPage from './pages/component/AvatarPage';
 import TooltipPage from './pages/component/TooltipPage';
 import AccordionPage from './pages/component/AccordionPage';
 import IconsPage from './pages/component/IconsPage';
+import PlanningOrders from './partials/planning/plannings/PlanningOrders';
 
 function App() {
   const location = useLocation();
@@ -111,10 +115,19 @@ function App() {
         />
 
         <Route
-          path='/mp-pro/planning/'
+          path='/mp-pro/planning/plannings/'
           element={
             <PrivateRoute>
               <Planning />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path='/mp-pro/planning/plannings/orders/'
+          element={
+            <PrivateRoute>
+              <PlanningOrders />
             </PrivateRoute>
           }
         />
@@ -151,6 +164,15 @@ function App() {
           element={
             <PrivateRoute>
               <Management />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path='/mp-pro/demo-gantt/'
+          element={
+            <PrivateRoute>
+              <DemoGantt />
             </PrivateRoute>
           }
         />

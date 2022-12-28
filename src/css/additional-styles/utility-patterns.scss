@@ -101,6 +101,10 @@ input[type='search']::-webkit-search-results-decoration {
   @apply text-primary border border-slate-300;
 }
 
+.form-checkbox {
+  @apply w-6 h-6 border-primary
+}
+
 .table tbody tr:nth-child(2n + 2) {
   @apply bg-slate-50;
 }
@@ -113,4 +117,16 @@ input[type='search']::-webkit-search-results-decoration {
 .no-scrollbar {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+}
+
+//DELETE STYLE INPUT TYPE NUMBER
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
 }

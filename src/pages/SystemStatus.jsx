@@ -1,18 +1,23 @@
-import Layout from '../components/Layout';
-import icons from '../images/icon/icons';
+import icons from "../images/icon/icons";
+import Status from "../partials/systemStatus/Status";
+import Layout from "../components/Layout";
 
-function SystemStatus() {
+const SystemStatus = () => {
   return (
     <Layout
-      icon={icons.systemStatusIcon}
-      nameRoute={'Estado del sistema'}
-      nameSubRoute={'Estado del sistema'}
+      icon={icons.administratorIcon}
+      nameRoute={"Administración"}
+      nameSubRoute={"Usuarios"}
     >
-      <section className='mx-auto'>
-        <h2 className='text-3xl font-semibold'>Estado del sistema</h2>
-      </section>
+      <div className="px-4 sm:px-6 lg:px-0 py-1 w-full max-w-9xl mx-auto">
+        <div className="sm:flex sm:justify-between sm:items-center pb-4 md:pb-2"></div>
+
+        <section className="lg:px-8 pt-3 pb-8">
+          <Status />
+        </section>
+      </div>
     </Layout>
   );
-}
+};
 
 export default SystemStatus;

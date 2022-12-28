@@ -144,8 +144,8 @@ function NavBar({ sidebarOpen, setSidebarOpen }) {
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
-                      <a
-                        href='#0'
+                      <Link
+                        to='#0'
                         className={` text-slate-200 lg:text-slate-900 hover:text-white lg:hover:text-slate-400 truncate transition duration-150 ${
                           (pathname === '/mp-pro/' ||
                             pathname.includes('dashboard')) &&
@@ -202,7 +202,7 @@ function NavBar({ sidebarOpen, setSidebarOpen }) {
                             </svg>
                           </div>
                         </div>
-                      </a>
+                      </Link>
                       <div className='lg:hidden lg:sidebar-expanded:block 2xl:block'>
                         <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
                           <li className='mb-1 last:mb-0'>
@@ -273,8 +273,8 @@ function NavBar({ sidebarOpen, setSidebarOpen }) {
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
-                      <a
-                        href='#0'
+                      <Link
+                        to='#0'
                         className={` text-slate-200 lg:text-slate-900 hover:text-white lg:hover:text-slate-400 truncate transition duration-150 ${
                           (pathname === '/mp-pro/' ||
                             pathname.includes('dashboard')) &&
@@ -334,7 +334,7 @@ function NavBar({ sidebarOpen, setSidebarOpen }) {
                             </svg>
                           </div>
                         </div>
-                      </a>
+                      </Link>
                       <div className='lg:hidden lg:sidebar-expanded:block 2xl:block'>
                         <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
                           <li className='mb-1 last:mb-0'>
@@ -402,8 +402,8 @@ function NavBar({ sidebarOpen, setSidebarOpen }) {
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
-                      <a
-                        href='#0'
+                      <Link
+                        to='#0'
                         className={` text-slate-200 lg:text-slate-900 hover:text-white lg:hover:text-slate-400 truncate transition duration-150 ${
                           (pathname === '/mp-pro/' ||
                             pathname.includes('dashboard')) &&
@@ -460,7 +460,7 @@ function NavBar({ sidebarOpen, setSidebarOpen }) {
                             </svg>
                           </div>
                         </div>
-                      </a>
+                      </Link>
                       <div className='lg:hidden lg:sidebar-expanded:block 2xl:block'>
                         <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
                           <li className='mb-1 last:mb-0'>
@@ -562,8 +562,8 @@ function NavBar({ sidebarOpen, setSidebarOpen }) {
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
-                      <a
-                        href='#0'
+                      <Link
+                        to='#0'
                         className={` text-slate-200 lg:text-slate-900 hover:text-white lg:hover:text-slate-400 truncate transition duration-150 ${
                           (pathname === '/mp-pro/' ||
                             pathname.includes('dashboard')) &&
@@ -620,7 +620,7 @@ function NavBar({ sidebarOpen, setSidebarOpen }) {
                             </svg>
                           </div>
                         </div>
-                      </a>
+                      </Link>
                       <div className='lg:hidden lg:sidebar-expanded:block 2xl:block'>
                         <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
                           <li className='mb-1 last:mb-0'>
