@@ -80,7 +80,7 @@ export const selectUserSearch = (state) => state.users.search;
 
 export default usersSlice.reducer;
 
-export const registerUser = (data) => (dispatch) => {
+export const registerUser = (data, setUsersCreateOpen) => (dispatch) => {
   const token = sessionStorage.getItem("token");
   dispatch(setUserLoading(true));
   axios
@@ -95,6 +95,8 @@ export const registerUser = (data) => (dispatch) => {
         dispatch(setUser(response.data));
         dispatch(setUserFail(null));
         dispatch(setUserIsOk(true));
+        dispatch(setReload())
+        setUsersCreateOpen(false)
       }
     })
     .catch((error) => {

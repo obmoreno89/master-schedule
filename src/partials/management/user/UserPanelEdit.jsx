@@ -1,7 +1,7 @@
 import React from 'react';
 import UserPanelEditForm from './UserPanelEditForm';
 
-const CapabilitiesGroupPanelTable = ({ setUserPanelOpen }) => {
+const UserPanelEdit = ({ setUserPanelOpen }) => {
   return (
     <div className='bg-white'>
       <div className='mt-6 px-3'>
@@ -13,4 +13,4 @@ const CapabilitiesGroupPanelTable = ({ setUserPanelOpen }) => {
   );
 };
 
-export default CapabilitiesGroupPanelTable;
+export default UserPanelEdit;

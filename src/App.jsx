@@ -25,7 +25,7 @@ import Capabilities from './pages/Capabilities';
 import Calendar from './pages/Calendar';
 
 //MANAGEMENT
-import Management from './pages/Management';
+// import Management from './pages/Management';
 import User from './pages/User';
 
 //DEMO GANTT
@@ -159,14 +159,14 @@ function App() {
           }
         />
 
-        <Route
+        {/* <Route
           path='/mp-pro/management/register-user/'
           element={
             <PrivateRoute>
               <Management />
             </PrivateRoute>
           }
-        />
+        /> */}
 
         <Route
           path='/mp-pro/demo-gantt/'
