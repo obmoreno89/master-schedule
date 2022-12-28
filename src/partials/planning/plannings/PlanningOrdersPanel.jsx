@@ -32,7 +32,12 @@ const useDraggableInPortal = () => {
     };
 };
 
-const PlanningOrdersPanel = ({ ordersPanelOpen, setOrdersPanelOpen }) => {
+const PlanningOrdersPanel = ({
+  ordersPanelOpen,
+  setOrdersPanelOpen,
+  setChooseOption,
+  setPlanningCapabilities,
+}) => {
   const renderDraggable = useDraggableInPortal();
   const closeBtn = useRef(null);
   const panelContent = useRef(null);
@@ -116,24 +121,36 @@ const PlanningOrdersPanel = ({ ordersPanelOpen, setOrdersPanelOpen }) => {
             ordersPanelOpen ? 'translate-x-' : 'translate-x-full'
           }`}
         >
-          <section className='mb-10'>
+          <section className='mb-10 flex items-center'>
             <h2 className='mt-4 ml-5 w-full font-bold text-black text-2xl'>
               Elegir criterios de ordenamiento
             </h2>
-            <button
-              ref={closeBtn}
-              onClick={() => setOrdersPanelOpen(false)}
-              className='absolute top-1 right-0 mt-4 mr-3 group p-1'
-            >
-              <svg
-                className='w-4 h-4 fill-slate-800 group-hover:fill-slate-600 pointer-events-none'
-                viewBox='0 0 16 16'
-                xmlns='http://www.w3.org/2000/svg'
+            <div className='flex justify-center items-center'>
+              <button
+                onClick={() => {
+                  setOrdersPanelOpen(false);
+                  setPlanningCapabilities(true);
+                }}
+                className='mt-4'
               >
-                <path d='m7.95 6.536 4.242-4.243a1 1 0 1 1 1.415 1.414L9.364 7.95l4.243 4.242a1 1 0 1 1-1.415 1.415L7.95 9.364l-4.243 4.243a1 1 0 0 1-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 0 1 1.414-1.414L7.95 6.536Z' />
-              </svg>
-            </button>
+                <img src={icons.arrowLeft} alt='' className='w-8' />
+              </button>
+              <button
+                ref={closeBtn}
+                onClick={() => setOrdersPanelOpen(false)}
+                className=' top-1 right-0 mt-4 mr-4 group p-1'
+              >
+                <svg
+                  className='w-4 h-4 fill-slate-800 group-hover:fill-slate-600 pointer-events-none'
+                  viewBox='0 0 16 16'
+                  xmlns='http://www.w3.org/2000/svg'
+                >
+                  <path d='m7.95 6.536 4.242-4.243a1 1 0 1 1 1.415 1.414L9.364 7.95l4.243 4.242a1 1 0 1 1-1.415 1.415L7.95 9.364l-4.243 4.243a1 1 0 0 1-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 0 1 1.414-1.414L7.95 6.536Z' />
+                </svg>
+              </button>
+            </div>
           </section>
+
           <DragDropContext
             style={(_isDragging, draggableStyle) => ({
               ...draggableStyle,
@@ -199,9 +216,13 @@ const PlanningOrdersPanel = ({ ordersPanelOpen, setOrdersPanelOpen }) => {
                               </div>
                               <div className='my-auto'>
                                 <img
+                                  onClick={() => {
+                                    setChooseOption(true);
+                                    setOrdersPanelOpen(false);
+                                  }}
                                   src={icons.smallArrowRight}
                                   alt='small-arrow-right'
-                                  className='mx-3'
+                                  className='mx-3 cursor-pointer'
                                 />
                               </div>
                             </li>
@@ -231,39 +252,39 @@ const PlanningOrdersPanel = ({ ordersPanelOpen, setOrdersPanelOpen }) => {
 
 export default PlanningOrdersPanel;
 
-function List(props) {
-  const items = props.items;
+// function List(props) {
+//   const items = props.items;
 
-  return (
-    <Droppable
-      droppableId='droppable'
-      renderClone={(provided, snapshot, rubric) => (
-        <div
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          ref={provided.innerRef}
-        >
-          Item id: {items[rubric.source.index].id}
-        </div>
-      )}
-    >
-      {(provided) => (
-        <div ref={provided.innerRef} {...provided.droppableProps}>
-          {items.map((item) => (
-            <Draggable draggableId={item.id} index={item.index}>
-              {(provided, snapshot) => (
-                <div
-                  {...provided.draggableProps}
-                  {...provided.dragHandleProps}
-                  ref={provided.innerRef}
-                >
-                  Item id: {item.id}
-                </div>
-              )}
-            </Draggable>
-          ))}
-        </div>
-      )}
-    </Droppable>
-  );
-}
+//   return (
+//     <Droppable
+//       droppableId='droppable'
+//       renderClone={(provided, snapshot, rubric) => (
+//         <div
+//           {...provided.draggableProps}
+//           {...provided.dragHandleProps}
+//           ref={provided.innerRef}
+//         >
+//           Item id: {items[rubric.source.index].id}
+//         </div>
+//       )}
+//     >
+//       {(provided) => (
+//         <div ref={provided.innerRef} {...provided.droppableProps}>
+//           {items.map((item) => (
+//             <Draggable draggableId={item.id} index={item.index}>
+//               {(provided, snapshot) => (
+//                 <div
+//                   {...provided.draggableProps}
+//                   {...provided.dragHandleProps}
+//                   ref={provided.innerRef}
+//                 >
+//                   Item id: {item.id}
+//                 </div>
+//               )}
+//             </Draggable>
+//           ))}
+//         </div>
+//       )}
+//     </Droppable>
+//   );
+// }
