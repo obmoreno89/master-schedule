@@ -193,6 +193,7 @@ export const editPLine = (data, id, setOpenModalPLEdit) => (dispatch) => {
         dispatch(setLoading(false));
         setOpenModalPLEdit(false);
         dispatch(setReload());
+        dispatch(setReloadCap())
       }
     })
     .catch((err) => {
@@ -211,6 +212,7 @@ export const deletePLine = (id, setOpenModalPLDelete) => (dispatch) => {
         dispatch(setLoading(false));
         setOpenModalPLDelete(false);
         dispatch(setReload());
+        dispatch(setReloadCap())
       }
     })
     .catch((err) => {
@@ -298,7 +300,7 @@ export const deleteCapability = (id, setOpenModalCapDelete) => (dispatch) => {
         dispatch(setReloadCap());
       }
     })
-    .catch((err) => {
+    .catch(() => {
       dispatch(setLoading(false));
       dispatch(setErrorCapCreate(true));
     });
@@ -330,6 +332,7 @@ export const editGroup = (data, id, setOpenModalGroupEdit) => (dispatch) => {
         dispatch(setLoading(false));
         setOpenModalGroupEdit(false);
         dispatch(setReload());
+        dispatch(setReloadCap())
       }
     })
     .catch(() => {
@@ -347,6 +350,7 @@ export const deleteGroup = (id, setOpenModalGroupDelete) => (dispatch) => {
         dispatch(setLoading(false));
         setOpenModalGroupDelete(false);
         dispatch(setReload());
+        dispatch(setReloadCap())
       }
     })
     .catch(() => {
