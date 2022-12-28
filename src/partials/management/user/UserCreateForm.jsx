@@ -15,7 +15,7 @@ import {
   selectUserLoading,
 } from "../../../store/slice/usersSlice";
 
-function UserCreateForm({usersCreateOpen, setUsersCreateOpen}) {
+function UserCreateForm({ usersCreateOpen, setUsersCreateOpen }) {
   const dispatch = useDispatch();
 
   const isCorrect = useSelector(selectUserIsOk);
@@ -31,20 +31,27 @@ function UserCreateForm({usersCreateOpen, setUsersCreateOpen}) {
     formState: { errors },
   } = useForm();
 
-  useEffect(() => {
-    if (isCorrect) {
-      reset();
-      setTimeout(() => dispatch(revertAll()), 5000);
-    }
-  }, [isCorrect]);
+  // useEffect(() => {
+  //   if (isCorrect) {
+  //     reset();
+  //     setTimeout(() => dispatch(revertAll()), 5000);
+  //   }
+  // }, [isCorrect]);
 
   useEffect(() => {
     dispatch(getRoles());
-  }, [dispatch]);
+  }, []);
+
+  useEffect(() => {
+    if (!usersCreateOpen) {
+      reset();
+    }
+  }, [usersCreateOpen]);
 
   useEffect(() => {
     let defaultValues = {};
     defaultValues.password = "generic";
+    defaultValues.role = "";
     reset({ ...defaultValues });
   }, [reset]);
 
@@ -95,101 +102,103 @@ function UserCreateForm({usersCreateOpen, setUsersCreateOpen}) {
 
   return (
     <>
-    <form onSubmit={handleSubmit(submitForm)}>
-       <section className='grid gap-5 md:grid-cols-1'>
-      {/* <div className="flex flex-wrap justify-between">
+      <form onSubmit={handleSubmit(submitForm)} className="mt-16">
+        <section className="grid gap-5 md:grid-cols-1">
+          {/* <div className="flex flex-wrap justify-between">
         <div className="input-container"> */}
-        <div>
-        <label
-              className='block text-sm font-semibold mb-1'
-              htmlFor='first_name'
+          <div>
+            <label
+              className="block text-sm font-semibold mb-1"
+              htmlFor="first_name"
             >
               Nombre
             </label>
-          <input
-            id="first_name"
-            className="form-input w-full"
-            type="text"
-            autoFocus={true}
-            autoComplete='off'
-            {...register("first_name", {
-              required: {
-                value: true,
-                message: "El campo es requerido",
-              },
-              pattern: {
-                value: /[a-zA-Z0-9]/,
-                message: 'El formato no es correcto',
-              },
-            })}
-          />
-          {errors.first_name && (
-            <span className="text-red-500 text-sm">
-              {errors.first_name.message}
-            </span>
-          )}
-        </div>
+            <input
+              id="first_name"
+              className="form-input w-full"
+              type="text"
+              autoFocus={true}
+              autoComplete="off"
+              {...register("first_name", {
+                required: {
+                  value: true,
+                  message: "El campo es requerido",
+                },
+                pattern: {
+                  value: /[a-zA-Z0-9]/,
+                  message: "El formato no es correcto",
+                },
+              })}
+            />
+            {errors.first_name && (
+              <span className="text-red-500 text-sm">
+                {errors.first_name.message}
+              </span>
+            )}
+          </div>
 
-        {/* <div className="input-container">
+          {/* <div className="input-container">
           <div className="flex items-center justify-between"> */}
           <div>
-          <label
-              className='block text-sm font-semibold mb-1'
-              htmlFor='last_name'
+            <label
+              className="block text-sm font-semibold mb-1"
+              htmlFor="last_name"
             >
               Apellido
             </label>
-          {/* </div> */}
-          <input
-            id="last_name"
-            className="form-input w-full"
-            type="text"
-            autoComplete='off'
-            {...register("last_name", {
-              required: {
-                value: true,
-                message: "El campo es requerido",
-              },
-              pattern: {
-                value: /[a-zA-Z]/,
-                message: 'El formato no es correcto',
-              },
-            })}
-          />
-          {errors.last_name && (
-            <span className="text-red-500 text-sm">
-              {errors.last_name.message}
-            </span>
-          )}
-        </div>
+            {/* </div> */}
+            <input
+              id="last_name"
+              className="form-input w-full"
+              type="text"
+              autoComplete="off"
+              {...register("last_name", {
+                required: {
+                  value: true,
+                  message: "El campo es requerido",
+                },
+                pattern: {
+                  value: /[a-zA-Z]/,
+                  message: "El formato no es correcto",
+                },
+              })}
+            />
+            {errors.last_name && (
+              <span className="text-red-500 text-sm">
+                {errors.last_name.message}
+              </span>
+            )}
+          </div>
 
-        {/* <div className="input-container"> */}
-        <div>
-        <label className='block text-sm font-semibold mb-1' htmlFor='email'>
+          {/* <div className="input-container"> */}
+          <div>
+            <label className="block text-sm font-semibold mb-1" htmlFor="email">
               Email
             </label>
-          <input
-            id="mandatory"
-            className="form-input w-full"
-            type="text"
-            autoComplete='off'
-            {...register("email", {
-              required: {
-                value: true,
-                message: "El campo es requerido",
-              },
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                message: "El formato no es correcto",
-              },
-            })}
-          />
-          {errors.email && (
-            <span className="text-red-500 text-sm">{errors.email.message}</span>
-          )}
-        </div>
+            <input
+              id="mandatory"
+              className="form-input w-full"
+              type="text"
+              autoComplete="off"
+              {...register("email", {
+                required: {
+                  value: true,
+                  message: "El campo es requerido",
+                },
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                  message: "El formato no es correcto",
+                },
+              })}
+            />
+            {errors.email && (
+              <span className="text-red-500 text-sm">
+                {errors.email.message}
+              </span>
+            )}
+          </div>
 
-        {/* <div className="input-container">
+          {/* <div className="input-container">
           <label className={styles.label} htmlFor="password">
             Contraseña:
           </label>
@@ -235,164 +244,166 @@ function UserCreateForm({usersCreateOpen, setUsersCreateOpen}) {
           )}
         </div> */}
 
-<div className='relative'>
+          <div className="relative">
             <label
-              className='block text-sm font-medium mb-1'
-              htmlFor='password'
+              className="block text-sm font-medium mb-1"
+              htmlFor="password"
             >
               Contraseña
             </label>
 
-            <div className='focus-within:text-primary '>
+            <div className="focus-within:text-primary ">
               <input
-                maxLength='35'
-                className='form-input w-full'
-                type={eye ? 'text' : 'password'}
-                autoComplete='off'
-                {...register('password', {
+                maxLength="35"
+                className="form-input w-full"
+                type={eye ? "text" : "password"}
+                autoComplete="off"
+                {...register("password", {
                   required: {
                     value: true,
-                    message: 'El campo es requerido',
+                    message: "El campo es requerido",
                   },
                 })}
               />
 
-              <section className='relative '>
+              <section className="relative ">
                 <button
-                  type='button'
-                  className='absolute inset-2 -top-7 left-auto flex items-center'
+                  type="button"
+                  className="absolute inset-2 -top-7 left-auto flex items-center"
                 >
                   {eye ? (
                     <img
                       onClick={toggleEye}
                       src={icons.openEye}
-                      alt='Ojo abierto'
+                      alt="Ojo abierto"
                     />
                   ) : (
                     <img
                       onClick={toggleEye}
                       src={icons.closedEye}
-                      alt='Ojo cerrado'
+                      alt="Ojo cerrado"
                     />
                   )}
                 </button>
               </section>
             </div>
             {errors.password && (
-              <span className='text-red-500 text-sm'>
+              <span className="text-red-500 text-sm">
                 {errors.password.message}
               </span>
             )}
           </div>
 
-        {/* <div className="input-container"> */}
-        <div>
-        <label className='block text-sm font-semibold mb-1' htmlFor='nmc'>
+          {/* <div className="input-container"> */}
+          <div>
+            <label className="block text-sm font-semibold mb-1" htmlFor="nmc">
               NMC
             </label>
 
-          <input
-            id="nmc"
-            className="form-input w-full"
-            type="text"
-            autoComplete='off'
-            {...register("nmc", {
-              required: {
-                value: true,
-                message: "El campo es requerido",
-              },
-              pattern: {
-                value: /[a-zA-Z0-9]/,
-                message: 'El formato no es correcto',
-              },
-            })}
-          />
-          {errors.nmc && (
-            <span className="text-red-500 text-sm">{errors.nmc.message}</span>
-          )}
-        </div>
+            <input
+              id="nmc"
+              className="form-input w-full"
+              type="text"
+              autoComplete="off"
+              {...register("nmc", {
+                required: {
+                  value: true,
+                  message: "El campo es requerido",
+                },
+                pattern: {
+                  value: /[a-zA-Z0-9]/,
+                  message: "El formato no es correcto",
+                },
+              })}
+            />
+            {errors.nmc && (
+              <span className="text-red-500 text-sm">{errors.nmc.message}</span>
+            )}
+          </div>
 
-        {/* <div className="input-container"> */}
-        <div>
-        <label
-              className='block text-sm font-semibold mb-1'
-              htmlFor='telephone'
+          {/* <div className="input-container"> */}
+          <div>
+            <label
+              className="block text-sm font-semibold mb-1"
+              htmlFor="telephone"
             >
               Telefono
             </label>
 
-          <input
-            id="telephone"
-            className="form-input w-full"
-            type="tel"
-            autoComplete='off'
-            {...register("telephone", {
-              required: {
-                value: true,
-                message: "El campo es requerido",
-              },
-              pattern: {
-                value: /[0-9]/,
-                message: 'El formato no es correcto',
-              },
-            })}
-          />
-          {errors.telephone && (
-            <span className="text-red-500 text-sm">
-              {errors.telephone.message}
-            </span>
-          )}
-        </div>
+            <input
+              id="telephone"
+              className="form-input w-full"
+              type="tel"
+              autoComplete="off"
+              {...register("telephone", {
+                required: {
+                  value: true,
+                  message: "El campo es requerido",
+                },
+                pattern: {
+                  value: /[0-9]/,
+                  message: "El formato no es correcto",
+                },
+              })}
+            />
+            {errors.telephone && (
+              <span className="text-red-500 text-sm">
+                {errors.telephone.message}
+              </span>
+            )}
+          </div>
 
-        {/* <div className="input-container"> */}
-        <div>
-        <label
-              className='block text-sm font-semibold mb-1'
-              htmlFor='position'
+          {/* <div className="input-container"> */}
+          <div>
+            <label
+              className="block text-sm font-semibold mb-1"
+              htmlFor="position"
             >
               Posición
             </label>
 
-          <input
-            id="position"
-            className="form-input w-full"
-            type="text"
-            autoComplete='off'
-            {...register("position", {
-              required: {
-                value: true,
-                message: "El campo es requerido",
-              },
-              pattern: {
-                value: /[a-zA-Z0-9]/,
-                message: 'El formato no es correcto',
-              },
-            })}
-          />
-          {errors.position && (
-            <span className="text-red-500 text-sm">
-              {errors.position.message}
-            </span>
-          )}
-        </div>
+            <input
+              id="position"
+              className="form-input w-full"
+              type="text"
+              autoComplete="off"
+              {...register("position", {
+                required: {
+                  value: true,
+                  message: "El campo es requerido",
+                },
+                pattern: {
+                  value: /[a-zA-Z0-9]/,
+                  message: "El formato no es correcto",
+                },
+              })}
+            />
+            {errors.position && (
+              <span className="text-red-500 text-sm">
+                {errors.position.message}
+              </span>
+            )}
+          </div>
 
-        {/* <div className="input-container"> */}
-        <div>
-          {/* <label className={styles.label} htmlFor="role">
+          {/* <div className="input-container"> */}
+          <div>
+            {/* <label className={styles.label} htmlFor="role">
             Rol:
           </label> */}
-           <label className='block text-sm font-semibold mb-1'>Rol</label>
-          <select
-            id="role"
-            className="form-select w-full"
-            {...register("role", {...register('role', {
-              required: {
-                value: true,
-                message: 'El campo es requerido',
-              },
-            })})}
-          >
-           <option value='' disabled>
+            <label className="block text-sm font-semibold mb-1">Rol</label>
+            <select
+              id="role"
+              className="form-select w-full"
+              {...register("role", {
+                ...register("role", {
+                  required: {
+                    value: true,
+                    message: "El campo es requerido",
+                  },
+                }),
+              })}
+            >
+              <option value="" disabled>
                 Selecciona...
               </option>
               {roles.map((rol) => (
@@ -400,22 +411,22 @@ function UserCreateForm({usersCreateOpen, setUsersCreateOpen}) {
                   {rol.role}
                 </option>
               ))}
-          </select>
-          {errors.role && (
-              <span className='text-red-500 text-sm'>
+            </select>
+            {errors.role && (
+              <span className="text-red-500 text-sm">
                 {errors.role.message}
               </span>
             )}
-        </div>
-      {/* </div> */}
-      </section>
-      {/* // <div className="mt-4 flex justify-center">{handleButtonLogin()}</div> */}
-      <div className='my-10 flex justify-center'>{handleButtonLogin()}</div>
-    </form>
-    {/* //   </main> */}
-    {/* //   <footer>
+          </div>
+          {/* </div> */}
+        </section>
+        {/* // <div className="mt-4 flex justify-center">{handleButtonLogin()}</div> */}
+        <div className="my-10 flex justify-center">{handleButtonLogin()}</div>
+      </form>
+      {/* //   </main> */}
+      {/* //   <footer>
     //     {isCorrect && ( */}
-    {/* //       <SuccessMessage
+      {/* //       <SuccessMessage
     //         message="
     //               Se añadió el usuario correctamente."
     //       />

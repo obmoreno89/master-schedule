@@ -399,20 +399,6 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                               </span>
                             </NavLink>
                           </li>
-                          {/* <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="/mp-pro/management/register-user/"
-                              className={({ isActive }) =>
-                                "block text-textSidebar hover:text-primary transition duration-150 truncate " +
-                                (isActive ? "!text-primary" : "")
-                              }
-                            >
-                              <span className="text-sm lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200 ">
-                                Crear cuenta
-                              </span>
-                            </NavLink>
-                          </li> */}
                         </ul>
                       </div>
                     </React.Fragment>

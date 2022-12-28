@@ -1,7 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
 import Transition from "../../../utils/Transition";
-import RegisterUser from "./RegisterUser";
 import UserCreateForm from "./UserCreateForm";
 
 const UserPanelCreate = ({ usersCreateOpen, setUsersCreateOpen }) => {
@@ -66,7 +64,13 @@ const UserPanelCreate = ({ usersCreateOpen, setUsersCreateOpen }) => {
           }`}
         >
           <div className="top-16 bg-white overflow-x-hidden overflow-y-auto no-scrollbar shrink-0 border-l border-slate-200 w-full sm:w-[390px] h-screen">
-            <h2 className="mt-4 ml-4 w-48 font-bold text-black text-2xl">
+            <div 
+            className="user-sider-title"
+            >
+            <h2 
+            //className="mt-4 ml-4 w-48 font-bold text-black text-2xl"
+            className="absolute top-0 left-4 mt-4 mr-3 group font-bold text-black text-2xl"
+            >
               Crear Usuario
             </h2>
             <button
@@ -82,6 +86,9 @@ const UserPanelCreate = ({ usersCreateOpen, setUsersCreateOpen }) => {
                 <path d="m7.95 6.536 4.242-4.243a1 1 0 1 1 1.415 1.414L9.364 7.95l4.243 4.242a1 1 0 1 1-1.415 1.415L7.95 9.364l-4.243 4.243a1 1 0 0 1-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 0 1 1.414-1.414L7.95 6.536Z" />
               </svg>
             </button>
+
+            </div>
+          
             {/* <UserPanelEdit setUserPanelOpen={setUserPanelOpen} /> */}
             <div className="bg-white">
               <div className="mt-6 px-3">
