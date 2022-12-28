@@ -14,13 +14,10 @@ function DemoGantt() {
     // the instance is available as
     console.log(ganttRef.current.instance);
     const dataInitial = ganttRef.current.instance.project.inlineData;
-    loadData();
     console.log(dataInitial);
   }, []);
 
-
   const loadData = async () => {
-
     const data = await axios.get('http://44.211.175.241/api/gantt/list');
 
     const project = ganttRef.current.instance.project;
@@ -35,6 +32,10 @@ function DemoGantt() {
     });
     console.log(project.inlineData);
   };
+
+  useEffect(() => {
+    loadData();
+  }, []);
 
   const onUndoClick = () => {
     console.log('Undo');
@@ -156,23 +157,6 @@ function DemoGantt() {
                 html: StringHelper.encodeHtml(taskRecord.name),
               };
             }}
-            taskNonWorkingTime={{
-              tooltipTemplate({ startDate, endDate, iconCls }) {
-                return `                   
-                  <p class="b-nonworkingtime-tip-title">${
-                    iconCls ? `<i class="${iconCls}"></i>` : ''
-                  }Non-working time</p>
-                  ${DateHelper.format(startDate, 'L')} - ${DateHelper.format(
-                  endDate,
-                  'L'
-                )}
-              `;
-              },
-            }}
-            nonWorkingTime={{
-              disabled: true,
-            }}
-            percentBar={true}
             {...ganttConfig}
             // other props, event handlers, etc
           />

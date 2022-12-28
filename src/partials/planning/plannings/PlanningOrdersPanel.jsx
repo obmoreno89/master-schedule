@@ -213,7 +213,9 @@ const PlanningOrdersPanel = ({ ordersPanelOpen, setOrdersPanelOpen }) => {
                   )}
                 </Droppable>
                 <button
-                  onClick={() => goToGantt()}
+                  onClick={() => {
+                    goToGantt();
+                  }}
                   className='h-12 bg-primary text-white rounded w-full text-base font-semibold 2xl:mt-6 hover:bg-secondary hover:text-primary'
                 >
                   Ir a la planeación de órdenes
