@@ -6,6 +6,7 @@ import Layout from "../components/Layout";
 function Management() {
   const [userPanelOpen, setUserPanelOpen] = useState(false);
   const [openModalUserDelete, setOpenModalUserDelete] = useState(false);
+  const [usersCreateOpen, setUsersCreateOpen] = useState(false)
 
   return (
     <Layout
@@ -22,6 +23,8 @@ function Management() {
             setOpenModalUserDelete={setOpenModalUserDelete}
             openModalUserDelete={openModalUserDelete}
             userPanelOpen={userPanelOpen}
+            usersCreateOpen={usersCreateOpen}
+            setUsersCreateOpen={setUsersCreateOpen}
           />
         </section>
       </div>
