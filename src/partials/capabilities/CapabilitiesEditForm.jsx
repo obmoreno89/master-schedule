@@ -5,19 +5,20 @@ import ButtonLoading from "../../helpers/ButtonLoading";
 import {
   selectLoading,
   selectPLines,
-  createCapabilities,
-  revertError,
-  selectErrorCapCreate,
+  selectCapEdit,
+  selectError,
+  editCapability,
 } from "../../store/slice/capabilitiesSlice";
 
-function CapabilitiesCreateForm({
-  capabilitiesPanelOpen,
-  setCapabilitiesOpenPanel,
+function CapabilitiesEditForm({
+  capabilitiesEditOpen,
+  setCapabilitiesEditOpen,
 }) {
   const dispatch = useDispatch();
+  const editCap = useSelector(selectCapEdit);
   const loading = useSelector(selectLoading);
   const ProductLineList = useSelector(selectPLines);
-  const error = useSelector(selectErrorCapCreate);
+  const error = useSelector(selectError);
 
   const {
     register,
@@ -26,44 +27,36 @@ function CapabilitiesCreateForm({
     formState: { errors },
   } = useForm();
 
-  useEffect(() => {
-    if (error) {
-      setTimeout(() => {
-        dispatch(revertError());
-      }, 4000);
-    }
-  }, [error]);
-
   const onSubmit = (data) => {
     data.piece_per_hour = parseInt(data.piece_per_hour, 10);
     data.shift_per_day = parseInt(data.shift_per_day, 10);
     data.piece_per_day = parseInt(data.piece_per_day, 10);
-    dispatch(createCapabilities(data, setCapabilitiesOpenPanel, reset));
+    dispatch(editCapability(data, editCap?.id, setCapabilitiesEditOpen, reset));
   };
 
   const handleButtonCreate = () => {
     return !loading ? (
       <button className="btn bg-primary hover:bg-secondary hover:text-primary text-white font-semibold text-base w-[27rem] h-12 rounded-[4px]">
-        <span className="ml-3 align-baseline">Crear capacidad</span>
+        <span className="ml-3 align-baseline">Editar capacidad</span>
       </button>
     ) : (
       <div>
-        <ButtonLoading loading="Creando" update={true} />
+        <ButtonLoading loading="Modificando" update={true} />
       </div>
     );
   };
 
   useEffect(() => {
     let defaultValues = {};
-    defaultValues.planner_code = "";
-    defaultValues.p_line_id = "";
-    defaultValues.type_name = "";
-    defaultValues.piece_per_hour = "";
-    defaultValues.shift_per_day = "";
-    defaultValues.piece_per_day = "";
-    defaultValues.comments = "";
+    defaultValues.planner_code = editCap?.planner_code;
+    defaultValues.p_line_id = editCap?.product_line?.id;
+    defaultValues.type_name = editCap?.type_name;
+    defaultValues.piece_per_hour = parseInt(editCap?.piece_per_hour, 10);
+    defaultValues.shift_per_day = parseInt(editCap?.shift_per_day, 10);
+    defaultValues.piece_per_day = parseInt(editCap?.piece_per_day, 10);
+    defaultValues.comments = editCap?.comments;
     reset({ ...defaultValues });
-  }, [reset, capabilitiesPanelOpen]);
+  }, [reset, capabilitiesEditOpen]);
 
   return (
     <>
@@ -285,4 +278,4 @@ function CapabilitiesCreateForm({
   );
 }
 
-export default CapabilitiesCreateForm;
+export default CapabilitiesEditForm;

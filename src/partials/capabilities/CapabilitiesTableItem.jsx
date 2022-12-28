@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import icons from "../../images/icon/icons";
+import { setCapDelete, setCapEdit } from "../../store/slice/capabilitiesSlice";
 import { orderGAsc, orderGDesc, orderPLAsc, orderPLDesc } from "./orderFunc";
 
 const CapabilitiesTableItem = ({
@@ -7,7 +9,10 @@ const CapabilitiesTableItem = ({
   setGroupPanelOpen,
   capabilitiesList,
   setCapabilities,
+  setCapabilitiesEditOpen,
+  setOpenModalCapDelete,
 }) => {
+  const dispatch = useDispatch();
   const [orderPL, setOrderPL] = useState({ state: false, asc: false });
   const [orderG, setOrderG] = useState({ state: false, asc: false });
 
@@ -75,14 +80,17 @@ const CapabilitiesTableItem = ({
             <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
               <p className="font-semibold text-center">Pz/Hora</p>
             </th>
-            <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap ">
+            <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
               <p className="font-semibold text-center">Turno/Dia</p>
             </th>
-            <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap ">
+            <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
               <p className="font-semibold text-center">Pz/Dia</p>
             </th>
-            <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-2/5">
+            <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
               <p className="font-semibold text-center">Comentario</p>
+            </th>
+            <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+              <p className="font-semibold text-center w-5"></p>
             </th>
           </tr>
         </thead>
@@ -130,6 +138,28 @@ const CapabilitiesTableItem = ({
               </td>
               <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                 <p className="text-center">{data.comments}</p>
+              </td>
+              <td className="last:pr-1 py-3 whitespace-nowrap">
+                <figure className="flex justify-start items-center space-x-3">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      dispatch(setCapEdit(data));
+                      setCapabilitiesEditOpen(true);
+                    }}
+                  >
+                    <img src={icons.pencilIcon} alt="Lapiz" />
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      dispatch(setCapDelete(data))
+                      setOpenModalCapDelete(true)
+                    }}
+                  >
+                    <img src={icons.garbageIcon} alt="Basura" />
+                  </button>
+                </figure>
               </td>
             </tr>
           ))}

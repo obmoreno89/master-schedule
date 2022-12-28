@@ -12,6 +12,7 @@ import {
   selectNotFound,
   selectOrders,
 } from '../../../store/slice/planningSlice';
+import Loading from '../../../pages/component/Loading';
 
 const PlanningOrders = ({}) => {
   const dispatch = useDispatch();
@@ -40,37 +41,36 @@ const PlanningOrders = ({}) => {
       nameRoute={'Planeación'}
       nameSubRoute={'Planeaciones'}
     >
-      <div className='px-4 sm:px-6 lg:px-0 py-1 w-full max-w-9xl mx-auto'>
-        <section className='lg:px-8'>
-          <header className='flex flex-1 py-5 justify-between'>
-            <h2 className='text-3xl font-semibold text-black my-auto'>
-              Órdenes a planear
-            </h2>
-            {!notFound && orders?.length > 0 && (
-              <p className='my-auto mb-1 font-medium'>
-                Total de órdenes:{' '}
-                <span className='font-bold text-primary'>{orders?.length}</span>
-              </p>
-            )}
-          </header>
-          <main>
-            {notFound ? (
-              <section className='justify-center items-center flex orders-table'>
-                <h2 className='font-semibold text-2xl'>
-                  Sin datos para mostrar
-                </h2>
-              </section>
-            ) : orders?.length > 0 ? (
-              <PlanningOrdersTable orders={orders} />
-            ) : (
-              // <div className="flex justify-center py-5">
-              <section className='justify-center items-center flex orders-table'>
-                <div className='loader'></div>
-                <span className='ml-3 text-primary font-semibold'>
-                  Cargando
-                </span>
-              </section>
-            )}
+
+        <div className='px-4 sm:px-6 lg:px-0 py-1 w-full max-w-9xl mx-auto'>
+      <section className='lg:px-8'>
+        <header className="flex flex-1 py-5 justify-between">
+          <h2 className="text-3xl font-semibold text-black my-auto">
+
+            Órdenes a planear
+          </h2>
+          {!notFound && orders?.length > 0 && (
+            <p className='my-auto mb-1 font-medium'>
+              Total de órdenes:{' '}
+              <span className='font-bold text-primary'>{orders?.length}</span>
+            </p>
+          )}
+        </header>
+        <main>
+          {notFound ? (
+            <section className='justify-center items-center flex orders-table'>
+              <h2 className='font-semibold text-2xl'>Sin datos para mostrar</h2>
+            </section>
+          ) : orders?.length > 0 ? (
+            <PlanningOrdersTable orders={orders} />
+          ) : (
+            // <div className="flex justify-center py-5">
+            // <section className='justify-center items-center flex orders-table'>
+            //   <div className='loader'></div>
+            //   <span className='ml-3 text-primary font-semibold'>Cargando</span>
+            // </section>
+            <Loading />
+          )}
 
             <div className='flex justify-end py-5'>
               <Link to='/mp-pro/planning/plannings/'>
