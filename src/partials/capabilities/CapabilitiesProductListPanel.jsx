@@ -7,7 +7,7 @@ function CapabilitiesProductListPanel({
   setTransactionPanelOpen,
   setOpenModalPL,
   setOpenModalPLEdit,
-  setOpenModalPLDelete
+  setOpenModalPLDelete,
 }) {
   const closeBtn = useRef(null);
   const panelContent = useRef(null);
@@ -71,16 +71,16 @@ function CapabilitiesProductListPanel({
         >
           <div className='top-16 bg-white overflow-x-hidden overflow-y-auto no-scrollbar shrink-0 border-l border-slate-200 w-full sm:w-[390px] h-screen'>
             <section className='flex justify-between'>
-              <h2 className='mt-4 ml-4 w-48 font-bold text-black'>
-                Seleccione una línea de producto
+              <h2 className='mt-4 ml-4 w-full font-bold text-black text-2xl'>
+                Linea de productos
               </h2>
               <button
                 ref={closeBtn}
                 onClick={() => setTransactionPanelOpen(false)}
-                className='mr-3'
+                className='mr-3 mt-4'
               >
                 <svg
-                  className='w-4 h-4 fill-slate-400 group-hover:fill-slate-600 pointer-events-none'
+                  className='w-5 h-5 fill-slate-800 group-hover:fill-slate-600 pointer-events-none'
                   viewBox='0 0 16 16'
                   xmlns='http://www.w3.org/2000/svg'
                 >
