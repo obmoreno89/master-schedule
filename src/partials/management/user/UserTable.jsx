@@ -9,6 +9,7 @@ import {
   setSearch,
 } from '../../../store/slice/usersSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import Loading from '../../../pages/component/Loading';
 
 function UserTable({
   setUserPanelOpen,
@@ -107,9 +108,10 @@ function UserTable({
         </>
       ) : (
         <>
-          <div className='justify-center items-center flex h-96'>
+          {/* <div className='justify-center items-center flex h-96'>
             <h1 className='font-semibold text-2xl'>Sin datos por mostrar</h1>
-          </div>
+          </div> */}
+          <Loading />
         </>
       )}
     </>

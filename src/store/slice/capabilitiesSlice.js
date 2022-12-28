@@ -11,16 +11,23 @@ const initialState = {
   loading: null,
   capabilitiesList: [],
   capabilitiesSearch: [],
+  capabilitiesEdit: [],
+  capabilitiesDelete: [],
   reload: false,
+  reloadCap: false,
   error: false,
+  errorCapCreate: false,
 };
 
 export const revertSearch = createAction("REVERT_SEARCH");
 export const revertGroupEdit = createAction("REVERT_GROUPEDIT");
 export const revertGroupDelete = createAction("REVERT_GROUPDELETE");
 export const revertPLEdit = createAction("REVERT_PLEDIT");
+export const revertPList = createAction("REVERT_PLIST");
 export const revertPLDelete = createAction("REVERT_PLDELETE");
 export const revertError = createAction("REVERT_ERROR");
+export const revertCapEdit = createAction("REVERT_CAPEDIT");
+export const revertCapDelete = createAction("REVERT_CAPDELETE");
 
 const capabilitiesSlice = createSlice({
   initialState,
@@ -41,8 +48,18 @@ const capabilitiesSlice = createSlice({
     builder.addCase(revertPLDelete, (state, action) => {
       state.plDelete = [];
     });
+    builder.addCase(revertPList, (state, action) => {
+      state.capabilitiesList = [];
+    });
     builder.addCase(revertError, (state, action) => {
       state.error = false;
+      state.errorCapCreate = false;
+    });
+    builder.addCase(revertCapEdit, (state, action) => {
+      state.capabilitiesEdit = [];
+    });
+    builder.addCase(revertCapDelete, (state, action) => {
+      state.capabilitiesDelete = [];
     });
   },
   reducers: {
@@ -64,6 +81,9 @@ const capabilitiesSlice = createSlice({
     setReload: (state, action) => {
       state.reload = !state.reload;
     },
+    setReloadCap: (state, action) => {
+      state.reloadCap = !state.reloadCap;
+    },
     setGroupEdit: (state, action) => {
       state.groupEdit = action.payload;
     },
@@ -78,6 +98,15 @@ const capabilitiesSlice = createSlice({
     },
     setError: (state, action) => {
       state.error = action.payload;
+    },
+    setErrorCapCreate: (state, action) => {
+      state.errorCapCreate = action.payload;
+    },
+    setCapEdit: (state, action) => {
+      state.capabilitiesEdit = action.payload;
+    },
+    setCapDelete: (state, action) => {
+      state.capabilitiesDelete = action.payload;
     },
   },
 });
@@ -94,6 +123,10 @@ export const {
   setPLEdit,
   setPLDelete,
   setError,
+  setCapEdit,
+  setCapDelete,
+  setReloadCap,
+  setErrorCapCreate
 } = capabilitiesSlice.actions;
 
 export const selectGroup = (state) => state.group.groupList;
@@ -103,11 +136,15 @@ export const selectCapabilitiesList = (state) => state.group.capabilitiesList;
 export const selectCapabilitiesSearch = (state) =>
   state.group.capabilitiesSearch;
 export const selectReload = (state) => state.group.reload;
+export const selectReloadCap = (state) => state.group.reloadCap;
 export const selectGroupEdit = (state) => state.group.groupEdit;
 export const selectGroupDelete = (state) => state.group.groupDelete;
 export const selectPLEdit = (state) => state.group.plEdit;
 export const selectPLDelete = (state) => state.group.plDelete;
 export const selectError = (state) => state.group.error;
+export const selectErrorCapCreate = (state) => state.group.errorCapCreate;
+export const selectCapEdit = (state) => state.group.capabilitiesEdit;
+export const selectCapDelete = (state) => state.group.capabilitiesDelete;
 
 export default capabilitiesSlice.reducer;
 
@@ -150,15 +187,13 @@ export const createPLines = (data, setOpenModalPL, reset) => (dispatch) => {
 export const editPLine = (data, id, setOpenModalPLEdit) => (dispatch) => {
   dispatch(setLoading(true));
   axios
-    .put(
-      `http://44.211.175.241/api/capacities/update-product-line/${id}`,
-      data
-    )
+    .put(`http://44.211.175.241/api/capacities/update-product-line/${id}`, data)
     .then((response) => {
       if (response.status === 200) {
         dispatch(setLoading(false));
         setOpenModalPLEdit(false);
         dispatch(setReload());
+        dispatch(setReloadCap())
       }
     })
     .catch((err) => {
@@ -177,6 +212,7 @@ export const deletePLine = (id, setOpenModalPLDelete) => (dispatch) => {
         dispatch(setLoading(false));
         setOpenModalPLDelete(false);
         dispatch(setReload());
+        dispatch(setReloadCap())
       }
     })
     .catch((err) => {
@@ -191,8 +227,83 @@ export const getCapabilitiesList = () => (dispatch) => {
     .get("http://44.211.175.241/api/capacities/list-default-capacities")
     .then((response) => {
       dispatch(setCapabilitiesList(response.data));
+      dispatch(setReload());
     })
     .catch((err) => console.log(err));
+};
+
+export const createCapabilities =
+  (data, setCapabilitiesOpenPanel, reset) => (dispatch) => {
+    dispatch(setLoading(true));
+    const userId = sessionStorage.getItem("id");
+    axios
+      .post(
+        `http://44.211.175.241/api/capacities/new-register-default/${userId}/`,
+        data
+      )
+      .then((response) => {
+        if (response.status === 201) {
+          dispatch(setLoading(false));
+          setCapabilitiesOpenPanel(false);
+          reset();
+          dispatch(setReloadCap());
+        }
+      })
+      .catch(() => {
+        dispatch(setLoading(false));
+        dispatch(setErrorCapCreate(true))
+      });
+  };
+
+export const editCapability =
+  (data, id, setCapabilitiesEditOpen, reset) => (dispatch) => {
+    const tokenUser = sessionStorage.getItem("token");
+
+    dispatch(setLoading(true));
+    axios
+      .put(
+        `http://44.211.175.241/api/capacities/update-default-capacity/${id}/`,
+        data,
+        {
+          headers: { Authorization: `Token ${tokenUser}` },
+        }
+      )
+      .then((response) => {
+        if (response.status === 201) {
+          dispatch(setLoading(false));
+          setCapabilitiesEditOpen(false);
+          reset();
+          dispatch(setReloadCap());
+        }
+      })
+      .catch((err) => {
+        dispatch(setLoading(false));
+        dispatch(setError(true));
+      });
+  };
+
+export const deleteCapability = (id, setOpenModalCapDelete) => (dispatch) => {
+  const tokenUser = sessionStorage.getItem("token");
+
+  dispatch(setLoading(true));
+  axios
+    .delete(
+      `http://44.211.175.241/api/capacities/delete-default-capacity/${id}/`,
+      {
+        headers: { Authorization: `Token ${tokenUser}` },
+      }
+    )
+    .then((response) => {
+      if (response.status === 204) {
+        dispatch(setLoading(false));
+        setOpenModalCapDelete(false);
+        dispatch(setReloadCap());
+      }
+    })
+    .catch(() => {
+      dispatch(setLoading(false));
+      dispatch(setErrorCapCreate(true));
+    });
 };
 
 export const createGroup = (data, setOpenModalGroup, reset) => (dispatch) => {
@@ -207,8 +318,7 @@ export const createGroup = (data, setOpenModalGroup, reset) => (dispatch) => {
         dispatch(setReload());
       }
     })
-    .catch((err) => {
-      console.log(err);
+    .catch(() => {
       dispatch(setLoading(false));
     });
 };
@@ -222,10 +332,10 @@ export const editGroup = (data, id, setOpenModalGroupEdit) => (dispatch) => {
         dispatch(setLoading(false));
         setOpenModalGroupEdit(false);
         dispatch(setReload());
+        dispatch(setReloadCap())
       }
     })
-    .catch((err) => {
-      console.log(err);
+    .catch(() => {
       dispatch(setLoading(false));
       dispatch(setError(true));
     });
@@ -240,10 +350,10 @@ export const deleteGroup = (id, setOpenModalGroupDelete) => (dispatch) => {
         dispatch(setLoading(false));
         setOpenModalGroupDelete(false);
         dispatch(setReload());
+        dispatch(setReloadCap())
       }
     })
-    .catch((err) => {
-      console.log(err);
+    .catch(() => {
       dispatch(setLoading(false));
       dispatch(setError(true));
     });

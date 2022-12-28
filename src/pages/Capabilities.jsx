@@ -11,6 +11,7 @@ import ModalGroupEdit from "./component/ModalGroupEdit";
 import ModalGroupDelete from "./component/ModalGroupDelete";
 import ModalProductLineEdit from "./component/ModalProductLineEdit";
 import ModalProductLineDelete from "./component/ModalProductLineDelete";
+import ModalCapDelete from "./component/ModalCapDelete";
 
 function Capabilities() {
   const [transactionPanelOpen, setTransactionPanelOpen] = useState(false);
@@ -21,6 +22,9 @@ function Capabilities() {
   const [openModalGroupDelete, setOpenModalGroupDelete] = useState(false);
   const [openModalPLEdit, setOpenModalPLEdit] = useState(false);
   const [openModalPLDelete, setOpenModalPLDelete] = useState(false);
+  const [capabilitiesPanelOpen, setCapabilitiesOpenPanel] = useState(false);
+  const [capabilitiesEditOpen, setCapabilitiesEditOpen] = useState(false);
+  const [openModalCapDelete, setOpenModalCapDelete] = useState(false);
 
   return (
     <>
@@ -37,6 +41,11 @@ function Capabilities() {
             <CapabilitiesTable
               setTransactionPanelOpen={setTransactionPanelOpen}
               setGroupPanelOpen={setGroupPanelOpen}
+              capabilitiesPanelOpen={capabilitiesPanelOpen}
+              setCapabilitiesOpenPanel={setCapabilitiesOpenPanel}
+              capabilitiesEditOpen={capabilitiesEditOpen}
+              setCapabilitiesEditOpen={setCapabilitiesEditOpen}
+              setOpenModalCapDelete={setOpenModalCapDelete}
             />
           </div>
           {/* Pagination */}
@@ -84,6 +93,9 @@ function Capabilities() {
         openModalPLDelete={openModalPLDelete}
         setOpenModalPLDelete={setOpenModalPLDelete}
       />
+      <ModalCapDelete
+      openModalCapDelete={openModalCapDelete}
+      setOpenModalCapDelete={setOpenModalCapDelete} />
     </>
   );
 }
