@@ -75,6 +75,13 @@ function DemoGantt() {
     ganttRef.current.instance.shiftNext();
   };
 
+  const onSavePlanning = () => {
+    console.log("Guardando planeación");
+    const project = ganttRef.current.instance.project;
+    const dataGantt = project.inlineData
+    console.log(dataGantt);
+  }
+
   return (
     <Layout
       icon={icons.planningIcon}
@@ -141,7 +148,7 @@ function DemoGantt() {
               icon: 'b-fa b-fa-save',
               cls: 'save',
               async onAction() {
-                console.log('Guardar planeación');
+                onSavePlanning();
               },
             },
           ]}
