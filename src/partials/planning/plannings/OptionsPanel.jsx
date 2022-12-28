@@ -67,34 +67,35 @@ const OptionsPanel = ({
             chooseOption ? 'translate-x-' : 'translate-x-full'
           }`}
         >
-          <section className='mb-10 flex justify-center items-center'>
-            <h2 className='mt-4 ml-5 w-full font-bold text-black text-2xl'>
-              Selecciona una opción
-            </h2>
-            <div className='flex justify-center items-center'>
+          <section className='mb-10 flex items-center justify-between'>
+            <div className='flex ml-5 '>
               <button
                 onClick={() => {
                   setChooseOption(false);
                   setOrdersPanelOpen(true);
                 }}
-                className='mt-4'
+                className='mt-[17px]'
               >
                 <img src={icons.arrowLeft} alt='' className='w-8' />
               </button>
-              <button
-                ref={closeBtn}
-                onClick={() => setChooseOption(false)}
-                className=' top-1 right-0 mt-4 mr-3 group p-1'
-              >
-                <svg
-                  className='w-4 h-4 fill-slate-800 group-hover:fill-slate-600 pointer-events-none'
-                  viewBox='0 0 16 16'
-                  xmlns='http://www.w3.org/2000/svg'
-                >
-                  <path d='m7.95 6.536 4.242-4.243a1 1 0 1 1 1.415 1.414L9.364 7.95l4.243 4.242a1 1 0 1 1-1.415 1.415L7.95 9.364l-4.243 4.243a1 1 0 0 1-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 0 1 1.414-1.414L7.95 6.536Z' />
-                </svg>
-              </button>
+              <h2 className='mt-4 ml-5 w-full font-bold text-black text-2xl'>
+                Selecciona una opción
+              </h2>
             </div>
+
+            <button
+              ref={closeBtn}
+              onClick={() => setChooseOption(false)}
+              className=' top-1 right-0 mt-4 mr-3 group p-1'
+            >
+              <svg
+                className='w-5 h-5 fill-slate-800 group-hover:fill-slate-600 pointer-events-none'
+                viewBox='0 0 16 16'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path d='m7.95 6.536 4.242-4.243a1 1 0 1 1 1.415 1.414L9.364 7.95l4.243 4.242a1 1 0 1 1-1.415 1.415L7.95 9.364l-4.243 4.243a1 1 0 0 1-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 0 1 1.414-1.414L7.95 6.536Z' />
+              </svg>
+            </button>
           </section>
           <section className='flex justify-center'>
             {/* <button

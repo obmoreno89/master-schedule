@@ -76,7 +76,7 @@ const PlanningsCapabilitiesPanel = ({
               className='absolute top-1 right-0 mt-4 mr-3 group p-1'
             >
               <svg
-                className='w-4 h-4 fill-slate-800 group-hover:fill-slate-600 pointer-events-none'
+                className='w-5 h-5 fill-slate-800 group-hover:fill-slate-600 pointer-events-none'
                 viewBox='0 0 16 16'
                 xmlns='http://www.w3.org/2000/svg'
               >
