@@ -157,7 +157,7 @@ const GroupsOptionsPanel = ({ setGroupOptionsPanel, groupOptionsPanel }) => {
           </section>
           <section>
             <form>
-              <div className='h-[585px] 2xl:h-[460px] overflow-y-auto mb-8 ml-5'>
+              <div className='h-[470px] 2xl:h-[460px] overflow-y-auto mb-8 ml-5'>
                 <div className='mt-5 mb-7'>
                   <label className='flex items-center'>
                     <input

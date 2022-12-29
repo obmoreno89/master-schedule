@@ -69,9 +69,9 @@ const PlanningOrdersPanel = ({
   });
 
   const data = [
-    { id: '1', title: 'Monto total de la orden', tag: 'Ascendente' },
-    { id: '2', title: 'Request Date', tag: 'Fecha más lejana' },
-    { id: '3', title: 'ETO', tag: 'Orden Prioritario' },
+    { id: '1', title: 'Monto total de la orden', tag: 'Selecciona una opción' },
+    { id: '2', title: 'Request Date', tag: 'Selecciona una opción' },
+    { id: '3', title: 'ETO', tag: 'Selecciona una opción' },
     { id: '4', title: 'Schedule Ship Date', tag: 'Orden Prioritario' },
     { id: '5', title: 'ACB Code', tag: 'Ascendente' },
   ];
