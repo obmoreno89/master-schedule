@@ -4,33 +4,11 @@ import { createPortal } from 'react-dom';
 import icons from '../../../images/icon/icons';
 import Transition from '../../../utils/Transition';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-
-const useDraggableInPortal = () => {
-  const self = useRef({}).current;
-
-  useEffect(() => {
-    const div = document.createElement('div');
-    div.style.position = 'absolute';
-    div.style.pointerEvents = 'none';
-    div.style.top = '0';
-    div.style.width = '100%';
-    div.style.height = '100%';
-    self.elt = div;
-    document.body.appendChild(div);
-    return () => {
-      document.body.removeChild(div);
-    };
-  }, [self]);
-
-  return (render) =>
-    (provided, ...args) => {
-      const element = render(provided, ...args);
-      if (provided.draggableProps.style.position === 'fixed') {
-        return createPortal(element, self.elt);
-      }
-      return element;
-    };
-};
+import {
+  getSortOrder,
+  selectSortOrder,
+} from '../../../store/slice/planningSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const PlanningOrdersPanel = ({
   ordersPanelOpen,
@@ -38,10 +16,43 @@ const PlanningOrdersPanel = ({
   setChooseOption,
   setPlanningCapabilities,
 }) => {
+  const useDraggableInPortal = () => {
+    const self = useRef({}).current;
+
+    useEffect(() => {
+      const div = document.createElement('div');
+      div.style.position = 'absolute';
+      div.style.pointerEvents = 'none';
+      div.style.top = '0';
+      div.style.width = '100%';
+      div.style.height = '100%';
+      self.elt = div;
+      document.body.appendChild(div);
+      return () => {
+        document.body.removeChild(div);
+      };
+    }, [self]);
+
+    return (render) =>
+      (provided, ...args) => {
+        const element = render(provided, ...args);
+        if (provided.draggableProps.style.position === 'fixed') {
+          return createPortal(element, self.elt);
+        }
+        return element;
+      };
+  };
+
   const renderDraggable = useDraggableInPortal();
   const closeBtn = useRef(null);
   const panelContent = useRef(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const sortOrder = useSelector(selectSortOrder);
+
+  useEffect(() => {
+    dispatch(getSortOrder());
+  }, []);
 
   // close on click outside
   // useEffect(() => {
@@ -68,14 +79,11 @@ const PlanningOrdersPanel = ({
     return () => document.removeEventListener('keydown', keyHandler);
   });
 
-  const data = [
-    { id: '1', title: 'Monto total de la orden', tag: 'Selecciona una opción' },
-    { id: '2', title: 'Request Date', tag: 'Selecciona una opción' },
-    { id: '3', title: 'ETO', tag: 'Selecciona una opción' },
-    { id: '4', title: 'Schedule Ship Date', tag: 'Orden Prioritario' },
-    { id: '5', title: 'ACB Code', tag: 'Ascendente' },
-  ];
-  const [criterion, setCriterion] = useState(data);
+  const [criterion, setCriterion] = useState();
+
+  useEffect(() => {
+    setCriterion(sortOrder);
+  }, [sortOrder]);
 
   const goToGantt = () => {
     navigate('/mp-pro/demo-gantt/');
@@ -173,18 +181,19 @@ const PlanningOrdersPanel = ({
               );
             }}
           >
-            <div className='top-16 bg-white h-screen'>
+            <div className='top-16 bg-white h-screen scroll-m-3'>
               <section className='mx-5 pt-4 2xl:pt-8'>
                 <Droppable droppableId='data'>
                   {(droppableProvider) => (
                     <ul
                       {...droppableProvider.droppableProps}
                       ref={droppableProvider.innerRef}
+                      className='h-[600px] overflow-auto'
                     >
-                      {criterion.map((each, index) => (
+                      {criterion?.map((each, index) => (
                         <Draggable
                           key={each.id}
-                          draggableId={each.id}
+                          draggableId={each.id.toString()}
                           index={index}
                         >
                           {renderDraggable((draggableProvider) => (
@@ -206,11 +215,11 @@ const PlanningOrdersPanel = ({
                                 </svg>
                                 <div className='flex flex-col w-flil'>
                                   <span className='text-base font-semibold text-black'>
-                                    {each.title}
+                                    {each.name}
                                   </span>
                                   <div>
                                     <span className='text-sm text-primary font-medium bg-secondary px-2 py-1 rounded'>
-                                      {each.tag}
+                                      Selecciona una opción
                                     </span>
                                   </div>
                                 </div>
