@@ -7,6 +7,8 @@ import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import {
   getSortOrder,
   selectSortOrder,
+  getTypeSort,
+  selectPlanningsOption,
 } from '../../../store/slice/planningSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -49,6 +51,20 @@ const PlanningOrdersPanel = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const sortOrder = useSelector(selectSortOrder);
+  const optionSort = useSelector(selectPlanningsOption);
+
+  console.log(optionSort);
+  console.log(sortOrder);
+
+  const sort = () => {
+    if (optionSort.name === 'ABC Code') {
+      return <span>{optionSort.form_apply}</span>;
+    } else if (optionSort.name === 'Amount (Total Order)') {
+      return <span>hola</span>;
+    } else {
+      return <span>HOLA</span>;
+    }
+  };
 
   useEffect(() => {
     dispatch(getSortOrder());
@@ -78,6 +94,14 @@ const PlanningOrdersPanel = ({
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   });
+
+  // const data = [
+  //   { id: '1', title: 'Monto total de la orden', tag: 'Ascendente' },
+  //   { id: '2', title: 'Request Date', tag: 'Fecha más lejana' },
+  //   { id: '3', title: 'ETO', tag: 'Orden Prioritario' },
+  //   { id: '4', title: 'Schedule Ship Date', tag: 'Orden Prioritario' },
+  //   { id: '5', title: 'ACB Code', tag: 'Ascendente' },
+  // ];
 
   const [criterion, setCriterion] = useState();
 
@@ -219,7 +243,7 @@ const PlanningOrdersPanel = ({
                                   </span>
                                   <div>
                                     <span className='text-sm text-primary font-medium bg-secondary px-2 py-1 rounded'>
-                                      Selecciona una opción
+                                      {sort()}
                                     </span>
                                   </div>
                                 </div>
@@ -227,8 +251,13 @@ const PlanningOrdersPanel = ({
                               <div className='my-auto'>
                                 <img
                                   onClick={() => {
-                                    setChooseOption(true);
-                                    setOrdersPanelOpen(false);
+                                    dispatch(
+                                      getTypeSort(
+                                        each.name,
+                                        setChooseOption,
+                                        setOrdersPanelOpen
+                                      )
+                                    );
                                   }}
                                   src={icons.smallArrowRight}
                                   alt='small-arrow-right'
