@@ -78,7 +78,8 @@ export const ganttConfig = {
   columns: [
     { type: 'number', field: 'id', width: 5, text: 'No.' },
     { type: 'name', field: 'Order', width: 30, text: 'Order' },
-    { type: 'name', field: 'Pline', width: 100, text: 'Product Line' },
+    { type: 'name', field: 'Pline', width: 90, text: 'Product Line' },
+    { type: 'number', field: 'LineNo', width: 70, text: 'LineNo' },
     { type: 'date', field: 'Schedule_Ship_Date', width: 110, text: 'SSD' },
     { type: 'number', field: 'OrdQty', width: 30, text: 'Cantidad' },
     { type: 'date', field: 'startDate', width: 110, text: 'Start Date' },

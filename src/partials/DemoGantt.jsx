@@ -30,7 +30,8 @@ function DemoGantt() {
       calendarsData: data['data']['calendars']['rows'],
       dependenciesData: data['data']['tasks']['dependencies'],
     });
-    console.log(project.inlineData);
+    project.calendar = "general";
+    console.log(project.calendar);
   };
 
   useEffect(() => {
