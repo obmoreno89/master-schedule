@@ -79,7 +79,7 @@ const PlanningOrdersPanel = ({
     return () => document.removeEventListener('keydown', keyHandler);
   });
 
-  const [criterion, setCriterion] = useState();
+  const [criterion, setCriterion] = useState([]);
 
   useEffect(() => {
     setCriterion(sortOrder);
