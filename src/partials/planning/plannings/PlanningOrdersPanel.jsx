@@ -74,6 +74,11 @@ const PlanningOrdersPanel = ({
     { id: '3', title: 'ETO', tag: 'Selecciona una opción' },
     { id: '4', title: 'Schedule Ship Date', tag: 'Orden Prioritario' },
     { id: '5', title: 'ACB Code', tag: 'Ascendente' },
+    { id: '6', title: 'ACB Code', tag: 'Ascendente' },
+    { id: '7', title: 'ACB Code', tag: 'Ascendente' },
+    { id: '8', title: 'ACB Code', tag: 'Ascendente' },
+    { id: '9', title: 'ACB Code', tag: 'Ascendente' },
+    { id: '10', title: 'ACB Code', tag: 'Ascendente' },
   ];
   const [criterion, setCriterion] = useState(data);
 
@@ -180,6 +185,7 @@ const PlanningOrdersPanel = ({
                     <ul
                       {...droppableProvider.droppableProps}
                       ref={droppableProvider.innerRef}
+                      className="h-[300px] overflow-auto"
                     >
                       {criterion.map((each, index) => (
                         <Draggable
