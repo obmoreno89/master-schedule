@@ -121,14 +121,14 @@ function UserTableItem({
                       e.stopPropagation();
                       setUserPanelOpen(true);
                       const json = {
-                        first_name: data.first_name,
-                        last_name: data.last_name,
-                        telephone: data.telephone,
-                        nmc: data.nmc,
-                        position: data.position,
-                        email: data.email,
-                        role: data.role.id,
-                        id: data.id,
+                        first_name: data?.first_name,
+                        last_name: data?.last_name,
+                        telephone: data?.telephone,
+                        nmc: data?.nmc,
+                        position: data?.position,
+                        email: data?.email,
+                        role: data?.role?.id,
+                        id: data?.id,
                       };
 
                       sessionStorage.setItem('userEdit', JSON.stringify(json));

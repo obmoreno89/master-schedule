@@ -31,16 +31,16 @@ function UserCreateForm({ usersCreateOpen, setUsersCreateOpen }) {
     formState: { errors },
   } = useForm();
 
-  // useEffect(() => {
-  //   if (isCorrect) {
-  //     reset();
-  //     setTimeout(() => dispatch(revertAll()), 5000);
-  //   }
-  // }, [isCorrect]);
+  useEffect(() => {
+    if (isCorrect) {
+      reset();
+      setTimeout(() => dispatch(revertAll()), 5000);
+    }
+  }, [isCorrect]);
 
   useEffect(() => {
     dispatch(getRoles());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (!usersCreateOpen) {
@@ -395,19 +395,17 @@ function UserCreateForm({ usersCreateOpen, setUsersCreateOpen }) {
               id="role"
               className="form-select w-full"
               {...register("role", {
-                ...register("role", {
-                  required: {
-                    value: true,
-                    message: "El campo es requerido",
-                  },
-                }),
+                required: {
+                  value: true,
+                  message: "El campo es requerido",
+                },
               })}
             >
               <option value="" disabled>
                 Selecciona...
               </option>
-              {roles.map((rol) => (
-                <option value={rol.id} key={rol.id}>
+              {roles.map((rol, index) => (
+                <option value={rol.id} key={index}>
                   {rol.role}
                 </option>
               ))}
