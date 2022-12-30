@@ -29,6 +29,7 @@ import User from './pages/User';
 
 //DEMO GANTT
 import DemoGantt from './partials/DemoGantt';
+import GanttForId from './partials/planning/plannings/GanttForId';
 
 //COMPONENTS FOR DESIGN
 import ButtonPage from './pages/component/ButtonPage';
@@ -163,6 +164,15 @@ function App() {
           element={
             <PrivateRoute>
               <DemoGantt />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path='/mp-pro/planning/plannings/gantt/:id'
+          element={
+            <PrivateRoute>
+              <GanttForId />
             </PrivateRoute>
           }
         />
