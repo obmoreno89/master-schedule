@@ -92,26 +92,11 @@ const PlanningOrdersPanel = ({
     return () => document.removeEventListener('keydown', keyHandler);
   });
 
-  const prueba = sortOrder[0]?.name;
+  const [criterion, setCriterion] = useState();
 
-  const data = [
-    {
-      id: '1',
-      name: prueba,
-      tag: 'selecciona',
-    },
-    {
-      id: '2',
-      name: 'hola',
-      tag: 'selecciona',
-    },
-  ];
-
-  const [criterion, setCriterion] = useState(data);
-
-  // useEffect(() => {
-  //   setCriterion(sortOrder);
-  // }, [sortOrder]);
+  useEffect(() => {
+    setCriterion(sortOrder);
+  }, [sortOrder]);
 
   const goToGantt = () => {
     navigate('/mp-pro/demo-gantt/');
