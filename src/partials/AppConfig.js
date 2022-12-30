@@ -80,7 +80,7 @@ export const ganttConfig = {
     { type: 'name', field: 'order', width: 30, text: 'Order' },
     { type: 'name', field: 'inventory_item', width: 30, text: 'Item' },
     { type: 'name', field: 'pline', width: 100, text: 'Product Line' },
-    { type: 'date', field: 'schedule_ship_date', width: 110, text: 'SSD' },
+    { type: 'date', field: 'schedule_ship_date', format: 'DD-MM-YYYY', width: 110, text: 'SSD' },
     { type: 'number', field: 'order_qty', width: 30, text: 'Cantidad' },
     { type: 'number', field: 'suggested_order', width: 30, text: 'Suggested Pieces' },
     { type: 'date', field: 'startDate', width: 110, text: 'Start Date' },
