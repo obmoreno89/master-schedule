@@ -18,7 +18,7 @@ function DemoGantt() {
   }, []);
 
   const loadData = async () => {
-    const data = await axios.get('http://44.211.175.241/api/gantt/list');
+    const data = await axios.get('http://44.211.175.241/api/gantt/list-order-planning?planning-id=mp-91');
 
     const project = ganttRef.current.instance.project;
     // Feed it to the project

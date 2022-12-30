@@ -1,12 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import Transition from '../../../utils/Transition';
 import icons from '../../../images/icon/icons';
+import {
+  selectTypeSort,
+  setPlanningOption,
+} from '../../../store/slice/planningSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const OptionsPanel = ({
   chooseOption,
   setChooseOption,
   setOrdersPanelOpen,
 }) => {
+  const dispatch = useDispatch();
+  const sortChoose = useSelector(selectTypeSort);
   const closeBtn = useRef(null);
   const panelContent = useRef(null);
 
@@ -67,8 +74,8 @@ const OptionsPanel = ({
             chooseOption ? 'translate-x-' : 'translate-x-full'
           }`}
         >
-          <section className='mb-10 flex items-center justify-between'>
-            <div className='flex ml-5 '>
+          <section className='mb-10 flex items-center justify-between  '>
+            <div className='flex ml-5  '>
               <button
                 onClick={() => {
                   setChooseOption(false);
@@ -97,15 +104,34 @@ const OptionsPanel = ({
               </svg>
             </button>
           </section>
-          <section className='flex justify-center'>
-            {/* <button
-              onClick={() => {
-                setChooseOption(false);
-              }}
-              className='w-80 h-12 bg-primary rounded text-white text-base flex justify-center items-center hover:bg-secondary hover:text-primary'
-            >
-              Siguiente
-            </button> */}
+          <section>
+            <section className='w-full px-5 pt-4 2xl:pt-8'>
+              <ul>
+                {sortChoose.map((data) => (
+                  <li
+                    onClick={() => {
+                      setChooseOption(false);
+                      setOrdersPanelOpen(true);
+                      dispatch(setPlanningOption(data));
+                    }}
+                    className='border rounded border-slate-300 flex py-4 mb-4 justify-between items-center cursor-pointer'
+                  >
+                    <div className='flex'>
+                      <div className='flex flex-col w-flil px-5'>
+                        <span className='text-base font-semibold text-black'>
+                          {data.name}
+                        </span>
+                        <div>
+                          <span className='text-sm text-primary font-medium bg-secondary px-1 py-1 rounded'>
+                            {data.form_apply}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </section>
           </section>
         </div>
       </Transition>

@@ -27,6 +27,7 @@ import warning from './warning.svg';
 import circleDown from './circleDown.svg';
 import arrowRight from './arrow-right.svg';
 import arrowLeft from './arrowLeft.svg';
+import play from './play.svg';
 
 export default {
   openEye,
@@ -58,4 +59,5 @@ export default {
   circleDown,
   arrowRight,
   arrowLeft,
+  play,
 };
