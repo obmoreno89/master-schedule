@@ -1,6 +1,6 @@
-import { createAction, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import { endpointsCodes } from "./functions";
+import { createAction, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { endpointsCodes } from './functions';
 
 const initialState = {
   orders: [],
@@ -11,15 +11,15 @@ const initialState = {
   notFound: null,
   listHistory: [],
   loadListHistory: true,
-  search: []
+  search: [],
 };
 
-export const revertAll = createAction("REVERT_ALL");
-export const revertSearch = createAction("REVERT_SEARCH");
+export const revertAll = createAction('REVERT_ALL');
+export const revertSearch = createAction('REVERT_SEARCH');
 
 const planningSlice = createSlice({
   initialState,
-  name: "planning",
+  name: 'planning',
   extraReducers: (builder) => {
     builder.addCase(revertAll, () => initialState);
     builder.addCase(revertSearch, (state, action) => {
@@ -64,7 +64,9 @@ export const {
   setSortOrder,
   setListHistory,
   setLoadHistory,
-  setSearch
+  setSearch,
+  setTypeSort,
+  setPlanningOption,
 } = planningSlice.actions;
 
 export const selectOrders = (state) => state.planning.orders;
@@ -74,12 +76,14 @@ export const selectSortOrder = (state) => state.planning.sortOrder;
 export const selectListHistory = (state) => state.planning.listHistory;
 export const selectLoadHistory = (state) => state.planning.loadListHistory;
 export const selectHistorySearch = (state) => state.planning.search;
+export const selectTypeSort = (state) => state.planning.typeSort;
+export const selectPlanningsOption = (state) => state.planning.planningsOption;
 
 export default planningSlice.reducer;
 
 export const getOrders = (data) => (dispatch) => {
   axios
-    .post("http://44.211.175.241/api/open-orders/list", data)
+    .post('http://44.211.175.241/api/open-orders/list', data)
     .then((response) => {
       if (response.status === 200) {
         dispatch(setOrders(response.data));
@@ -90,7 +94,7 @@ export const getOrders = (data) => (dispatch) => {
 
 export const getSortOrder = () => (dispatch) => {
   axios
-    .get("http://44.211.175.241/api/planning/list-criteria")
+    .get('http://44.211.175.241/api/planning/list-criteria')
     .then((response) => {
       if (response.status === 200) {
         dispatch(setSortOrder(response.data.criteria));
@@ -102,7 +106,7 @@ export const getSortOrder = () => (dispatch) => {
 export const getListHistory = () => (dispatch) => {
   dispatch(setLoadHistory(true));
   axios
-    .get("http://44.211.175.241/api/planning/list-history")
+    .get('http://44.211.175.241/api/planning/list-history')
     .then((response) => {
       if (response.status === 200) {
         dispatch(setListHistory(response.data.history_planning));
@@ -112,3 +116,15 @@ export const getListHistory = () => (dispatch) => {
       dispatch(setLoadHistory(false));
     });
 };
+
+export const getTypeSort =
+  (name, setChooseOption, setOrdersPanelOpen) => (dispatch) => {
+    axios
+      .get(`http://44.211.175.241/api/planning/order-by?criteria-name=${name}`)
+      .then((response) => {
+        if (response.status === 200) {
+          console.log(response.data);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
