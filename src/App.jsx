@@ -25,11 +25,11 @@ import Capabilities from './pages/Capabilities';
 import Calendar from './pages/Calendar';
 
 //MANAGEMENT
-import Management from './pages/Management';
 import User from './pages/User';
 
 //DEMO GANTT
 import DemoGantt from './partials/DemoGantt';
+import GanttForId from './partials/planning/plannings/GanttForId';
 
 //COMPONENTS FOR DESIGN
 import ButtonPage from './pages/component/ButtonPage';
@@ -160,19 +160,19 @@ function App() {
         />
 
         <Route
-          path='/mp-pro/management/register-user/'
+          path='/mp-pro/demo-gantt/'
           element={
             <PrivateRoute>
-              <Management />
+              <DemoGantt />
             </PrivateRoute>
           }
         />
 
         <Route
-          path='/mp-pro/demo-gantt/'
+          path='/mp-pro/planning/plannings/gantt/:id'
           element={
             <PrivateRoute>
-              <DemoGantt />
+              <GanttForId />
             </PrivateRoute>
           }
         />

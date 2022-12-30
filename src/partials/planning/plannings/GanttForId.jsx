@@ -1,10 +1,10 @@
-import Layout from '../components/Layout';
-import icons from '../images/icon/icons';
+import Layout from '../../../components/Layout';
+import icons from '../../../images/icon/icons';
 import { useState, useEffect, useRef } from 'react';
-import './Gantt.css';
+import '../../Gantt.css';
 import { Gantt, StringHelper } from '@bryntum/gantt';
 import { BryntumGantt, BryntumToolbar } from '@bryntum/gantt-react';
-import { ganttConfig } from './AppConfig';
+import { ganttConfig } from './ganttIdConfig';
 import '@bryntum/gantt/gantt.material.css';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -22,7 +22,7 @@ function DemoGantt() {
 
   const loadData = async () => {
     const data = await axios.get(
-      `http://44.211.175.241/api/gantt/list-order-planning?planning-id=mp-91`
+      `http://44.211.175.241/api/gantt/list-order-planning?planning-id=mp-${id}`
     );
 
     const project = ganttRef.current.instance.project;
@@ -33,10 +33,9 @@ function DemoGantt() {
     await project.loadInlineData({
       eventsData: data['data']['tasks']['rows'],
       calendarsData: data['data']['calendars']['rows'],
-      dependenciesData: data['data']['tasks']['dependencies'],
+      dependenciesData: data['data']['tasks']['dependencies']["rows"],
     });
     project.calendar = 'general';
-    console.log(project.calendar);
   };
 
   useEffect(() => {
@@ -81,11 +80,30 @@ function DemoGantt() {
     ganttRef.current.instance.shiftNext();
   };
 
-  const onSavePlanning = () => {
+  const onSavePlanning = async () => {
     console.log('Guardando planeación');
     const project = ganttRef.current.instance.project;
     const dataGantt = project.inlineData;
     console.log(dataGantt);
+    const tasks = dataGantt.eventsData;
+    const dependencies = dataGantt.dependenciesData;
+    console.log(dependencies);
+    console.log(id);
+    const data = {
+      "tasks": tasks,
+      "dependencies": dependencies
+    }
+    const save = await axios.post(
+      `http://44.211.175.241/api/planning/save-planning/${id}`,
+      data 
+    ).then((response) => {
+      if(response.status === 200){
+        console.log(response)
+      } else {
+        console.log("Ocurrió un error: " + response.status)
+      }
+    })
+    .catch((err) => console.log(err));
   };
 
   return (

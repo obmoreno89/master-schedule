@@ -62,13 +62,13 @@ function CapabilitiesPanel({
       >
         <div
           ref={panelContent}
-          className={`absolute inset-0 sm:left-auto z-40 transform shadow-xl transition-transform duration-200 ease-in-out ${
+          className={` absolute inset-0 sm:left-auto z-40 transform shadow-xl transition-transform duration-200 ease-in-out ${
             capabilitiesPanelOpen ? 'translate-x-' : 'translate-x-full'
           }`}
         >
           <div className='top-16 bg-white overflow-x-hidden overflow-y-auto no-scrollbar shrink-0 border-l border-slate-200 w-full sm:w-[390px] h-screen'>
             <div className='flex justify-between'>
-              <h2 className='mt-4 ml-4 w-48 font-bold text-black'>
+              <h2 className='mt-4 ml-4 w-48 font-bold text-black text-2xl'>
                 Crear capacidad
               </h2>
               <button
@@ -77,7 +77,7 @@ function CapabilitiesPanel({
                 className=' top-0 right-0 mt-4 mr-3 group p-1'
               >
                 <svg
-                  className='w-4 h-4 fill-slate-400 group-hover:fill-slate-600 pointer-events-none'
+                  className='w-5 h-5 fill-slate-800 group-hover:fill-slate-600 pointer-events-none'
                   viewBox='0 0 16 16'
                   xmlns='http://www.w3.org/2000/svg'
                 >

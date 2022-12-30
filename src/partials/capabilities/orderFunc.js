@@ -4,10 +4,14 @@ export const orderPLAsc = (array, setState, type) => {
 
   if (type === "capabilities") {
     sortArray = arrayForSort.sort((a, b) => {
-      if (a.product_line.name.toLowerCase() < b.product_line.name.toLowerCase()) {
+      if (
+        a.product_line.name.toLowerCase() < b.product_line.name.toLowerCase()
+      ) {
         return 1;
       }
-      if (a.product_line.name.toLowerCase() > b.product_line.name.toLowerCase()) {
+      if (
+        a.product_line.name.toLowerCase() > b.product_line.name.toLowerCase()
+      ) {
         return -1;
       }
       return 0;
@@ -32,10 +36,14 @@ export const orderPLDesc = (array, setState, type) => {
 
   if (type === "capabilities") {
     sortArray = arrayForSort.sort((a, b) => {
-      if (a.product_line.name.toLowerCase() > b.product_line.name.toLowerCase()) {
+      if (
+        a.product_line.name.toLowerCase() > b.product_line.name.toLowerCase()
+      ) {
         return 1;
       }
-      if (a.product_line.name.toLowerCase() < b.product_line.name.toLowerCase()) {
+      if (
+        a.product_line.name.toLowerCase() < b.product_line.name.toLowerCase()
+      ) {
         return -1;
       }
       return 0;
@@ -60,10 +68,16 @@ export const orderGAsc = (array, setState, type) => {
 
   if (type === "capabilities") {
     sortArray = arrayForSort.sort((a, b) => {
-      if (a.product_line.group.name.toLowerCase() < b.product_line.group.name.toLowerCase()) {
+      if (
+        a.product_line.group.name.toLowerCase() <
+        b.product_line.group.name.toLowerCase()
+      ) {
         return 1;
       }
-      if (a.product_line.group.name.toLowerCase() > b.product_line.group.name.toLowerCase()) {
+      if (
+        a.product_line.group.name.toLowerCase() >
+        b.product_line.group.name.toLowerCase()
+      ) {
         return -1;
       }
       return 0;
@@ -98,10 +112,16 @@ export const orderGDesc = (array, setState, type) => {
 
   if (type === "capabilities") {
     sortArray = arrayForSort.sort((a, b) => {
-      if (a.product_line.group.name.toLowerCase() > b.product_line.group.name.toLowerCase()) {
+      if (
+        a.product_line.group.name.toLowerCase() >
+        b.product_line.group.name.toLowerCase()
+      ) {
         return 1;
       }
-      if (a.product_line.group.name.toLowerCase() < b.product_line.group.name.toLowerCase()) {
+      if (
+        a.product_line.group.name.toLowerCase() <
+        b.product_line.group.name.toLowerCase()
+      ) {
         return -1;
       }
       return 0;
@@ -130,7 +150,7 @@ export const orderGDesc = (array, setState, type) => {
   setState(sortArray);
 };
 
-export const orderUserAsc = (array, setState, attr) => {
+export const orderAsc = (array, setState, attr) => {
   const arrayForSort = [...array];
 
   const sortArray = arrayForSort.sort((a, b) => {
@@ -146,7 +166,7 @@ export const orderUserAsc = (array, setState, attr) => {
   setState(sortArray);
 };
 
-export const orderUserDesc = (array, setState, attr) => {
+export const orderDesc = (array, setState, attr) => {
   const arrayForSort = [...array];
 
   const sortArray = arrayForSort.sort((a, b) => {
@@ -161,3 +181,4 @@ export const orderUserDesc = (array, setState, attr) => {
 
   setState(sortArray);
 };
+

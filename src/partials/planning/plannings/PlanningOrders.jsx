@@ -43,7 +43,7 @@ const PlanningOrders = ({}) => {
     <Layout
       icon={icons.planningIcon}
       nameRoute={'Planeación'}
-      nameSubRoute={'Planeaciones'}
+      nameSubRoute={'Ordenes'}
     >
       <div className='px-4 sm:px-6 lg:px-0 py-1 w-full max-w-9xl mx-auto'>
         <section className='lg:px-8'>

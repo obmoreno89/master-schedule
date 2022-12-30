@@ -1,20 +1,30 @@
-import { createAction, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import { endpointsCodes } from "./functions";
+import { createAction, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { endpointsCodes } from './functions';
 
 const initialState = {
   orders: [],
   groups: [],
+  sortOrder: [],
+  planningsOption: [],
+  typeSort: [],
   notFound: null,
+  listHistory: [],
+  loadListHistory: true,
+  search: [],
 };
 
-export const revertAll = createAction("REVERT_ALL");
+export const revertAll = createAction('REVERT_ALL');
+export const revertSearch = createAction('REVERT_SEARCH');
 
 const planningSlice = createSlice({
   initialState,
-  name: "planning",
+  name: 'planning',
   extraReducers: (builder) => {
     builder.addCase(revertAll, () => initialState);
+    builder.addCase(revertSearch, (state, action) => {
+      state.search = [];
+    });
   },
   reducers: {
     setOrders: (state, action) => {
@@ -23,23 +33,57 @@ const planningSlice = createSlice({
     setGroups: (state, action) => {
       state.groups = action.payload;
     },
+    setSortOrder: (state, action) => {
+      state.sortOrder = action.payload;
+    },
+    setPlanningOption: (state, action) => {
+      state.planningsOption = action.payload;
+    },
+    setTypeSort: (state, action) => {
+      state.typeSort = action.payload;
+    },
     setNotFound: (state, action) => {
       state.notFound = action.payload;
+    },
+    setListHistory: (state, action) => {
+      state.listHistory = action.payload;
+    },
+    setLoadHistory: (state, action) => {
+      state.loadListHistory = action.payload;
+    },
+    setSearch: (state, action) => {
+      state.search = action.payload;
     },
   },
 });
 
-export const { setOrders, setGroups, setNotFound } = planningSlice.actions;
+export const {
+  setOrders,
+  setGroups,
+  setNotFound,
+  setSortOrder,
+  setListHistory,
+  setLoadHistory,
+  setSearch,
+  setTypeSort,
+  setPlanningOption,
+} = planningSlice.actions;
 
 export const selectOrders = (state) => state.planning.orders;
 export const selectGroups = (state) => state.planning.groups;
 export const selectNotFound = (state) => state.planning.notFound;
+export const selectSortOrder = (state) => state.planning.sortOrder;
+export const selectListHistory = (state) => state.planning.listHistory;
+export const selectLoadHistory = (state) => state.planning.loadListHistory;
+export const selectHistorySearch = (state) => state.planning.search;
+export const selectTypeSort = (state) => state.planning.typeSort;
+export const selectPlanningsOption = (state) => state.planning.planningsOption;
 
 export default planningSlice.reducer;
 
 export const getOrders = (data) => (dispatch) => {
   axios
-    .post("http://44.211.175.241/api/open-orders/list", data)
+    .post('http://44.211.175.241/api/open-orders/list', data)
     .then((response) => {
       if (response.status === 200) {
         dispatch(setOrders(response.data));
@@ -47,3 +91,42 @@ export const getOrders = (data) => (dispatch) => {
     })
     .catch((error) => endpointsCodes(error, dispatch, setNotFound));
 };
+
+export const getSortOrder = () => (dispatch) => {
+  axios
+    .get('http://44.211.175.241/api/planning/list-criteria')
+    .then((response) => {
+      if (response.status === 200) {
+        dispatch(setSortOrder(response.data.criteria));
+      }
+    })
+    .catch((err) => console.log(err));
+};
+
+export const getListHistory = () => (dispatch) => {
+  dispatch(setLoadHistory(true));
+  axios
+    .get('http://44.211.175.241/api/planning/list-history')
+    .then((response) => {
+      if (response.status === 200) {
+        dispatch(setListHistory(response.data.history_planning));
+      }
+    })
+    .catch(() => {
+      dispatch(setLoadHistory(false));
+    });
+};
+
+export const getTypeSort =
+  (name, setChooseOption, setOrdersPanelOpen) => (dispatch) => {
+    axios
+      .get(`http://44.211.175.241/api/planning/order-by?criteria-name=${name}`)
+      .then((response) => {
+        if (response.status === 200) {
+          setChooseOption(true);
+          setOrdersPanelOpen(false);
+          dispatch(setTypeSort(response.data));
+        }
+      })
+      .catch((err) => console.log(err));
+  };

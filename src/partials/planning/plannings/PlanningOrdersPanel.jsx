@@ -4,33 +4,14 @@ import { createPortal } from 'react-dom';
 import icons from '../../../images/icon/icons';
 import Transition from '../../../utils/Transition';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-
-const useDraggableInPortal = () => {
-  const self = useRef({}).current;
-
-  useEffect(() => {
-    const div = document.createElement('div');
-    div.style.position = 'absolute';
-    div.style.pointerEvents = 'none';
-    div.style.top = '0';
-    div.style.width = '100%';
-    div.style.height = '100%';
-    self.elt = div;
-    document.body.appendChild(div);
-    return () => {
-      document.body.removeChild(div);
-    };
-  }, [self]);
-
-  return (render) =>
-    (provided, ...args) => {
-      const element = render(provided, ...args);
-      if (provided.draggableProps.style.position === 'fixed') {
-        return createPortal(element, self.elt);
-      }
-      return element;
-    };
-};
+import {
+  getSortOrder,
+  selectSortOrder,
+  getTypeSort,
+  selectPlanningsOption,
+  selectTypeSort,
+} from '../../../store/slice/planningSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const PlanningOrdersPanel = ({
   ordersPanelOpen,
@@ -38,10 +19,90 @@ const PlanningOrdersPanel = ({
   setChooseOption,
   setPlanningCapabilities,
 }) => {
+  const useDraggableInPortal = () => {
+    const self = useRef({}).current;
+
+    useEffect(() => {
+      const div = document.createElement('div');
+      div.style.position = 'absolute';
+      div.style.pointerEvents = 'none';
+      div.style.top = '0';
+      div.style.width = '100%';
+      div.style.height = '100%';
+      self.elt = div;
+      document.body.appendChild(div);
+      return () => {
+        document.body.removeChild(div);
+      };
+    }, [self]);
+
+    return (render) =>
+      (provided, ...args) => {
+        const element = render(provided, ...args);
+        if (provided.draggableProps.style.position === 'fixed') {
+          return createPortal(element, self.elt);
+        }
+        return element;
+      };
+  };
+
   const renderDraggable = useDraggableInPortal();
   const closeBtn = useRef(null);
   const panelContent = useRef(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const sortOrder = useSelector(selectSortOrder);
+  const optionSort = useSelector(selectPlanningsOption);
+  //const typeSort = useSelector(selectTypeSort);
+  const [criterios, setCriterios] = useState(useSelector(selectSortOrder));
+
+  // const sort = () => {
+  //   if (optionSort.name === "ABC Code") {
+  //     return <span>{optionSort.form_apply}</span>;
+  //   } else if (optionSort.name === "Amount (Total Order)") {
+  //     return <span>hola</span>;
+  //   } else {
+  //     return <span>HOLA</span>;
+  //   }
+  // };
+
+  useEffect(() => {
+    dispatch(getSortOrder());
+  }, []);
+
+  /**
+   * seleccionar criterio
+   */
+
+  useEffect(() => {
+    const allCriteria = sortOrder.map((el) => ({
+      ...el,
+      state: 'Selecciona una opción',
+    }));
+    setCriterios(allCriteria);
+  }, [sortOrder]);
+
+  useEffect(() => {
+    const crit = sortOrder.filter((el) => el.name === optionSort.name);
+    const index = criterios?.findIndex((obj) => {
+      return obj?.id === crit[0]?.id;
+    });
+    let critChanged = [...crit];
+    let newJson = {
+      name: critChanged[0]?.name,
+      id: critChanged[0]?.id,
+      state: optionSort?.form_apply,
+    };
+
+    // console.log(crit)
+    // console.log(critChanged);
+    // console.log(newJson);
+    // console.log(index);
+
+    const arrayCopy = [...criterios];
+    arrayCopy[index] = newJson;
+    setCriterios(arrayCopy);
+  }, [optionSort]);
 
   // close on click outside
   // useEffect(() => {
@@ -68,14 +129,11 @@ const PlanningOrdersPanel = ({
     return () => document.removeEventListener('keydown', keyHandler);
   });
 
-  const data = [
-    { id: '1', title: 'Monto total de la orden', tag: 'Ascendente' },
-    { id: '2', title: 'Request Date', tag: 'Fecha más lejana' },
-    { id: '3', title: 'ETO', tag: 'Orden Prioritario' },
-    { id: '4', title: 'Schedule Ship Date', tag: 'Orden Prioritario' },
-    { id: '5', title: 'ACB Code', tag: 'Ascendente' },
-  ];
-  const [criterion, setCriterion] = useState(data);
+  // const [criterion, setCriterion] = useState();
+
+  // useEffect(() => {
+  //   setCriterion(sortOrder);
+  // }, [sortOrder]);
 
   const goToGantt = () => {
     navigate('/mp-pro/demo-gantt/');
@@ -88,6 +146,10 @@ const PlanningOrdersPanel = ({
 
     return result;
   };
+
+  // console.log(criterios);
+  // console.log(typeSort);
+  // console.log(optionSort);
 
   return (
     <>
@@ -121,34 +183,35 @@ const PlanningOrdersPanel = ({
             ordersPanelOpen ? 'translate-x-' : 'translate-x-full'
           }`}
         >
-          <section className='mb-10 flex items-center'>
-            <h2 className='mt-4 ml-5 w-full font-bold text-black text-2xl'>
-              Elegir criterios de ordenamiento
-            </h2>
-            <div className='flex justify-center items-center'>
+          <section className='mb-5 flex items-center'>
+            <div className='flex ml-5 w-full'>
               <button
                 onClick={() => {
                   setOrdersPanelOpen(false);
                   setPlanningCapabilities(true);
                 }}
-                className='mt-4'
+                className='mt-[17px]'
               >
                 <img src={icons.arrowLeft} alt='' className='w-8' />
               </button>
-              <button
-                ref={closeBtn}
-                onClick={() => setOrdersPanelOpen(false)}
-                className=' top-1 right-0 mt-4 mr-4 group p-1'
-              >
-                <svg
-                  className='w-4 h-4 fill-slate-800 group-hover:fill-slate-600 pointer-events-none'
-                  viewBox='0 0 16 16'
-                  xmlns='http://www.w3.org/2000/svg'
-                >
-                  <path d='m7.95 6.536 4.242-4.243a1 1 0 1 1 1.415 1.414L9.364 7.95l4.243 4.242a1 1 0 1 1-1.415 1.415L7.95 9.364l-4.243 4.243a1 1 0 0 1-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 0 1 1.414-1.414L7.95 6.536Z' />
-                </svg>
-              </button>
+              <h2 className='mt-4 ml-5 font-bold text-black text-2xl'>
+                Elegir criterios de ordenamiento
+              </h2>
             </div>
+
+            <button
+              ref={closeBtn}
+              onClick={() => setOrdersPanelOpen(false)}
+              className=' top-1 right-0 mt-4 mr-4 group p-1'
+            >
+              <svg
+                className='w-5 h-5 fill-slate-800 group-hover:fill-slate-600 pointer-events-none'
+                viewBox='0 0 16 16'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path d='m7.95 6.536 4.242-4.243a1 1 0 1 1 1.415 1.414L9.364 7.95l4.243 4.242a1 1 0 1 1-1.415 1.415L7.95 9.364l-4.243 4.243a1 1 0 0 1-1.414-1.415L6.536 7.95 2.293 3.707a1 1 0 0 1 1.414-1.414L7.95 6.536Z' />
+              </svg>
+            </button>
           </section>
 
           <DragDropContext
@@ -167,8 +230,11 @@ const PlanningOrdersPanel = ({
               ) {
                 return;
               }
-              setCriterion((prevCriterion) =>
-                reorder(prevCriterion, source.index, destination.index)
+              // setCriterion((prevCriterion) =>
+              //   reorder(prevCriterion, source.index, destination.index)
+              // );
+              setCriterios((prevCriterios) =>
+                reorder(prevCriterios, source.index, destination.index)
               );
             }}
           >
@@ -179,11 +245,13 @@ const PlanningOrdersPanel = ({
                     <ul
                       {...droppableProvider.droppableProps}
                       ref={droppableProvider.innerRef}
+
+                      //className="h-[600px] overflow-auto"
                     >
-                      {criterion.map((each, index) => (
+                      {criterios?.map((each, index) => (
                         <Draggable
                           key={each.id}
-                          draggableId={each.id}
+                          draggableId={each.id.toString()}
                           index={index}
                         >
                           {renderDraggable((draggableProvider) => (
@@ -205,11 +273,12 @@ const PlanningOrdersPanel = ({
                                 </svg>
                                 <div className='flex flex-col w-flil'>
                                   <span className='text-base font-semibold text-black'>
-                                    {each.title}
+                                    {each?.name}
                                   </span>
                                   <div>
                                     <span className='text-sm text-primary font-medium bg-secondary px-2 py-1 rounded'>
-                                      {each.tag}
+                                      {/* {sort()} */}
+                                      {each?.state}
                                     </span>
                                   </div>
                                 </div>
@@ -217,8 +286,13 @@ const PlanningOrdersPanel = ({
                               <div className='my-auto'>
                                 <img
                                   onClick={() => {
-                                    setChooseOption(true);
-                                    setOrdersPanelOpen(false);
+                                    dispatch(
+                                      getTypeSort(
+                                        each.name,
+                                        setChooseOption,
+                                        setOrdersPanelOpen
+                                      )
+                                    );
                                   }}
                                   src={icons.smallArrowRight}
                                   alt='small-arrow-right'

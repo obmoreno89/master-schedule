@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import icons from '../../../images/icon/icons';
 import UserPanel from '../../../partials/management/user/UserPanel';
 import ModalUserDelete from '../../../pages/component/ModalUserDelete';
-import { orderUserAsc, orderUserDesc } from '../../capabilities/orderFunc';
+import { orderAsc, orderDesc } from '../../capabilities/orderFunc';
 
 function UserTableItem({
   dataUser,
@@ -19,9 +19,9 @@ function UserTableItem({
   useEffect(() => {
     if (orderName.state) {
       if (!orderName.asc) {
-        orderUserAsc(selectUser, setUser, 'first_name');
+        orderAsc(selectUser, setUser, 'first_name');
       } else {
-        orderUserDesc(selectUser, setUser, 'first_name');
+        orderDesc(selectUser, setUser, 'first_name');
       }
     }
   }, [orderName]);
@@ -29,9 +29,9 @@ function UserTableItem({
   useEffect(() => {
     if (orderEmail.state) {
       if (!orderEmail.asc) {
-        orderUserAsc(selectUser, setUser, 'email');
+        orderAsc(selectUser, setUser, 'email');
       } else {
-        orderUserDesc(selectUser, setUser, 'email');
+        orderDesc(selectUser, setUser, 'email');
       }
     }
   }, [orderEmail]);
@@ -121,14 +121,14 @@ function UserTableItem({
                       e.stopPropagation();
                       setUserPanelOpen(true);
                       const json = {
-                        first_name: data.first_name,
-                        last_name: data.last_name,
-                        telephone: data.telephone,
-                        nmc: data.nmc,
-                        position: data.position,
-                        email: data.email,
-                        role: data.role.id,
-                        id: data.id,
+                        first_name: data?.first_name,
+                        last_name: data?.last_name,
+                        telephone: data?.telephone,
+                        nmc: data?.nmc,
+                        position: data?.position,
+                        email: data?.email,
+                        role: data?.role?.id,
+                        id: data?.id,
                       };
 
                       sessionStorage.setItem('userEdit', JSON.stringify(json));

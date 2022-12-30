@@ -28,6 +28,37 @@ export const ganttConfig = {
             `;
       },
     },
+    dependencies   : true,
+         dependencyEdit : {
+             editorConfig : {
+                 items : {
+                     // Custom label for the type field
+                     typeField : {
+                         label : 'Tipo de relación'
+                     }
+                 },
+
+                 bbar : {
+                     items : {
+                         deleteButton : {
+                          text : 'Eliminar',
+                          hidden: false,
+                          cls: 'deletebtn'
+                         },
+                         // Hiding save button
+                         saveButton : {
+                             text: "Guardar",
+                             cls: "save",
+                             hidden : false
+                         },
+                         cancelButton : {
+                          text: "Cancelar",
+                          hidden : false
+                      }
+                     }
+                 }
+             }
+    },
     nonWorkingTime: {
       disabled: true,
     },
@@ -39,29 +70,28 @@ export const ganttConfig = {
     projectLines: {
       disabled: true,
     },
-    taskEdit: {
-      items: {
-        generalTab: {
-          items: {
-            // Remove "% Complete","Effort", and the divider in the "General" tab
-            percentDone: false,
-            effort: false,
-            divider: false,
-          },
-        },
-        // Remove all tabs except the "General" tab
-        notesTab: false,
-        predecessorsTab: false,
-        successorsTab: false,
-        resourcesTab: false,
-        advancedTab: false,
-      },
-    },
+    // taskEdit: {
+    //   items: {
+    //     generalTab: {
+    //       items: {
+    //         // Remove "% Complete","Effort", and the divider in the "General" tab
+    //         percentDone: false,
+    //         effort: false,
+    //         divider: false,
+    //       },
+    //     },
+    //     // Remove all tabs except the "General" tab
+    //     notesTab: false,
+    //     predecessorsTab: false,
+    //     successorsTab: false,
+    //     resourcesTab: false,
+    //     advancedTab: false,
+    //   },
+    // },
+    taskEdit: false,
     taskMenu: {
       items: {
-        // Hide delete task option
         deleteTask: false,
-        // Hide item from the `add` submenu
         add: false,
         convertToMilestone: false,
         indent: false,
@@ -76,11 +106,13 @@ export const ganttConfig = {
   rowHeight: 40,
   height: 600,
   columns: [
-    { type: 'number', field: 'id', width: 5, text: 'No.' },
-    { type: 'name', field: 'Order', width: 30, text: 'Order' },
-    { type: 'name', field: 'Pline', width: 100, text: 'Product Line' },
-    { type: 'date', field: 'Schedule_Ship_Date', width: 110, text: 'SSD' },
-    { type: 'number', field: 'OrdQty', width: 30, text: 'Cantidad' },
+    { type: 'number', field: 'id', width: 5, text: 'No.' , readOnly: true},
+    { type: 'name', field: 'order', width: 30, text: 'Order' , readOnly: true},
+    { type: 'name', field: 'inventory_item', width: 30, text: 'Item' , readOnly: true},
+    { type: 'name', field: 'pline', width: 100, text: 'Product Line' , readOnly: true},
+    { type: 'date', field: 'schedule_ship_date', format: 'DD-MM-YYYY', width: 110, text: 'SSD', readOnly: true },
+    { type: 'number', field: 'order_qty', width: 30, text: 'Cantidad', readOnly: true },
+    { type: 'number', field: 'suggested_order', width: 30, text: 'Suggested Pieces', readOnly: true},
     { type: 'date', field: 'startDate', width: 110, text: 'Start Date' },
     { type: 'date', field: 'endDate', width: 110, text: 'End Date' },
   ],

@@ -25,6 +25,12 @@
     height: calc(100vh - 80px - 90px - 70px);
   }
 
+  .user-sider-title {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 2;
+  }
+
   .loader {
     border: 5px solid #f3f3f3;
     border-top: 5px solid #009B4A;

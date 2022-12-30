@@ -137,3 +137,24 @@ header.b-grid-header-container {
 .b-gantt-task-content {
   padding: 20px !important;
 }
+
+.text-planeacion{
+  color: black !important;
+  padding-right: 625px !important;
+}
+
+.deletebtn {
+  border-radius: 5px !important;
+  left: 10px;
+  background-color: red !important;
+  color: white !important;
+}
+
+.b-sch-dependency {
+  stroke-width: 2 !important;
+  stroke : rgb(156, 194, 196) !important;
+}
+
+.b-sch-dependency-arrow {
+  fill: rgb(156, 194, 196) !important;
+}
