@@ -117,16 +117,15 @@ export const getListHistory = () => (dispatch) => {
     });
 };
 
-export const getTypeSort =
-  (name, setChooseOption, setOrdersPanelOpen) => (dispatch) => {
-    axios
-      .get(`http://44.211.175.241/api/planning/order-by?criteria-name=${name}`)
-      .then((response) => {
-        if (response.status === 200) {
-          setChooseOption(false);
-          setOrdersPanelOpen(true);
-          dispatch(setSortOrder(response.data.criteria));
-        }
-      })
-      .catch((err) => console.log(err));
-  };
+export const getTypeSort = (name, setChooseOption) => (dispatch) => {
+  axios
+    .get(`http://44.211.175.241/api/planning/order-by?criteria-name=${name}`)
+    .then((response) => {
+      if (response.status === 200) {
+        setChooseOption(true);
+
+        dispatch(setTypeSort(response.data));
+      }
+    })
+    .catch((err) => console.log(err));
+};

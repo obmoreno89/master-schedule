@@ -53,9 +53,6 @@ const PlanningOrdersPanel = ({
   const sortOrder = useSelector(selectSortOrder);
   const optionSort = useSelector(selectPlanningsOption);
 
-  console.log(optionSort);
-  console.log(sortOrder);
-
   const sort = () => {
     if (optionSort.name === 'ABC Code') {
       return <span>{optionSort.form_apply}</span>;
@@ -95,12 +92,18 @@ const PlanningOrdersPanel = ({
     return () => document.removeEventListener('keydown', keyHandler);
   });
 
+  const data = [
+    {
+      id: '1',
+      name: 'hola',
+      tag:
+        sortOrder.form_apply === 'ABC Code'
+          ? sortOrder[0].form_apply
+          : 'selecciona',
+    },
+  ];
 
-  const [criterion, setCriterion] = useState();
-
-  useEffect(() => {
-    setCriterion(sortOrder);
-  }, [sortOrder]);
+  const [criterion, setCriterion] = useState(data);
 
   const goToGantt = () => {
     navigate('/mp-pro/demo-gantt/');
@@ -236,7 +239,7 @@ const PlanningOrdersPanel = ({
                                   </span>
                                   <div>
                                     <span className='text-sm text-primary font-medium bg-secondary px-2 py-1 rounded'>
-                                      {sort()}
+                                      hola
                                     </span>
                                   </div>
                                 </div>
