@@ -201,7 +201,7 @@ const PlanningOrdersPanel = ({
                     <ul
                       {...droppableProvider.droppableProps}
                       ref={droppableProvider.innerRef}
-                      className='h-[600px] overflow-auto'
+                      className='h-[490px] overflow-auto'
                     >
                       {criterion?.map((each, index) => (
                         <Draggable
