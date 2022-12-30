@@ -53,9 +53,6 @@ const PlanningOrdersPanel = ({
   const sortOrder = useSelector(selectSortOrder);
   const optionSort = useSelector(selectPlanningsOption);
 
-  console.log(optionSort);
-  console.log(sortOrder);
-
   const sort = () => {
     if (optionSort.name === 'ABC Code') {
       return <span>{optionSort.form_apply}</span>;
@@ -94,7 +91,6 @@ const PlanningOrdersPanel = ({
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   });
-
 
   const [criterion, setCriterion] = useState();
 
@@ -198,14 +194,14 @@ const PlanningOrdersPanel = ({
               );
             }}
           >
-            <div className='top-16 bg-white h-screen scroll-m-3'>
+            <div className='top-16 bg-white h-screen'>
               <section className='mx-5 pt-4 2xl:pt-8'>
                 <Droppable droppableId='data'>
                   {(droppableProvider) => (
                     <ul
                       {...droppableProvider.droppableProps}
                       ref={droppableProvider.innerRef}
-                      className='h-[600px] overflow-auto'
+                      className='h-[490px] overflow-auto'
                     >
                       {criterion?.map((each, index) => (
                         <Draggable

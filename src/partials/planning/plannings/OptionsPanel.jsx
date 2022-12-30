@@ -107,12 +107,12 @@ const OptionsPanel = ({
           <section>
             <section className='w-full px-5 pt-4 2xl:pt-8'>
               <ul>
-                {sortChoose.map((data) => (
+                {sortChoose.map((data, index) => (
                   <li
+                    key={index}
                     onClick={() => {
-                      setChooseOption(false);
-                      setOrdersPanelOpen(true);
                       dispatch(setPlanningOption(data));
+                      setChooseOption(false);
                     }}
                     className='border rounded border-slate-300 flex py-4 mb-4 justify-between items-center cursor-pointer'
                   >
