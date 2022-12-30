@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const initialState = {
   statusList: [],
@@ -19,3 +20,14 @@ export const { setStatusList } = systemStatusSlice.actions;
 export const selectStatusList = (state) => state.systemStatus.statusList;
 
 export default systemStatusSlice.reducer;
+
+export const getStatusList = () => (dispatch) => {
+  axios
+    .get('http://44.211.175.241/api/interfaces/list')
+    .then((response) => {
+      if (response.status === 200) {
+        dispatch(setStatusList(response.data.interfaces));
+      }
+    })
+    .catch((err) => console.log(err));
+};
