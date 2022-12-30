@@ -6,6 +6,8 @@ const initialState = {
   orders: [],
   groups: [],
   sortOrder: [],
+  planningsOption: [],
+  typeSort: [],
   notFound: null,
   listHistory: [],
   loadListHistory: true,
@@ -33,6 +35,12 @@ const planningSlice = createSlice({
     },
     setSortOrder: (state, action) => {
       state.sortOrder = action.payload;
+    },
+    setPlanningOption: (state, action) => {
+      state.planningsOption = action.payload;
+    },
+    setTypeSort: (state, action) => {
+      state.typeSort = action.payload;
     },
     setNotFound: (state, action) => {
       state.notFound = action.payload;
@@ -85,7 +93,7 @@ export const getSortOrder = () => (dispatch) => {
     .get("http://44.211.175.241/api/planning/list-criteria")
     .then((response) => {
       if (response.status === 200) {
-        dispatch(setSortOrder(response.data));
+        dispatch(setSortOrder(response.data.criteria));
       }
     })
     .catch((err) => console.log(err));

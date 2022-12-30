@@ -1,12 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import Transition from '../../../utils/Transition';
 import icons from '../../../images/icon/icons';
+import {
+  selectTypeSort,
+  setPlanningOption,
+} from '../../../store/slice/planningSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const OptionsPanel = ({
   chooseOption,
   setChooseOption,
   setOrdersPanelOpen,
 }) => {
+  const dispatch = useDispatch();
+  const sortChoose = useSelector(selectTypeSort);
   const closeBtn = useRef(null);
   const panelContent = useRef(null);
 
@@ -100,26 +107,29 @@ const OptionsPanel = ({
           <section>
             <section className='w-full px-5 pt-4 2xl:pt-8'>
               <ul>
-                <li
-                  onClick={() => {
-                    setChooseOption(false);
-                    setOrdersPanelOpen(true);
-                  }}
-                  className='border rounded border-slate-300 flex py-4 mb-4 justify-between items-center cursor-pointer'
-                >
-                  <div className='flex'>
-                    <div className='flex flex-col w-flil px-5'>
-                      <span className='text-base font-semibold text-black'>
-                        hola
-                      </span>
-                      <div>
-                        <span className='text-sm text-primary font-medium bg-secondary px-1 py-1 rounded'>
-                          hola
+                {sortChoose.map((data) => (
+                  <li
+                    onClick={() => {
+                      setChooseOption(false);
+                      setOrdersPanelOpen(true);
+                      dispatch(setPlanningOption(data));
+                    }}
+                    className='border rounded border-slate-300 flex py-4 mb-4 justify-between items-center cursor-pointer'
+                  >
+                    <div className='flex'>
+                      <div className='flex flex-col w-flil px-5'>
+                        <span className='text-base font-semibold text-black'>
+                          {data.name}
                         </span>
+                        <div>
+                          <span className='text-sm text-primary font-medium bg-secondary px-1 py-1 rounded'>
+                            {data.form_apply}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </li>
+                  </li>
+                ))}
               </ul>
             </section>
           </section>

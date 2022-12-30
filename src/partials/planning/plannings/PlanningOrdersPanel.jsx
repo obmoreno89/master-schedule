@@ -7,6 +7,8 @@ import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import {
   getSortOrder,
   selectSortOrder,
+  getTypeSort,
+  selectPlanningsOption,
 } from '../../../store/slice/planningSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -49,6 +51,20 @@ const PlanningOrdersPanel = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const sortOrder = useSelector(selectSortOrder);
+  const optionSort = useSelector(selectPlanningsOption);
+
+  console.log(optionSort);
+  console.log(sortOrder);
+
+  const sort = () => {
+    if (optionSort.name === 'ABC Code') {
+      return <span>{optionSort.form_apply}</span>;
+    } else if (optionSort.name === 'Amount (Total Order)') {
+      return <span>hola</span>;
+    } else {
+      return <span>HOLA</span>;
+    }
+  };
 
   useEffect(() => {
     dispatch(getSortOrder());
@@ -79,7 +95,8 @@ const PlanningOrdersPanel = ({
     return () => document.removeEventListener('keydown', keyHandler);
   });
 
-  const [criterion, setCriterion] = useState([]);
+
+  const [criterion, setCriterion] = useState();
 
   useEffect(() => {
     setCriterion(sortOrder);
@@ -219,7 +236,7 @@ const PlanningOrdersPanel = ({
                                   </span>
                                   <div>
                                     <span className='text-sm text-primary font-medium bg-secondary px-2 py-1 rounded'>
-                                      Selecciona una opción
+                                      {sort()}
                                     </span>
                                   </div>
                                 </div>
@@ -227,8 +244,13 @@ const PlanningOrdersPanel = ({
                               <div className='my-auto'>
                                 <img
                                   onClick={() => {
-                                    setChooseOption(true);
-                                    setOrdersPanelOpen(false);
+                                    dispatch(
+                                      getTypeSort(
+                                        each.name,
+                                        setChooseOption,
+                                        setOrdersPanelOpen
+                                      )
+                                    );
                                   }}
                                   src={icons.smallArrowRight}
                                   alt='small-arrow-right'
