@@ -33,7 +33,6 @@ function Status({ openStatusToast, setOpenStatusToast }) {
           <img className='w-[230px]' src={status} alt='server' />
         </figure>
       </section>
-
       <section className='flex items-center justify-center'>
         <div className='grid grid-cols-2 gap-4'>
           {statusList?.map((status, index) => (
