@@ -31,7 +31,7 @@ function Status() {
           </h2>
         </article>
         <figure className='flex justify-center items-center'>
-          <img src={status} alt='server' />
+          <img className='w-[230px]' src={status} alt='server' />
         </figure>
       </section>
 
@@ -59,9 +59,9 @@ function Status() {
                 {status.STATUS_CODE === '200' ? (
                   <img src={icons.check} alt='Success' />
                 ) : status.STATUS_CODE === '500' ? (
-                  <img src={icons.warning} alt='Success' />
+                  <img src={icons.warning} alt='Alerta' />
                 ) : (
-                  <img src={icons.circleDown} alt='Success' />
+                  <img src={icons.circleDown} alt='Peligro' />
                 )}
               </figure>
             </article>
