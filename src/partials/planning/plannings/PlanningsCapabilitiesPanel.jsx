@@ -84,16 +84,43 @@ const PlanningsCapabilitiesPanel = ({
               </svg>
             </button>
           </section>
-          <section className='flex justify-center'>
-            <button
-              onClick={() => {
-                setPlanningCapabilities(false);
-                setOrdersPanelOpen(true);
-              }}
-              className='w-80 h-12 bg-primary rounded text-white text-base flex justify-center items-center hover:bg-secondary hover:text-primary'
-            >
-              Siguiente
-            </button>
+          <section className='flex flex-col justify-center px-5'>
+            <div className='mt-5 border border-borderInput h-14 items-center flex px-3 rounded'>
+              <label className='flex items-center'>
+                <input
+                  checked
+                  type='checkbox'
+                  className='form-checkbox'
+                  name='allSelect'
+                />
+                <span className='text-base font-semibold ml-2 text-black'>
+                  Capacidad base (Por defecto)
+                </span>
+              </label>
+            </div>
+            <div className='mt-5 mb-20 border border-borderInput h-14 items-center flex px-3 rounded'>
+              <label className='flex items-center'>
+                <input
+                  type='checkbox'
+                  className='form-checkbox'
+                  name='allSelect'
+                />
+                <span className='text-base font-semibold ml-2 text-black'>
+                  Capacidad Personalizada (Avanzado)
+                </span>
+              </label>
+            </div>
+            <div className='flex justify-center'>
+              <button
+                onClick={() => {
+                  setPlanningCapabilities(false);
+                  setOrdersPanelOpen(true);
+                }}
+                className='w-80 h-12 bg-primary rounded text-white text-base flex justify-center items-center hover:bg-secondary hover:text-primary'
+              >
+                Siguiente
+              </button>
+            </div>
           </section>
         </div>
       </Transition>
