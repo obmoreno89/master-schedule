@@ -41,7 +41,6 @@ function ToastStatus({ children, className, type, open, setOpen }) {
         );
     }
   };
-
   return (
     <>
       {open && (
