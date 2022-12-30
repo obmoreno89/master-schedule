@@ -30,7 +30,8 @@ function DemoGantt() {
       calendarsData: data['data']['calendars']['rows'],
       dependenciesData: data['data']['tasks']['dependencies'],
     });
-    console.log(project.inlineData);
+    project.calendar = "general";
+    console.log(project.calendar);
   };
 
   useEffect(() => {
@@ -74,6 +75,13 @@ function DemoGantt() {
     console.log('Zoom to Fit');
     ganttRef.current.instance.shiftNext();
   };
+
+  const onSavePlanning = () => {
+    console.log("Guardando planeación");
+    const project = ganttRef.current.instance.project;
+    const dataGantt = project.inlineData
+    console.log(dataGantt);
+  }
 
   return (
     <Layout
@@ -141,7 +149,7 @@ function DemoGantt() {
               icon: 'b-fa b-fa-save',
               cls: 'save',
               async onAction() {
-                console.log('Guardar planeación');
+                onSavePlanning();
               },
             },
           ]}

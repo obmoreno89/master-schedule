@@ -137,3 +137,8 @@ header.b-grid-header-container {
 .b-gantt-task-content {
   padding: 20px !important;
 }
+
+.text-planeacion{
+  color: black !important;
+  padding-right: 625px !important;
+}
