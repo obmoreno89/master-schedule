@@ -74,7 +74,7 @@ function Status({ openStatusToast, setOpenStatusToast }) {
           ))}
         </div>
       </section>
-      <section className='flex justify-end'>
+      <section className='flex justify-end -mt-12'>
         <ToastStatus
           type='success'
           open={openStatusToast}
