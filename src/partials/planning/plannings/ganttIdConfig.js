@@ -39,6 +39,37 @@ export const ganttConfig = {
     projectLines: {
       disabled: true,
     },
+    dependencies   : true,
+    dependencyEdit : {
+        editorConfig : {
+            items : {
+                // Custom label for the type field
+                typeField : {
+                    label : 'Tipo de relación'
+                }
+            },
+
+            bbar : {
+                items : {
+                    deleteButton : {
+                     text : 'Eliminar',
+                     hidden: false,
+                     cls: 'deletebtn'
+                    },
+                    // Hiding save button
+                    saveButton : {
+                        text: "Guardar",
+                        cls: "save",
+                        hidden : false
+                    },
+                    cancelButton : {
+                     text: "Cancelar",
+                     hidden : false
+                 }
+                }
+            }
+        }
+},
     taskEdit: {
       items: {
         generalTab: {
