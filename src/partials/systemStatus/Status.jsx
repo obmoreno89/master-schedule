@@ -58,8 +58,10 @@ function Status() {
               <figure>
                 {status.STATUS_CODE === '200' ? (
                   <img src={icons.check} alt='Success' />
-                ) : (
+                ) : status.STATUS_CODE === '500' ? (
                   <img src={icons.warning} alt='Success' />
+                ) : (
+                  <img src={icons.circleDown} alt='Success' />
                 )}
               </figure>
             </article>
