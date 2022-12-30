@@ -1,10 +1,10 @@
-import Layout from '../components/Layout';
-import icons from '../images/icon/icons';
+import Layout from '../../../components/Layout';
+import icons from '../../../images/icon/icons';
 import { useState, useEffect, useRef } from 'react';
-import './Gantt.css';
+import '../../Gantt.css';
 import { Gantt, StringHelper } from '@bryntum/gantt';
 import { BryntumGantt, BryntumToolbar } from '@bryntum/gantt-react';
-import { ganttConfig } from './AppConfig';
+import { ganttConfig } from './ganttIdConfig';
 import '@bryntum/gantt/gantt.material.css';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -22,7 +22,7 @@ function DemoGantt() {
 
   const loadData = async () => {
     const data = await axios.get(
-      `http://44.211.175.241/api/gantt/list-order-planning?planning-id=mp-91`
+      `http://44.211.175.241/api/gantt/list-order-planning?planning-id=mp-${id}`
     );
 
     const project = ganttRef.current.instance.project;

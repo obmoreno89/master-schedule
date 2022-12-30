@@ -113,6 +113,7 @@ const OptionsPanel = ({
                     onClick={() => {
                       dispatch(setPlanningOption(data));
                       setChooseOption(false);
+                      setOrdersPanelOpen(true);
                     }}
                     className='border rounded border-slate-300 flex py-4 mb-4 justify-between items-center cursor-pointer'
                   >
