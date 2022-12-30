@@ -1,21 +1,20 @@
 import React, { useEffect } from 'react';
 import status from '../../images/status.png';
 import icons from '../../images/icon/icons';
+import ToastStatus from '../../components/ToastStatus';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   getStatusList,
   selectStatusList,
 } from '../../store/slice/systemStatusSlice';
 
-function Status() {
+function Status({ openStatusToast, setOpenStatusToast }) {
   const dispatch = useDispatch();
   const statusList = useSelector(selectStatusList);
 
   useEffect(() => {
     dispatch(getStatusList());
   }, []);
-
-  console.log(statusList);
 
   const formatDate = (date) => {
     const newDate = new Date(date);
@@ -48,7 +47,15 @@ function Status() {
                   Ejecutado por ult.{' '}
                   {formatDate(status?.ORACLE_PROCESS_DATE_START)}
                 </p>
-                <button className='text-sm flex justify-center items-center space-x-2 mt-3 bg-green-50 rounded h-6 w-[165px]'>
+                <button
+                  onClick={() => {
+                    setOpenStatusToast(true);
+                    setTimeout(() => {
+                      setOpenStatusToast(false);
+                    }, 5000);
+                  }}
+                  className='text-sm flex justify-center items-center space-x-2 mt-3 bg-green-50 rounded h-6 w-[165px]'
+                >
                   <img src={icons.refresh} alt='Refresh' />
                   <span className='font-semibold text-primary'>
                     Volver a sincronizar
@@ -67,6 +74,24 @@ function Status() {
             </article>
           ))}
         </div>
+      </section>
+      <section className='flex justify-end'>
+        <ToastStatus
+          type='success'
+          open={openStatusToast}
+          setOpen={setOpenStatusToast}
+          className={'animate-bounce'}
+        >
+          {' '}
+          <span className='flex flex-col'>
+            {' '}
+            Sincronizando interfaz{' '}
+            <span className='font-medium w-72'>
+              Te notificaremos por correo electrónico cuando el proceso
+              finalice.
+            </span>
+          </span>
+        </ToastStatus>
       </section>
     </>
   );
