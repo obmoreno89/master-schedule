@@ -123,7 +123,9 @@ export const getTypeSort =
       .get(`http://44.211.175.241/api/planning/order-by?criteria-name=${name}`)
       .then((response) => {
         if (response.status === 200) {
-          console.log(response.data);
+          setChooseOption(false);
+          setOrdersPanelOpen(true);
+          dispatch(setSortOrder(response.data.criteria));
         }
       })
       .catch((err) => console.log(err));

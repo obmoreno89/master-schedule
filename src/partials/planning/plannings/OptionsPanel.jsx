@@ -110,8 +110,6 @@ const OptionsPanel = ({
                 {sortChoose.map((data) => (
                   <li
                     onClick={() => {
-                      setChooseOption(false);
-                      setOrdersPanelOpen(true);
                       dispatch(setPlanningOption(data));
                     }}
                     className='border rounded border-slate-300 flex py-4 mb-4 justify-between items-center cursor-pointer'
