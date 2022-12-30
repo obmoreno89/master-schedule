@@ -92,18 +92,26 @@ const PlanningOrdersPanel = ({
     return () => document.removeEventListener('keydown', keyHandler);
   });
 
+  const prueba = sortOrder[0]?.name;
+
   const data = [
     {
       id: '1',
+      name: prueba,
+      tag: 'selecciona',
+    },
+    {
+      id: '2',
       name: 'hola',
-      tag:
-        sortOrder.form_apply === 'ABC Code'
-          ? sortOrder[0].form_apply
-          : 'selecciona',
+      tag: 'selecciona',
     },
   ];
 
   const [criterion, setCriterion] = useState(data);
+
+  // useEffect(() => {
+  //   setCriterion(sortOrder);
+  // }, [sortOrder]);
 
   const goToGantt = () => {
     navigate('/mp-pro/demo-gantt/');
@@ -201,7 +209,7 @@ const PlanningOrdersPanel = ({
               );
             }}
           >
-            <div className='top-16 bg-white h-screen scroll-m-3'>
+            <div className='top-16 bg-white h-screen'>
               <section className='mx-5 pt-4 2xl:pt-8'>
                 <Droppable droppableId='data'>
                   {(droppableProvider) => (
@@ -239,7 +247,7 @@ const PlanningOrdersPanel = ({
                                   </span>
                                   <div>
                                     <span className='text-sm text-primary font-medium bg-secondary px-2 py-1 rounded'>
-                                      hola
+                                      {sort()}
                                     </span>
                                   </div>
                                 </div>
