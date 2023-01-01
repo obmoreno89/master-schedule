@@ -12,12 +12,13 @@ import {
   selectTypeSort,
 } from '../../../store/slice/planningSlice';
 import { useDispatch, useSelector } from 'react-redux';
-
+import axios from 'axios';
 const PlanningOrdersPanel = ({
   ordersPanelOpen,
   setOrdersPanelOpen,
   setChooseOption,
   setPlanningCapabilities,
+  orders
 }) => {
   const useDraggableInPortal = () => {
     const self = useRef({}).current;
@@ -55,7 +56,7 @@ const PlanningOrdersPanel = ({
   const optionSort = useSelector(selectPlanningsOption);
   //const typeSort = useSelector(selectTypeSort);
   const [criterios, setCriterios] = useState(useSelector(selectSortOrder));
-
+  const [planningID, setPlanningID] = useState(null)
   // const sort = () => {
   //   if (optionSort.name === "ABC Code") {
   //     return <span>{optionSort.form_apply}</span>;
@@ -135,7 +136,34 @@ const PlanningOrdersPanel = ({
   //   setCriterion(sortOrder);
   // }, [sortOrder]);
 
+  const generateGantt = async () => {
+    
+    const data = {
+      "orders": orders,
+      "selected_groups": ["B2"],
+      "criteria": ["A"]
+    }
+    const tokenUser = sessionStorage.getItem('token');
+    console.log(data);
+    const save = await axios.post(
+      `http://44.211.175.241/api/planning/list`,
+      data,
+      {
+        headers: { Authorization: `Token ${tokenUser}` },
+      } 
+    ).then((response) => {
+      if(response.status === 200){
+        console.log(response)
+      } else {
+        console.log("Ocurrió un error: " + response.status)
+      }
+    })
+    .catch((err) => console.log(err));
+  }
+
   const goToGantt = () => {
+    console.log(orders)
+    generateGantt();
     navigate('/mp-pro/demo-gantt/');
   };
 

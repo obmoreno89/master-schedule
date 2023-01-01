@@ -8,8 +8,10 @@ import { ganttConfig } from './ganttIdConfig';
 import '@bryntum/gantt/gantt.material.css';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import ToastStatus from '../../../components/ToastStatus';
 
 function DemoGantt() {
+  const [openStatusToast, setOpenStatusToast] = useState(false);
   const { id } = useParams();
 
   const ganttRef = useRef();
@@ -98,6 +100,10 @@ function DemoGantt() {
       data 
     ).then((response) => {
       if(response.status === 200){
+        setOpenStatusToast(true);
+        setTimeout(() => {
+          setOpenStatusToast(false);
+        }, 3000);
         console.log(response)
       } else {
         console.log("Ocurrió un error: " + response.status)
@@ -193,6 +199,23 @@ function DemoGantt() {
           />
         </div>
       </div>
+      <section className='flex justify-end -mt-20'>
+      <ToastStatus
+          type='success'
+          open={openStatusToast}
+          setOpen={setOpenStatusToast}
+          className={'animate-bounce'}
+        >
+          {' '}
+          <span className='flex flex-col'>
+            {' '}
+            Planeación guardada{' '}
+            <span className='font-medium w-72'>
+              Datos sincronizados exitosamente
+            </span>
+          </span>
+        </ToastStatus>
+        </section>
     </Layout>
   );
 }
