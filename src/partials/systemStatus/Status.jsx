@@ -81,9 +81,7 @@ function Status({ openStatusToast, setOpenStatusToast }) {
           setOpen={setOpenStatusToast}
           className={'animate-bounce'}
         >
-          {' '}
           <span className='flex flex-col'>
-            {' '}
             Sincronizando interfaz{' '}
             <span className='font-medium w-72'>
               Te notificaremos por correo electrónico cuando el proceso
