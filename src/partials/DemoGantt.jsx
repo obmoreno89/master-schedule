@@ -44,13 +44,20 @@ function DemoGantt() {
   }, []);
 
   const onUndoClick = () => {
-    console.log('Undo');
-    ganttRef.current.instance.project.stm.undo();
+    console.log(ganttRef.current.instance.project.stm.position);
+    if (ganttRef.current.instance.project.stm.position > 1) {
+      ganttRef.current.instance.project.stm.undo();
+    }
   };
 
   const reDoClick = () => {
-    console.log('Redo');
-    ganttRef.current.instance.project.stm.redo();
+    console.log(ganttRef.current.instance.project.stm.position);
+    if (
+      ganttRef.current.instance.project.stm.position <
+      ganttRef.current.instance.project.stm.length
+    ) {
+      ganttRef.current.instance.project.stm.redo();
+    }
   };
 
   const onZoomInClick = () => {

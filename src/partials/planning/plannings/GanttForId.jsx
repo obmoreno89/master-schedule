@@ -35,7 +35,7 @@ function DemoGantt() {
     await project.loadInlineData({
       eventsData: data['data']['tasks']['rows'],
       calendarsData: data['data']['calendars']['rows'],
-      dependenciesData: data['data']['tasks']['dependencies']["rows"],
+      dependenciesData: data['data']['tasks']['dependencies']['rows'],
     });
     project.calendar = 'general';
   };
@@ -45,13 +45,20 @@ function DemoGantt() {
   }, []);
 
   const onUndoClick = () => {
-    console.log('Undo');
-    ganttRef.current.instance.project.stm.undo();
+    console.log(ganttRef.current.instance.project.stm.position);
+    if (ganttRef.current.instance.project.stm.position > 1) {
+      ganttRef.current.instance.project.stm.undo();
+    }
   };
 
   const reDoClick = () => {
-    console.log('Redo');
-    ganttRef.current.instance.project.stm.redo();
+    console.log(ganttRef.current.instance.project.stm.position);
+    if (
+      ganttRef.current.instance.project.stm.position <
+      ganttRef.current.instance.project.stm.length
+    ) {
+      ganttRef.current.instance.project.stm.redo();
+    }
   };
 
   const onZoomInClick = () => {
@@ -92,24 +99,23 @@ function DemoGantt() {
     console.log(dependencies);
     console.log(id);
     const data = {
-      "tasks": tasks,
-      "dependencies": dependencies
-    }
-    const save = await axios.post(
-      `http://44.211.175.241/api/planning/save-planning/${id}`,
-      data 
-    ).then((response) => {
-      if(response.status === 200){
-        setOpenStatusToast(true);
-        setTimeout(() => {
-          setOpenStatusToast(false);
-        }, 3000);
-        console.log(response)
-      } else {
-        console.log("Ocurrió un error: " + response.status)
-      }
-    })
-    .catch((err) => console.log(err));
+      tasks: tasks,
+      dependencies: dependencies,
+    };
+    const save = await axios
+      .post(`http://44.211.175.241/api/planning/save-planning/${id}`, data)
+      .then((response) => {
+        if (response.status === 200) {
+          setOpenStatusToast(true);
+          setTimeout(() => {
+            setOpenStatusToast(false);
+          }, 3000);
+          console.log(response);
+        } else {
+          console.log('Ocurrió un error: ' + response.status);
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -200,7 +206,7 @@ function DemoGantt() {
         </div>
       </div>
       <section className='flex justify-end -mt-20'>
-      <ToastStatus
+        <ToastStatus
           type='success'
           open={openStatusToast}
           setOpen={setOpenStatusToast}
@@ -215,7 +221,7 @@ function DemoGantt() {
             </span>
           </span>
         </ToastStatus>
-        </section>
+      </section>
     </Layout>
   );
 }
