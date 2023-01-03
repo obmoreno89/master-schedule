@@ -371,7 +371,10 @@ function Calendar({ setOpenModalCalendar }) {
               {/* Empty cells (next month) */}
               {endingBlankDays.map((blankday, index) => {
                 return (
-                  <div className='bg-slate-50 h-20 sm:h-28 lg:h-36' key={index}>
+                  <div
+                    className='bg-slate-100 h-20 sm:h-28 lg:h-36'
+                    key={index}
+                  >
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       width='100%'
