@@ -49,6 +49,8 @@ function Calendar({ setOpenModalCalendar }) {
 
   const events = [];
 
+  console.log(date)
+
   const setAllEvents = () => {
     date.forEach((d) => {
       const array = d.date.split('-');
