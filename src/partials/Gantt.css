@@ -162,3 +162,7 @@ header.b-grid-header-container {
 .b-late-dates{
   display: none !important;
 }
+
+.b-constraint-type-startnoearlierthan{
+  display: none !important;
+}
