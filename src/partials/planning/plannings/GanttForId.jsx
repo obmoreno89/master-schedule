@@ -2,17 +2,36 @@ import Layout from '../../../components/Layout';
 import icons from '../../../images/icon/icons';
 import { useState, useEffect, useRef } from 'react';
 import '../../Gantt.css';
-import { Gantt, StringHelper } from '@bryntum/gantt';
+import { StringHelper } from '@bryntum/gantt';
 import { BryntumGantt, BryntumToolbar } from '@bryntum/gantt-react';
 import { ganttConfig } from './ganttIdConfig';
 import '@bryntum/gantt/gantt.material.css';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import ToastStatus from '../../../components/ToastStatus';
+import { useSelector } from 'react-redux';
+import { selectPlanningId } from '../../../store/slice/planningSlice';
 
 function DemoGantt() {
   const [openStatusToast, setOpenStatusToast] = useState(false);
   const { id } = useParams();
+
+  const planningIdData = useSelector(selectPlanningId);
+
+  const formatDate = (date) => {
+    const newDate = new Date(date);
+    return newDate.toLocaleDateString('es-ES');
+  };
+
+  const formatHour = (date) => {
+    const newDate = new Date(date);
+    return newDate.toLocaleTimeString('es-ES', {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  };
+
+  console.log(planningIdData);
 
   const ganttRef = useRef();
   useEffect(() => {
@@ -189,9 +208,21 @@ function DemoGantt() {
             },
           ]}
         />
-        <p className='absolute -translate-y-12 font-semibold'>
-          ID de planeación:<span className='text-primary'> {id}</span>
-        </p>
+        <article className='absolute -translate-y-14'>
+          <p className='font-semibold'>
+            ID de planeación:<span className='text-primary'> {id}</span>
+          </p>
+          <p className='text-sm'>
+            Creado por:{' '}
+            <span className='text-primary'>
+              {planningIdData.user_id__first_name}{' '}
+              {planningIdData.user_id__last_name} el{' '}
+              {formatDate(planningIdData?.date)} a las{' '}
+              {formatHour(planningIdData?.date)}
+            </span>
+          </p>
+        </article>
+
         <div className='border-borderInput border rounded'>
           <BryntumGantt
             ref={ganttRef}

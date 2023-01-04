@@ -12,6 +12,7 @@ const initialState = {
   listHistory: [],
   loadListHistory: true,
   search: [],
+  planningId: [],
 };
 
 export const revertAll = createAction('REVERT_ALL');
@@ -54,6 +55,9 @@ const planningSlice = createSlice({
     setSearch: (state, action) => {
       state.search = action.payload;
     },
+    setPlanningId: (state, action) => {
+      state.planningId = action.payload;
+    },
   },
 });
 
@@ -67,6 +71,7 @@ export const {
   setSearch,
   setTypeSort,
   setPlanningOption,
+  setPlanningId,
 } = planningSlice.actions;
 
 export const selectOrders = (state) => state.planning.orders;
@@ -78,6 +83,7 @@ export const selectLoadHistory = (state) => state.planning.loadListHistory;
 export const selectHistorySearch = (state) => state.planning.search;
 export const selectTypeSort = (state) => state.planning.typeSort;
 export const selectPlanningsOption = (state) => state.planning.planningsOption;
+export const selectPlanningId = (state) => state.planning.planningId;
 
 export default planningSlice.reducer;
 

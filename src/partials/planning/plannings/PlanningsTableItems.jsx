@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import icons from '../../../images/icon/icons';
 import { orderAsc, orderDesc } from '../../capabilities/orderFunc';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setPlanningId } from '../../../store/slice/planningSlice';
 
 function PlanningsTableItems({ data, listHistory, setList }) {
   const [orderId, setOrderId] = useState({ state: false, asc: false });
@@ -9,6 +11,8 @@ function PlanningsTableItems({ data, listHistory, setList }) {
     state: false,
     asc: false,
   });
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (orderId.state) {
@@ -114,7 +118,10 @@ function PlanningsTableItems({ data, listHistory, setList }) {
 
               <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
                 <figure className='flex justify-end items-center'>
-                  <Link to={`/mp-pro/planning/plannings/gantt/${item.id}`}>
+                  <Link
+                    onClick={() => dispatch(setPlanningId(item))}
+                    to={`/mp-pro/planning/plannings/gantt/${item.id}`}
+                  >
                     <img src={icons.play} alt='play' />
                   </Link>
                 </figure>
