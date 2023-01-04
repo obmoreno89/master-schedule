@@ -15,9 +15,7 @@ export const ganttConfig = {
     block: 'center',
   },
   features: {
-    rowReorder: false,
     taskResize: false,
-
     taskNonWorkingTime: {
       tooltipTemplate({ startDate, endDate, iconCls }) {
         return `                   
@@ -121,6 +119,7 @@ export const ganttConfig = {
   columns: [
     { type: 'number', field: 'id', width: 5, text: 'No.', readOnly: true },
     { type: 'name', field: 'order', width: 30, text: 'Order', readOnly: true },
+    { type: 'number', field: 'line_no', width: 50, text: 'LineNo' },
     {
       type: 'name',
       field: 'inventory_item',
