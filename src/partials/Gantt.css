@@ -158,3 +158,11 @@ header.b-grid-header-container {
 .b-sch-dependency-arrow {
   fill: rgb(156, 194, 196) !important;
 }
+
+.b-late-dates{
+  display: none !important;
+}
+
+.b-constraint-type-startnoearlierthan{
+  display: none !important;
+}

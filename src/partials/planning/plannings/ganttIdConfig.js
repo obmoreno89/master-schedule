@@ -15,6 +15,7 @@ export const ganttConfig = {
     block: 'center',
   },
   features: {
+    taskResize: false,
     taskNonWorkingTime: {
       tooltipTemplate({ startDate, endDate, iconCls }) {
         return `                   
@@ -39,37 +40,37 @@ export const ganttConfig = {
     projectLines: {
       disabled: true,
     },
-    dependencies   : true,
-    dependencyEdit : {
-        editorConfig : {
-            items : {
-                // Custom label for the type field
-                typeField : {
-                    label : 'Tipo de relación'
-                }
-            },
+    dependencies: true,
+    dependencyEdit: {
+      editorConfig: {
+        items: {
+          // Custom label for the type field
+          typeField: {
+            label: 'Tipo de relación',
+          },
+        },
 
-            bbar : {
-                items : {
-                    deleteButton : {
-                     text : 'Eliminar',
-                     hidden: false,
-                     cls: 'deletebtn'
-                    },
-                    // Hiding save button
-                    saveButton : {
-                        text: "Guardar",
-                        cls: "save",
-                        hidden : false
-                    },
-                    cancelButton : {
-                     text: "Cancelar",
-                     hidden : false
-                 }
-                }
-            }
-        }
-},
+        bbar: {
+          items: {
+            deleteButton: {
+              text: 'Eliminar',
+              hidden: false,
+              cls: 'deletebtn',
+            },
+            // Hiding save button
+            saveButton: {
+              text: 'Guardar',
+              cls: 'save',
+              hidden: false,
+            },
+            cancelButton: {
+              text: 'Cancelar',
+              hidden: false,
+            },
+          },
+        },
+      },
+    },
     taskEdit: {
       items: {
         generalTab: {
@@ -109,6 +110,7 @@ export const ganttConfig = {
   columns: [
     { type: 'number', field: 'id', width: 5, text: 'No.' },
     { type: 'name', field: 'order', width: 30, text: 'Order' },
+    { type: 'number', field: 'line_no', width: 50, text: 'LineNo' },
     { type: 'name', field: 'inventory_item', width: 30, text: 'Item' },
     { type: 'name', field: 'pline', width: 100, text: 'Product Line' },
     {

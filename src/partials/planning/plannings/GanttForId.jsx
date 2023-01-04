@@ -124,7 +124,7 @@ function DemoGantt() {
       nameRoute='Planeación'
       nameSubRoute='Gantt'
     >
-      <div className='px-4'>
+      <div className='px-4 relative'>
         <BryntumToolbar
           items={[
             {
@@ -189,6 +189,9 @@ function DemoGantt() {
             },
           ]}
         />
+        <p className='absolute -translate-y-12 font-semibold'>
+          ID de planeación:<span className='text-primary'> {id}</span>
+        </p>
         <div className='border-borderInput border rounded'>
           <BryntumGantt
             ref={ganttRef}
