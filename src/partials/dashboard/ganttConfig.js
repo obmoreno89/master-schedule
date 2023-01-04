@@ -48,7 +48,7 @@ export const ganttConfig = {
   },
   rowHeight: 40,
   height: 480,
-  disabled: false,
+  disabled: true,
   columns: [
     { type: 'number', field: 'id', width: 5, text: 'No.' },
     { type: 'name', field: 'order', width: 30, text: 'Order' },

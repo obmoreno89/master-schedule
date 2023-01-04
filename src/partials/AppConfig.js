@@ -17,6 +17,7 @@ export const ganttConfig = {
   features: {
     rowReorder: false,
     taskResize: false,
+
     taskNonWorkingTime: {
       tooltipTemplate({ startDate, endDate, iconCls }) {
         return `                   
@@ -30,8 +31,17 @@ export const ganttConfig = {
             `;
       },
     },
+
     dependencies: true,
+
     dependencyEdit: {
+      from: 1,
+      to: 2,
+      // start-to-finish
+      type: 1,
+      // 2 days lag
+      lag: 2,
+      lagUnit: 'day',
       editorConfig: {
         items: {
           // Custom label for the type field
@@ -68,7 +78,6 @@ export const ganttConfig = {
     filter: true,
     indicators: true,
     taskCopyPaste: false,
-
     projectLines: {
       disabled: true,
     },
@@ -108,6 +117,7 @@ export const ganttConfig = {
   },
   rowHeight: 40,
   height: 600,
+
   columns: [
     { type: 'number', field: 'id', width: 5, text: 'No.', readOnly: true },
     { type: 'name', field: 'order', width: 30, text: 'Order', readOnly: true },
