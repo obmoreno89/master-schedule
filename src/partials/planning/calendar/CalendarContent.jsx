@@ -49,7 +49,33 @@ function Calendar({ setOpenModalCalendar }) {
 
   const events = [];
 
-  //console.log(date)
+  //funcion para definir background-color de cada dia de cada mes, segun sea laboral o fin de semana
+  const defineColor = (year, month, day, d) => {
+    const eachDate = new Date(
+      year,
+      day == 1 ? month - 1 : new Date(d.date).getMonth(),
+      day
+    ).getDay();
+    if (eachDate === 0 || eachDate === 6) {
+      return "";
+    } else {
+      return "sky";
+    }
+  };
+
+  //funcion para definir si los dias de un mes, son habiles o fines de semana
+  const defineWeekend = (year, month, day, d) => {
+    const eachDate = new Date(
+      year,
+      day == 1 ? month - 1 : new Date(d.date).getMonth(),
+      day
+    ).getDay();
+    if (eachDate === 0 || eachDate === 6) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   const setAllEvents = () => {
     date.forEach((d) => {
@@ -57,32 +83,6 @@ function Calendar({ setOpenModalCalendar }) {
       const dayDB = array[2];
       const monthDB = array[1];
       const yearDB = array[0];
-
-      const defineColor = () => {
-        const eachDate = new Date(
-          yearDB,
-          dayDB == 1 ? monthDB - 1 : new Date(d.date).getMonth(),
-          dayDB
-        ).getDay();
-        if (eachDate === 0 || eachDate === 6) {
-          return "";
-        } else {
-          return "sky";
-        }
-      };
-
-      const defineWknd = () => {
-        const eachDate = new Date(
-          yearDB,
-          dayDB == 1 ? monthDB - 1 : new Date(d.date).getMonth(),
-          dayDB
-        ).getDay();
-        if (eachDate === 0 || eachDate === 6) {
-          return true;
-        } else {
-          return false;
-        }
-      };
 
       let event = {
         eventStart: new Date(
@@ -93,26 +93,12 @@ function Calendar({ setOpenModalCalendar }) {
           dayDB
         ),
         eventName: `${d.description}`,
-        eventColor: defineColor(),
+        eventColor: defineColor(yearDB, monthDB, dayDB, d),
         id: `${d.id}`,
-        weekend: defineWknd(),
+        weekend: defineWeekend(yearDB, monthDB, dayDB, d),
       };
 
       events.push(event);
-
-      // const defineWeekndStyle = (d) => {
-      //   const eachDate = new Date(
-      //     yearDB,
-      //     dayDB == 1 ? monthDB - 1 : new Date(d.date).getMonth(),
-      //     dayDB
-      //   ).getDay();
-      //   if (eachDate === 0 || eachDate === 6) {
-      //     return "red";
-      //   } else {
-      //     return "sky";
-      //   }
-
-      // }
     });
   };
 
@@ -128,9 +114,6 @@ function Calendar({ setOpenModalCalendar }) {
   const [daysInMonth, setDaysInMonth] = useState([]);
   const [startingBlankDays, setStartingBlankDays] = useState([]);
   const [endingBlankDays, setEndingBlankDays] = useState([]);
-  const [weekendDays, setWeekendDays] = useState([]);
-
-  // console.log(events);
 
   const isToday = (date) => {
     const day = new Date(year, month, date);
@@ -183,40 +166,40 @@ function Calendar({ setOpenModalCalendar }) {
 
     // current month cells
     let daysArray = [];
-    let weekends = [];
     for (let i = 1; i <= days; i++) {
-      const nuevo = new Date(year, month + 1, i).getDay();
-      console.log(nuevo);
-      weekends.push(nuevo);
       daysArray.push(i);
     }
 
     setStartingBlankDays(startingBlankDaysArray);
     setEndingBlankDays(endingBlankDaysArray);
     setDaysInMonth(daysArray);
-    setWeekendDays(weekends);
   };
 
   useEffect(() => {
     getDays();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    console.log(weekendDays);
   }, [date, month]);
 
+  //funcion para modificar estilo de sabados y domingos, segun tenga o no dia no laboral cargado
   const printWeekends = (day) => {
     const eachDate = new Date(
       year,
-      //dayDB == 1 ? monthDB - 1 : new Date(d.date).getMonth(),
       month,
       day
     ).getDay();
-    if (eachDate === 0 || eachDate === 6) {
+
+    const eventExists = getEvents(day).filter((event) => {
+      return event;
+    });
+
+    if ((eachDate === 0 || eachDate === 6) && eventExists.length > 0) {
       return true;
     } else {
       return false;
     }
   };
 
+  //funcion para agregar dia no laboral
   const addHoliday = (day, e) => {
     const eventExists = getEvents(day).filter((event) => {
       return event;
@@ -360,10 +343,11 @@ function Calendar({ setOpenModalCalendar }) {
               })}
               {/* Days of the current month */}
               {daysInMonth.map((day, index) => {
-                console.log(weekendDays[index]);
                 return (
                   <div
-                    className={`${printWeekends(day) ? 'weekend-day' : 'bg-white'} h-20 sm:h-28 lg:h-36 overflow-hidden cursor-pointer`}
+                    className={`${
+                      printWeekends(day) ? "weekend-day" : "bg-white"
+                    } h-20 sm:h-28 lg:h-36 overflow-hidden cursor-pointer`}
                     key={index}
                     onClick={(e) => {
                       e.stopPropagation();
@@ -376,7 +360,11 @@ function Calendar({ setOpenModalCalendar }) {
                         {getEvents(day).map((event, index) => (
                           <section
                             // className="relative w-full mt-3"
-                            className={printWeekends(day) ? 'absolute -top-1 -right-1 -left-1 -bottom-3 p-3' : 'relative w-full mt-3'}
+                            className={
+                              printWeekends(day)
+                                ? "absolute -top-1 -right-1 -left-1 -bottom-3 p-3"
+                                : "relative w-full mt-3"
+                            }
                             key={index}
                             onClick={(e) => e.stopPropagation()}
                           >
