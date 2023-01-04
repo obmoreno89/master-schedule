@@ -16,6 +16,26 @@ export const ganttConfig = {
   },
   features: {
     taskResize: false,
+    taskTooltip : {
+      cls: "tooltip",
+      template : ({ taskRecord }) => `
+      <h1 style = "color:white;">Order: ${taskRecord.order}
+      <br>
+      LineNo: ${taskRecord.line_no}
+      <br>
+      Item: ${taskRecord.inventory_item}
+      <br>
+      Demanda: ${taskRecord.order_qty}
+      <br>
+      Cantidad sugerida: ${taskRecord.suggested_order}
+      <br>
+      Tiempo de producción (días): ${taskRecord.suggested_time.toFixed(2)}
+      <br>
+      Tiempo de producción (HH:MM) ${taskRecord.suggested_time_formatted}
+      `,
+      // Tooltip configs can be used here
+      align    : 'l-r' // Align left to right
+    },
     taskNonWorkingTime: {
       tooltipTemplate({ startDate, endDate, iconCls }) {
         return `                   
