@@ -31,6 +31,12 @@
     z-index: 2;
   }
 
+  .weekend-day {
+    background-color: #f4f4f4;
+    //opacity: 1;
+    background: repeating-linear-gradient( -45deg, #e6e6e6, #e6e6e6 2px, #f4f4f4 2px, #f4f4f4 10px );
+  }
+
   .loader {
     border: 5px solid #f3f3f3;
     border-top: 5px solid #009B4A;
@@ -44,8 +50,9 @@
     0% {
       transform: rotate(0deg);
     }
+
     100% {
       transform: rotate(360deg);
     }
-  } 
+  }
 }

@@ -6,6 +6,7 @@ function DropdownEditMenu({
   dropdownOpen,
   children,
   align,
+  isWeekendDay,
   ...rest
 }) {
   const trigger = useRef(null);
@@ -41,7 +42,7 @@ function DropdownEditMenu({
     <div {...rest}>
       <button
         ref={trigger}
-        className={`text-white hover:text-slate-200 rounded-full -mt-2 ${
+        className={`${isWeekendDay ? 'text-slate-400 hover:text-slate-500' : 'text-white hover:text-slate-200'}  rounded-full -mt-2 ${
           dropdownOpen && ' text-white'
         }`}
         aria-haspopup='true'
