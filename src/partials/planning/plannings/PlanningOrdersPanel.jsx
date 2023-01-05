@@ -78,10 +78,28 @@ const PlanningOrdersPanel = ({
    * seleccionar criterio
    */
 
+  const criteriaByDefault = (value) => {
+    switch (value) {
+      case "ABC Code":
+        return "ASC";
+      case "ETO":
+        return "Prioritario";
+      case "Amount (Total Order)":
+        return "ASC";
+      case "Request Date":
+        return "Más Cercana";
+      case "Schedule Ship Date":
+        return "Más Cercana";
+      default:
+        return STATE;
+    }
+  };
+
   useEffect(() => {
     const allCriteria = sortOrder.map((el) => ({
       ...el,
-      state: STATE,
+      //state: STATE,
+      state: criteriaByDefault(el.name),
     }));
     setCriterios(allCriteria);
   }, [sortOrder]);
@@ -167,7 +185,7 @@ const PlanningOrdersPanel = ({
   };
 
   const goToGantt = () => {
-    //console.log(orders);
+    // console.log(orders);
     generateGantt();
     navigate("/mp-pro/demo-gantt/");
   };
