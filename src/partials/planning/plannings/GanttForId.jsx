@@ -18,6 +18,18 @@ function DemoGantt() {
 
   const planningIdData = useSelector(selectPlanningId);
 
+  const first_name_id = JSON.parse(
+    sessionStorage.getItem('planningId')
+  )?.first_name;
+
+  const last_name_id = JSON.parse(
+    sessionStorage.getItem('planningId')
+  )?.last_name;
+
+  const created_date = JSON.parse(
+    sessionStorage.getItem('planningId')
+  )?.created_date;
+
   const formatDate = (date) => {
     const newDate = new Date(date);
     return newDate.toLocaleDateString('es-ES');
@@ -219,10 +231,8 @@ function DemoGantt() {
           <p className='text-sm'>
             Creado por:{' '}
             <span className='text-primary'>
-              {planningIdData.user_id__first_name}{' '}
-              {planningIdData.user_id__last_name} el{' '}
-              {formatDate(planningIdData?.created_date)} a las{' '}
-              {formatHour(planningIdData?.created_date)}
+              {first_name_id} {last_name_id} el {formatDate(created_date)} a las{' '}
+              {formatHour(created_date)}
             </span>
           </p>
           <p className='text-sm'>Actualizado por:</p>

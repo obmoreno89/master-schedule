@@ -119,7 +119,17 @@ function PlanningsTableItems({ data, listHistory, setList }) {
               <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
                 <figure className='flex justify-end items-center'>
                   <Link
-                    onClick={() => dispatch(setPlanningId(item))}
+                    onClick={() => {
+                      const json = {
+                        first_name: item.user_id__first_name,
+                        last_name: item.user_id__last_name,
+                        created_date: item.created_date,
+                      };
+                      sessionStorage.setItem(
+                        'planningId',
+                        JSON.stringify(json)
+                      );
+                    }}
                     to={`/mp-pro/planning/plannings/gantt/${item.id}`}
                   >
                     <img src={icons.play} alt='play' />
