@@ -28,6 +28,7 @@ const GroupsOptionsPanel = ({ setGroupOptionsPanel, groupOptionsPanel }) => {
 
   const [letters, setLetters] = useState([]);
   const [error, setError] = useState(false);
+  const [letterChosen, setLetterChosen] = useState();
 
   useEffect(() => {
     setLetters(groups);
@@ -42,15 +43,10 @@ const GroupsOptionsPanel = ({ setGroupOptionsPanel, groupOptionsPanel }) => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    const data = letters.filter((letter) => letter?.isChecked === true);
-    if (data.length > 0) {
-      let groupsSelected = [];
-
-      data.forEach((letter) => {
-        groupsSelected.push(letter.group);
-      });
-
-      dispatch(setGroups(groupsSelected));
+    if (letterChosen?.length > 0) {
+      let letterSelected = [];
+      letterSelected.push(letterChosen);
+      dispatch(setGroups(letterSelected));
       navigate("/mp-pro/planning/plannings/orders/");
     } else {
       setError(true);
@@ -58,12 +54,8 @@ const GroupsOptionsPanel = ({ setGroupOptionsPanel, groupOptionsPanel }) => {
   };
 
   const handleChange = (e) => {
-    const { name, checked } = e.target;
-
-    let tempLetter = letters.map((letter) =>
-      letter.group === name ? { ...letter, isChecked: checked } : letter
-    );
-    setLetters(tempLetter);
+    const { value } = e.target;
+    setLetterChosen(value);
   };
 
   // close on click outside
@@ -150,14 +142,14 @@ const GroupsOptionsPanel = ({ setGroupOptionsPanel, groupOptionsPanel }) => {
                     <div key={index} className="mb-7">
                       <label className="flex items-center">
                         <input
-                          type="checkbox"
+                          type="radio"
+                          name="radio-buttons"
                           className="form-checkbox"
-                          name={letter?.group}
-                          checked={letter?.isChecked || false}
+                          value={letter.group}
                           onChange={handleChange}
                         />
                         <span className="text-base font-medium ml-2 text-black">
-                          {letter.group}
+                          {letter?.group}
                         </span>
                       </label>
                     </div>
@@ -182,7 +174,7 @@ const GroupsOptionsPanel = ({ setGroupOptionsPanel, groupOptionsPanel }) => {
               {error && (
                 <div className="flex justify-center mt-1">
                   <span className="font-semibold text-red-600">
-                    Debe elegir al menos un grupo antes de continuar
+                    Debe elegir un grupo antes de continuar
                   </span>
                 </div>
               )}
