@@ -34,6 +34,10 @@ function DemoGantt() {
     sessionStorage.getItem('planningId')
   )?.selected_groups;
 
+  const last_update = JSON.parse(
+    sessionStorage.getItem('planningId')
+  )?.last_update;
+
   const formatDate = (date) => {
     const newDate = new Date(date);
     return newDate.toLocaleDateString('es-ES');
@@ -46,8 +50,6 @@ function DemoGantt() {
       minute: '2-digit',
     });
   };
-
-  console.log(planningIdData);
 
   const ganttRef = useRef();
   useEffect(() => {
@@ -240,10 +242,16 @@ function DemoGantt() {
               {formatHour(created_date)}
             </span>
           </p>
-          <p className='text-sm'>Actualizado por:</p>
+          <p className={`text-sm ${last_update === null ? 'hidden' : ''}`}>
+            Actualizado por:
+          </p>
         </article>
 
-        <div className='border-borderInput border rounded mt-3'>
+        <div
+          className={`border-borderInput border rounded ${
+            last_update === null ? '' : 'mt-3'
+          } `}
+        >
           <BryntumGantt
             onDependencyValidationStart={(dependency) => {
               console.log(dependency);

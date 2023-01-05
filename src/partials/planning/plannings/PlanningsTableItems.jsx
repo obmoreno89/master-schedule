@@ -35,6 +35,8 @@ function PlanningsTableItems({ data, listHistory, setList }) {
     return newDate.toLocaleDateString('es-ES');
   };
 
+  console.log(data);
+
   return (
     <>
       <table className='table-auto w-full table'>
@@ -121,6 +123,7 @@ function PlanningsTableItems({ data, listHistory, setList }) {
                         last_name: item.user_id__last_name,
                         created_date: item.created_date,
                         selected_groups: item.selected_groups,
+                        last_update: item.last_update,
                       };
                       sessionStorage.setItem(
                         'planningId',
