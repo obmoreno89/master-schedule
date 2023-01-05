@@ -217,8 +217,8 @@ function DemoGantt() {
             <span className='text-primary'>
               {planningIdData.user_id__first_name}{' '}
               {planningIdData.user_id__last_name} el{' '}
-              {formatDate(planningIdData?.date)} a las{' '}
-              {formatHour(planningIdData?.date)}
+              {formatDate(planningIdData?.created_date)} a las{' '}
+              {formatHour(planningIdData?.created_date)}
             </span>
           </p>
         </article>
