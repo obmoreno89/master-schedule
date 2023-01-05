@@ -109,12 +109,26 @@ function PlanningsTableItems({ data, listHistory, setList }) {
                 <p className='text-center'>{item?.selected_groups}</p>
               </td>
               <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                <p className='text-center'>{formatDate(item?.date)}</p>
+                <p className='text-center'>{formatDate(item?.created_date)}</p>
               </td>
 
               <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
                 <figure className='flex justify-end items-center'>
-                  <Link to={`/mp-pro/planning/plannings/gantt/${item.id}`}>
+                  <Link
+                    onClick={() => {
+                      const json = {
+                        first_name: item.user_id__first_name,
+                        last_name: item.user_id__last_name,
+                        created_date: item.created_date,
+                        selected_groups: item.selected_groups,
+                      };
+                      sessionStorage.setItem(
+                        'planningId',
+                        JSON.stringify(json)
+                      );
+                    }}
+                    to={`/mp-pro/planning/plannings/gantt/${item.id}`}
+                  >
                     <img src={icons.play} alt='play' />
                   </Link>
                 </figure>

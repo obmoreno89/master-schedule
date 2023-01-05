@@ -11,6 +11,7 @@ function QuickSelection({
   description,
   setReloadEvent,
   reloadEvent,
+  isWeekendDay
 }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ function QuickSelection({
       <DropdownEditMenu
         dropdownOpen={dropdownOpen}
         setDropdownOpen={setDropdownOpen}
+        isWeekendDay={isWeekendDay}
         
       >
         <li>

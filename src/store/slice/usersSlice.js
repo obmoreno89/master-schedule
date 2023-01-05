@@ -25,6 +25,7 @@ const usersSlice = createSlice({
       state.userIsOk = false;
       state.userFail = null;
       state.userLoading = false;
+      state.allUser = []
     });
     builder.addCase(revertSearch, (state, action) => {
       state.search = [];
@@ -118,10 +119,12 @@ export const getRoles = () => (dispatch) => {
 };
 
 export const getAlluser = () => (dispatch) => {
+  const id = sessionStorage.getItem('id')
   axios
     .get("http://44.211.175.241/api/auth/list-users")
     .then((response) => {
-      dispatch(setAllUser(response.data));
+      const noLogin = response.data.filter((el)=> el.id.toString() !== id.toString())
+      dispatch(setAllUser(noLogin));
     })
     .catch((err) => console.log(err));
 };

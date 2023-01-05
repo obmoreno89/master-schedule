@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Transition from '../utils/Transition';
 import { useDispatch } from 'react-redux';
-import { logoutUser } from '../store/slice/authSlice';
+import { logoutUser, revertAll } from '../store/slice/authSlice';
 
 function DropdownProfile({ align }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -105,6 +105,7 @@ function DropdownProfile({ align }) {
                   className='font-medium text-sm text-gray hover:text-textHover flex items-center py-1 px-3'
                   onClick={() => {
                     setDropdownOpen(!dropdownOpen);
+                    dispatch(revertAll())
                     dispatch(logoutUser(navigate));
                   }}
                 >

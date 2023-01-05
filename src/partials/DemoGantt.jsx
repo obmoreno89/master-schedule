@@ -1,8 +1,8 @@
 import Layout from '../components/Layout';
 import icons from '../images/icon/icons';
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import './Gantt.css';
-import { Gantt, StringHelper } from '@bryntum/gantt';
+import { StringHelper } from '@bryntum/gantt';
 import { BryntumGantt, BryntumToolbar } from '@bryntum/gantt-react';
 import { ganttConfig } from './AppConfig';
 import '@bryntum/gantt/gantt.material.css';
@@ -44,13 +44,20 @@ function DemoGantt() {
   }, []);
 
   const onUndoClick = () => {
-    console.log('Undo');
-    ganttRef.current.instance.project.stm.undo();
+    console.log(ganttRef.current.instance.project.stm.position);
+    if (ganttRef.current.instance.project.stm.position > 1) {
+      ganttRef.current.instance.project.stm.undo();
+    }
   };
 
   const reDoClick = () => {
-    console.log('Redo');
-    ganttRef.current.instance.project.stm.redo();
+    console.log(ganttRef.current.instance.project.stm.position);
+    if (
+      ganttRef.current.instance.project.stm.position <
+      ganttRef.current.instance.project.stm.length
+    ) {
+      ganttRef.current.instance.project.stm.redo();
+    }
   };
 
   const onZoomInClick = () => {

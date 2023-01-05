@@ -2,17 +2,52 @@ import Layout from '../../../components/Layout';
 import icons from '../../../images/icon/icons';
 import { useState, useEffect, useRef } from 'react';
 import '../../Gantt.css';
-import { Gantt, StringHelper } from '@bryntum/gantt';
+import { StringHelper } from '@bryntum/gantt';
 import { BryntumGantt, BryntumToolbar } from '@bryntum/gantt-react';
 import { ganttConfig } from './ganttIdConfig';
 import '@bryntum/gantt/gantt.material.css';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import ToastStatus from '../../../components/ToastStatus';
+import { useSelector } from 'react-redux';
+import { selectPlanningId } from '../../../store/slice/planningSlice';
 
 function DemoGantt() {
   const [openStatusToast, setOpenStatusToast] = useState(false);
   const { id } = useParams();
+
+  const planningIdData = useSelector(selectPlanningId);
+
+  const first_name_id = JSON.parse(
+    sessionStorage.getItem('planningId')
+  )?.first_name;
+
+  const last_name_id = JSON.parse(
+    sessionStorage.getItem('planningId')
+  )?.last_name;
+
+  const created_date = JSON.parse(
+    sessionStorage.getItem('planningId')
+  )?.created_date;
+
+  const selected_groups = JSON.parse(
+    sessionStorage.getItem('planningId')
+  )?.selected_groups;
+
+  const formatDate = (date) => {
+    const newDate = new Date(date);
+    return newDate.toLocaleDateString('es-ES');
+  };
+
+  const formatHour = (date) => {
+    const newDate = new Date(date);
+    return newDate.toLocaleTimeString('es-ES', {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  };
+
+  console.log(planningIdData);
 
   const ganttRef = useRef();
   useEffect(() => {
@@ -35,7 +70,7 @@ function DemoGantt() {
     await project.loadInlineData({
       eventsData: data['data']['tasks']['rows'],
       calendarsData: data['data']['calendars']['rows'],
-      dependenciesData: data['data']['tasks']['dependencies']["rows"],
+      dependenciesData: data['data']['tasks']['dependencies']['rows'],
     });
     project.calendar = 'general';
   };
@@ -45,13 +80,20 @@ function DemoGantt() {
   }, []);
 
   const onUndoClick = () => {
-    console.log('Undo');
-    ganttRef.current.instance.project.stm.undo();
+    console.log(ganttRef.current.instance.project.stm.position);
+    if (ganttRef.current.instance.project.stm.position > 1) {
+      ganttRef.current.instance.project.stm.undo();
+    }
   };
 
   const reDoClick = () => {
-    console.log('Redo');
-    ganttRef.current.instance.project.stm.redo();
+    console.log(ganttRef.current.instance.project.stm.position);
+    if (
+      ganttRef.current.instance.project.stm.position <
+      ganttRef.current.instance.project.stm.length
+    ) {
+      ganttRef.current.instance.project.stm.redo();
+    }
   };
 
   const onZoomInClick = () => {
@@ -92,24 +134,23 @@ function DemoGantt() {
     console.log(dependencies);
     console.log(id);
     const data = {
-      "tasks": tasks,
-      "dependencies": dependencies
-    }
-    const save = await axios.post(
-      `http://44.211.175.241/api/planning/save-planning/${id}`,
-      data 
-    ).then((response) => {
-      if(response.status === 200){
-        setOpenStatusToast(true);
-        setTimeout(() => {
-          setOpenStatusToast(false);
-        }, 3000);
-        console.log(response)
-      } else {
-        console.log("Ocurrió un error: " + response.status)
-      }
-    })
-    .catch((err) => console.log(err));
+      tasks: tasks,
+      dependencies: dependencies,
+    };
+    const save = await axios
+      .post(`http://44.211.175.241/api/planning/save-planning/${id}`, data)
+      .then((response) => {
+        if (response.status === 200) {
+          setOpenStatusToast(true);
+          setTimeout(() => {
+            setOpenStatusToast(false);
+          }, 3000);
+          console.log(response);
+        } else {
+          console.log('Ocurrió un error: ' + response.status);
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -118,7 +159,7 @@ function DemoGantt() {
       nameRoute='Planeación'
       nameSubRoute='Gantt'
     >
-      <div className='px-4'>
+      <div className='px-4 relative'>
         <BryntumToolbar
           items={[
             {
@@ -183,8 +224,42 @@ function DemoGantt() {
             },
           ]}
         />
-        <div className='border-borderInput border rounded'>
+        <article className='absolute -translate-y-[65px]'>
+          <p className='font-semibold'>
+            ID de planeación:<span className='text-primary'> {id}</span> |{' '}
+            <span>Grupo:</span>{' '}
+            <span className='text-primary'>{selected_groups}</span>
+            <span className='text-primary'>
+              {planningIdData.selected_groups}
+            </span>
+          </p>
+          <p className='text-sm'>
+            Creado por:{' '}
+            <span className='text-primary'>
+              {first_name_id} {last_name_id} el {formatDate(created_date)} a las{' '}
+              {formatHour(created_date)}
+            </span>
+          </p>
+          <p className='text-sm'>Actualizado por:</p>
+        </article>
+
+        <div className='border-borderInput border rounded mt-3'>
           <BryntumGantt
+            onDependencyValidationStart={(dependency) => {
+              console.log(dependency);
+              if (dependency.dependencyType != 2) {
+                console.log('Dependencia distinta de 2. Error');
+                dependency.data.valid = false;
+                dependency.data.tooltip.title = `<div><i class=\"b-icon b-icon-invalid\"></i><span>Invalid</span></div>`;
+                dependency.cancel();
+                console.log(dependency.data.tooltip.style);
+              } else {
+                console.log('Dependencia válida');
+              }
+              // if (dependency.source.startDate >= dependency.source.startDate) {
+              //   console.log('Sólo se permiten dependencias StartToEnd');
+              // }
+            }}
             ref={ganttRef}
             pdfExportFeature={true}
             enableDeleteKey={false}
@@ -200,7 +275,7 @@ function DemoGantt() {
         </div>
       </div>
       <section className='flex justify-end -mt-20'>
-      <ToastStatus
+        <ToastStatus
           type='success'
           open={openStatusToast}
           setOpen={setOpenStatusToast}
@@ -215,7 +290,7 @@ function DemoGantt() {
             </span>
           </span>
         </ToastStatus>
-        </section>
+      </section>
     </Layout>
   );
 }
