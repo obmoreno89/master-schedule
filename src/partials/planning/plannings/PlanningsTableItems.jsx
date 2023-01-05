@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import icons from '../../../images/icon/icons';
 import { orderAsc, orderDesc } from '../../capabilities/orderFunc';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setPlanningId } from '../../../store/slice/planningSlice';
 
 function PlanningsTableItems({ data, listHistory, setList }) {
   const [orderId, setOrderId] = useState({ state: false, asc: false });
@@ -11,8 +9,6 @@ function PlanningsTableItems({ data, listHistory, setList }) {
     state: false,
     asc: false,
   });
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (orderId.state) {
@@ -124,6 +120,7 @@ function PlanningsTableItems({ data, listHistory, setList }) {
                         first_name: item.user_id__first_name,
                         last_name: item.user_id__last_name,
                         created_date: item.created_date,
+                        selected_groups: item.selected_groups,
                       };
                       sessionStorage.setItem(
                         'planningId',

@@ -30,6 +30,10 @@ function DemoGantt() {
     sessionStorage.getItem('planningId')
   )?.created_date;
 
+  const selected_groups = JSON.parse(
+    sessionStorage.getItem('planningId')
+  )?.selected_groups;
+
   const formatDate = (date) => {
     const newDate = new Date(date);
     return newDate.toLocaleDateString('es-ES');
@@ -224,6 +228,7 @@ function DemoGantt() {
           <p className='font-semibold'>
             ID de planeación:<span className='text-primary'> {id}</span> |{' '}
             <span>Grupo:</span>{' '}
+            <span className='text-primary'>{selected_groups}</span>
             <span className='text-primary'>
               {planningIdData.selected_groups}
             </span>
