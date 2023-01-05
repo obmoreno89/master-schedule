@@ -113,7 +113,7 @@ function PlanningsTableItems({ data, listHistory, setList }) {
                 <p className='text-center'>{item?.selected_groups}</p>
               </td>
               <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                <p className='text-center'>{formatDate(item?.date)}</p>
+                <p className='text-center'>{formatDate(item?.created_date)}</p>
               </td>
 
               <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>

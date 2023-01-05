@@ -16,9 +16,9 @@ export const ganttConfig = {
   },
   features: {
     taskResize: false,
-    taskTooltip : {
-      cls: "tooltip",
-      template : ({ taskRecord }) => `
+    taskTooltip: {
+      cls: 'tooltip',
+      template: ({ taskRecord }) => `
       <h1 style = "color:white;">Order: ${taskRecord.order}
       <br>
       LineNo: ${taskRecord.line_no}
@@ -34,7 +34,7 @@ export const ganttConfig = {
       Tiempo de producción (HH:MM) ${taskRecord.suggested_time_formatted}
       `,
       // Tooltip configs can be used here
-      align    : 'l-r' // Align left to right
+      align: 'l-r', // Align left to right
     },
     taskNonWorkingTime: {
       tooltipTemplate({ startDate, endDate, iconCls }) {
@@ -53,13 +53,7 @@ export const ganttConfig = {
     dependencies: true,
 
     dependencyEdit: {
-      from: 1,
-      to: 2,
-      // start-to-finish
-      type: 1,
-      // 2 days lag
-      lag: 2,
-      lagUnit: 'day',
+      dependenciesData: [{ fromEvent: 2, toEvent: 3 }],
       editorConfig: {
         items: {
           // Custom label for the type field
