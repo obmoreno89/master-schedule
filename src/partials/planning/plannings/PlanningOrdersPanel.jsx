@@ -98,7 +98,6 @@ const PlanningOrdersPanel = ({
   useEffect(() => {
     const allCriteria = sortOrder.map((el) => ({
       ...el,
-      //state: STATE,
       state: criteriaByDefault(el.name),
     }));
     setCriterios(allCriteria);

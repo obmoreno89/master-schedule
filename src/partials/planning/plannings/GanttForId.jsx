@@ -245,21 +245,21 @@ function DemoGantt() {
 
         <div className='border-borderInput border rounded mt-3'>
           <BryntumGantt
-            onDependencyValidationStart = {(dependency) => {
-              console.log(dependency)
-              if(dependency.dependencyType != 2){
-                console.log("Dependencia distinta de 2. Error")
+            onDependencyValidationStart={(dependency) => {
+              console.log(dependency);
+              if (dependency.dependencyType != 2) {
+                console.log('Dependencia distinta de 2. Error');
                 dependency.data.valid = false;
-                dependency.data.tooltip.title = `<i class=\"b-icon b-icon-invalid\"></i>Invalid`;
+                dependency.data.tooltip.title = `<div><i class=\"b-icon b-icon-invalid\"></i><span>Invalid</span></div>`;
                 dependency.cancel();
-              } else{
-                console.log("Dependencia válida")
+                console.log(dependency.data.tooltip.style);
+              } else {
+                console.log('Dependencia válida');
               }
               // if (dependency.source.startDate >= dependency.source.startDate) {
               //   console.log('Sólo se permiten dependencias StartToEnd');
               // }
-            }
-            }
+            }}
             ref={ganttRef}
             pdfExportFeature={true}
             enableDeleteKey={false}

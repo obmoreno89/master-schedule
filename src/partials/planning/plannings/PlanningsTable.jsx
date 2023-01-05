@@ -10,12 +10,14 @@ import {
   setSearch,
 } from '../../../store/slice/planningSlice';
 import Loading from '../../../pages/component/Loading';
+import { selectGroup } from '../../../store/slice/capabilitiesSlice';
 
 function PlanningsTable({ setGroupOptionsPanel }) {
   const dispatch = useDispatch();
   const listHistory = useSelector(selectListHistory);
   const load = useSelector(selectLoadHistory);
   const searchItems = useSelector(selectHistorySearch);
+  const groups = useSelector(selectGroup)
 
   const [list, setList] = useState(useSelector(selectListHistory));
   const [startSearch, setStartSearch] = useState(false);
@@ -23,7 +25,7 @@ function PlanningsTable({ setGroupOptionsPanel }) {
 
   useEffect(() => {
     dispatch(getListHistory());
-  }, []);
+  }, [groups]);
 
   useEffect(() => {
     setList(listHistory);
