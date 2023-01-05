@@ -208,9 +208,13 @@ function DemoGantt() {
             },
           ]}
         />
-        <article className='absolute -translate-y-14'>
+        <article className='absolute -translate-y-[65px]'>
           <p className='font-semibold'>
-            ID de planeación:<span className='text-primary'> {id}</span>
+            ID de planeación:<span className='text-primary'> {id}</span> |{' '}
+            <span>Grupo:</span>{' '}
+            <span className='text-primary'>
+              {planningIdData.selected_groups}
+            </span>
           </p>
           <p className='text-sm'>
             Creado por:{' '}
@@ -221,9 +225,10 @@ function DemoGantt() {
               {formatHour(planningIdData?.created_date)}
             </span>
           </p>
+          <p className='text-sm'>Actualizado por:</p>
         </article>
 
-        <div className='border-borderInput border rounded'>
+        <div className='border-borderInput border rounded mt-3'>
           <BryntumGantt
             ref={ganttRef}
             pdfExportFeature={true}

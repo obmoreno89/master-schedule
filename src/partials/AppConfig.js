@@ -53,7 +53,6 @@ export const ganttConfig = {
     dependencies: true,
 
     dependencyEdit: {
-      dependenciesData: [{ fromEvent: 2, toEvent: 3 }],
       editorConfig: {
         items: {
           // Custom label for the type field
