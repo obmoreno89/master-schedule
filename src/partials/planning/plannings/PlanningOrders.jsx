@@ -31,6 +31,14 @@ const PlanningOrders = () => {
     dispatch(getOrders(data));
   }, [groups]);
 
+
+  useEffect(() => {
+    if (groups.length === 0) {
+      navigate('/mp-pro/planning/plannings/');
+    }
+  }, [groups]);
+
+
   return (
     <Layout
       icon={icons.planningIcon}
