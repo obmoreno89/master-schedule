@@ -6,6 +6,7 @@ import GroupsOptionsPanel from "../partials/planning/plannings/GroupsOptionsPane
 import PlanningOrdersPanel from "../partials/planning/plannings/PlanningOrdersPanel";
 import { useSelector } from "react-redux";
 import { selectOrders } from "../store/slice/planningSlice";
+import OptionsPanel from "../partials/planning/plannings/OptionsPanel";
 
 function Planning() {
   const [groupOptionsPanel, setGroupOptionsPanel] = useState(false);
@@ -41,6 +42,14 @@ function Planning() {
             setChooseOption={setChooseOption}
             setPlanningCapabilities={setPlanningCapabilities}
             orders={orders}
+          />
+        </section>
+
+        <section>
+          <OptionsPanel
+            chooseOption={chooseOption}
+            setChooseOption={setChooseOption}
+            setOrdersPanelOpen={setOrdersPanelOpen}
           />
         </section>
       </div>

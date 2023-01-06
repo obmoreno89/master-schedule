@@ -1,10 +1,8 @@
 import Layout from "../../../components/Layout";
 import icons from "../../../images/icon/icons";
-import PlanningOrdersPanel from "./PlanningOrdersPanel";
 import { useState } from "react";
 import PlanningOrdersTable from "./PlanningOrdersTable";
 import PlanningsCapabilitiesPanel from "./PlanningsCapabilitiesPanel";
-import OptionsPanel from "./OptionsPanel";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,13 +29,11 @@ const PlanningOrders = () => {
     dispatch(getOrders(data));
   }, [groups]);
 
-
   useEffect(() => {
     if (groups.length === 0) {
-      navigate('/mp-pro/planning/plannings/');
+      navigate("/mp-pro/planning/plannings/");
     }
   }, [groups]);
-
 
   return (
     <Layout
