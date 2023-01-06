@@ -35,7 +35,7 @@ const PlanningOrders = ({}) => {
 
   useEffect(() => {
     if (groups.length === 0) {
-      navigate('/mp-pro/planning/plannings/');
+      // navigate('/mp-pro/planning/plannings/');
     }
   }, [groups]);
 
