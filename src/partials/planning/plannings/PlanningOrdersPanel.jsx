@@ -9,7 +9,7 @@ import {
   selectSortOrder,
   getTypeSort,
   selectPlanningsOption,
-  selectTypeSort,
+  setPlanningValues,
 } from "../../../store/slice/planningSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -55,20 +55,8 @@ const PlanningOrdersPanel = ({
   const dispatch = useDispatch();
   const sortOrder = useSelector(selectSortOrder);
   const optionSort = useSelector(selectPlanningsOption);
-  //const typeSort = useSelector(selectTypeSort);
   const [criterios, setCriterios] = useState(useSelector(selectSortOrder));
-  const [planningID, setPlanningID] = useState(null);
   const [notCompleteCriteria, setNotCompleteCriteria] = useState();
-
-  // const sort = () => {
-  //   if (optionSort.name === "ABC Code") {
-  //     return <span>{optionSort.form_apply}</span>;
-  //   } else if (optionSort.name === "Amount (Total Order)") {
-  //     return <span>hola</span>;
-  //   } else {
-  //     return <span>HOLA</span>;
-  //   }
-  // };
 
   useEffect(() => {
     dispatch(getSortOrder());
@@ -130,21 +118,6 @@ const PlanningOrdersPanel = ({
     }
   }, [criterios]);
 
-  // close on click outside
-  // useEffect(() => {
-  //   const clickHandler = ({ target }) => {
-  //     if (
-  //       !groupPanelOpen ||
-  //       panelContent.current.contains(target) ||
-  //       closeBtn.current.contains(target)
-  //     )
-  //       return;
-  //     setGroupPanelOpen(false);
-  //   };
-  //   document.addEventListener('click', clickHandler);
-  //   return () => document.removeEventListener('click', clickHandler);
-  // });
-
   // close if the esc key is pressed
   useEffect(() => {
     const keyHandler = ({ keyCode }) => {
@@ -154,12 +127,6 @@ const PlanningOrdersPanel = ({
     document.addEventListener("keydown", keyHandler);
     return () => document.removeEventListener("keydown", keyHandler);
   });
-
-  // const [criterion, setCriterion] = useState();
-
-  // useEffect(() => {
-  //   setCriterion(sortOrder);
-  // }, [sortOrder]);
 
   const generateGantt = async () => {
     const data = {
@@ -183,11 +150,11 @@ const PlanningOrdersPanel = ({
       .catch((err) => console.log(err));
   };
 
-  const goToGantt = () => {
-    // console.log(orders);
-    generateGantt();
-    navigate("/mp-pro/demo-gantt/");
-  };
+  // const goToGantt = () => {
+  //   // console.log(orders);
+  //   generateGantt();
+  //   navigate("/mp-pro/demo-gantt/");
+  // };
 
   const reorder = (list, startIndex, endIndex) => {
     const result = [...list];
@@ -276,9 +243,6 @@ const PlanningOrdersPanel = ({
               ) {
                 return;
               }
-              // setCriterion((prevCriterion) =>
-              //   reorder(prevCriterion, source.index, destination.index)
-              // );
               setCriterios((prevCriterios) =>
                 reorder(prevCriterios, source.index, destination.index)
               );
@@ -355,7 +319,11 @@ const PlanningOrdersPanel = ({
                 </Droppable>
                 <button
                   onClick={() => {
-                    goToGantt();
+                    // goToGantt();
+                    dispatch(
+                      setPlanningValues({ item: "criteria", value: criterios })
+                    );
+                    navigate("/mp-pro/planning/plannings/orders/");
                   }}
                   className={`h-12 rounded w-full text-base font-semibold 2xl:mt-6 ${
                     notCompleteCriteria
@@ -364,7 +332,7 @@ const PlanningOrdersPanel = ({
                   }`}
                   disabled={notCompleteCriteria ? true : false}
                 >
-                  Ir a la planeación de órdenes
+                  Siguiente
                 </button>
               </section>
             </div>
@@ -376,40 +344,3 @@ const PlanningOrdersPanel = ({
 };
 
 export default PlanningOrdersPanel;
-
-// function List(props) {
-//   const items = props.items;
-
-//   return (
-//     <Droppable
-//       droppableId='droppable'
-//       renderClone={(provided, snapshot, rubric) => (
-//         <div
-//           {...provided.draggableProps}
-//           {...provided.dragHandleProps}
-//           ref={provided.innerRef}
-//         >
-//           Item id: {items[rubric.source.index].id}
-//         </div>
-//       )}
-//     >
-//       {(provided) => (
-//         <div ref={provided.innerRef} {...provided.droppableProps}>
-//           {items.map((item) => (
-//             <Draggable draggableId={item.id} index={item.index}>
-//               {(provided, snapshot) => (
-//                 <div
-//                   {...provided.draggableProps}
-//                   {...provided.dragHandleProps}
-//                   ref={provided.innerRef}
-//                 >
-//                   Item id: {item.id}
-//                 </div>
-//               )}
-//             </Draggable>
-//           ))}
-//         </div>
-//       )}
-//     </Droppable>
-//   );
-// }
