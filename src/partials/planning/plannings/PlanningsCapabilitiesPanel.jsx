@@ -34,8 +34,6 @@ const PlanningsCapabilitiesPanel = ({
 
   const handleCheckbox = (e) => {
     const { checked } = e.target;
-
-   // console.log(checked);
   };
 
   const goToGantt = () => {
