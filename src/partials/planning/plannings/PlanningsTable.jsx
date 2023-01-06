@@ -23,6 +23,8 @@ function PlanningsTable({ setGroupOptionsPanel }) {
   const [startSearch, setStartSearch] = useState(false);
   const [loadData, setLoadData] = useState(true);
 
+
+
   useEffect(() => {
     dispatch(getListHistory());
   }, [groups]);

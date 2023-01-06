@@ -40,11 +40,6 @@ function PlanningsTableItems({ data, listHistory, setList }) {
       <table className='table-auto w-full table'>
         <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50'>
           <tr>
-            {/* <th className="px-2 first:pl-5 cursor-pointer">
-              <div className="flex items-center space-x-2">
-                <div className="font-semibold text-left">ID de Planeación</div>
-              </div>
-            </th> */}
             <th
               className='px-2 first:pl-5 cursor-pointer'
               onClick={() => {
@@ -60,11 +55,6 @@ function PlanningsTableItems({ data, listHistory, setList }) {
                 />
               </div>
             </th>
-            {/* <th className="px-24 first:pl-5 last:pr-5 py-3 whitespace-nowrap cursor-pointer">
-              <div className="flex items-center space-x-2">
-                <p className="font-semibold text-left">Planeador</p>
-              </div>
-            </th> */}
             <th
               className='px-5 first:pl-5 last:pr-5 py-3 whitespace-nowrap cursor-pointer'
               onClick={() => {
