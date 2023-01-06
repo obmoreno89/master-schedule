@@ -59,12 +59,10 @@ const GroupsOptionsPanel = ({
     e.preventDefault();
 
     if (letterChosen?.length > 0) {
-
       dispatch(setGroups(letterChosen));
       dispatch(setPlanningValues({ item: "group", value: letterChosen }));
-      // navigate('/mp-pro/planning/plannings/orders/');
       setOrdersPanelOpen(true);
-
+      setGroupOptionsPanel(false);
     } else {
       setError(true);
     }
