@@ -4,7 +4,7 @@ import Status from '../partials/systemStatus/Status';
 import Layout from '../components/Layout';
 
 const SystemStatus = () => {
-  const [openStatusToast, setOpenStatusToast] = useState(true);
+  const [openStatusToast, setOpenStatusToast] = useState(false);
 
   return (
     <Layout
