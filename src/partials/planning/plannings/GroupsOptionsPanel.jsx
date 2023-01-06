@@ -47,7 +47,7 @@ const GroupsOptionsPanel = ({ setGroupOptionsPanel, groupOptionsPanel }) => {
       let letterSelected = [];
       letterSelected.push(letterChosen);
       dispatch(setGroups(letterSelected));
-      // navigate('/mp-pro/planning/plannings/orders/');
+      navigate('/mp-pro/planning/plannings/orders/');
     } else {
       setError(true);
     }
