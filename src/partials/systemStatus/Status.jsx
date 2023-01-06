@@ -92,12 +92,12 @@ function Status({ openStatusToast, setOpenStatusToast }) {
           ))}
         </div>
       </section>
-      <section className='flex justify-end mt-20'>
+      <section className='flex justify-end relative top-14'>
         <ToastStatus
           type='success'
           open={openStatusToast}
           setOpen={setOpenStatusToast}
-          className={'animate-bounce'}
+          className={'animate-bounce absolute'}
         >
           <span className='flex flex-col'>
             Sincronizando interfaz{' '}
