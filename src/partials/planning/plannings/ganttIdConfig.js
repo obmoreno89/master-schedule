@@ -147,6 +147,7 @@ export const ganttConfig = {
       width: 30,
       text: 'Suggested Pieces',
     },
+    { type: 'name', field: 'suggested_time_formatted', width: 40, text: 'Tiempo de Producción' },
     { type: 'date', field: 'startDate', width: 110, text: 'Start Date' },
     { type: 'date', field: 'endDate', width: 110, text: 'End Date' },
   ],
