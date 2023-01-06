@@ -28,7 +28,7 @@ const PlanningOrders = ({}) => {
 
   useEffect(() => {
     const data = {
-      group: groups,
+      group: groups.toString(),
     };
     dispatch(getOrders(data));
   }, [groups]);
@@ -85,7 +85,8 @@ const PlanningOrders = ({}) => {
 
               <button
                 onClick={() => {
-                  setPlanningCapabilities(true)}}
+                  setPlanningCapabilities(true);
+                }}
                 className={`w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-secondary hover:text-primary ${
                   notFound && 'cursor-not-allowed'
                 }`}
@@ -115,7 +116,7 @@ const PlanningOrders = ({}) => {
                 setOrdersPanelOpen={setOrdersPanelOpen}
                 setChooseOption={setChooseOption}
                 setPlanningCapabilities={setPlanningCapabilities}
-                orders = {orders}
+                orders={orders}
               />
             </section>
             <section>

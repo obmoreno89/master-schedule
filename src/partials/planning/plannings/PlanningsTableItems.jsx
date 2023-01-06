@@ -35,8 +35,6 @@ function PlanningsTableItems({ data, listHistory, setList }) {
     return newDate.toLocaleDateString('es-ES');
   };
 
-  console.log(data);
-
   return (
     <>
       <table className='table-auto w-full table'>
