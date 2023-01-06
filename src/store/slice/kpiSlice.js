@@ -79,7 +79,7 @@ export default kpiSlice.reducer;
 
 export const getKpiNumberOfOrders = () => (dispatch) => {
   axios
-    .get('http://44.211.175.241/api/kpis/orders-in-past-due')
+    .get('http://3.88.215.84/api/kpis/orders-in-past-due')
     .then((response) => {
       if (response.status === 200) {
         dispatch(setSkeletonNumberOrders(false));
@@ -91,7 +91,7 @@ export const getKpiNumberOfOrders = () => (dispatch) => {
 
 export const getKpiAmountOfOrders = () => (dispatch) => {
   axios
-    .get('http://44.211.175.241/api/kpis/total-amount-orders-in-past-due')
+    .get('http://3.88.215.84/api/kpis/total-amount-orders-in-past-due')
     .then((response) => {
       if (response.status === 200) {
         dispatch(setSkeletonAmountOrders(false));
@@ -103,7 +103,7 @@ export const getKpiAmountOfOrders = () => (dispatch) => {
 
 export const getOrdersProgrammed = () => (dispatch) => {
   axios
-    .get('http://44.211.175.241/api/kpis/orders-without-ship-date')
+    .get('http://3.88.215.84/api/kpis/orders-without-ship-date')
     .then((response) => {
       if (response.status === 200) {
         dispatch(setSkeletonOrdersProgrammed(false));
@@ -115,7 +115,7 @@ export const getOrdersProgrammed = () => (dispatch) => {
 
 export const getExcessInventory = () => (dispatch) => {
   axios
-    .get('http://44.211.175.241/api/kpis/excess-inventory')
+    .get('http://3.88.215.84/api/kpis/excess-inventory')
     .then((response) => {
       if (response.status === 200) {
         dispatch(setSkeletonExcessInventory(false));

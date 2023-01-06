@@ -17,7 +17,9 @@ function DemoGantt() {
   }, []);
 
   const loadData = async () => {
-    const data = await axios.get('http://44.211.175.241/api/gantt/list-order-planning?planning-id=mp-91');
+    const data = await axios.get(
+      'http://3.88.215.84/api/gantt/list-order-planning?planning-id=mp-91'
+    );
 
     const project = ganttRef.current.instance.project;
     // Feed it to the project
@@ -29,7 +31,7 @@ function DemoGantt() {
       calendarsData: data['data']['calendars']['rows'],
       dependenciesData: data['data']['tasks']['dependencies'],
     });
-    project.calendar = "general";
+    project.calendar = 'general';
     console.log(project.calendar);
     // console.log(project.inlineData);
   };

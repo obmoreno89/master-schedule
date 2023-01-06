@@ -23,7 +23,7 @@ export default systemStatusSlice.reducer;
 
 export const getStatusList = () => (dispatch) => {
   axios
-    .get('http://44.211.175.241/api/interfaces/list')
+    .get('http://3.88.215.84/api/interfaces/list')
     .then((response) => {
       if (response.status === 200) {
         dispatch(setStatusList(response.data.interfaces));
