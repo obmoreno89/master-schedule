@@ -119,7 +119,7 @@ const sortCriteria = (criteria) => {
 
 export const getOrders = (data) => (dispatch) => {
   axios
-    .post('http://3.88.215.84/api/open-orders/list', data)
+    .post('http://35.174.106.95/api/open-orders/list', data)
     .then((response) => {
       if (response.status === 200) {
         dispatch(setOrders(response.data));
@@ -130,7 +130,7 @@ export const getOrders = (data) => (dispatch) => {
 
 export const getSortOrder = () => (dispatch) => {
   axios
-    .get('http://3.88.215.84/api/planning/list-criteria')
+    .get('http://35.174.106.95/api/planning/list-criteria')
     .then((response) => {
       if (response.status === 200) {
         // dispatch(setSortOrder(response.data.criteria));
@@ -143,7 +143,7 @@ export const getSortOrder = () => (dispatch) => {
 export const getListHistory = () => (dispatch) => {
   dispatch(setLoadHistory(true));
   axios
-    .get('http://3.88.215.84/api/planning/list-history')
+    .get('http://35.174.106.95/api/planning/list-history')
     .then((response) => {
       if (response.status === 200) {
         dispatch(setListHistory(response.data.history_planning));
@@ -157,7 +157,7 @@ export const getListHistory = () => (dispatch) => {
 export const getTypeSort =
   (name, setChooseOption, setOrdersPanelOpen) => (dispatch) => {
     axios
-      .get(`http://3.88.215.84/api/planning/order-by?criteria-name=${name}`)
+      .get(`http://35.174.106.95/api/planning/order-by?criteria-name=${name}`)
       .then((response) => {
         if (response.status === 200) {
           setChooseOption(true);

@@ -150,7 +150,7 @@ export default capabilitiesSlice.reducer;
 
 export const getGroupList = () => (dispatch) => {
   axios
-    .get('http://3.88.215.84/api/capacities/list-groups')
+    .get('http://35.174.106.95/api/capacities/list-groups')
     .then((response) => {
       dispatch(setGroup(response.data));
     })
@@ -159,7 +159,7 @@ export const getGroupList = () => (dispatch) => {
 
 export const getProductLines = () => (dispatch) => {
   axios
-    .get('http://3.88.215.84/api/capacities/list-product-line')
+    .get('http://35.174.106.95/api/capacities/list-product-line')
     .then((response) => {
       dispatch(setProductLines(response.data));
     })
@@ -169,7 +169,7 @@ export const getProductLines = () => (dispatch) => {
 export const createPLines = (data, setOpenModalPL, reset) => (dispatch) => {
   dispatch(setLoading(true));
   axios
-    .post('http://3.88.215.84/api/capacities/create-product-line', data)
+    .post('http://35.174.106.95/api/capacities/create-product-line', data)
     .then((response) => {
       if (response.status === 201) {
         dispatch(setLoading(false));
@@ -187,7 +187,7 @@ export const createPLines = (data, setOpenModalPL, reset) => (dispatch) => {
 export const editPLine = (data, id, setOpenModalPLEdit) => (dispatch) => {
   dispatch(setLoading(true));
   axios
-    .put(`http://3.88.215.84/api/capacities/update-product-line/${id}`, data)
+    .put(`http://35.174.106.95/api/capacities/update-product-line/${id}`, data)
     .then((response) => {
       if (response.status === 200) {
         dispatch(setLoading(false));
@@ -206,7 +206,7 @@ export const editPLine = (data, id, setOpenModalPLEdit) => (dispatch) => {
 export const deletePLine = (id, setOpenModalPLDelete) => (dispatch) => {
   dispatch(setLoading(true));
   axios
-    .delete(`http://3.88.215.84/api/capacities/delete-product-line/${id}`)
+    .delete(`http://35.174.106.95/api/capacities/delete-product-line/${id}`)
     .then((response) => {
       if (response.status === 200) {
         dispatch(setLoading(false));
@@ -224,7 +224,7 @@ export const deletePLine = (id, setOpenModalPLDelete) => (dispatch) => {
 
 export const getCapabilitiesList = () => (dispatch) => {
   axios
-    .get('http://3.88.215.84/api/capacities/list-default-capacities')
+    .get('http://35.174.106.95/api/capacities/list-default-capacities')
     .then((response) => {
       dispatch(setCapabilitiesList(response.data));
       dispatch(setReload());
@@ -238,7 +238,7 @@ export const createCapabilities =
     const userId = sessionStorage.getItem('id');
     axios
       .post(
-        `http://3.88.215.84/api/capacities/new-register-default/${userId}/`,
+        `http://35.174.106.95/api/capacities/new-register-default/${userId}/`,
         data
       )
       .then((response) => {
@@ -262,7 +262,7 @@ export const editCapability =
     dispatch(setLoading(true));
     axios
       .put(
-        `http://3.88.215.84/api/capacities/update-default-capacity/${id}/`,
+        `http://35.174.106.95/api/capacities/update-default-capacity/${id}/`,
         data,
         {
           headers: { Authorization: `Token ${tokenUser}` },
@@ -288,7 +288,7 @@ export const deleteCapability = (id, setOpenModalCapDelete) => (dispatch) => {
   dispatch(setLoading(true));
   axios
     .delete(
-      `http://3.88.215.84/api/capacities/delete-default-capacity/${id}/`,
+      `http://35.174.106.95/api/capacities/delete-default-capacity/${id}/`,
       {
         headers: { Authorization: `Token ${tokenUser}` },
       }
@@ -309,7 +309,7 @@ export const deleteCapability = (id, setOpenModalCapDelete) => (dispatch) => {
 export const createGroup = (data, setOpenModalGroup, reset) => (dispatch) => {
   dispatch(setLoading(true));
   axios
-    .post('http://3.88.215.84/api/capacities/new-group', data)
+    .post('http://35.174.106.95/api/capacities/new-group', data)
     .then((response) => {
       if (response.status === 200) {
         dispatch(setLoading(false));
@@ -326,7 +326,7 @@ export const createGroup = (data, setOpenModalGroup, reset) => (dispatch) => {
 export const editGroup = (data, id, setOpenModalGroupEdit) => (dispatch) => {
   dispatch(setLoading(true));
   axios
-    .put(`http://3.88.215.84/api/capacities/update-group/${id}/`, data)
+    .put(`http://35.174.106.95/api/capacities/update-group/${id}/`, data)
     .then((response) => {
       if (response.status === 200) {
         dispatch(setLoading(false));
@@ -344,7 +344,7 @@ export const editGroup = (data, id, setOpenModalGroupEdit) => (dispatch) => {
 export const deleteGroup = (id, setOpenModalGroupDelete) => (dispatch) => {
   dispatch(setLoading(true));
   axios
-    .delete(`http://3.88.215.84/api/capacities/delete-group/${id}/`)
+    .delete(`http://35.174.106.95/api/capacities/delete-group/${id}/`)
     .then((response) => {
       if (response.status === 204) {
         dispatch(setLoading(false));

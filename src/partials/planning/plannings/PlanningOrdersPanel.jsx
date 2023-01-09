@@ -137,7 +137,7 @@ const PlanningOrdersPanel = ({
     const tokenUser = sessionStorage.getItem('token');
     console.log(data);
     const save = await axios
-      .post(`http://3.88.215.84/api/planning/list`, data, {
+      .post(`http://35.174.106.95/api/planning/list`, data, {
         headers: { Authorization: `Token ${tokenUser}` },
       })
       .then((response) => {

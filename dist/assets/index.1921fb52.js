@@ -455,7 +455,7 @@ var va = bt.reducer;
 const ga = (s, a) => (l) => {
     l(X(!0)),
       z
-        .post('http://3.88.215.84/api/auth/login/', s)
+        .post('http://35.174.106.95/api/auth/login/', s)
         .then((r) => {
           l(X(!1)),
             r.data.status_code === 202 &&
@@ -475,7 +475,7 @@ const ga = (s, a) => (l) => {
     const a = sessionStorage.getItem('email'),
       l = sessionStorage.getItem('token'),
       r = { email: a };
-    z.post('http://3.88.215.84/api/auth/logout/', r, {
+    z.post('http://35.174.106.95/api/auth/logout/', r, {
       headers: { Authorization: `Token ${l}` },
     }).then((n) => {
       n.data.status_code === 200 &&
@@ -485,7 +485,7 @@ const ga = (s, a) => (l) => {
   vt = (s, a) => (l) => {
     l(X(!0)),
       z
-        .post('http://3.88.215.84/api/auth/password-reset/send-code', s)
+        .post('http://35.174.106.95/api/auth/password-reset/send-code', s)
         .then((r) => {
           l(X(!1)),
             r.data.status_code === 200 &&
@@ -504,7 +504,7 @@ const ga = (s, a) => (l) => {
       email: sessionStorage.getItem('email'),
       user_code: parseInt(s.user_code),
     };
-    z.post('http://3.88.215.84/api/auth/password-reset/verify-code', r)
+    z.post('http://35.174.106.95/api/auth/password-reset/verify-code', r)
       .then((n) => {
         l(X(!1)),
           n.data.status_code === 202 &&
@@ -521,7 +521,7 @@ const ga = (s, a) => (l) => {
     l(X(!0));
     const r = sessionStorage.getItem('token'),
       n = { email: sessionStorage.getItem('email'), new_password: s.password };
-    z.post('http://3.88.215.84/api/auth/password-reset/confirmation', n, {
+    z.post('http://35.174.106.95/api/auth/password-reset/confirmation', n, {
       headers: { Authorization: `Token ${r}` },
     })
       .then((i) => {
@@ -1463,28 +1463,28 @@ const ka = {
   Ra = (s) => s.kpi.skeletonExcessInventory;
 var Ta = Nt.reducer;
 const Ha = () => (s) => {
-    z.get('http://3.88.215.84/api/kpis/orders-in-past-due')
+    z.get('http://35.174.106.95/api/kpis/orders-in-past-due')
       .then((a) => {
         a.status === 200 && (s(za(!1)), s(Sa(a.data)));
       })
       .catch((a) => console.log(a));
   },
   $a = () => (s) => {
-    z.get('http://3.88.215.84/api/kpis/total-amount-orders-in-past-due')
+    z.get('http://35.174.106.95/api/kpis/total-amount-orders-in-past-due')
       .then((a) => {
         a.status === 200 && (s(Ma(!1)), s(Ca(a.data)));
       })
       .catch((a) => console.log(a));
   },
   qa = () => (s) => {
-    z.get('http://3.88.215.84/api/kpis/orders-without-ship-date')
+    z.get('http://35.174.106.95/api/kpis/orders-without-ship-date')
       .then((a) => {
         a.status === 200 && (s(_a(!1)), s(Ea(a.data)));
       })
       .catch((a) => console.log(a));
   },
   Va = () => (s) => {
-    z.get('http://3.88.215.84/api/kpis/excess-inventory')
+    z.get('http://35.174.106.95/api/kpis/excess-inventory')
       .then((a) => {
         a.status === 200 && (s(Da(!1)), s(La(a.data)));
       })
@@ -1710,7 +1710,7 @@ function Za() {
   }, []);
   const a = async () => {
     const l = await z.get(
-        'http://3.88.215.84/api/gantt/list-order-planning?planning-id=mp-91'
+        'http://35.174.106.95/api/gantt/list-order-planning?planning-id=mp-91'
       ),
       r = s.current.instance.project;
     (r.inlineData = l),
@@ -2784,7 +2784,7 @@ const tl = { statusList: [] },
   al = (s) => s.systemStatus.statusList;
 var ll = St.reducer;
 const rl = () => (s) => {
-  z.get('http://3.88.215.84/api/interfaces/list')
+  z.get('http://35.174.106.95/api/interfaces/list')
     .then((a) => {
       a.status === 200 && s(sl(a.data.interfaces));
     })
@@ -3276,14 +3276,14 @@ const zt = {
   wl = (s) => s.planning.planningsOption;
 var yl = Dt.reducer;
 const kl = (s) => (a) => {
-    z.post('http://3.88.215.84/api/open-orders/list', s)
+    z.post('http://35.174.106.95/api/open-orders/list', s)
       .then((l) => {
         l.status === 200 && a(ol(l.data));
       })
       .catch((l) => Se(l, a, cl));
   },
   Sl = () => (s) => {
-    z.get('http://3.88.215.84/api/planning/list-criteria')
+    z.get('http://35.174.106.95/api/planning/list-criteria')
       .then((a) => {
         a.status === 200 && s(dl(a.data.criteria));
       })
@@ -3292,7 +3292,7 @@ const kl = (s) => (a) => {
   Cl = () => (s) => {
     s(Bt(!0)),
       z
-        .get('http://3.88.215.84/api/planning/list-history')
+        .get('http://35.174.106.95/api/planning/list-history')
         .then((a) => {
           a.status === 200 && s(ml(a.data.history_planning));
         })
@@ -3301,7 +3301,7 @@ const kl = (s) => (a) => {
         });
   },
   El = (s, a, l) => (r) => {
-    z.get(`http://3.88.215.84/api/planning/order-by?criteria-name=${s}`)
+    z.get(`http://35.174.106.95/api/planning/order-by?criteria-name=${s}`)
       .then((n) => {
         n.status === 200 && (a(!0), l(!1), r(ul(n.data)));
       })
@@ -3561,14 +3561,14 @@ const zl = {
   Ul = (s) => s.group.capabilitiesDelete;
 var Zl = Tt.reducer;
 const tt = () => (s) => {
-    z.get('http://3.88.215.84/api/capacities/list-groups')
+    z.get('http://35.174.106.95/api/capacities/list-groups')
       .then((a) => {
         s(Dl(a.data));
       })
       .catch((a) => console.log(a));
   },
   Wl = () => (s) => {
-    z.get('http://3.88.215.84/api/capacities/list-product-line')
+    z.get('http://35.174.106.95/api/capacities/list-product-line')
       .then((a) => {
         s(Ol(a.data));
       })
@@ -3577,7 +3577,7 @@ const tt = () => (s) => {
   Yl = (s, a, l) => (r) => {
     r(A(!0)),
       z
-        .post('http://3.88.215.84/api/capacities/create-product-line', s)
+        .post('http://35.174.106.95/api/capacities/create-product-line', s)
         .then((n) => {
           n.status === 201 && (r(A(!1)), a(!1), l(), r(de()));
         })
@@ -3588,7 +3588,7 @@ const tt = () => (s) => {
   Jl = (s, a, l) => (r) => {
     r(A(!0)),
       z
-        .put(`http://3.88.215.84/api/capacities/update-product-line/${a}`, s)
+        .put(`http://35.174.106.95/api/capacities/update-product-line/${a}`, s)
         .then((n) => {
           n.status === 200 && (r(A(!1)), l(!1), r(de()), r(me()));
         })
@@ -3599,7 +3599,7 @@ const tt = () => (s) => {
   Kl = (s, a) => (l) => {
     l(A(!0)),
       z
-        .delete(`http://3.88.215.84/api/capacities/delete-product-line/${s}`)
+        .delete(`http://35.174.106.95/api/capacities/delete-product-line/${s}`)
         .then((r) => {
           r.status === 200 && (l(A(!1)), a(!1), l(de()), l(me()));
         })
@@ -3608,7 +3608,7 @@ const tt = () => (s) => {
         });
   },
   Ql = () => (s) => {
-    z.get('http://3.88.215.84/api/capacities/list-default-capacities')
+    z.get('http://35.174.106.95/api/capacities/list-default-capacities')
       .then((a) => {
         s(Bl(a.data)), s(de());
       })
@@ -3617,7 +3617,7 @@ const tt = () => (s) => {
   Xl = (s, a, l) => (r) => {
     r(A(!0));
     const n = sessionStorage.getItem('id');
-    z.post(`http://3.88.215.84/api/capacities/new-register-default/${n}/`, s)
+    z.post(`http://35.174.106.95/api/capacities/new-register-default/${n}/`, s)
       .then((i) => {
         i.status === 201 && (r(A(!1)), a(!1), l(), r(me()));
       })
@@ -3630,7 +3630,7 @@ const tt = () => (s) => {
     n(A(!0)),
       z
         .put(
-          `http://3.88.215.84/api/capacities/update-default-capacity/${a}/`,
+          `http://35.174.106.95/api/capacities/update-default-capacity/${a}/`,
           s,
           { headers: { Authorization: `Token ${i}` } }
         )
@@ -3646,7 +3646,7 @@ const tt = () => (s) => {
     l(A(!0)),
       z
         .delete(
-          `http://3.88.215.84/api/capacities/delete-default-capacity/${s}/`,
+          `http://35.174.106.95/api/capacities/delete-default-capacity/${s}/`,
           { headers: { Authorization: `Token ${r}` } }
         )
         .then((n) => {
@@ -3659,7 +3659,7 @@ const tt = () => (s) => {
   sr = (s, a, l) => (r) => {
     r(A(!0)),
       z
-        .post('http://3.88.215.84/api/capacities/new-group', s)
+        .post('http://35.174.106.95/api/capacities/new-group', s)
         .then((n) => {
           n.status === 200 && (r(A(!1)), a(!1), l(), r(de()));
         })
@@ -3670,7 +3670,7 @@ const tt = () => (s) => {
   ar = (s, a, l) => (r) => {
     r(A(!0)),
       z
-        .put(`http://3.88.215.84/api/capacities/update-group/${a}/`, s)
+        .put(`http://35.174.106.95/api/capacities/update-group/${a}/`, s)
         .then((n) => {
           n.status === 200 && (r(A(!1)), l(!1), r(de()), r(me()));
         })
@@ -3681,7 +3681,7 @@ const tt = () => (s) => {
   lr = (s, a) => (l) => {
     l(A(!0)),
       z
-        .delete(`http://3.88.215.84/api/capacities/delete-group/${s}/`)
+        .delete(`http://35.174.106.95/api/capacities/delete-group/${s}/`)
         .then((r) => {
           r.status === 204 && (l(A(!1)), a(!1), l(de()), l(me()));
         })
@@ -6165,14 +6165,17 @@ const wr = {
   Lr = (s) => s.calendar.dateState;
 var zr = Jt.reducer;
 const Mr = () => (s) => {
-    z.get('http://3.88.215.84/api/calendar/list-all-non-working-day')
+    z.get('http://35.174.106.95/api/calendar/list-all-non-working-day')
       .then((a) => s(yr(a.data)))
       .catch((a) => console.log(a));
   },
   _r = (s, a, l) => (r) => {
     r(fe(!0));
     const n = sessionStorage.getItem('id');
-    z.post(`http://3.88.215.84/api/calendar/register-non-working-day/${n}/`, s)
+    z.post(
+      `http://35.174.106.95/api/calendar/register-non-working-day/${n}/`,
+      s
+    )
       .then((i) => {
         i.status === 201 && (r(fe(!1)), l(), r(st()), a(!1), r(xe()));
       })
@@ -6181,7 +6184,7 @@ const Mr = () => (s) => {
       });
   },
   Dr = (s, a) => (l) => {
-    z.delete(`http://3.88.215.84/api/calendar/delete-non-working-day/${s}/`)
+    z.delete(`http://35.174.106.95/api/calendar/delete-non-working-day/${s}/`)
       .then((r) => {
         r.status === 204 && (l(st()), a(!1));
       })
@@ -6190,7 +6193,7 @@ const Mr = () => (s) => {
   Or = (s, a, l) => (r) => {
     r(fe(!0));
     const n = sessionStorage.getItem('idEvent');
-    z.put(`http://3.88.215.84/api/calendar/update-non-working-day/${n}/`, s)
+    z.put(`http://35.174.106.95/api/calendar/update-non-working-day/${n}/`, s)
       .then((i) => {
         i.status === 200 && (r(st()), r(fe(!1)), a(!1)), l(!1);
       })
@@ -6334,7 +6337,7 @@ const Vr = (s, a) => (l) => {
     const r = sessionStorage.getItem('token');
     l(be(!0)),
       z
-        .post('http://3.88.215.84/api/auth/register/', s, {
+        .post('http://35.174.106.95/api/auth/register/', s, {
           headers: { Authorization: `Token ${r}` },
         })
         .then((n) => {
@@ -6347,14 +6350,14 @@ const Vr = (s, a) => (l) => {
         });
   },
   rs = () => (s) => {
-    z.get('http://3.88.215.84/api/auth/list-permissions')
+    z.get('http://35.174.106.95/api/auth/list-permissions')
       .then((a) => {
         s(Pr(a.data));
       })
       .catch((a) => console.log(a));
   },
   Gr = () => (s) => {
-    z.get('http://3.88.215.84/api/auth/list-users')
+    z.get('http://35.174.106.95/api/auth/list-users')
       .then((a) => {
         s(Ar(a.data));
       })
@@ -6363,7 +6366,7 @@ const Vr = (s, a) => (l) => {
   Ur = () => (s) => {
     const a = sessionStorage.getItem('token'),
       l = JSON.parse(sessionStorage.getItem('userDelete')).id;
-    z.delete(`http://3.88.215.84/api/auth/delete-user/${l}`, {
+    z.delete(`http://35.174.106.95/api/auth/delete-user/${l}`, {
       headers: { Authorization: `Token ${a}` },
     })
       .then(() => {
@@ -6374,7 +6377,7 @@ const Vr = (s, a) => (l) => {
   Zr = (s, a) => (l) => {
     l(be(!0));
     const r = JSON.parse(sessionStorage.getItem('userEdit')).id;
-    z.put(`http://3.88.215.84/api/auth/update-user-data/${r}`, s)
+    z.put(`http://35.174.106.95/api/auth/update-user-data/${r}`, s)
       .then(() => {
         l(be(!1)), a(!1), l(lt()), sessionStorage.removeItem('userEdit');
       })
@@ -9071,7 +9074,7 @@ function hn() {
   }, []);
   const a = async () => {
     const p = await z.get(
-        'http://3.88.215.84/api/gantt/list-order-planning?planning-id=mp-91'
+        'http://35.174.106.95/api/gantt/list-order-planning?planning-id=mp-91'
       ),
       h = s.current.instance.project;
     (h.inlineData = p),
@@ -9304,7 +9307,7 @@ function fn() {
   }, []);
   const n = async () => {
     const x = await z.get(
-        `http://3.88.215.84/api/gantt/list-order-planning?planning-id=mp-${l}`
+        `http://35.174.106.95/api/gantt/list-order-planning?planning-id=mp-${l}`
       ),
       b = r.current.instance.project;
     (b.inlineData = x),
@@ -9351,7 +9354,7 @@ function fn() {
       console.log(E), console.log(l);
       const M = { tasks: g, dependencies: E };
       await z
-        .post(`http://3.88.215.84/api/planning/save-planning/${l}`, M)
+        .post(`http://35.174.106.95/api/planning/save-planning/${l}`, M)
         .then((N) => {
           N.status === 200
             ? (a(!0),
@@ -15989,7 +15992,7 @@ const Tn = ({
           S = sessionStorage.getItem('token');
         console.log(N),
           await z
-            .post('http://3.88.215.84/api/planning/list', N, {
+            .post('http://35.174.106.95/api/planning/list', N, {
               headers: { Authorization: `Token ${S}` },
             })
             .then((L) => {
