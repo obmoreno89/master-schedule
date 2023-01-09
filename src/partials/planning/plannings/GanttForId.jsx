@@ -61,7 +61,7 @@ function DemoGantt() {
 
   const loadData = async () => {
     const data = await axios.get(
-      `http://44.211.175.241/api/gantt/list-order-planning?planning-id=mp-${id}`
+      `http://35.174.106.95/api/gantt/list-order-planning?planning-id=mp-${id}`
     );
 
     const project = ganttRef.current.instance.project;
@@ -140,7 +140,7 @@ function DemoGantt() {
       dependencies: dependencies,
     };
     const save = await axios
-      .post(`http://44.211.175.241/api/planning/save-planning/${id}`, data)
+      .post(`http://35.174.106.95/api/planning/save-planning/${id}`, data)
       .then((response) => {
         if (response.status === 200) {
           setOpenStatusToast(true);

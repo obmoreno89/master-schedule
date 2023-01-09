@@ -13,10 +13,16 @@ const initialState = {
   loadListHistory: true,
   search: [],
   planningId: [],
+  planningValues: {
+    group: null,
+    criteria: [],
+    capabilities: [],
+  },
 };
 
 export const revertAll = createAction('REVERT_ALL');
 export const revertSearch = createAction('REVERT_SEARCH');
+export const revertPlanning = createAction('REVERT_PLANNING');
 
 const planningSlice = createSlice({
   initialState,
@@ -25,6 +31,9 @@ const planningSlice = createSlice({
     builder.addCase(revertAll, () => initialState);
     builder.addCase(revertSearch, (state, action) => {
       state.search = [];
+    });
+    builder.addCase(revertPlanning, (state, action) => {
+      state.planningValues = initialState.planningValues;
     });
   },
   reducers: {
@@ -58,6 +67,9 @@ const planningSlice = createSlice({
     setPlanningId: (state, action) => {
       state.planningId = action.payload;
     },
+    setPlanningValues: (state, action) => {
+      state.planningValues[action.payload.item] = action.payload.value;
+    },
   },
 });
 
@@ -72,6 +84,7 @@ export const {
   setTypeSort,
   setPlanningOption,
   setPlanningId,
+  setPlanningValues,
 } = planningSlice.actions;
 
 export const selectOrders = (state) => state.planning.orders;
@@ -84,6 +97,7 @@ export const selectHistorySearch = (state) => state.planning.search;
 export const selectTypeSort = (state) => state.planning.typeSort;
 export const selectPlanningsOption = (state) => state.planning.planningsOption;
 export const selectPlanningId = (state) => state.planning.planningId;
+export const selectPlanning = (state) => state.planning.planningValues;
 
 export default planningSlice.reducer;
 
@@ -105,7 +119,7 @@ const sortCriteria = (criteria) => {
 
 export const getOrders = (data) => (dispatch) => {
   axios
-    .post('http://44.211.175.241/api/open-orders/list', data)
+    .post('http://35.174.106.95/api/open-orders/list', data)
     .then((response) => {
       if (response.status === 200) {
         dispatch(setOrders(response.data));
@@ -116,7 +130,7 @@ export const getOrders = (data) => (dispatch) => {
 
 export const getSortOrder = () => (dispatch) => {
   axios
-    .get('http://44.211.175.241/api/planning/list-criteria')
+    .get('http://35.174.106.95/api/planning/list-criteria')
     .then((response) => {
       if (response.status === 200) {
         // dispatch(setSortOrder(response.data.criteria));
@@ -129,7 +143,7 @@ export const getSortOrder = () => (dispatch) => {
 export const getListHistory = () => (dispatch) => {
   dispatch(setLoadHistory(true));
   axios
-    .get('http://44.211.175.241/api/planning/list-history')
+    .get('http://35.174.106.95/api/planning/list-history')
     .then((response) => {
       if (response.status === 200) {
         dispatch(setListHistory(response.data.history_planning));
@@ -143,7 +157,7 @@ export const getListHistory = () => (dispatch) => {
 export const getTypeSort =
   (name, setChooseOption, setOrdersPanelOpen) => (dispatch) => {
     axios
-      .get(`http://44.211.175.241/api/planning/order-by?criteria-name=${name}`)
+      .get(`http://35.174.106.95/api/planning/order-by?criteria-name=${name}`)
       .then((response) => {
         if (response.status === 200) {
           setChooseOption(true);

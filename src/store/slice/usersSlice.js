@@ -1,6 +1,6 @@
-import { createAction, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import { endpointsCodes } from "./functions";
+import { createAction, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { endpointsCodes } from './functions';
 
 const initialState = {
   user: null,
@@ -13,19 +13,19 @@ const initialState = {
   search: [],
 };
 
-export const revertAll = createAction("REVERT_ALL");
-export const revertSearch = createAction("REVERT_SEARCH");
+export const revertAll = createAction('REVERT_ALL');
+export const revertSearch = createAction('REVERT_SEARCH');
 
 const usersSlice = createSlice({
   initialState,
-  name: "users",
+  name: 'users',
   extraReducers: (builder) => {
     builder.addCase(revertAll, (state, action) => {
       state.user = null;
       state.userIsOk = false;
       state.userFail = null;
       state.userLoading = false;
-      state.allUser = []
+      state.allUser = [];
     });
     builder.addCase(revertSearch, (state, action) => {
       state.search = [];
@@ -82,13 +82,12 @@ export const selectUserSearch = (state) => state.users.search;
 export default usersSlice.reducer;
 
 export const registerUser = (data, setUsersCreateOpen) => (dispatch) => {
-  const token = sessionStorage.getItem("token");
+  const token = sessionStorage.getItem('token');
   dispatch(setUserLoading(true));
   axios
 
-    .post('http://44.211.175.241/api/auth/register/', data, {
+    .post('http://35.174.106.95/api/auth/register/', data, {
       headers: { Authorization: `Token ${token}` },
-
     })
     .then((response) => {
       dispatch(setUserLoading(false));
@@ -96,8 +95,8 @@ export const registerUser = (data, setUsersCreateOpen) => (dispatch) => {
         dispatch(setUser(response.data));
         dispatch(setUserFail(null));
         dispatch(setUserIsOk(true));
-        dispatch(setReload())
-        setUsersCreateOpen(false)
+        dispatch(setReload());
+        setUsersCreateOpen(false);
       }
     })
     .catch((error) => {
@@ -111,7 +110,7 @@ export const registerUser = (data, setUsersCreateOpen) => (dispatch) => {
 
 export const getRoles = () => (dispatch) => {
   axios
-    .get("http://44.211.175.241/api/auth/list-permissions")
+    .get('http://35.174.106.95/api/auth/list-permissions')
     .then((response) => {
       dispatch(setRoles(response.data));
     })
@@ -119,41 +118,43 @@ export const getRoles = () => (dispatch) => {
 };
 
 export const getAlluser = () => (dispatch) => {
-  const id = sessionStorage.getItem('id')
+  const id = sessionStorage.getItem('id');
   axios
-    .get("http://44.211.175.241/api/auth/list-users")
+    .get('http://35.174.106.95/api/auth/list-users')
     .then((response) => {
-      const noLogin = response.data.filter((el)=> el.id.toString() !== id.toString())
+      const noLogin = response.data.filter(
+        (el) => el.id.toString() !== id.toString()
+      );
       dispatch(setAllUser(noLogin));
     })
     .catch((err) => console.log(err));
 };
 
 export const deleteUser = () => (dispatch) => {
-  const token = sessionStorage.getItem("token");
-  const userId = JSON.parse(sessionStorage.getItem("userDelete")).id;
+  const token = sessionStorage.getItem('token');
+  const userId = JSON.parse(sessionStorage.getItem('userDelete')).id;
   axios
-    .delete(`http://44.211.175.241/api/auth/delete-user/${userId}`, {
+    .delete(`http://35.174.106.95/api/auth/delete-user/${userId}`, {
       headers: { Authorization: `Token ${token}` },
     })
     .then(() => {
       dispatch(setReload());
-      sessionStorage.removeItem("userDelete");
+      sessionStorage.removeItem('userDelete');
     })
     .catch((err) => console.log(err));
 };
 
 export const updateUser = (data, setUserPanelOpen) => (dispatch) => {
   dispatch(setUserLoading(true));
-  const userId = JSON.parse(sessionStorage.getItem("userEdit")).id;
+  const userId = JSON.parse(sessionStorage.getItem('userEdit')).id;
 
   axios
-    .put(`http://44.211.175.241/api/auth/update-user-data/${userId}`, data)
+    .put(`http://35.174.106.95/api/auth/update-user-data/${userId}`, data)
     .then(() => {
       dispatch(setUserLoading(false));
       setUserPanelOpen(false);
       dispatch(setReload());
-      sessionStorage.removeItem("userEdit");
+      sessionStorage.removeItem('userEdit');
     })
     .catch(() => dispatch(setUserLoading(false)));
 };

@@ -41,7 +41,7 @@ export default authSlice.reducer;
 export const sendData = (data, navigate) => (dispatch) => {
   dispatch(setLoading(true));
   axios
-    .post('http://44.211.175.241/api/auth/login/', data)
+    .post('http://35.174.106.95/api/auth/login/', data)
     .then((response) => {
       dispatch(setLoading(false));
       if (response.data.status_code === 202) {
@@ -68,7 +68,7 @@ export const logoutUser = (navigate) => () => {
     email: emailUser,
   };
   axios
-    .post('http://44.211.175.241/api/auth/logout/', email, {
+    .post('http://35.174.106.95/api/auth/logout/', email, {
       headers: { Authorization: `Token ${tokenUser}` },
     })
     .then((response) => {
@@ -82,7 +82,7 @@ export const logoutUser = (navigate) => () => {
 export const emailSend = (data, navigate) => (dispatch) => {
   dispatch(setLoading(true));
   axios
-    .post('http://44.211.175.241/api/auth/password-reset/send-code', data)
+    .post('http://35.174.106.95/api/auth/password-reset/send-code', data)
     .then((response) => {
       dispatch(setLoading(false));
       if (response.data.status_code === 200) {
@@ -108,7 +108,7 @@ export const codeSend = (data, navigate) => (dispatch) => {
   };
 
   axios
-    .post('http://44.211.175.241/api/auth/password-reset/verify-code', json)
+    .post('http://35.174.106.95/api/auth/password-reset/verify-code', json)
     .then((response) => {
       dispatch(setLoading(false));
       if (response.data.status_code === 202) {
@@ -134,7 +134,7 @@ export const confirmNewPass = (data, navigate) => (dispatch) => {
   };
 
   axios
-    .post('http://44.211.175.241/api/auth/password-reset/confirmation', json, {
+    .post('http://35.174.106.95/api/auth/password-reset/confirmation', json, {
       headers: { Authorization: `Token ${token}` },
     })
     .then((response) => {
