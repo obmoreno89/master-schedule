@@ -76,6 +76,8 @@ const PlanningOrders = () => {
 
               <button
                 onClick={() => {
+                  console.log(orders);
+                  console.log(groups);
                   setPlanningCapabilities(true);
                 }}
                 className={`w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-secondary hover:text-primary ${
@@ -95,6 +97,8 @@ const PlanningOrders = () => {
 
             <section>
               <PlanningsCapabilitiesPanel
+                orders={orders}
+                groups={groups}
                 planningCapabilities={planningCapabilities}
                 setPlanningCapabilities={setPlanningCapabilities}
                 setOrdersPanelOpen={setOrdersPanelOpen}
