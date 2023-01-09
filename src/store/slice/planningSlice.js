@@ -1,8 +1,10 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+
 import { endpointsCodes } from './functions';
 
 const initialState = {
+  ganttLoading: false,
   orders: [],
   groups: [],
   sortOrder: [],
@@ -70,6 +72,9 @@ const planningSlice = createSlice({
     setPlanningValues: (state, action) => {
       state.planningValues[action.payload.item] = action.payload.value;
     },
+    setGanttLoading: (state, action) => {
+      state.ganttLoading = action.payload;
+    },
   },
 });
 
@@ -85,6 +90,7 @@ export const {
   setPlanningOption,
   setPlanningId,
   setPlanningValues,
+  setGanttLoading,
 } = planningSlice.actions;
 
 export const selectOrders = (state) => state.planning.orders;
@@ -98,6 +104,7 @@ export const selectTypeSort = (state) => state.planning.typeSort;
 export const selectPlanningsOption = (state) => state.planning.planningsOption;
 export const selectPlanningId = (state) => state.planning.planningId;
 export const selectPlanning = (state) => state.planning.planningValues;
+export const selectGanttLoading = (state) => state.planning.ganttLoading;
 
 export default planningSlice.reducer;
 
@@ -167,3 +174,25 @@ export const getTypeSort =
       })
       .catch((err) => console.log(err));
   };
+
+export const generateGantt = (data, navigate) => (dispatch) => {
+  const token = sessionStorage.getItem('token');
+  dispatch(setGanttLoading(true));
+  axios
+    .post(`http://35.174.106.95/api/planning/list`, data, {
+      headers: { Authorization: `Token ${token}` },
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        console.log(response);
+        navigate(
+          `/mp-pro/planning/plannings/gantt/${response.data.id_planning}`
+        );
+        dispatch(setGanttLoading(false));
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch(setGanttLoading(false));
+    });
+};
