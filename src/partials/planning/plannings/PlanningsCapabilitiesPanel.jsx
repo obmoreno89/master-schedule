@@ -3,8 +3,11 @@ import Transition from "../../../utils/Transition";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setPlanningValues } from "../../../store/slice/planningSlice";
+import axios from 'axios';
 
 const PlanningsCapabilitiesPanel = ({
+  orders,
+  groups,
   planningCapabilities,
   setPlanningCapabilities,
 }) => {
@@ -36,10 +39,38 @@ const PlanningsCapabilitiesPanel = ({
     const { checked } = e.target;
   };
 
-  const goToGantt = () => {
-    //generateGantt();
-    dispatch(setPlanningValues({ item: "capabilities", value: "default" }));
-    navigate("/mp-pro/demo-gantt/");
+  const generateGantt = async () => {
+    const data = {
+      orders: orders,
+      selected_groups: groups,
+      criteria: ['A'],
+    };
+    const tokenUser = sessionStorage.getItem('token');
+    console.log(data);
+    await axios
+      .post(`http://35.174.106.95/api/planning/list`, data, {
+        headers: { Authorization: `Token ${tokenUser}` },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          console.log(response.data.id_planning);
+          sessionStorage.setItem(
+            'planningId',
+            response.data.id_planning
+          );
+          dispatch(setPlanningValues({ item: "capabilities", value: "default" }));
+          navigate(`/mp-pro/planning/plannings/gantt/${response.data.id_planning}`);
+          return response.data.id_planning
+          
+        } else {
+          console.log('Ocurrió un error: ' + response.status);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const goToGantt =  async () => {
+    await generateGantt();
   };
 
   return (
