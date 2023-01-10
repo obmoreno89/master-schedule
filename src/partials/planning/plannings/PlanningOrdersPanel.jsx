@@ -12,13 +12,12 @@ import {
   setPlanningValues,
 } from '../../../store/slice/planningSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
+
 const PlanningOrdersPanel = ({
   ordersPanelOpen,
   setOrdersPanelOpen,
   setChooseOption,
   setPlanningCapabilities,
-  orders,
 }) => {
   const useDraggableInPortal = () => {
     const self = useRef({}).current;
@@ -127,28 +126,6 @@ const PlanningOrdersPanel = ({
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   });
-
-  const generateGantt = async () => {
-    const data = {
-      orders: orders,
-      selected_groups: ['B2'],
-      criteria: ['A'],
-    };
-    const tokenUser = sessionStorage.getItem('token');
-    console.log(data);
-    const save = await axios
-      .post(`http://35.174.106.95/api/planning/list`, data, {
-        headers: { Authorization: `Token ${tokenUser}` },
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          console.log(response);
-        } else {
-          console.log('Ocurrió un error: ' + response.status);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
 
   // const goToGantt = () => {
   //   // console.log(orders);
