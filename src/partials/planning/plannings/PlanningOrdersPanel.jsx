@@ -73,7 +73,7 @@ const PlanningOrdersPanel = ({
       case 'ETO':
         return 'Prioritario';
       case 'Amount (Total Order)':
-        return 'ASC';
+        return 'DESC';
       case 'Request Date':
         return 'Más Cercana';
       case 'Schedule Ship Date':
