@@ -26,6 +26,8 @@ const PlanningOrders = () => {
   useEffect(() => {
     const data = {
       group: groups.toString(),
+      // Aqui van a ir los IDs de los criterios a aplicar.
+      criteria: [2, 3, 5]
     };
     dispatch(getOrders(data));
   }, [groups]);
