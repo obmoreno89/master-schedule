@@ -12,8 +12,8 @@ import { useSelector } from 'react-redux';
 import { selectPlanning } from '../store/slice/planningSlice';
 
 function DemoGantt() {
-  const planning = useSelector(selectPlanning);
-  console.log(planning);
+  // const planning = useSelector(selectPlanning);
+  // console.log(planning);
 
   const { id } = useParams();
 
