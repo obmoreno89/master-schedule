@@ -184,9 +184,18 @@ export const generateGantt = (data, navigate) => (dispatch) => {
     })
     .then((response) => {
       if (response.status === 200) {
+        const json = {
+          first_name: response.data.first_name,
+          last_name: response.data.last_name,
+          id_history_planning: response.data.id_history_planning,
+          created_date: response.data.created_date,
+          selected_groups: response.data.selected_groups,
+          last_update: response.data.last_update,
+        };
+        sessionStorage.setItem('planningId', JSON.stringify(json));
         console.log(response);
         navigate(
-          `/mp-pro/planning/plannings/gantt/${response.data.id_planning}`
+          `/mp-pro/planning/plannings/gantt/${response.data.id_history_planning}`
         );
         dispatch(setGanttLoading(false));
       }
