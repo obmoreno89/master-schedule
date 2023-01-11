@@ -1,8 +1,10 @@
-import { createAction, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { endpointsCodes } from './functions';
+import { createAction, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+
+import { endpointsCodes } from "./functions";
 
 const initialState = {
+  ganttLoading: false,
   orders: [],
   groups: [],
   sortOrder: [],
@@ -16,17 +18,23 @@ const initialState = {
   planningValues: {
     group: null,
     criteria: [],
-    capabilities: [],
+  },
+  allTypes: {
+    eto: null,
+    "abc code": null,
+    "amount (total order)": null,
+    "request date": null,
+    "schedule ship date": null,
   },
 };
 
-export const revertAll = createAction('REVERT_ALL');
-export const revertSearch = createAction('REVERT_SEARCH');
-export const revertPlanning = createAction('REVERT_PLANNING');
+export const revertAll = createAction("REVERT_ALL");
+export const revertSearch = createAction("REVERT_SEARCH");
+export const revertPlanning = createAction("REVERT_PLANNING");
 
 const planningSlice = createSlice({
   initialState,
-  name: 'planning',
+  name: "planning",
   extraReducers: (builder) => {
     builder.addCase(revertAll, () => initialState);
     builder.addCase(revertSearch, (state, action) => {
@@ -70,6 +78,12 @@ const planningSlice = createSlice({
     setPlanningValues: (state, action) => {
       state.planningValues[action.payload.item] = action.payload.value;
     },
+    setGanttLoading: (state, action) => {
+      state.ganttLoading = action.payload;
+    },
+    setAllTypes: (state, action) => {
+      state.allTypes[action.payload.item] = action.payload.value;
+    },
   },
 });
 
@@ -85,6 +99,8 @@ export const {
   setPlanningOption,
   setPlanningId,
   setPlanningValues,
+  setGanttLoading,
+  setAllTypes,
 } = planningSlice.actions;
 
 export const selectOrders = (state) => state.planning.orders;
@@ -98,16 +114,18 @@ export const selectTypeSort = (state) => state.planning.typeSort;
 export const selectPlanningsOption = (state) => state.planning.planningsOption;
 export const selectPlanningId = (state) => state.planning.planningId;
 export const selectPlanning = (state) => state.planning.planningValues;
+export const selectGanttLoading = (state) => state.planning.ganttLoading;
+export const selectAllTypes = (state) => state.planning.allTypes;
 
 export default planningSlice.reducer;
 
 const sortCriteria = (criteria) => {
   let sortOrder = [
-    'ETO',
-    'ABC Code',
-    'Amount (Total Order)',
-    'Request Date',
-    'Schedule Ship Date',
+    "ETO",
+    "ABC Code",
+    "Amount (Total Order)",
+    "Request Date",
+    "Schedule Ship Date",
   ];
 
   criteria.sort(function (a, b) {
@@ -119,7 +137,7 @@ const sortCriteria = (criteria) => {
 
 export const getOrders = (data) => (dispatch) => {
   axios
-    .post('http://35.174.106.95/api/open-orders/list', data)
+    .post("http://35.174.106.95/api/open-orders/list", data)
     .then((response) => {
       if (response.status === 200) {
         dispatch(setOrders(response.data));
@@ -130,10 +148,9 @@ export const getOrders = (data) => (dispatch) => {
 
 export const getSortOrder = () => (dispatch) => {
   axios
-    .get('http://35.174.106.95/api/planning/list-criteria')
+    .get("http://35.174.106.95/api/planning/list-criteria")
     .then((response) => {
       if (response.status === 200) {
-        // dispatch(setSortOrder(response.data.criteria));
         dispatch(setSortOrder(sortCriteria(response.data.criteria)));
       }
     })
@@ -143,7 +160,7 @@ export const getSortOrder = () => (dispatch) => {
 export const getListHistory = () => (dispatch) => {
   dispatch(setLoadHistory(true));
   axios
-    .get('http://35.174.106.95/api/planning/list-history')
+    .get("http://35.174.106.95/api/planning/list-history")
     .then((response) => {
       if (response.status === 200) {
         dispatch(setListHistory(response.data.history_planning));
@@ -167,3 +184,45 @@ export const getTypeSort =
       })
       .catch((err) => console.log(err));
   };
+
+export const getAllTypes = (name) => (dispatch) => {
+  axios
+    .get(`http://35.174.106.95/api/planning/order-by?criteria-name=${name}`)
+    .then((response) => {
+      if (response.status === 200) {
+        dispatch(setAllTypes({ item: name, value: response.data }));
+      }
+    })
+    .catch((err) => console.log(err));
+};
+
+export const generateGantt = (data, navigate) => (dispatch) => {
+  const token = sessionStorage.getItem("token");
+  dispatch(setGanttLoading(true));
+  axios
+    .post(`http://35.174.106.95/api/planning/list`, data, {
+      headers: { Authorization: `Token ${token}` },
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        const json = {
+          first_name: response.data.first_name,
+          last_name: response.data.last_name,
+          id_history_planning: response.data.id_history_planning,
+          created_date: response.data.created_date,
+          selected_groups: response.data.selected_groups,
+          last_update: response.data.last_update,
+        };
+        sessionStorage.setItem("planningId", JSON.stringify(json));
+        console.log(response);
+        navigate(
+          `/mp-pro/planning/plannings/gantt/${response.data.id_history_planning}`
+        );
+        dispatch(setGanttLoading(false));
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch(setGanttLoading(false));
+    });
+};

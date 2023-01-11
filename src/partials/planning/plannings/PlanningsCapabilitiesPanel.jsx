@@ -1,9 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import Transition from "../../../utils/Transition";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setPlanningValues } from "../../../store/slice/planningSlice";
-import axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
+import {
+  generateGantt,
+  selectGanttLoading,
+  selectPlanning,
+} from "../../../store/slice/planningSlice";
+import ButtonLoading from "../../../helpers/ButtonLoading";
 
 const PlanningsCapabilitiesPanel = ({
   orders,
@@ -15,6 +19,9 @@ const PlanningsCapabilitiesPanel = ({
   const panelContent = useRef(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const loading = useSelector(selectGanttLoading);
+  // const planning = useSelector(selectPlanning);
+  // console.log(planning);
 
   const [byDefault, setByDefault] = useState({
     state: true,
@@ -39,38 +46,13 @@ const PlanningsCapabilitiesPanel = ({
     const { checked } = e.target;
   };
 
-  const generateGantt = async () => {
+  const goOrdersPlanningGantt = () => {
     const data = {
       orders: orders,
       selected_groups: groups,
-      criteria: ['A'],
+      criteria: ["A"],
     };
-    const tokenUser = sessionStorage.getItem('token');
-    console.log(data);
-    await axios
-      .post(`http://35.174.106.95/api/planning/list`, data, {
-        headers: { Authorization: `Token ${tokenUser}` },
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          console.log(response.data.id_planning);
-          sessionStorage.setItem(
-            'planningId',
-            response.data.id_planning
-          );
-          dispatch(setPlanningValues({ item: "capabilities", value: "default" }));
-          navigate(`/mp-pro/planning/plannings/gantt/${response.data.id_planning}`);
-          return response.data.id_planning
-          
-        } else {
-          console.log('Ocurrió un error: ' + response.status);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const goToGantt =  async () => {
-    await generateGantt();
+    dispatch(generateGantt(data, navigate));
   };
 
   return (
@@ -153,16 +135,23 @@ const PlanningsCapabilitiesPanel = ({
               </label>
             </div>
             <div className="flex justify-center">
-              <button
-                onClick={() => {
-                  //setPlanningCapabilities(false);
-                  //setOrdersPanelOpen(true);
-                  goToGantt();
-                }}
-                className="w-80 h-12 bg-primary rounded text-white text-base flex justify-center items-center hover:bg-secondary hover:text-primary"
-              >
-                Ir a la planeación de órdenes
-              </button>
+              {!loading ? (
+                <button
+                  onClick={() => {
+                    //setPlanningCapabilities(false);
+                    //setOrdersPanelOpen(true);
+                    goOrdersPlanningGantt();
+                  }}
+                  className="w-80 h-12 bg-primary rounded text-white text-base flex justify-center items-center hover:bg-secondary hover:text-primary"
+                >
+                  Ir a la planeación de órdenes
+                </button>
+              ) : (
+                <ButtonLoading
+                  loading="Cargando, puede demorar unos segundos"
+                  gantt={true}
+                />
+              )}
             </div>
           </section>
         </div>
