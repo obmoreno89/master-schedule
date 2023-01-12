@@ -1,10 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import Transition from "../../../utils/Transition";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setPlanningValues } from "../../../store/slice/planningSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  generateGantt,
+  selectGanttLoading,
+  selectPlanning,
+} from "../../../store/slice/planningSlice";
+import ButtonLoading from "../../../helpers/ButtonLoading";
 
 const PlanningsCapabilitiesPanel = ({
+  orders,
+  groups,
   planningCapabilities,
   setPlanningCapabilities,
 }) => {
@@ -12,6 +19,9 @@ const PlanningsCapabilitiesPanel = ({
   const panelContent = useRef(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const loading = useSelector(selectGanttLoading);
+  // const planning = useSelector(selectPlanning);
+  // console.log(planning);
 
   const [byDefault, setByDefault] = useState({
     state: true,
@@ -36,10 +46,13 @@ const PlanningsCapabilitiesPanel = ({
     const { checked } = e.target;
   };
 
-  const goToGantt = () => {
-    //generateGantt();
-    dispatch(setPlanningValues({ item: "capabilities", value: "default" }));
-    navigate("/mp-pro/demo-gantt/");
+  const goOrdersPlanningGantt = () => {
+    const data = {
+      orders: orders,
+      selected_groups: groups,
+      criteria: ["A"],
+    };
+    dispatch(generateGantt(data, navigate));
   };
 
   return (
@@ -122,16 +135,23 @@ const PlanningsCapabilitiesPanel = ({
               </label>
             </div>
             <div className="flex justify-center">
-              <button
-                onClick={() => {
-                  //setPlanningCapabilities(false);
-                  //setOrdersPanelOpen(true);
-                  goToGantt();
-                }}
-                className="w-80 h-12 bg-primary rounded text-white text-base flex justify-center items-center hover:bg-secondary hover:text-primary"
-              >
-                Ir a la planeación de órdenes
-              </button>
+              {!loading ? (
+                <button
+                  onClick={() => {
+                    //setPlanningCapabilities(false);
+                    //setOrdersPanelOpen(true);
+                    goOrdersPlanningGantt();
+                  }}
+                  className="w-80 h-12 bg-primary rounded text-white text-base flex justify-center items-center hover:bg-secondary hover:text-primary"
+                >
+                  Ir a la planeación de órdenes
+                </button>
+              ) : (
+                <ButtonLoading
+                  loading="Cargando, puede demorar unos segundos"
+                  gantt={true}
+                />
+              )}
             </div>
           </section>
         </div>

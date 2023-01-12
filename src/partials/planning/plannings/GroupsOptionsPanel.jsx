@@ -7,7 +7,9 @@ import {
   selectGroup,
 } from "../../../store/slice/capabilitiesSlice";
 import {
+  getAllTypes,
   revertAll,
+  selectAllTypes,
   setGroups,
   setPlanningValues,
 } from "../../../store/slice/planningSlice";
@@ -35,6 +37,8 @@ const GroupsOptionsPanel = ({
    */
   const [letters, setLetters] = useState([]);
   const [letterChosen, setLetterChosen] = useState();
+
+
 
   useEffect(() => {
     dispatch(getGroupList());
@@ -82,6 +86,17 @@ const GroupsOptionsPanel = ({
     document.addEventListener("keydown", keyHandler);
     return () => document.removeEventListener("keydown", keyHandler);
   });
+
+  useEffect(() => {
+    dispatch(getAllTypes("eto"));
+    dispatch(getAllTypes("abc code"));
+    dispatch(getAllTypes("amount (total order)"));
+    dispatch(getAllTypes("request date"));
+    dispatch(getAllTypes("schedule ship date"));
+  }, []);
+
+ 
+
 
   return (
     <>

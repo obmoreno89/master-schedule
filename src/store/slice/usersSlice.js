@@ -86,7 +86,7 @@ export const registerUser = (data, setUsersCreateOpen) => (dispatch) => {
   dispatch(setUserLoading(true));
   axios
 
-    .post('http://3.88.215.84/api/auth/register/', data, {
+    .post('http://35.174.106.95/api/auth/register/', data, {
       headers: { Authorization: `Token ${token}` },
     })
     .then((response) => {
@@ -110,7 +110,7 @@ export const registerUser = (data, setUsersCreateOpen) => (dispatch) => {
 
 export const getRoles = () => (dispatch) => {
   axios
-    .get('http://3.88.215.84/api/auth/list-permissions')
+    .get('http://35.174.106.95/api/auth/list-permissions')
     .then((response) => {
       dispatch(setRoles(response.data));
     })
@@ -120,7 +120,7 @@ export const getRoles = () => (dispatch) => {
 export const getAlluser = () => (dispatch) => {
   const id = sessionStorage.getItem('id');
   axios
-    .get('http://3.88.215.84/api/auth/list-users')
+    .get('http://35.174.106.95/api/auth/list-users')
     .then((response) => {
       const noLogin = response.data.filter(
         (el) => el.id.toString() !== id.toString()
@@ -134,7 +134,7 @@ export const deleteUser = () => (dispatch) => {
   const token = sessionStorage.getItem('token');
   const userId = JSON.parse(sessionStorage.getItem('userDelete')).id;
   axios
-    .delete(`http://3.88.215.84/api/auth/delete-user/${userId}`, {
+    .delete(`http://35.174.106.95/api/auth/delete-user/${userId}`, {
       headers: { Authorization: `Token ${token}` },
     })
     .then(() => {
@@ -149,7 +149,7 @@ export const updateUser = (data, setUserPanelOpen) => (dispatch) => {
   const userId = JSON.parse(sessionStorage.getItem('userEdit')).id;
 
   axios
-    .put(`http://3.88.215.84/api/auth/update-user-data/${userId}`, data)
+    .put(`http://35.174.106.95/api/auth/update-user-data/${userId}`, data)
     .then(() => {
       dispatch(setUserLoading(false));
       setUserPanelOpen(false);

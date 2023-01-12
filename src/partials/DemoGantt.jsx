@@ -12,8 +12,8 @@ import { useSelector } from 'react-redux';
 import { selectPlanning } from '../store/slice/planningSlice';
 
 function DemoGantt() {
-  const planning = useSelector(selectPlanning);
-  console.log(planning);
+  // const planning = useSelector(selectPlanning);
+  // console.log(planning);
 
   const { id } = useParams();
 
@@ -27,7 +27,7 @@ function DemoGantt() {
 
   const loadData = async () => {
     const data = await axios.get(
-      `http://3.88.215.84/api/gantt/list-order-planning?planning-id=mp-91`
+      `http://35.174.106.95/api/gantt/list-order-planning?planning-id=mp-91`
     );
 
     const project = ganttRef.current.instance.project;
