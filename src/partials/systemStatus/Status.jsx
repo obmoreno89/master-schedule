@@ -11,6 +11,8 @@ import {
 function Status({ openStatusToast, setOpenStatusToast }) {
   const dispatch = useDispatch();
   const statusList = useSelector(selectStatusList);
+  const syncUrl = useSelector(selectSyncUrl);
+  const [syncChosen, setSyncChosen] = useState();
 
   useEffect(() => {
     dispatch(getStatusList());
@@ -36,6 +38,18 @@ function Status({ openStatusToast, setOpenStatusToast }) {
       hour: '2-digit',
       minute: '2-digit',
     });
+  };
+
+  const handleClick = (status) => {
+    setSyncChosen(status.name);
+    dispatch(sendUrl(status.url_to_activate));
+    setOpenStatusToast(true);
+    setTimeout(
+      () => {
+        setOpenStatusToast(false);
+      },
+      syncUrl.isError ? 6000 : 5000
+    );
   };
 
   return (
@@ -66,7 +80,7 @@ function Status({ openStatusToast, setOpenStatusToast }) {
                 </p>
                 <button
                   onClick={() => {
-                    console.log(status);
+                    console.log(status.url_to_activate);
                     setOpenStatusToast(true);
                     setTimeout(() => {
                       setOpenStatusToast(false);
