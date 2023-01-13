@@ -66,7 +66,7 @@ function Status({ openStatusToast, setOpenStatusToast }) {
                 </p>
                 <button
                   onClick={() => {
-                    console.log(status.url_to_activate);
+                    console.log(status);
                     setOpenStatusToast(true);
                     setTimeout(() => {
                       setOpenStatusToast(false);
