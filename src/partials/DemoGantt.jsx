@@ -8,8 +8,13 @@ import { ganttConfig } from './AppConfig';
 import '@bryntum/gantt/gantt.material.css';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectPlanning } from '../store/slice/planningSlice';
 
 function DemoGantt() {
+  // const planning = useSelector(selectPlanning);
+  // console.log(planning);
+
   const { id } = useParams();
 
   const ganttRef = useRef();
@@ -22,7 +27,7 @@ function DemoGantt() {
 
   const loadData = async () => {
     const data = await axios.get(
-      `http://44.211.175.241/api/gantt/list-order-planning?planning-id=mp-91`
+      `http://35.174.106.95/api/gantt/list-order-planning?planning-id=mp-91`
     );
 
     const project = ganttRef.current.instance.project;

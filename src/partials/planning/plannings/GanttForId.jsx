@@ -9,18 +9,16 @@ import '@bryntum/gantt/gantt.material.css';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import ToastStatus from '../../../components/ToastStatus';
-import { useSelector } from 'react-redux';
-import { selectPlanningId } from '../../../store/slice/planningSlice';
 
 function DemoGantt() {
   const [openStatusToast, setOpenStatusToast] = useState(false);
   const { id } = useParams();
 
-  const planningIdData = useSelector(selectPlanningId);
-
   const first_name_id = JSON.parse(
     sessionStorage.getItem('planningId')
   )?.first_name;
+
+  console.log(first_name_id);
 
   const last_name_id = JSON.parse(
     sessionStorage.getItem('planningId')
@@ -33,6 +31,14 @@ function DemoGantt() {
   const selected_groups = JSON.parse(
     sessionStorage.getItem('planningId')
   )?.selected_groups;
+
+  const last_update = JSON.parse(
+    sessionStorage.getItem('planningId')
+  )?.last_update;
+
+  const historyId = JSON.parse(
+    sessionStorage.getItem('planningId')
+  )?.id_history_planning;
 
   const formatDate = (date) => {
     const newDate = new Date(date);
@@ -47,8 +53,6 @@ function DemoGantt() {
     });
   };
 
-  console.log(planningIdData);
-
   const ganttRef = useRef();
   useEffect(() => {
     // the instance is available as
@@ -59,7 +63,7 @@ function DemoGantt() {
 
   const loadData = async () => {
     const data = await axios.get(
-      `http://44.211.175.241/api/gantt/list-order-planning?planning-id=mp-${id}`
+      `http://35.174.106.95/api/gantt/list-order-planning?planning-id=mp-${id}`
     );
 
     const project = ganttRef.current.instance.project;
@@ -138,7 +142,7 @@ function DemoGantt() {
       dependencies: dependencies,
     };
     const save = await axios
-      .post(`http://44.211.175.241/api/planning/save-planning/${id}`, data)
+      .post(`http://35.174.106.95/api/planning/save-planning/${id}`, data)
       .then((response) => {
         if (response.status === 200) {
           setOpenStatusToast(true);
@@ -226,12 +230,10 @@ function DemoGantt() {
         />
         <article className='absolute -translate-y-[65px]'>
           <p className='font-semibold'>
-            ID de planeación:<span className='text-primary'> {id}</span> |{' '}
+            ID de planeación:
+            <span className='text-primary'> {id || historyId}</span> |{' '}
             <span>Grupo:</span>{' '}
             <span className='text-primary'>{selected_groups}</span>
-            <span className='text-primary'>
-              {planningIdData.selected_groups}
-            </span>
           </p>
           <p className='text-sm'>
             Creado por:{' '}
@@ -240,10 +242,20 @@ function DemoGantt() {
               {formatHour(created_date)}
             </span>
           </p>
-          <p className='text-sm'>Actualizado por:</p>
+          <p
+            className={`text-sm ${
+              last_update === null || last_update ? 'hidden' : ''
+            }`}
+          >
+            Actualizado por:
+          </p>
         </article>
 
-        <div className='border-borderInput border rounded mt-3'>
+        <div
+          className={`border-borderInput border rounded ${
+            last_update === null || last_update ? '' : 'mt-3'
+          } `}
+        >
           <BryntumGantt
             onDependencyValidationStart={(dependency) => {
               console.log(dependency);

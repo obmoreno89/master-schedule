@@ -9,16 +9,16 @@ import {
   selectSortOrder,
   getTypeSort,
   selectPlanningsOption,
-  selectTypeSort,
+  setPlanningValues,
+  selectAllTypes,
 } from "../../../store/slice/planningSlice";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
+
 const PlanningOrdersPanel = ({
   ordersPanelOpen,
   setOrdersPanelOpen,
   setChooseOption,
   setPlanningCapabilities,
-  orders,
 }) => {
   const useDraggableInPortal = () => {
     const self = useRef({}).current;
@@ -55,20 +55,10 @@ const PlanningOrdersPanel = ({
   const dispatch = useDispatch();
   const sortOrder = useSelector(selectSortOrder);
   const optionSort = useSelector(selectPlanningsOption);
-  //const typeSort = useSelector(selectTypeSort);
+  const allTypes = useSelector(selectAllTypes);
   const [criterios, setCriterios] = useState(useSelector(selectSortOrder));
-  const [planningID, setPlanningID] = useState(null);
+  const [idsCriteria, setIdsCriteria] = useState([]);
   const [notCompleteCriteria, setNotCompleteCriteria] = useState();
-
-  // const sort = () => {
-  //   if (optionSort.name === "ABC Code") {
-  //     return <span>{optionSort.form_apply}</span>;
-  //   } else if (optionSort.name === "Amount (Total Order)") {
-  //     return <span>hola</span>;
-  //   } else {
-  //     return <span>HOLA</span>;
-  //   }
-  // };
 
   useEffect(() => {
     dispatch(getSortOrder());
@@ -77,7 +67,6 @@ const PlanningOrdersPanel = ({
   /**
    * seleccionar criterio
    */
-
   const criteriaByDefault = (value) => {
     switch (value) {
       case "ABC Code":
@@ -85,7 +74,7 @@ const PlanningOrdersPanel = ({
       case "ETO":
         return "Prioritario";
       case "Amount (Total Order)":
-        return "ASC";
+        return "DESC";
       case "Request Date":
         return "Más Cercana";
       case "Schedule Ship Date":
@@ -99,9 +88,20 @@ const PlanningOrdersPanel = ({
     const allCriteria = sortOrder.map((el) => ({
       ...el,
       state: criteriaByDefault(el.name),
+
+      idState: allTypes[el.name.toLowerCase()]?.filter(
+        (el) => el.form_apply == criteriaByDefault(el.name)
+      )[0].id,
     }));
     setCriterios(allCriteria);
-  }, [sortOrder]);
+  }, [sortOrder, optionSort, allTypes]);
+
+  useEffect(() => {
+    let ids = [];
+    criterios.forEach((d) => ids.push(d.idState));
+
+    setIdsCriteria(ids);
+  }, [criterios]);
 
   useEffect(() => {
     const crit = sortOrder.filter((el) => el.name === optionSort.name);
@@ -113,6 +113,7 @@ const PlanningOrdersPanel = ({
       name: critChanged[0]?.name,
       id: critChanged[0]?.id,
       state: optionSort?.form_apply,
+      idState: optionSort?.id,
     };
 
     const arrayCopy = [...criterios];
@@ -130,21 +131,6 @@ const PlanningOrdersPanel = ({
     }
   }, [criterios]);
 
-  // close on click outside
-  // useEffect(() => {
-  //   const clickHandler = ({ target }) => {
-  //     if (
-  //       !groupPanelOpen ||
-  //       panelContent.current.contains(target) ||
-  //       closeBtn.current.contains(target)
-  //     )
-  //       return;
-  //     setGroupPanelOpen(false);
-  //   };
-  //   document.addEventListener('click', clickHandler);
-  //   return () => document.removeEventListener('click', clickHandler);
-  // });
-
   // close if the esc key is pressed
   useEffect(() => {
     const keyHandler = ({ keyCode }) => {
@@ -155,39 +141,11 @@ const PlanningOrdersPanel = ({
     return () => document.removeEventListener("keydown", keyHandler);
   });
 
-  // const [criterion, setCriterion] = useState();
-
-  // useEffect(() => {
-  //   setCriterion(sortOrder);
-  // }, [sortOrder]);
-
-  const generateGantt = async () => {
-    const data = {
-      orders: orders,
-      selected_groups: ["B2"],
-      criteria: ["A"],
-    };
-    const tokenUser = sessionStorage.getItem("token");
-    console.log(data);
-    const save = await axios
-      .post(`http://44.211.175.241/api/planning/list`, data, {
-        headers: { Authorization: `Token ${tokenUser}` },
-      })
-      .then((response) => {
-        if (response.status === 200) {
-          console.log(response);
-        } else {
-          console.log("Ocurrió un error: " + response.status);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const goToGantt = () => {
-    // console.log(orders);
-    generateGantt();
-    navigate("/mp-pro/demo-gantt/");
-  };
+  // const goToGantt = () => {
+  //   // console.log(orders);
+  //   generateGantt();
+  //   navigate("/mp-pro/demo-gantt/");
+  // };
 
   const reorder = (list, startIndex, endIndex) => {
     const result = [...list];
@@ -276,9 +234,6 @@ const PlanningOrdersPanel = ({
               ) {
                 return;
               }
-              // setCriterion((prevCriterion) =>
-              //   reorder(prevCriterion, source.index, destination.index)
-              // );
               setCriterios((prevCriterios) =>
                 reorder(prevCriterios, source.index, destination.index)
               );
@@ -355,7 +310,15 @@ const PlanningOrdersPanel = ({
                 </Droppable>
                 <button
                   onClick={() => {
-                    goToGantt();
+                    // goToGantt();
+                    dispatch(
+                      // setPlanningValues({ item: "criteria", value: criterios })
+                      setPlanningValues({
+                        item: "criteria",
+                        value: idsCriteria,
+                      })
+                    );
+                    navigate("/mp-pro/planning/plannings/orders/");
                   }}
                   className={`h-12 rounded w-full text-base font-semibold 2xl:mt-6 ${
                     notCompleteCriteria
@@ -364,7 +327,7 @@ const PlanningOrdersPanel = ({
                   }`}
                   disabled={notCompleteCriteria ? true : false}
                 >
-                  Ir a la planeación de órdenes
+                  Siguiente
                 </button>
               </section>
             </div>
@@ -376,40 +339,3 @@ const PlanningOrdersPanel = ({
 };
 
 export default PlanningOrdersPanel;
-
-// function List(props) {
-//   const items = props.items;
-
-//   return (
-//     <Droppable
-//       droppableId='droppable'
-//       renderClone={(provided, snapshot, rubric) => (
-//         <div
-//           {...provided.draggableProps}
-//           {...provided.dragHandleProps}
-//           ref={provided.innerRef}
-//         >
-//           Item id: {items[rubric.source.index].id}
-//         </div>
-//       )}
-//     >
-//       {(provided) => (
-//         <div ref={provided.innerRef} {...provided.droppableProps}>
-//           {items.map((item) => (
-//             <Draggable draggableId={item.id} index={item.index}>
-//               {(provided, snapshot) => (
-//                 <div
-//                   {...provided.draggableProps}
-//                   {...provided.dragHandleProps}
-//                   ref={provided.innerRef}
-//                 >
-//                   Item id: {item.id}
-//                 </div>
-//               )}
-//             </Draggable>
-//           ))}
-//         </div>
-//       )}
-//     </Droppable>
-//   );
-// }

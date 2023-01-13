@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Transition from "../../../utils/Transition";
 import icons from "../../../images/icon/icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,15 +6,39 @@ import {
   getGroupList,
   selectGroup,
 } from "../../../store/slice/capabilitiesSlice";
-import { revertAll, setGroups } from "../../../store/slice/planningSlice";
+import {
+  getAllTypes,
+  revertAll,
+  selectAllTypes,
+  setGroups,
+  setPlanningValues,
+} from "../../../store/slice/planningSlice";
 
-const GroupsOptionsPanel = ({ setGroupOptionsPanel, groupOptionsPanel }) => {
+const GroupsOptionsPanel = ({
+  setGroupOptionsPanel,
+  groupOptionsPanel,
+  setOrdersPanelOpen,
+}) => {
+  /**
+   * generales
+   */
   const dispatch = useDispatch();
   const groups = useSelector(selectGroup);
-  const navigate = useNavigate();
+  const [error, setError] = useState(false);
 
+  /**
+   * generales del sider
+   */
   const closeBtn = useRef(null);
   const panelContent = useRef(null);
+
+  /**
+   * grupos para radio input
+   */
+  const [letters, setLetters] = useState([]);
+  const [letterChosen, setLetterChosen] = useState();
+
+
 
   useEffect(() => {
     dispatch(getGroupList());
@@ -25,10 +48,6 @@ const GroupsOptionsPanel = ({ setGroupOptionsPanel, groupOptionsPanel }) => {
   useEffect(() => {
     setLetters(groups);
   }, [groups]);
-
-  const [letters, setLetters] = useState([]);
-  const [error, setError] = useState(false);
-  const [letterChosen, setLetterChosen] = useState();
 
   useEffect(() => {
     setLetters(groups);
@@ -44,10 +63,10 @@ const GroupsOptionsPanel = ({ setGroupOptionsPanel, groupOptionsPanel }) => {
     e.preventDefault();
 
     if (letterChosen?.length > 0) {
-      let letterSelected = [];
-      letterSelected.push(letterChosen);
-      dispatch(setGroups(letterSelected));
-      navigate("/mp-pro/planning/plannings/orders/");
+      dispatch(setGroups(letterChosen));
+      dispatch(setPlanningValues({ item: "group", value: letterChosen }));
+      setOrdersPanelOpen(true);
+      setGroupOptionsPanel(false);
     } else {
       setError(true);
     }
@@ -58,21 +77,6 @@ const GroupsOptionsPanel = ({ setGroupOptionsPanel, groupOptionsPanel }) => {
     setLetterChosen(value);
   };
 
-  // close on click outside
-  // useEffect(() => {
-  //   const clickHandler = ({ target }) => {
-  //     if (
-  //       !groupOptionsPanel ||
-  //       panelContent.current.contains(target) ||
-  //       closeBtn.current.contains(target)
-  //     )
-  //       return;
-  //     setGroupOptionsPanel(false);
-  //   };
-  //   document.addEventListener('click', clickHandler);
-  //   return () => document.removeEventListener('click', clickHandler);
-  // });
-
   // close if the esc key is pressed
   useEffect(() => {
     const keyHandler = ({ keyCode }) => {
@@ -82,6 +86,17 @@ const GroupsOptionsPanel = ({ setGroupOptionsPanel, groupOptionsPanel }) => {
     document.addEventListener("keydown", keyHandler);
     return () => document.removeEventListener("keydown", keyHandler);
   });
+
+  useEffect(() => {
+    dispatch(getAllTypes("eto"));
+    dispatch(getAllTypes("abc code"));
+    dispatch(getAllTypes("amount (total order)"));
+    dispatch(getAllTypes("request date"));
+    dispatch(getAllTypes("schedule ship date"));
+  }, []);
+
+ 
+
 
   return (
     <>
@@ -117,7 +132,7 @@ const GroupsOptionsPanel = ({ setGroupOptionsPanel, groupOptionsPanel }) => {
         >
           <section className="mb-10 flex items-center justify-between">
             <h2 className="mt-4 ml-5 w-full font-bold text-black text-2xl">
-              Selecciona los grupos a planear
+              Selecciona el grupo a planear
             </h2>
 
             <button

@@ -1,28 +1,36 @@
 import { useEffect, useRef, useState } from "react";
 import Transition from "../../../utils/Transition";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  generateGantt,
+  selectGanttLoading,
+  selectPlanning,
+} from "../../../store/slice/planningSlice";
+import ButtonLoading from "../../../helpers/ButtonLoading";
 
 const PlanningsCapabilitiesPanel = ({
+  orders,
+  groups,
   planningCapabilities,
   setPlanningCapabilities,
-  setOrdersPanelOpen,
 }) => {
   const closeBtn = useRef(null);
   const panelContent = useRef(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const loading = useSelector(selectGanttLoading);
+  // const planning = useSelector(selectPlanning);
+  // console.log(planning);
 
-  // close on click outside
-  // useEffect(() => {
-  //   const clickHandler = ({ target }) => {
-  //     if (
-  //       !groupPanelOpen ||
-  //       panelContent.current.contains(target) ||
-  //       closeBtn.current.contains(target)
-  //     )
-  //       return;
-  //     setGroupPanelOpen(false);
-  //   };
-  //   document.addEventListener('click', clickHandler);
-  //   return () => document.removeEventListener('click', clickHandler);
-  // });
+  const [byDefault, setByDefault] = useState({
+    state: true,
+    value: "Capacidad base (Por defecto)",
+  });
+  const [advanced, setAdvanced] = useState({
+    state: false,
+    value: "Capacidad Personalizada (Avanzado)",
+  });
 
   // close if the esc key is pressed
   useEffect(() => {
@@ -33,6 +41,19 @@ const PlanningsCapabilitiesPanel = ({
     document.addEventListener("keydown", keyHandler);
     return () => document.removeEventListener("keydown", keyHandler);
   });
+
+  const handleCheckbox = (e) => {
+    const { checked } = e.target;
+  };
+
+  const goOrdersPlanningGantt = () => {
+    const data = {
+      orders: orders,
+      selected_groups: groups,
+      criteria: ["A"],
+    };
+    dispatch(generateGantt(data, navigate));
+  };
 
   return (
     <>
@@ -88,10 +109,11 @@ const PlanningsCapabilitiesPanel = ({
             <div className="mt-5 border border-borderInput h-14 items-center flex px-3 rounded">
               <label className="flex items-center">
                 <input
-                  checked
                   type="checkbox"
                   className="form-checkbox"
-                  name="allSelect"
+                  name="byDefault"
+                  defaultChecked={byDefault.state}
+                  onChange={handleCheckbox}
                 />
                 <span className="text-base font-semibold ml-2 text-black">
                   Capacidad base (Por defecto)
@@ -103,7 +125,9 @@ const PlanningsCapabilitiesPanel = ({
                 <input
                   type="checkbox"
                   className="form-checkbox"
-                  name="allSelect"
+                  name="advanced"
+                  defaultChecked={advanced.state}
+                  onChange={handleCheckbox}
                 />
                 <span className="text-base font-semibold ml-2 text-black">
                   Capacidad Personalizada (Avanzado)
@@ -111,15 +135,23 @@ const PlanningsCapabilitiesPanel = ({
               </label>
             </div>
             <div className="flex justify-center">
-              <button
-                onClick={() => {
-                  setPlanningCapabilities(false);
-                  setOrdersPanelOpen(true);
-                }}
-                className="w-80 h-12 bg-primary rounded text-white text-base flex justify-center items-center hover:bg-secondary hover:text-primary"
-              >
-                Siguiente
-              </button>
+              {!loading ? (
+                <button
+                  onClick={() => {
+                    //setPlanningCapabilities(false);
+                    //setOrdersPanelOpen(true);
+                    goOrdersPlanningGantt();
+                  }}
+                  className="w-80 h-12 bg-primary rounded text-white text-base flex justify-center items-center hover:bg-secondary hover:text-primary"
+                >
+                  Ir a la planeación de órdenes
+                </button>
+              ) : (
+                <ButtonLoading
+                  loading="Cargando, puede demorar unos segundos"
+                  gantt={true}
+                />
+              )}
             </div>
           </section>
         </div>

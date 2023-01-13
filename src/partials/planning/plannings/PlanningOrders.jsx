@@ -1,10 +1,8 @@
 import Layout from '../../../components/Layout';
 import icons from '../../../images/icon/icons';
-import PlanningOrdersPanel from './PlanningOrdersPanel';
 import { useState } from 'react';
 import PlanningOrdersTable from './PlanningOrdersTable';
 import PlanningsCapabilitiesPanel from './PlanningsCapabilitiesPanel';
-import OptionsPanel from './OptionsPanel';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,24 +11,34 @@ import {
   selectGroups,
   selectNotFound,
   selectOrders,
+  selectPlanning,
 } from '../../../store/slice/planningSlice';
 import Loading from '../../../pages/component/Loading';
 
-const PlanningOrders = ({}) => {
-  const dispatch = useDispatch();
+const PlanningOrders = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [ordersPanelOpen, setOrdersPanelOpen] = useState(false);
   const [planningCapabilities, setPlanningCapabilities] = useState(false);
-  const [chooseOption, setChooseOption] = useState(false);
   const orders = useSelector(selectOrders);
   const groups = useSelector(selectGroups);
   const notFound = useSelector(selectNotFound);
+  const planning = useSelector(selectPlanning);
 
   useEffect(() => {
-    const data = {
-      group: groups,
+    const json = {
+      group: planning?.group,
+      criteria: [
+        planning?.criteria[0],
+        planning?.criteria[2],
+        planning?.criteria[3],
+        planning?.criteria[4],
+      ],
     };
-    dispatch(getOrders(data));
+    //dispatch(getOrders(planning));
+    console.log(planning);
+    console.log(json);
+    dispatch(getOrders(json));
   }, [groups]);
 
   useEffect(() => {
@@ -68,11 +76,6 @@ const PlanningOrders = ({}) => {
             ) : orders?.length > 0 ? (
               <PlanningOrdersTable orders={orders} />
             ) : (
-              // <div className="flex justify-center py-5">
-              // <section className='justify-center items-center flex orders-table'>
-              //   <div className='loader'></div>
-              //   <span className='ml-3 text-primary font-semibold'>Cargando</span>
-              // </section>
               <Loading />
             )}
 
@@ -85,11 +88,12 @@ const PlanningOrders = ({}) => {
 
               <button
                 onClick={() => {
-                  setPlanningCapabilities(true)}}
+                  setPlanningCapabilities(true);
+                }}
                 className={`w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-secondary hover:text-primary ${
-                  notFound && 'cursor-not-allowed'
+                  (notFound || orders?.length === 0) && 'cursor-not-allowed'
                 }`}
-                disabled={notFound ? true : false}
+                disabled={notFound || orders?.length === 0 ? true : false}
               >
                 <span className='my-auto'>Continuar</span>
 
@@ -103,25 +107,10 @@ const PlanningOrders = ({}) => {
 
             <section>
               <PlanningsCapabilitiesPanel
+                orders={orders}
+                groups={groups}
                 planningCapabilities={planningCapabilities}
                 setPlanningCapabilities={setPlanningCapabilities}
-                setOrdersPanelOpen={setOrdersPanelOpen}
-              />
-            </section>
-
-            <section>
-              <PlanningOrdersPanel
-                ordersPanelOpen={ordersPanelOpen}
-                setOrdersPanelOpen={setOrdersPanelOpen}
-                setChooseOption={setChooseOption}
-                setPlanningCapabilities={setPlanningCapabilities}
-                orders = {orders}
-              />
-            </section>
-            <section>
-              <OptionsPanel
-                chooseOption={chooseOption}
-                setChooseOption={setChooseOption}
                 setOrdersPanelOpen={setOrdersPanelOpen}
               />
             </section>
