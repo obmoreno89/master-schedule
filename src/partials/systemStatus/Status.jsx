@@ -71,7 +71,7 @@ function Status({ openStatusToast, setOpenStatusToast }) {
                       setOpenStatusToast(false);
                     }, 5000);
                   }}
-                  className='text-sm flex justify-center items-center space-x-2 mt-3 bg-green-50 rounded h-6 w-[165px]'
+                  className='text-sm flex justify-center items-center space-x-2 mt-3 bg-primary-50 rounded h-6 w-[165px]'
                 >
                   <img src={icons.refresh} alt='Refresh' />
                   <span className='font-semibold text-primary'>

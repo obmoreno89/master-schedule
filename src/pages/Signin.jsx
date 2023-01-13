@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import icons from '../images/icon/icons';
 import { useForm } from 'react-hook-form';
-import AuthImage from '../images/auth-image.jpg';
+import AuthImage from '../images/loginImage.jpg';
 import ButtonLoading from '../helpers/ButtonLoading';
 import ErrorMessage from '../helpers/ErrorMessage';
 import { useDispatch, useSelector } from 'react-redux';
@@ -37,7 +37,7 @@ function Signin() {
     return !loading ? (
       <button
         type='submit'
-        className='btn bg-primary hover:bg-secondary text-white hover:text-primary font-semibold w-full h-12'
+        className='btn bg-primary hover:bg-secondary text-white hover:text-white font-semibold w-full h-12'
       >
         Iniciar sesión
       </button>
@@ -89,7 +89,7 @@ function Signin() {
             <div className='flex-1'>
               <section className='flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8'>
                 <figure className='relative flex justify-between w-[29rem] mx-auto items-center mt-10'>
-                  <img src={icons.logoNide} alt='Logo' className='w-36' />
+                  <img src={icons.logoRyzen} alt='Logo' className='w-36' />
                 </figure>
               </section>
             </div>
@@ -98,7 +98,7 @@ function Signin() {
               <h1 className='text-3xl text-slate-800 font-semibold mb-6'>
                 Hola de nuevo{' '}
                 <p className='text-sm font-normal'>
-                  Inicia sesión para acceder al sistema MP Pro
+                  Inicia sesión para acceder al sistema
                 </p>
               </h1>
 

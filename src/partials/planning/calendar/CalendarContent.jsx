@@ -131,7 +131,7 @@ function Calendar({ setOpenModalCalendar }) {
   const eventColor = (color) => {
     switch (color) {
       case "sky":
-        return "text-white bg-green-600";
+        return "text-white bg-primary";
       case "indigo":
         return "text-white bg-primary";
       case "yellow":

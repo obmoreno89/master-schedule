@@ -63,7 +63,7 @@ header.b-grid-header-container {
 }
 
 .b-grid-row.b-selected {
-  background-color: #15b0530c !important;
+  background-color: #3284FF0c !important;
 }
 
 .b-horizontaltimeaxis .b-sch-header-timeaxis-cell {
@@ -122,7 +122,7 @@ header.b-grid-header-container {
 .save {
   border-radius: 5px !important;
   left: 10px;
-  background-color: #15b053 !important;
+  background-color: #3284FF !important;
   color: white !important;
 }
 

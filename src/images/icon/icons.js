@@ -28,6 +28,9 @@ import circleDown from './circleDown.svg';
 import arrowRight from './arrow-right.svg';
 import arrowLeft from './arrowLeft.svg';
 import play from './play.svg';
+import logoSyncronik from './logoSyncronik.svg';
+import logoRyzen from './logoRyzen.svg';
+import favicon from './favicon.svg';
 
 export default {
   openEye,
@@ -60,4 +63,7 @@ export default {
   arrowRight,
   arrowLeft,
   play,
+  logoSyncronik,
+  logoRyzen,
+  favicon
 };

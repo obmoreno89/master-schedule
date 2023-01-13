@@ -24,7 +24,7 @@ function Header({
                   src={icons.smallArrowRight}
                   alt='Flecha derecha'
                 />
-                <p className='text-primary font-semibold tracking-tight'>
+                <p className='text-gray-400 font-semibold tracking-tight'>
                   {nameSubRoute}
                 </p>
               </h5>

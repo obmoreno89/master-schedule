@@ -90,7 +90,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
           </button>
           {/* Logo */}
           <figure className='block'>
-            <img src={icons.logoNide} alt='logo' className='w-32' />
+            <img src={icons.favicon  } alt='logo' className='w-40' />
           </figure>
         </div>
 

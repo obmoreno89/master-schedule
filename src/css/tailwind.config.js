@@ -5,15 +5,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#009B4A',
-        secondary: 'rgba(0,155,74,0.10)',
+        primary: '#3284FF',
+        secondary: '#33D1BF',
         third: '#839DE2',
         hover: '#009B4A',
         gray: 'rgb(156 163 175)',
         textSidebar: 'rgba(35, 31, 32, 0.45)',
-        hoverTextSidebar: '#15B053',
-        textHover: '#009B4A',
-        focusHover: '#009B4A',
+        hoverTextSidebar: '#3284FF',
+        textHover: '#3284FF',
+        focusHover: '#3284FF',
         focus: 'rgb(148 163 184)',
         borderInput: '#E6E6E6',
         textTableHeader: 'rgba(45, 49, 57, 0.8)',
