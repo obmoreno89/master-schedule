@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import status from '../../images/status.png';
 import icons from '../../images/icon/icons';
 import ToastStatus from '../../components/ToastStatus';
@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   getStatusList,
   selectStatusList,
+  selectSyncUrl,
+  sendUrl,
 } from '../../store/slice/systemStatusSlice';
 
 function Status({ openStatusToast, setOpenStatusToast }) {
@@ -78,21 +80,26 @@ function Status({ openStatusToast, setOpenStatusToast }) {
                   {formatDate(status?.ORACLE_PROCESS_DATE_START)} a las{' '}
                   {formatHour(status?.ORACLE_PROCESS_DATE_START)}
                 </p>
-                <button
-                  onClick={() => {
-                    console.log(status.url_to_activate);
-                    setOpenStatusToast(true);
-                    setTimeout(() => {
-                      setOpenStatusToast(false);
-                    }, 5000);
-                  }}
-                  className='text-sm flex justify-center items-center space-x-2 mt-3 bg-green-50 rounded h-6 w-[165px]'
-                >
-                  <img src={icons.refresh} alt='Refresh' />
-                  <span className='font-semibold text-primary'>
-                    Volver a sincronizar
-                  </span>
-                </button>
+                <div className='flex'>
+                  <button
+                    onClick={() => handleClick(status)}
+                    className='text-sm flex justify-center items-center space-x-2 mt-3 bg-green-50 rounded h-6 w-[165px]'
+                  >
+                    <img src={icons.refresh} alt='Refresh' />
+                    <span className='font-semibold text-primary'>
+                      Volver a sincronizar
+                    </span>
+                  </button>
+                  {syncUrl.isLoading && status.name === syncChosen && (
+                    <div className='justify-center items-end flex ml-8'>
+                      <div className='loader w-5 h-5'></div>
+
+                      <span className='ml-2 text-primary font-semibold text-xs'>
+                        Sincronizando...
+                      </span>
+                    </div>
+                  )}
+                </div>
               </div>
               <figure>
                 {status.STATUS_CODE === '200' ? (
@@ -108,20 +115,39 @@ function Status({ openStatusToast, setOpenStatusToast }) {
         </div>
       </section>
       <section className='flex justify-end relative top-14'>
-        <ToastStatus
-          type='success'
-          open={openStatusToast}
-          setOpen={setOpenStatusToast}
-          className={'animate-bounce absolute'}
-        >
-          <span className='flex flex-col'>
-            Sincronizando interfaz{' '}
-            <span className='font-medium w-72'>
-              Te notificaremos por correo electrónico cuando el proceso
-              finalice.
+        {syncUrl.isError && (
+          <ToastStatus
+            type='error'
+            open={openStatusToast}
+            setOpen={setOpenStatusToast}
+            className={'animate-bounce absolute'}
+          >
+            <span className='flex flex-col'>
+              Sincronizando interfaz{' '}
+              <span className='font-medium w-72'>
+                Ocurrió un error, no se pudo sincronizar. Por favor intente
+                nuevamente más tarde.
+              </span>
             </span>
-          </span>
-        </ToastStatus>
+          </ToastStatus>
+        )}
+
+        {syncUrl.isSuccess && (
+          <ToastStatus
+            type='success'
+            open={openStatusToast}
+            setOpen={setOpenStatusToast}
+            className={'animate-bounce absolute'}
+          >
+            <span className='flex flex-col'>
+              Sincronizando interfaz{' '}
+              <span className='font-medium w-72'>
+                Te notificaremos por correo electrónico cuando el proceso
+                finalice.
+              </span>
+            </span>
+          </ToastStatus>
+        )}
       </section>
     </>
   );
