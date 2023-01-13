@@ -166,3 +166,8 @@ header.b-grid-header-container {
 .b-constraint-type-startnoearlierthan {
   display: none !important;
 }
+
+
+.b-indicator.b-early-dates, .b-indicator.b-late-dates{
+  display: none !important
+}
