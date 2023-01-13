@@ -112,7 +112,7 @@ export const codeSend = (data, navigate) => (dispatch) => {
     .then((response) => {
       dispatch(setLoading(false));
       if (response.data.status_code === 202) {
-        sessionStorage.setItem("token", response.data.token);
+        sessionStorage.setItem("token2", response.data.token);
         sessionStorage.setItem("email", response.data.email);
         dispatch(setIsCorrect(false));
         navigate("/mp-pro/confirm-password/");
@@ -127,7 +127,7 @@ export const codeSend = (data, navigate) => (dispatch) => {
 export const confirmNewPass = (data, navigate) => (dispatch) => {
   dispatch(setLoading(true));
 
-  const token = sessionStorage.getItem("token");
+  const token = sessionStorage.getItem("token2");
   const json = {
     email: sessionStorage.getItem("email"),
     new_password: data.password,
