@@ -1,7 +1,7 @@
-import { createAction, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createAction, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-import { endpointsCodes } from "./functions";
+import { endpointsCodes } from './functions';
 
 const initialState = {
   ganttLoading: false,
@@ -21,20 +21,20 @@ const initialState = {
   },
   allTypes: {
     eto: null,
-    "abc code": null,
-    "amount (total order)": null,
-    "request date": null,
-    "schedule ship date": null,
+    'abc code': null,
+    'amount (total order)': null,
+    'request date': null,
+    'schedule ship date': null,
   },
 };
 
-export const revertAll = createAction("REVERT_ALL");
-export const revertSearch = createAction("REVERT_SEARCH");
-export const revertPlanning = createAction("REVERT_PLANNING");
+export const revertAll = createAction('REVERT_ALL');
+export const revertSearch = createAction('REVERT_SEARCH');
+export const revertPlanning = createAction('REVERT_PLANNING');
 
 const planningSlice = createSlice({
   initialState,
-  name: "planning",
+  name: 'planning',
   extraReducers: (builder) => {
     builder.addCase(revertAll, () => initialState);
     builder.addCase(revertSearch, (state, action) => {
@@ -121,11 +121,11 @@ export default planningSlice.reducer;
 
 const sortCriteria = (criteria) => {
   let sortOrder = [
-    "ETO",
-    "ABC Code",
-    "Amount (Total Order)",
-    "Request Date",
-    "Schedule Ship Date",
+    'ETO',
+    'ABC Code',
+    'Amount (Total Order)',
+    'Request Date',
+    'Schedule Ship Date',
   ];
 
   criteria.sort(function (a, b) {
@@ -137,7 +137,7 @@ const sortCriteria = (criteria) => {
 
 export const getOrders = (data) => (dispatch) => {
   axios
-    .post("http://35.174.106.95/api/open-orders/list", data)
+    .post('http://35.174.106.95/api/open-orders/list', data)
     .then((response) => {
       if (response.status === 200) {
         dispatch(setOrders(response.data));
@@ -148,7 +148,7 @@ export const getOrders = (data) => (dispatch) => {
 
 export const getSortOrder = () => (dispatch) => {
   axios
-    .get("http://35.174.106.95/api/planning/list-criteria")
+    .get('http://35.174.106.95/api/planning/list-criteria')
     .then((response) => {
       if (response.status === 200) {
         dispatch(setSortOrder(sortCriteria(response.data.criteria)));
@@ -160,7 +160,7 @@ export const getSortOrder = () => (dispatch) => {
 export const getListHistory = () => (dispatch) => {
   dispatch(setLoadHistory(true));
   axios
-    .get("http://35.174.106.95/api/planning/list-history")
+    .get('http://35.174.106.95/api/planning/list-history')
     .then((response) => {
       if (response.status === 200) {
         dispatch(setListHistory(response.data.history_planning));
@@ -197,7 +197,7 @@ export const getAllTypes = (name) => (dispatch) => {
 };
 
 export const generateGantt = (data, navigate) => (dispatch) => {
-  const token = sessionStorage.getItem("token");
+  const token = sessionStorage.getItem('token');
   dispatch(setGanttLoading(true));
   axios
     .post(`http://35.174.106.95/api/planning/list`, data, {
@@ -213,7 +213,7 @@ export const generateGantt = (data, navigate) => (dispatch) => {
           selected_groups: response.data.selected_groups,
           last_update: response.data.last_update,
         };
-        sessionStorage.setItem("planningId", JSON.stringify(json));
+        sessionStorage.setItem('planningId', JSON.stringify(json));
         console.log(response);
         navigate(
           `/mp-pro/planning/plannings/gantt/${response.data.id_history_planning}`
