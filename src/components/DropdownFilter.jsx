@@ -1,11 +1,37 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Transition from '../utils/Transition';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getUserFilter,
+  selectFilterUser,
+  setIdUserFilter,
+  selectIdUserFilter,
+  getDataFilter,
+} from '../store/slice/filterSlice';
 
 function DropdownFilter({ align }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef(null);
   const dropdown = useRef(null);
+
+  const dispatch = useDispatch();
+  const filterUserList = useSelector(selectFilterUser);
+  const idUserFilter = useSelector(selectIdUserFilter);
+
+  useEffect(() => {
+    dispatch(getUserFilter());
+  }, []);
+
+  const onChangeIdUserFilter = (optionId) => {
+    if (idUserFilter === optionId) {
+      dispatch(setIdUserFilter(null));
+    } else {
+      dispatch(setIdUserFilter(optionId));
+    }
+  };
+
+  const nameUserFilter = sessionStorage.getItem('first_name');
 
   // close on click outside
   useEffect(() => {
@@ -72,44 +98,61 @@ function DropdownFilter({ align }) {
                 <span className='text-sm font-medium ml-2'>Mostrar todas</span>
               </label>
             </li>
-            <li className='py-1 px-3'>
-              <label className='flex items-center'>
-                <input type='checkbox' className='form-checkbox' />
-                <span className='text-sm font-medium ml-2'>
-                  Mis planeaciones
-                </span>
-              </label>
-            </li>
-            <li className='py-1 px-3'>
-              <label className='flex items-center'>
-                <input type='checkbox' className='form-checkbox' />
-                <span className='text-sm font-medium ml-2'>Omar Barragan</span>
-              </label>
-            </li>
-            <li className='py-1 px-3'>
-              <label className='flex items-center'>
-                <input type='checkbox' className='form-checkbox' />
-                <span className='text-sm font-medium ml-2'>Hever Rubio</span>
-              </label>
-            </li>
+
+            {filterUserList?.map((options, index) => (
+              <li className='py-1 px-3' key={index}>
+                <label className='flex items-center'>
+                  <input
+                    type='checkbox'
+                    className='form-checkbox'
+                    value={options.user_id__id}
+                    checked={idUserFilter === options.user_id__id}
+                    onChange={() => onChangeIdUserFilter(options.user_id__id)}
+                  />
+                  <span className='text-sm font-medium ml-2'>
+                    {nameUserFilter === options.user_id__first_name ? (
+                      <span>Mis planeaciones</span>
+                    ) : (
+                      <span>
+                        {options.user_id__first_name}{' '}
+                        {options.user_id__last_name}
+                      </span>
+                    )}
+                  </span>
+                </label>
+              </li>
+            ))}
           </ul>
           <div className='py-2 px-3 border-t border-slate-200 bg-slate-50'>
-            <ul className='flex items-center justify-between'>
-              {/* <li>
-                <button className='btn-xs bg-white border-slate-200 hover:border-slate-300 text-slate-500 hover:text-slate-600'>
-                  Clear
-                </button>
-              </li> */}
-              <li>
-                <button
-                  className='btn-xs bg-primary hover:bg-slate-400 text-white'
-                  onClick={() => setDropdownOpen(false)}
-                  onBlur={() => setDropdownOpen(false)}
-                >
-                  Aplicar
-                </button>
-              </li>
-            </ul>
+            {idUserFilter > 0 ? (
+              <ul className='flex items-center justify-between'>
+                <li>
+                  <button
+                    className='btn-xs bg-primary hover:bg-slate-400 text-white'
+                    onClick={() => {
+                      setDropdownOpen(false);
+                      dispatch(getDataFilter(idUserFilter));
+                    }}
+                    onBlur={() => setDropdownOpen(false)}
+                  >
+                    Aplicar
+                  </button>
+                </li>
+              </ul>
+            ) : (
+              <ul className='flex items-center justify-between'>
+                <li>
+                  <button
+                    className='btn-xs bg-primary hover:bg-slate-400 text-white disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed'
+                    disabled
+                    onClick={() => setDropdownOpen(false)}
+                    onBlur={() => setDropdownOpen(false)}
+                  >
+                    Aplicar
+                  </button>
+                </li>
+              </ul>
+            )}
           </div>
         </div>
       </Transition>
