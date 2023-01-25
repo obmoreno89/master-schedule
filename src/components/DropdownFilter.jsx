@@ -7,7 +7,9 @@ import {
   setIdUserFilter,
   selectIdUserFilter,
   getDataFilter,
+  setDataFilter,
 } from '../store/slice/filterSlice';
+import { getListHistory } from '../store/slice/planningSlice';
 
 function DropdownFilter({ align }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -92,13 +94,6 @@ function DropdownFilter({ align }) {
             Filtro
           </div>
           <ul className='mb-4'>
-            <li className='py-1 px-3'>
-              <label className='flex items-center'>
-                <input type='checkbox' className='form-checkbox' />
-                <span className='text-sm font-medium ml-2'>Mostrar todas</span>
-              </label>
-            </li>
-
             {filterUserList?.map((options, index) => (
               <li className='py-1 px-3' key={index}>
                 <label className='flex items-center'>
@@ -130,8 +125,9 @@ function DropdownFilter({ align }) {
                   <button
                     className='btn-xs bg-primary hover:bg-slate-400 text-white'
                     onClick={() => {
-                      setDropdownOpen(false);
                       dispatch(getDataFilter(idUserFilter));
+                      dispatch(setIdUserFilter(null));
+                      setDropdownOpen(false);
                     }}
                     onBlur={() => setDropdownOpen(false)}
                   >
@@ -143,12 +139,15 @@ function DropdownFilter({ align }) {
               <ul className='flex items-center justify-between'>
                 <li>
                   <button
-                    className='btn-xs bg-primary hover:bg-slate-400 text-white disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed'
-                    disabled
-                    onClick={() => setDropdownOpen(false)}
+                    className='btn-xs bg-primary hover:bg-slate-400 text-white '
+                    onClick={() => {
+                      dispatch(getListHistory());
+                      dispatch(setDataFilter([]));
+                      setDropdownOpen(false);
+                    }}
                     onBlur={() => setDropdownOpen(false)}
                   >
-                    Aplicar
+                    Mostrar todas
                   </button>
                 </li>
               </ul>
