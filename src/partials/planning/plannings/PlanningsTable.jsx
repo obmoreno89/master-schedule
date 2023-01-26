@@ -1,6 +1,7 @@
 import PlanningsTableItems from './PlanningsTableItems';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import DropdownFilter from '../../../components/DropdownFilter';
 import {
   getListHistory,
   revertSearch,
@@ -17,13 +18,11 @@ function PlanningsTable({ setGroupOptionsPanel }) {
   const listHistory = useSelector(selectListHistory);
   const load = useSelector(selectLoadHistory);
   const searchItems = useSelector(selectHistorySearch);
-  const groups = useSelector(selectGroup)
+  const groups = useSelector(selectGroup);
 
   const [list, setList] = useState(useSelector(selectListHistory));
   const [startSearch, setStartSearch] = useState(false);
   const [loadData, setLoadData] = useState(true);
-
-
 
   useEffect(() => {
     dispatch(getListHistory());
@@ -66,6 +65,7 @@ function PlanningsTable({ setGroupOptionsPanel }) {
           </h1>
         </div>
         <div className='flex space-x-3'>
+          <DropdownFilter />
           <input
             className='form-input w-72'
             placeholder='Buscar por ID...'
