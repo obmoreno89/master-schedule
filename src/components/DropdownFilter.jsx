@@ -126,7 +126,6 @@ function DropdownFilter({ align }) {
                     className='btn-xs bg-primary hover:bg-slate-400 text-white'
                     onClick={() => {
                       dispatch(getDataFilter(idUserFilter));
-                      dispatch(setIdUserFilter(null));
                       setDropdownOpen(false);
                     }}
                     onBlur={() => setDropdownOpen(false)}
@@ -134,12 +133,35 @@ function DropdownFilter({ align }) {
                     Aplicar
                   </button>
                 </li>
+                <li>
+                  <button
+                    className='btn-xs bg-white hover:text-slate-600 text-slate-500 hover:border-borderInput'
+                    onClick={() => {
+                      dispatch(getListHistory());
+                      dispatch(setDataFilter([]));
+                      dispatch(setIdUserFilter(null));
+                      setDropdownOpen(false);
+                    }}
+                    onBlur={() => setDropdownOpen(false)}
+                  >
+                    Mostrar todas
+                  </button>
+                </li>
               </ul>
             ) : (
               <ul className='flex items-center justify-between'>
                 <li>
                   <button
-                    className='btn-xs bg-primary hover:bg-slate-400 text-white '
+                    className='btn-xs bg-primary hover:bg-slate-400 text-white disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed '
+                    disabled
+                  >
+                    Aplicar
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className='btn-xs bg-white hover:text-slate-600 text-slate-500 hover:border-borderInput disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed'
+                    disabled
                     onClick={() => {
                       dispatch(getListHistory());
                       dispatch(setDataFilter([]));
