@@ -34,6 +34,17 @@ function DropdownFilter({ align }) {
   };
 
   const nameUserFilter = sessionStorage.getItem('first_name');
+  const id = sessionStorage.getItem('id');
+
+  const filteredName = filterUserList.filter(
+    (obj) => obj.user_id__first_name !== nameUserFilter
+  );
+  filteredName.unshift({
+    user_id__id: id,
+    user_id__first_name: 'Mis planeaciones',
+  });
+
+  console.log(idUserFilter);
 
   // close on click outside
   useEffect(() => {
@@ -94,7 +105,7 @@ function DropdownFilter({ align }) {
             Filtro
           </div>
           <ul className='mb-4'>
-            {filterUserList?.map((options, index) => (
+            {filteredName?.map((options, index) => (
               <li className='py-1 px-3' key={index}>
                 <label className='flex items-center'>
                   <input
@@ -102,17 +113,12 @@ function DropdownFilter({ align }) {
                     className='form-checkbox'
                     value={options.user_id__id}
                     checked={idUserFilter === options.user_id__id}
-                    onChange={() => onChangeIdUserFilter(options.user_id__id)}
+                    onChange={() => {
+                      onChangeIdUserFilter(options.user_id__id);
+                    }}
                   />
                   <span className='text-sm font-medium ml-2'>
-                    {nameUserFilter === options.user_id__first_name ? (
-                      <span>Mis planeaciones</span>
-                    ) : (
-                      <span>
-                        {options.user_id__first_name}{' '}
-                        {options.user_id__last_name}
-                      </span>
-                    )}
+                    {options.user_id__first_name} {options.user_id__last_name}
                   </span>
                 </label>
               </li>
@@ -125,7 +131,7 @@ function DropdownFilter({ align }) {
                   <button
                     className='btn-xs bg-primary hover:bg-slate-400 text-white'
                     onClick={() => {
-                      dispatch(getDataFilter(idUserFilter));
+                      dispatch(getDataFilter(idUserFilter, id));
                       setDropdownOpen(false);
                     }}
                     onBlur={() => setDropdownOpen(false)}
