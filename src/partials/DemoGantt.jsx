@@ -1,19 +1,26 @@
-import Layout from '../components/Layout';
-import icons from '../images/icon/icons';
-import { useEffect, useRef } from 'react';
-import './Gantt.css';
-import { StringHelper } from '@bryntum/gantt';
-import { BryntumGantt, BryntumToolbar } from '@bryntum/gantt-react';
-import { ganttConfig } from './AppConfig';
-import '@bryntum/gantt/gantt.material.css';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectPlanning } from '../store/slice/planningSlice';
+import Layout from "../components/Layout";
+import icons from "../images/icon/icons";
+import { useEffect, useRef } from "react";
+import "./Gantt.css";
+import { StringHelper } from "@bryntum/gantt";
+import { BryntumGantt, BryntumToolbar } from "@bryntum/gantt-react";
+import { ganttConfig } from "./AppConfig";
+import "@bryntum/gantt/gantt.material.css";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectPlanning } from "../store/slice/planningSlice";
 
 function DemoGantt() {
   // const planning = useSelector(selectPlanning);
   // console.log(planning);
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     localStorage.removeItem("b-gantt-trial-start");
+  //     window.location.reload();
+  //   }, 60000);
+  // }, []);
 
   const { id } = useParams();
 
@@ -36,11 +43,11 @@ function DemoGantt() {
     project.stm.autoRecord = true;
     project.stm.enable();
     await project.loadInlineData({
-      eventsData: data['data']['tasks']['rows'],
-      calendarsData: data['data']['calendars']['rows'],
-      dependenciesData: data['data']['tasks']['dependencies'],
+      eventsData: data["data"]["tasks"]["rows"],
+      calendarsData: data["data"]["calendars"]["rows"],
+      dependenciesData: data["data"]["tasks"]["dependencies"],
     });
-    project.calendar = 'general';
+    project.calendar = "general";
     console.log(project.calendar);
   };
 
@@ -66,17 +73,17 @@ function DemoGantt() {
   };
 
   const onZoomInClick = () => {
-    console.log('Zoom In');
+    console.log("Zoom In");
     ganttRef.current.instance.zoomIn();
   };
 
   const onZoomOutClick = () => {
-    console.log('Zoom Out');
+    console.log("Zoom Out");
     ganttRef.current.instance.zoomOut();
   };
 
   const onZoomToFitClick = () => {
-    console.log('Zoom to Fit');
+    console.log("Zoom to Fit");
     ganttRef.current.instance.zoomToFit({
       leftMargin: 50,
       rightMargin: 50,
@@ -84,17 +91,17 @@ function DemoGantt() {
   };
 
   const onShiftPreviousClick = () => {
-    console.log('Zoom to Fit');
+    console.log("Zoom to Fit");
     ganttRef.current.instance.shiftPrevious();
   };
 
   const onShiftNextClick = () => {
-    console.log('Zoom to Fit');
+    console.log("Zoom to Fit");
     ganttRef.current.instance.shiftNext();
   };
 
   const onSavePlanning = () => {
-    console.log('Guardando planeación');
+    console.log("Guardando planeación");
     const project = ganttRef.current.instance.project;
     const dataGantt = project.inlineData;
     console.log(dataGantt);
@@ -103,23 +110,23 @@ function DemoGantt() {
   return (
     <Layout
       icon={icons.planningIcon}
-      nameRoute='Planeación'
-      nameSubRoute='Gantt'
+      nameRoute="Planeación"
+      nameSubRoute="Gantt"
     >
-      <div className='px-4'>
+      <div className="px-4">
         <BryntumToolbar
           items={[
             {
-              type: 'buttonGroup',
+              type: "buttonGroup",
               items: [
                 {
-                  icon: 'b-fa b-fa-undo',
+                  icon: "b-fa b-fa-undo",
                   async onAction() {
                     onUndoClick();
                   },
                 },
                 {
-                  icon: 'b-fa b-fa-redo',
+                  icon: "b-fa b-fa-redo",
                   async onAction() {
                     reDoClick();
                   },
@@ -127,58 +134,58 @@ function DemoGantt() {
               ],
             },
             {
-              type: 'buttonGroup',
+              type: "buttonGroup",
               items: [
                 {
-                  ref: 'zoomInButton',
-                  icon: 'b-fa b-fa-search-plus',
-                  tooltip: 'Zoom in',
+                  ref: "zoomInButton",
+                  icon: "b-fa b-fa-search-plus",
+                  tooltip: "Zoom in",
                   onAction: onZoomInClick,
                 },
                 {
-                  ref: 'zoomOutButton',
-                  icon: 'b-fa b-fa-search-minus',
-                  tooltip: 'Zoom out',
+                  ref: "zoomOutButton",
+                  icon: "b-fa b-fa-search-minus",
+                  tooltip: "Zoom out",
                   onAction: onZoomOutClick,
                 },
                 {
-                  ref: 'zoomToFitButton',
-                  icon: 'b-fa b-fa-compress-arrows-alt',
-                  tooltip: 'Zoom to fit',
+                  ref: "zoomToFitButton",
+                  icon: "b-fa b-fa-compress-arrows-alt",
+                  tooltip: "Zoom to fit",
                   onAction: onZoomToFitClick,
                 },
                 {
-                  ref: 'previousButton',
-                  icon: 'b-fa b-fa-angle-left',
-                  tooltip: 'Previous time span',
+                  ref: "previousButton",
+                  icon: "b-fa b-fa-angle-left",
+                  tooltip: "Previous time span",
                   onAction: onShiftPreviousClick,
                 },
                 {
-                  ref: 'nextButton',
-                  icon: 'b-fa b-fa-angle-right',
-                  tooltip: 'Next time span',
+                  ref: "nextButton",
+                  icon: "b-fa b-fa-angle-right",
+                  tooltip: "Next time span",
                   onAction: onShiftNextClick,
                 },
               ],
             },
             {
-              text: 'Guardar planeación',
-              icon: 'b-fa b-fa-save',
-              cls: 'save',
+              text: "Guardar planeación",
+              icon: "b-fa b-fa-save",
+              cls: "save",
               async onAction() {
                 onSavePlanning();
               },
             },
           ]}
         />
-        <div className='border-borderInput border rounded'>
+        <div className="border-borderInput border rounded">
           <BryntumGantt
             ref={ganttRef}
             pdfExportFeature={true}
             enableDeleteKey={false}
             taskRenderer={({ taskRecord }) => {
               return {
-                tag: 'p',
+                tag: "p",
                 html: StringHelper.encodeHtml(taskRecord.name),
               };
             }}
