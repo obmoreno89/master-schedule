@@ -46,6 +46,7 @@ import TooltipPage from "./pages/component/TooltipPage";
 import AccordionPage from "./pages/component/AccordionPage";
 import IconsPage from "./pages/component/IconsPage";
 import PlanningOrders from "./partials/planning/plannings/PlanningOrders";
+import OrdersPlanned from "./pages/OrdersPlanned";
 
 function App() {
   const location = useLocation();
@@ -132,6 +133,14 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route
+          path="/mp-pro/planning/orders-planned/"
+          element={
+            <PrivateRoute>
+              <OrdersPlanned />
+            </PrivateRoute>
+          }
+        ></Route>
 
         <Route
           path="/mp-pro/planning/capabilities/"
