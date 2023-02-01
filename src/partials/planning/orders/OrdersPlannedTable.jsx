@@ -1,7 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState, lazy, Suspense } from "react";
-import OrdersDropdownFilter from "./OrdersDropdownFilter";
-import Loading from "../../../pages/component/Loading";
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState, lazy, Suspense } from 'react';
+import OrdersDropdownFilter from './OrdersDropdownFilter';
+import Loading from '../../../pages/component/Loading';
 import {
   getOrders,
   revertSearch,
@@ -9,8 +9,8 @@ import {
   selectOrders,
   selectOrdersSearch,
   setSearch,
-} from "../../../store/slice/ordersPlannedSlice";
-const OrdersTableItems = lazy(() => import("./OrdersTableItems"));
+} from '../../../store/slice/ordersPlannedSlice';
+const OrdersTableItems = lazy(() => import('./OrdersTableItems'));
 
 function OrdersPlannedTable() {
   const dispatch = useDispatch();
@@ -56,18 +56,18 @@ function OrdersPlannedTable() {
 
   return (
     <>
-      <section className="mb-5 flex justify-between">
-        <div className="mb-4 sm:mb-0">
-          <h1 className="text-2xl md:text-3xl text-slate-800 font-bold">
-            Órdenes planeadas
+      <section className='mb-5 flex justify-between'>
+        <div className='mb-4 sm:mb-0'>
+          <h1 className='text-2xl md:text-3xl text-slate-800 font-bold'>
+            Planning Report
           </h1>
         </div>
-        <div className="flex space-x-3">
+        <div className='flex space-x-3'>
           <OrdersDropdownFilter />
           <input
-            className="form-input w-72"
-            placeholder="Buscar por Item..."
-            type="search"
+            className='form-input w-72'
+            placeholder='Buscar por Item...'
+            type='search'
             onChange={handleSearch}
           />
           {/* <button
@@ -88,7 +88,7 @@ function OrdersPlannedTable() {
       {loadData ? (
         list?.length > 0 ? (
           <section>
-            <div className="overflow-x-auto rounded-xl border border-slate-300 h-[550px]">
+            <div className='overflow-x-auto rounded-xl border border-slate-300 h-[550px]'>
               {!startSearch ? (
                 <Suspense fallback={<Loading />}>
                   <OrdersTableItems
@@ -106,8 +106,8 @@ function OrdersPlannedTable() {
                   />
                 </Suspense>
               ) : (
-                <section className="justify-center items-center flex h-96">
-                  <h2 className="font-semibold text-2xl">
+                <section className='justify-center items-center flex h-96'>
+                  <h2 className='font-semibold text-2xl'>
                     Sin datos que mostrar
                   </h2>
                 </section>
@@ -118,8 +118,8 @@ function OrdersPlannedTable() {
           <Loading />
         )
       ) : (
-        <section className="justify-center items-center flex h-96">
-          <h2 className="font-semibold text-2xl">Sin datos que mostrar</h2>
+        <section className='justify-center items-center flex h-96'>
+          <h2 className='font-semibold text-2xl'>Sin datos que mostrar</h2>
         </section>
       )}
     </>

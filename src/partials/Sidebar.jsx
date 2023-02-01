@@ -290,7 +290,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                 (isActive ? '!text-primary' : '')
                               }
                             >
-                              <span className='text-sm'>Órdenes Planeadas</span>
+                              <span className='text-sm'>Planning Report</span>
                             </NavLink>
                           </li>
                           <li className='mb-1 last:mb-0'>
