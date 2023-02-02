@@ -88,7 +88,7 @@ function OrdersDropdownFilter({ align }) {
       >
         <div ref={dropdown}>
           <div className='text-xs font-semibold text-slate-400 uppercase pt-1.5 pb-2 px-4'>
-            Filtro
+            Filtrar por org
           </div>
           <ul className='mb-4'>
             {orglist?.map((options, index) => (
