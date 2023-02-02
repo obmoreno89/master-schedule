@@ -5,8 +5,10 @@ import { endpointsCodes } from './functions';
 
 const initialState = {
   openOrdersList: [],
+  orgListFilter: [],
   loading: false,
   notFound: null,
+  filterNameOrder: null,
 };
 
 const openOrdersSlice = createSlice({
@@ -22,15 +24,29 @@ const openOrdersSlice = createSlice({
     setNotFound: (state, action) => {
       state.notFound = action.payload;
     },
+    setOrgListFilter: (state, action) => {
+      state.orgListFilter = action.payload;
+    },
+    setFilterNameOrder: (state, action) => {
+      state.filterNameOrder = action.payload;
+    },
   },
 });
 
-export const { setOpenOrdersList, setLoading, setNotFound } =
-  openOrdersSlice.actions;
+export const {
+  setOpenOrdersList,
+  setLoading,
+  setNotFound,
+  setOrgListFilter,
+  setFilterNameOrder,
+} = openOrdersSlice.actions;
 
 export const selectOpenOrdersList = (state) => state.openOrders.openOrdersList;
 export const selectLoading = (state) => state.openOrders.loading;
-export const selectNotFound = (state) => state.planning.notFound;
+export const selectNotFound = (state) => state.openOrders.notFound;
+export const selectOpenOrdersFilter = (state) => state.openOrders.orgListFilter;
+export const selectFilterNameOrder = (state) =>
+  state.openOrders.filterNameOrder;
 
 export default openOrdersSlice.reducer;
 
@@ -45,4 +61,15 @@ export const getOpenOrdersList = () => (dispatch) => {
       }
     })
     .catch((error) => endpointsCodes(error, dispatch, setNotFound));
+};
+
+export const getOrgList = () => (dispatch) => {
+  axios
+    .get('http://35.174.106.95/api/open-orders/list-orgs')
+    .then((response) => {
+      if (response.status === 200) {
+        dispatch(setOrgListFilter(response.data));
+      }
+    })
+    .catch((error) => console.log(error));
 };

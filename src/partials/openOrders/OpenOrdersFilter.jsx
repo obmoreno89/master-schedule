@@ -1,8 +1,30 @@
 import { useState, useRef, useEffect } from 'react';
 import Transition from '../../utils/Transition';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getOrgList,
+  selectOpenOrdersFilter,
+  setFilterNameOrder,
+  selectFilterNameOrder,
+} from '../../store/slice/openOrdersSlice';
 
 function OrdersDropdownFilter({ align }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dispatch = useDispatch();
+  const orglist = useSelector(selectOpenOrdersFilter);
+  const nameOrg = useSelector(selectFilterNameOrder);
+
+  useEffect(() => {
+    dispatch(getOrgList());
+  }, []);
+
+  const onChangeNameOrgFilter = (optionName) => {
+    if (nameOrg === optionName) {
+      dispatch(setFilterNameOrder(null));
+    } else {
+      dispatch(setFilterNameOrder(optionName));
+    }
+  };
 
   const trigger = useRef(null);
   const dropdown = useRef(null);
@@ -63,25 +85,36 @@ function OrdersDropdownFilter({ align }) {
       >
         <div ref={dropdown}>
           <div className='text-xs font-semibold text-slate-400 uppercase pt-1.5 pb-2 px-4'>
-            Filtrar por org
+            Filtro
           </div>
           <ul className='mb-4'>
-            <li className='py-1 px-3'>
-              <label className='flex items-center'>
-                <input type='checkbox' className='form-checkbox' />
-                <span className='text-sm font-medium ml-2'>hola</span>
-              </label>
-            </li>
+            {orglist?.map((options, index) => (
+              <li className='py-1 px-3' key={index}>
+                <label className='flex items-center'>
+                  <input
+                    type='checkbox'
+                    className='form-checkbox'
+                    value={options.Org}
+                    checked={nameOrg === options.Org}
+                    onChange={() => {
+                      onChangeNameOrgFilter(options.Org);
+                    }}
+                  />
+                  <span className='text-sm font-medium ml-2'>
+                    {options.Org}
+                  </span>
+                </label>
+              </li>
+            ))}
           </ul>
           <div className='py-2 px-3 border-t border-slate-200 bg-slate-50'>
-            {/* {orgFiltered !== null ? (
-              <ul className="flex items-center justify-between">
+            {nameOrg > '' ? (
+              <ul className='flex items-center justify-between'>
                 <li>
                   <button
-                    className="btn-xs bg-primary hover:bg-slate-400 text-white"
+                    className='btn-xs bg-primary hover:bg-slate-400 text-white'
                     onClick={() => {
-                      dispatch(setDataFiltered([]));
-                      dispatch(getDataFiltered(orgFiltered));
+                      // dispatch(getDataFilter(idUserFilter, id));
                       setDropdownOpen(false);
                     }}
                     onBlur={() => setDropdownOpen(false)}
@@ -91,10 +124,11 @@ function OrdersDropdownFilter({ align }) {
                 </li>
                 <li>
                   <button
-                    className="btn-xs bg-white hover:text-slate-600 text-slate-500 hover:border-borderInput"
+                    className='btn-xs bg-white hover:text-slate-600 text-slate-500 hover:border-borderInput'
                     onClick={() => {
-                      dispatch(setDataFiltered([]));
-                      dispatch(setOrgFiltered(null));
+                      // dispatch(getListHistory());
+                      // dispatch(setDataFilter([]));
+                      // dispatch(setIdUserFilter(null));
                       setDropdownOpen(false);
                     }}
                     onBlur={() => setDropdownOpen(false)}
@@ -104,10 +138,10 @@ function OrdersDropdownFilter({ align }) {
                 </li>
               </ul>
             ) : (
-              <ul className="flex items-center justify-between">
+              <ul className='flex items-center justify-between'>
                 <li>
                   <button
-                    className="btn-xs bg-primary hover:bg-slate-400 text-white disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed "
+                    className='btn-xs bg-primary hover:bg-slate-400 text-white disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed '
                     disabled
                   >
                     Aplicar
@@ -115,15 +149,20 @@ function OrdersDropdownFilter({ align }) {
                 </li>
                 <li>
                   <button
-                    className="btn-xs bg-white hover:text-slate-600 text-slate-500 hover:border-borderInput disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed"
+                    className='btn-xs bg-white hover:text-slate-600 text-slate-500 hover:border-borderInput disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed'
                     disabled
+                    onClick={() => {
+                      // dispatch(getListHistory());
+                      // dispatch(setDataFilter([]));
+                      setDropdownOpen(false);
+                    }}
                     onBlur={() => setDropdownOpen(false)}
                   >
                     Mostrar todas
                   </button>
                 </li>
               </ul>
-            )} */}
+            )}
           </div>
         </div>
       </Transition>
