@@ -59,7 +59,7 @@ function OrdersTableItems({ data, ordersList, setList }) {
               }}
             >
               <div className='flex items-center space-x-2 justify-center '>
-                <div className='font-semibold '>Cntidad minima</div>
+                <div className='font-semibold '>Mínimo</div>
                 <img
                   src={orderMin.asc ? icons.doubleDown : icons.doubleUp}
                   alt='Flecha abajo'
@@ -74,7 +74,7 @@ function OrdersTableItems({ data, ordersList, setList }) {
               }}
             >
               <div className='flex items-center space-x-2 justify-center'>
-                <div className='font-semibold'>Cantidad maxima</div>
+                <div className='font-semibold'>Máximo</div>
                 <img
                   src={orderMax.asc ? icons.doubleDown : icons.doubleUp}
                   alt='Flecha abajo'
@@ -83,11 +83,11 @@ function OrdersTableItems({ data, ordersList, setList }) {
               </div>
             </th>
             <th className='py-3 whitespace-nowrap'>
-              <p className='font-semibold text-center'>Cantidad disponible</p>
+              <p className='font-semibold text-center'>On-Hand</p>
             </th>
             <th className='py-3 whitespace-nowrap'>
               <p className='font-semibold text-center'>
-                Cantidad de nuevo pedido
+                Re-Order QTY
               </p>
             </th>
 
