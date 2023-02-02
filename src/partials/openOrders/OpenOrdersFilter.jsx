@@ -6,6 +6,9 @@ import {
   selectOpenOrdersFilter,
   setFilterNameOrder,
   selectFilterNameOrder,
+  getOpenOrdersDataFilter,
+  getOpenOrdersList,
+  setOpenOrdersDataFilter,
 } from '../../store/slice/openOrdersSlice';
 
 function OrdersDropdownFilter({ align }) {
@@ -114,7 +117,7 @@ function OrdersDropdownFilter({ align }) {
                   <button
                     className='btn-xs bg-primary hover:bg-slate-400 text-white'
                     onClick={() => {
-                      // dispatch(getDataFilter(idUserFilter, id));
+                      dispatch(getOpenOrdersDataFilter(nameOrg));
                       setDropdownOpen(false);
                     }}
                     onBlur={() => setDropdownOpen(false)}
@@ -126,9 +129,9 @@ function OrdersDropdownFilter({ align }) {
                   <button
                     className='btn-xs bg-white hover:text-slate-600 text-slate-500 hover:border-borderInput'
                     onClick={() => {
-                      // dispatch(getListHistory());
-                      // dispatch(setDataFilter([]));
-                      // dispatch(setIdUserFilter(null));
+                      dispatch(getOpenOrdersList());
+                      dispatch(setOpenOrdersDataFilter([]));
+                      dispatch(setFilterNameOrder(null));
                       setDropdownOpen(false);
                     }}
                     onBlur={() => setDropdownOpen(false)}
@@ -152,8 +155,6 @@ function OrdersDropdownFilter({ align }) {
                     className='btn-xs bg-white hover:text-slate-600 text-slate-500 hover:border-borderInput disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed'
                     disabled
                     onClick={() => {
-                      // dispatch(getListHistory());
-                      // dispatch(setDataFilter([]));
                       setDropdownOpen(false);
                     }}
                     onBlur={() => setDropdownOpen(false)}

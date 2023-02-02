@@ -6,6 +6,7 @@ import { endpointsCodes } from './functions';
 const initialState = {
   openOrdersList: [],
   orgListFilter: [],
+  openOrdersDataFilter: [],
   loading: false,
   notFound: null,
   filterNameOrder: null,
@@ -30,6 +31,9 @@ const openOrdersSlice = createSlice({
     setFilterNameOrder: (state, action) => {
       state.filterNameOrder = action.payload;
     },
+    setOpenOrdersDataFilter: (state, action) => {
+      state.openOrdersDataFilter = action.payload;
+    },
   },
 });
 
@@ -39,6 +43,7 @@ export const {
   setNotFound,
   setOrgListFilter,
   setFilterNameOrder,
+  setOpenOrdersDataFilter,
 } = openOrdersSlice.actions;
 
 export const selectOpenOrdersList = (state) => state.openOrders.openOrdersList;
@@ -47,6 +52,8 @@ export const selectNotFound = (state) => state.openOrders.notFound;
 export const selectOpenOrdersFilter = (state) => state.openOrders.orgListFilter;
 export const selectFilterNameOrder = (state) =>
   state.openOrders.filterNameOrder;
+export const selectOpenOrdersDataFilter = (state) =>
+  state.openOrders.openOrdersDataFilter;
 
 export default openOrdersSlice.reducer;
 
@@ -72,4 +79,17 @@ export const getOrgList = () => (dispatch) => {
       }
     })
     .catch((error) => console.log(error));
+};
+
+export const getOpenOrdersDataFilter = (openOrdersName) => (dispatch) => {
+  axios
+    .get(
+      `http://35.174.106.95/api/open-orders/list-by-org?org=${openOrdersName}`
+    )
+    .then((response) => {
+      if (response.status === 200) {
+        dispatch(setOpenOrdersDataFilter(response.data.open_orders));
+      }
+    })
+    .then((error) => console.log(error));
 };
