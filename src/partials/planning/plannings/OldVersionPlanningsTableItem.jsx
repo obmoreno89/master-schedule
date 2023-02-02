@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectdataFilter } from '../../../store/slice/filterSlice';
 
-function PlanningsTableItems({ data, listHistory, setList }) {
+function OldVersionPlanningsTableItem({ data, listHistory, setList }) {
   const [orderId, setOrderId] = useState({ state: false, asc: false });
   const [orderPlaneador, setOrderPlaneador] = useState({
     state: false,
@@ -109,7 +109,7 @@ function PlanningsTableItems({ data, listHistory, setList }) {
                   </p>
                 </td>
 
-                {/* <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
+                <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
                   <figure className='flex justify-end items-center'>
                     <Link
                       onClick={() => {
@@ -130,7 +130,7 @@ function PlanningsTableItems({ data, listHistory, setList }) {
                       <img src={icons.play} alt='play' />
                     </Link>
                   </figure>
-                </td> */}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -157,7 +157,7 @@ function PlanningsTableItems({ data, listHistory, setList }) {
                   </p>
                 </td>
 
-                {/* <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
+                <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
                   <figure className='flex justify-end items-center'>
                     <Link
                       onClick={() => {
@@ -178,7 +178,7 @@ function PlanningsTableItems({ data, listHistory, setList }) {
                       <img src={icons.play} alt='play' />
                     </Link>
                   </figure>
-                </td> */}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -188,4 +188,4 @@ function PlanningsTableItems({ data, listHistory, setList }) {
   );
 }
 
-export default PlanningsTableItems;
+export default OldVersionPlanningsTableItem;

@@ -1,4 +1,4 @@
-import PlanningsTableItems from './PlanningsTableItems';
+import OldVersionPlanningsTableItem from './OldVersionPlanningsTableItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import icons from '../../../images/icon/icons';
@@ -14,7 +14,7 @@ import {
 import Loading from '../../../pages/component/Loading';
 import { selectGroup } from '../../../store/slice/capabilitiesSlice';
 
-function PlanningsTable({ setGroupOptionsPanel }) {
+function OldVersionPlanningTable({ setGroupOptionsPanel }) {
   const dispatch = useDispatch();
   const listHistory = useSelector(selectListHistory);
   const load = useSelector(selectLoadHistory);
@@ -62,7 +62,7 @@ function PlanningsTable({ setGroupOptionsPanel }) {
       <section className='mb-5 flex justify-between'>
         <div className='mb-4 sm:mb-0'>
           <h1 className='text-2xl md:text-3xl text-slate-800 font-bold'>
-            Planeaciones
+            Planeaciones version anterior
           </h1>
         </div>
         <div className='flex space-x-3'>
@@ -73,13 +73,7 @@ function PlanningsTable({ setGroupOptionsPanel }) {
             type='search'
             onChange={handleSearch}
           />
-          <button
-            type='button'
-            className=' font-medium text-sm bg-white text-primary w-54 space-x-2 border border-primary rounded px-2 flex justify-center items-center'
-          >
-            <img className='w-5' src={icons.graphGantt} alt='Gantt' />
-            <span>Vista de Gantt</span>
-          </button>
+
           <button
             onClick={() => setGroupOptionsPanel(true)}
             type='button'
@@ -100,13 +94,13 @@ function PlanningsTable({ setGroupOptionsPanel }) {
           <section>
             <div className='overflow-x-auto rounded-xl border border-slate-300 h-[550px]'>
               {!startSearch ? (
-                <PlanningsTableItems
+                <OldVersionPlanningsTableItem
                   data={list}
                   listHistory={listHistory}
                   setList={setList}
                 />
               ) : startSearch && searchItems.length > 0 ? (
-                <PlanningsTableItems
+                <OldVersionPlanningsTableItem
                   data={searchItems}
                   listHistory={listHistory}
                   setList={setList}
@@ -132,4 +126,4 @@ function PlanningsTable({ setGroupOptionsPanel }) {
   );
 }
 
-export default PlanningsTable;
+export default OldVersionPlanningTable;

@@ -295,6 +295,23 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           </li>
                           <li className='mb-1 last:mb-0'>
                             <NavLink
+                              onClick={() =>
+                                sessionStorage.removeItem('planningId')
+                              }
+                              end
+                              to='/mp-pro/planning/old-version/'
+                              className={({ isActive }) =>
+                                'block text-sideBar hover:text-primary text-textSidebar transition duration-150 truncate ' +
+                                (isActive ? '!text-primary' : '')
+                              }
+                            >
+                              <span className='text-sm'>
+                                Planeación version anterior
+                              </span>
+                            </NavLink>
+                          </li>
+                          <li className='mb-1 last:mb-0'>
+                            <NavLink
                               end
                               to='/mp-pro/planning/capabilities/'
                               className={({ isActive }) =>

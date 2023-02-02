@@ -28,6 +28,7 @@ import circleDown from './circleDown.svg';
 import arrowRight from './arrow-right.svg';
 import arrowLeft from './arrowLeft.svg';
 import play from './play.svg';
+import graphGantt from './graphGantt.svg';
 
 export default {
   openEye,
@@ -60,4 +61,5 @@ export default {
   arrowRight,
   arrowLeft,
   play,
+  graphGantt,
 };
