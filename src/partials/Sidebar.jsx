@@ -299,6 +299,21 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                 sessionStorage.removeItem('planningId')
                               }
                               end
+                              to='/mp-pro/planning/open-orders/'
+                              className={({ isActive }) =>
+                                'block text-sideBar hover:text-primary text-textSidebar transition duration-150 truncate ' +
+                                (isActive ? '!text-primary' : '')
+                              }
+                            >
+                              <span className='text-sm'>Open Orders</span>
+                            </NavLink>
+                          </li>
+                          <li className='mb-1 last:mb-0'>
+                            <NavLink
+                              onClick={() =>
+                                sessionStorage.removeItem('planningId')
+                              }
+                              end
                               to='/mp-pro/planning/old-version/'
                               className={({ isActive }) =>
                                 'block text-sideBar hover:text-primary text-textSidebar transition duration-150 truncate ' +

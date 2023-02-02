@@ -23,6 +23,10 @@ import SystemStatus from './pages/SystemStatus';
 import Planning from './pages/Planning';
 import Capabilities from './pages/Capabilities';
 import Calendar from './pages/Calendar';
+import PlanningOrders from './partials/planning/plannings/PlanningOrders';
+import OrdersPlanned from './pages/OrdersPlanned';
+import OldVersionPlannings from './pages/OldVersionPlannings';
+import OpenOrders from './pages/OpenOrders';
 
 //MANAGEMENT
 import User from './pages/User';
@@ -45,9 +49,6 @@ import AvatarPage from './pages/component/AvatarPage';
 import TooltipPage from './pages/component/TooltipPage';
 import AccordionPage from './pages/component/AccordionPage';
 import IconsPage from './pages/component/IconsPage';
-import PlanningOrders from './partials/planning/plannings/PlanningOrders';
-import OrdersPlanned from './pages/OrdersPlanned';
-import OldVersionPlannings from './pages/OldVersionPlannings';
 
 function App() {
   const location = useLocation();
@@ -148,6 +149,15 @@ function App() {
           element={
             <PrivateRoute>
               <OrdersPlanned />
+            </PrivateRoute>
+          }
+        ></Route>
+
+        <Route
+          path='/mp-pro/planning/open-orders/'
+          element={
+            <PrivateRoute>
+              <OpenOrders />
             </PrivateRoute>
           }
         ></Route>
