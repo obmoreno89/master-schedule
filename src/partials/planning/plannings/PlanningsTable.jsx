@@ -10,6 +10,8 @@ import {
   selectListHistory,
   selectLoadHistory,
   setSearch,
+  selectPlanningList,
+  getPlanningList,
 } from '../../../store/slice/planningSlice';
 import Loading from '../../../pages/component/Loading';
 import { selectGroup } from '../../../store/slice/capabilitiesSlice';
@@ -20,10 +22,15 @@ function PlanningsTable({ setGroupOptionsPanel }) {
   const load = useSelector(selectLoadHistory);
   const searchItems = useSelector(selectHistorySearch);
   const groups = useSelector(selectGroup);
+  const planningsList = useSelector(selectPlanningList);
 
   const [list, setList] = useState(useSelector(selectListHistory));
   const [startSearch, setStartSearch] = useState(false);
   const [loadData, setLoadData] = useState(true);
+
+  useEffect(() => {
+    dispatch(getPlanningList());
+  }, []);
 
   useEffect(() => {
     dispatch(getListHistory());
@@ -95,39 +102,78 @@ function PlanningsTable({ setGroupOptionsPanel }) {
           </button>
         </div>
       </section>
-      {loadData ? (
-        list?.length > 0 ? (
-          <section>
-            <div className='overflow-x-auto rounded-xl border border-slate-300 h-[550px]'>
-              {!startSearch ? (
-                <PlanningsTableItems
-                  data={list}
-                  listHistory={listHistory}
-                  setList={setList}
-                />
-              ) : startSearch && searchItems.length > 0 ? (
-                <PlanningsTableItems
-                  data={searchItems}
-                  listHistory={listHistory}
-                  setList={setList}
-                />
-              ) : (
-                <section className='justify-center items-center flex h-96'>
-                  <h2 className='font-semibold text-2xl'>
-                    Sin datos que mostrar
-                  </h2>
-                </section>
-              )}
-            </div>
-          </section>
-        ) : (
-          <Loading />
-        )
-      ) : (
-        <section className='justify-center items-center flex h-96'>
-          <h2 className='font-semibold text-2xl'>Sin datos que mostrar</h2>
-        </section>
-      )}
+      <section className='overflow-x-auto rounded-xl border border-slate-300 h-[550px]'>
+        <table className='table-auto w-full '>
+          <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50'>
+            <tr>
+              <th
+                className='px-2 first:pl-5 cursor-pointer'
+                // onClick={() => {
+                //   setOrderId({ state: true, asc: !orderId.asc });
+                // }}
+              >
+                <div className='flex items-center space-x-2'>
+                  <div className='font-semibold text-left'>order_item</div>
+                  {/* <img
+                    src={orderId.asc ? icons.doubleDown : icons.doubleUp}
+                    alt='Flecha abajo'
+                    className='w-5'
+                  /> */}
+                </div>
+              </th>
+              <th
+                className='px-5 first:pl-5 last:pr-5 py-3 whitespace-nowrap cursor-pointer'
+                // onClick={() => {
+                //   setOrderPlaneador({
+                //     state: true,
+                //     asc: !orderPlaneador.asc,
+                //   });
+                // }}
+              >
+                <div className='flex items-center space-x-2'>
+                  <div className='font-semibold'>User</div>
+                  {/* <img
+                    src={orderPlaneador.asc ? icons.doubleDown : icons.doubleUp}
+                    alt='Flecha abajo'
+                    className='w-5'
+                  /> */}
+                </div>
+              </th>
+              <th className='px-4 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
+                <p className='font-semibold text-center'>order_quantity</p>
+              </th>
+              <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
+                <p className='font-semibold text-center'>
+                  start_production_date
+                </p>
+              </th>
+              <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
+                <p className='font-semibold text-center'>end_production_date</p>
+              </th>
+              <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'></th>
+
+              {/* <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap '>
+              <p className='font-semibold text-center'></p>
+            </th> */}
+            </tr>
+          </thead>
+
+          {planningsList.map((data) => {
+            return (
+              <PlanningsTableItems
+                key={data.order_planning_id}
+                id={data.order_planning_id}
+                order_item={data.order_item}
+                user={data.user}
+                order_quantity={data.order_quantity}
+                start_production_date={data.start_production_date}
+                end_production_date={data.end_production_date}
+                dem_children={data.dem_childrens}
+              />
+            );
+          })}
+        </table>
+      </section>
     </>
   );
 }

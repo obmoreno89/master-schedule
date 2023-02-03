@@ -5,6 +5,7 @@ import { endpointsCodes } from './functions';
 
 const initialState = {
   ganttLoading: false,
+  planningList: [],
   orders: [],
   groups: [],
   sortOrder: [],
@@ -84,6 +85,9 @@ const planningSlice = createSlice({
     setAllTypes: (state, action) => {
       state.allTypes[action.payload.item] = action.payload.value;
     },
+    setPlanningList: (state, action) => {
+      state.planningList = action.payload;
+    },
   },
 });
 
@@ -101,6 +105,7 @@ export const {
   setPlanningValues,
   setGanttLoading,
   setAllTypes,
+  setPlanningList,
 } = planningSlice.actions;
 
 export const selectOrders = (state) => state.planning.orders;
@@ -116,6 +121,7 @@ export const selectPlanningId = (state) => state.planning.planningId;
 export const selectPlanning = (state) => state.planning.planningValues;
 export const selectGanttLoading = (state) => state.planning.ganttLoading;
 export const selectAllTypes = (state) => state.planning.allTypes;
+export const selectPlanningList = (state) => state.planning.planningList;
 
 export default planningSlice.reducer;
 
@@ -225,4 +231,15 @@ export const generateGantt = (data, navigate) => (dispatch) => {
       console.log(err);
       dispatch(setGanttLoading(false));
     });
+};
+
+export const getPlanningList = () => (dispatch) => {
+  axios
+    .get('http://35.174.106.95/api/planning/orders-planning/list')
+    .then((response) => {
+      if (response.status === 200) {
+        dispatch(setPlanningList(response.data));
+      }
+    })
+    .catch((error) => console.log(error));
 };
