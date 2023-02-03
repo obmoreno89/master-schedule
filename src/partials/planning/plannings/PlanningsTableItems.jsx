@@ -45,7 +45,7 @@ function PlanningsTableItems(props) {
   return (
     <>
       <tbody className='text-sm'>
-        <tr>
+        <tr className='border-b border-borderInput'>
           <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
             <div className='flex items-center text-slate-800'>
               {props.order_item}
@@ -71,7 +71,7 @@ function PlanningsTableItems(props) {
           <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px '>
             <div className='flex items-center'>
               <button
-                className={`text-slate-400 hover:text-slate-500 transform ${
+                className={`text-slate-400 hover:text-slate-600 transform ${
                   descriptionOpen && 'rotate-180 duration-300'
                 }`}
                 aria-expanded={descriptionOpen}
@@ -88,8 +88,8 @@ function PlanningsTableItems(props) {
 
         {props.dem_children.map((data, index) => (
           <tr key={index} className={`${!descriptionOpen && 'hidden'}`}>
-            <td colSpan='10' className='px-2 first:pl-5 last:pr-5 py-3'>
-              <div className='flex items-center bg-slate-50 p-3 -mt-3 space-x-24'>
+            <td colSpan='10' className='px-0 py-3'>
+              <div className='flex items-center bg-slate-50 px-8 py-3 -mt-3 space-x-24 shadow-inner'>
                 <h2>
                   {' '}
                   dem_item: <span>{data.dem_item}</span>
