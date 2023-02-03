@@ -42,7 +42,7 @@ function OldVersionPlanningsTableItem({ data, listHistory, setList }) {
   return (
     <>
       <table className='table-auto w-full table'>
-        <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50'>
+        <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50 sticky top-0 z-40'>
           <tr>
             <th
               className='px-2 first:pl-5 cursor-pointer'
@@ -81,9 +81,9 @@ function OldVersionPlanningsTableItem({ data, listHistory, setList }) {
               <p className='font-semibold text-center'>Fecha de planeación</p>
             </th>
 
-            {/* <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap '>
+            <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap '>
               <p className='font-semibold text-center'></p>
-            </th> */}
+            </th>
           </tr>
         </thead>
         {!dataFilter.length > 0 ? (
