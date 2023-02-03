@@ -44,10 +44,12 @@ export const getUserFilter = () => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export const getDataFilter = (idFilter) => (dispatch) => {
+export const getDataFilter = (idFilter, id) => (dispatch) => {
   axios
     .get(
-      `http://35.174.106.95/api/planning/history-planning/list?user-id=${idFilter}`
+      `http://35.174.106.95/api/planning/history-planning/list?user-id=${
+        idFilter || id
+      }`
     )
     .then((response) => {
       if (response.status === 200) {

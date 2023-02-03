@@ -182,3 +182,34 @@ export const orderDesc = (array, setState, attr) => {
   setState(sortArray);
 };
 
+export const orderNumAsc = (array, setState, attr) => {
+  const arrayForSort = [...array];
+
+  const sortArray = arrayForSort.sort((a, b) => {
+    if (a[attr] < b[attr]) {
+      return 1;
+    }
+    if (a[attr] > b[attr]) {
+      return -1;
+    }
+    return 0;
+  });
+
+  setState(sortArray);
+};
+
+export const orderNumDesc = (array, setState, attr) => {
+  const arrayForSort = [...array];
+
+  const sortArray = arrayForSort.sort((a, b) => {
+    if (a[attr] > b[attr]) {
+      return 1;
+    }
+    if (a[attr] < b[attr]) {
+      return -1;
+    }
+    return 0;
+  });
+
+  setState(sortArray);
+};

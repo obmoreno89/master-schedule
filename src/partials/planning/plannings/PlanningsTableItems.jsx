@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectdataFilter } from '../../../store/slice/filterSlice';
 
-function PlanningsTableItems({ data, listHistory, setList }) {
-  const [orderId, setOrderId] = useState({ state: false, asc: false });
+function PlanningsTableItems(props) {
+  const [descriptionOpen, setDescriptionOpen] = useState(false);
   const [orderPlaneador, setOrderPlaneador] = useState({
     state: false,
     asc: false,
@@ -14,25 +14,15 @@ function PlanningsTableItems({ data, listHistory, setList }) {
 
   const dataFilter = useSelector(selectdataFilter);
 
-  useEffect(() => {
-    if (orderId.state) {
-      if (!orderId.asc) {
-        orderAsc(listHistory, setList, 'planning_id');
-      } else {
-        orderDesc(listHistory, setList, 'planning_id');
-      }
-    }
-  }, [orderId]);
-
-  useEffect(() => {
-    if (orderPlaneador.state) {
-      if (!orderPlaneador.asc) {
-        orderAsc(listHistory, setList, 'user_id__first_name');
-      } else {
-        orderDesc(listHistory, setList, 'user_id__first_name');
-      }
-    }
-  }, [orderPlaneador]);
+  // useEffect(() => {
+  //   if (orderPlaneador.state) {
+  //     if (!orderPlaneador.asc) {
+  //       orderAsc(listHistory, setList, 'user_id__first_name');
+  //     } else {
+  //       orderDesc(listHistory, setList, 'user_id__first_name');
+  //     }
+  //   }
+  // }, [orderPlaneador]);
 
   const formatDate = (date) => {
     const newDate = new Date(date);
@@ -41,149 +31,100 @@ function PlanningsTableItems({ data, listHistory, setList }) {
 
   return (
     <>
-      <table className='table-auto w-full table'>
-        <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50'>
-          <tr>
-            <th
-              className='px-2 first:pl-5 cursor-pointer'
-              onClick={() => {
-                setOrderId({ state: true, asc: !orderId.asc });
-              }}
-            >
-              <div className='flex items-center space-x-2'>
-                <div className='font-semibold text-left'>ID de Planeación</div>
-                <img
-                  src={orderId.asc ? icons.doubleDown : icons.doubleUp}
-                  alt='Flecha abajo'
-                  className='w-5'
-                />
-              </div>
-            </th>
-            <th
-              className='px-5 first:pl-5 last:pr-5 py-3 whitespace-nowrap cursor-pointer'
-              onClick={() => {
-                setOrderPlaneador({ state: true, asc: !orderPlaneador.asc });
-              }}
-            >
-              <div className='flex items-center space-x-2'>
-                <div className='font-semibold'>Planeador</div>
-                <img
-                  src={orderPlaneador.asc ? icons.doubleDown : icons.doubleUp}
-                  alt='Flecha abajo'
-                  className='w-5'
-                />
-              </div>
-            </th>
-            <th className='px-4 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-              <p className='font-semibold text-center'>Grupos planeados</p>
-            </th>
-            <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-              <p className='font-semibold text-center'>Fecha de planeación</p>
-            </th>
+      <tbody className='text-sm'>
+        <tr className='border-b border-borderInput'>
+          <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
+            <div className='flex items-center '>{props.order_item}</div>
+          </td>
+          <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
+            <div>{props.user}</div>
+          </td>
+          <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
+            <div className='  text-center'>{props.order_quantity}</div>
+          </td>
+          <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
+            <div className='  text-center'>{props.start_production_date}</div>
+          </td>
 
-            <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap '>
-              <p className='font-semibold text-center'></p>
-            </th>
+          <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
+            <div className='text-center'>{props.end_production_date}</div>
+          </td>
+          <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px '>
+            <div className='flex items-center'>
+              <button
+                className={`text-slate-400 hover:text-slate-600 transform ${
+                  descriptionOpen && 'rotate-180 duration-300'
+                }`}
+                aria-expanded={descriptionOpen}
+                onClick={() => setDescriptionOpen(!descriptionOpen)}
+              >
+                <span className='sr-only'>Menu</span>
+                <svg className='w-8 h-8 fill-current' viewBox='0 0 32 32'>
+                  <path d='M16 20l-5.4-5.4 1.4-1.4 4 4 4-4 1.4 1.4z' />
+                </svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+
+        {props.dem_children.map((data, index) => (
+          <tr key={index} className={`${!descriptionOpen && 'hidden'}`}>
+            <td colSpan='10' className='px-0 py-3'>
+              <div className='flex items-center bg-slate-50 border-l-8 border-primary px-8 py-3 -mt-3 space-x-[40px] shadow-inner'>
+                <h2 className='flex flex-col text-textTableHeader text-xs font-semibold'>
+                  Item
+                  <span className='text-center font-normal'>
+                    {data.dem_item}
+                  </span>
+                </h2>
+                <h2 className='flex flex-col text-textTableHeader text-xs font-semibold '>
+                  Order No.
+                  <span className='text-center font-normal'>
+                    {data.dem_order}
+                  </span>
+                </h2>
+                <h2 className='flex flex-col text-textTableHeader text-xs font-semibold '>
+                  Org
+                  <span className='text-center font-normal'>
+                    {data.dem_org}
+                  </span>
+                </h2>
+                <h2 className='flex flex-col text-textTableHeader text-xs font-semibold '>
+                  Quantity
+                  <span className='text-center font-normal'>
+                    {data.dem_qty}
+                  </span>
+                </h2>
+
+                <h2 className='flex flex-col text-textTableHeader text-xs font-semibold '>
+                  Schedule Ship Date
+                  <span className='text-center font-normal'>
+                    {formatDate(data.dem_ssd)}
+                  </span>
+                </h2>
+                <h2 className='flex flex-col text-textTableHeader text-xs font-semibold '>
+                  Start Date
+                  <span className='text-center font-normal'>
+                    {formatDate(data.dem_start_date)}
+                  </span>
+                </h2>
+                <h2 className='flex flex-col text-textTableHeader text-xs font-semibold '>
+                  End Date
+                  <span className='text-center font-normal'>
+                    {formatDate(data.dem_end_date)}
+                  </span>
+                </h2>
+                <h2 className='flex flex-col text-textTableHeader text-xs font-semibold '>
+                  Production Time
+                  <span className='text-center font-normal'>
+                    {data.dem_production_time}
+                  </span>
+                </h2>
+              </div>
+            </td>
           </tr>
-        </thead>
-        {!dataFilter.length > 0 ? (
-          <tbody className='text-sm divide-y divide-slate-200'>
-            {data?.map((item, index) => (
-              <tr key={index}>
-                <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap md:w-1/5 lg:w-1/4'>
-                  <p className='font-medium text-primary  capitalize'>
-                    {item?.planning_id}
-                  </p>
-                </td>
-                <td className='px-3 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                  <p className='text-left font-semibold'>
-                    {item?.user_id__first_name} {item?.user_id__last_name}
-                  </p>
-                </td>
-                <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                  <p className='text-center'>{item?.selected_groups}</p>
-                </td>
-                <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                  <p className='text-center'>
-                    {formatDate(item?.created_date)}
-                  </p>
-                </td>
-
-                <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                  <figure className='flex justify-end items-center'>
-                    <Link
-                      onClick={() => {
-                        const json = {
-                          first_name: item.user_id__first_name,
-                          last_name: item.user_id__last_name,
-                          created_date: item.created_date,
-                          selected_groups: item.selected_groups,
-                          last_update: item.last_update,
-                        };
-                        sessionStorage.setItem(
-                          'planningId',
-                          JSON.stringify(json)
-                        );
-                      }}
-                      to={`/mp-pro/planning/plannings/gantt/${item.id}`}
-                    >
-                      <img src={icons.play} alt='play' />
-                    </Link>
-                  </figure>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        ) : (
-          <tbody className='text-sm divide-y divide-slate-200'>
-            {dataFilter?.map((item, index) => (
-              <tr key={index}>
-                <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap md:w-1/5 lg:w-1/4'>
-                  <p className='font-medium text-primary  capitalize'>
-                    {item?.planning_id}
-                  </p>
-                </td>
-                <td className='px-3 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                  <p className='text-left font-semibold'>
-                    {item?.user_id__first_name} {item?.user_id__last_name}
-                  </p>
-                </td>
-                <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                  <p className='text-center'>{item?.selected_groups}</p>
-                </td>
-                <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                  <p className='text-center'>
-                    {formatDate(item?.created_date)}
-                  </p>
-                </td>
-
-                <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                  <figure className='flex justify-end items-center'>
-                    <Link
-                      onClick={() => {
-                        const json = {
-                          first_name: item.user_id__first_name,
-                          last_name: item.user_id__last_name,
-                          created_date: item.created_date,
-                          selected_groups: item.selected_groups,
-                          last_update: item.last_update,
-                        };
-                        sessionStorage.setItem(
-                          'planningId',
-                          JSON.stringify(json)
-                        );
-                      }}
-                      to={`/mp-pro/planning/plannings/gantt/${item.id}`}
-                    >
-                      <img src={icons.play} alt='play' />
-                    </Link>
-                  </figure>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        )}
-      </table>
+        ))}
+      </tbody>
     </>
   );
 }

@@ -16,11 +16,13 @@ const PlanningOrdersTable = ({ orders }) => {
     return newDate.toLocaleDateString('es-ES');
   };
 
+  console.log(orders);
+
   return (
     <>
       <div className='border border-slate-300 rounded-xl orders-table overflow-x-auto'>
         <table className='table-auto w-full table rounded-xl'>
-          <thead className='text-[14px] text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50'>
+          <thead className='text-[14px] text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50 sticky top-0 z-40'>
             <tr>
               <th className='px-2 first:pl-5 w-1/4'>
                 <div className='flex items-center space-x-10'>
@@ -43,9 +45,6 @@ const PlanningOrdersTable = ({ orders }) => {
               </th>
               <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
                 <p className='font-semibold text-center'>Línea de producto</p>
-              </th>
-              <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap '>
-                <p className='font-semibold text-center'>Order date</p>
               </th>
               <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap '>
                 <p className='font-semibold text-center'>Request date</p>
@@ -76,10 +75,10 @@ const PlanningOrdersTable = ({ orders }) => {
                   </div>
                 </td>
                 <td className='px-3 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                  <p className='font-semibold text-sm'>{order.Order_Type}</p>
+                  <p className=' text-sm text-center'>{order.Order_Type}</p>
                 </td>
                 <td className='px-3 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                  <p className='font-semibold text-sm'>{order.Item_Name}</p>
+                  <p className='text-sm'>{order.Item_Name}</p>
                 </td>
                 <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
                   <p className='text-center text-sm'>{order.OrdQty}</p>
@@ -92,22 +91,18 @@ const PlanningOrdersTable = ({ orders }) => {
                 <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
                   <p className='text-center text-sm'>{order.Pline}</p>
                 </td>
-                <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                  <p className='text-center text-sm'>
-                    {formatDate(order?.Date_Ordered)}
-                  </p>
-                </td>
-                <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap text-slate-400'>
+
+                <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap '>
                   <p className='text-center text-sm'>
                     {formatDate(order?.Request_Date)}
                   </p>
                 </td>
-                <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap font-medium'>
+                <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
                   <p className='text-center text-sm'>
                     {formatDate(order?.Promise_Date)}
                   </p>
                 </td>
-                <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap text-slate-400'>
+                <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap '>
                   <p className='text-center text-sm'>
                     {formatDate(order?.Schedule_Ship_Date)}
                   </p>
