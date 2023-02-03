@@ -29,6 +29,7 @@ function PlanningsTable({ setGroupOptionsPanel }) {
     useSelector(selectPlanningList)
   );
   const [orderItem, setOrderItem] = useState({ state: false, asc: false });
+  const [orderUser, setOrderUser] = useState({ state: false, asc: false });
   const [startSearch, setStartSearch] = useState(false);
   const [loadData, setLoadData] = useState(true);
 
@@ -53,6 +54,16 @@ function PlanningsTable({ setGroupOptionsPanel }) {
       }
     }
   }, [orderItem]);
+
+  useEffect(() => {
+    if (orderUser.state) {
+      if (!orderUser.asc) {
+        orderAsc(planningsList, setPlanningListOrder, 'user');
+      } else {
+        orderDesc(planningsList, setPlanningListOrder, 'user');
+      }
+    }
+  }, [orderUser]);
 
   // const handleSearch = (e) => {
   //   if (e.target.value.length > 0) {
@@ -133,20 +144,20 @@ function PlanningsTable({ setGroupOptionsPanel }) {
               </th>
               <th
                 className='px-5 first:pl-5 last:pr-5 py-3 whitespace-nowrap cursor-pointer'
-                // onClick={() => {
-                //   setOrderPlaneador({
-                //     state: true,
-                //     asc: !orderPlaneador.asc,
-                //   });
-                // }}
+                onClick={() => {
+                  setOrderUser({
+                    state: true,
+                    asc: !orderUser.asc,
+                  });
+                }}
               >
                 <div className='flex items-center space-x-2'>
                   <div className='font-semibold'>User</div>
-                  {/* <img
-                    src={orderPlaneador.asc ? icons.doubleDown : icons.doubleUp}
+                  <img
+                    src={orderUser.asc ? icons.doubleDown : icons.doubleUp}
                     alt='Flecha abajo'
                     className='w-5'
-                  /> */}
+                  />
                 </div>
               </th>
               <th className='px-4 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
