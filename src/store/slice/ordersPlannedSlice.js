@@ -12,6 +12,7 @@ const initialState = {
   search: [],
   dataFiltered: [],
   loadData: false,
+  loadDataFiltered: null,
 };
 
 export const revertAll = createAction("REVERT_ALL");
@@ -51,6 +52,9 @@ const ordersPlannedSlice = createSlice({
     setLoadData: (state, action) => {
       state.loadData = action.payload;
     },
+    setLoadDataFiltered: (state, action) => {
+      state.loadDataFiltered = action.payload;
+    },
   },
 });
 
@@ -63,6 +67,7 @@ export const {
   setSearch,
   setDataFiltered,
   setLoadData,
+  setLoadDataFiltered,
 } = ordersPlannedSlice.actions;
 
 export const selectOrders = (state) => state.orders.orders;
@@ -73,6 +78,7 @@ export const selectOrgFiltered = (state) => state.orders.orgFiltered;
 export const selectOrdersSearch = (state) => state.orders.search;
 export const selectDataFiltered = (state) => state.orders.dataFiltered;
 export const selectLoadData = (state) => state.orders.loadData;
+export const selectLoadFiltered = (state) => state.orders.loadDataFiltered;
 
 export default ordersPlannedSlice.reducer;
 
@@ -103,10 +109,12 @@ export const getFilterOptions = () => (dispatch) => {
 };
 
 export const getDataFiltered = (value) => (dispatch) => {
+  dispatch(setLoadDataFiltered(true));
   axios
     .get(`http://35.174.106.95/api/planning/report/list?org=${value}`)
     .then((response) => {
       if (response.status === 200) {
+        dispatch(setLoadDataFiltered(false));
         dispatch(setDataFiltered(response.data));
       }
     })

@@ -13,7 +13,7 @@ const initialState = {
   typeSort: [],
   notFound: null,
   listHistory: [],
-  loadListHistory: true,
+  loadListHistory: null,
   search: [],
   planningId: [],
   planningValues: {
@@ -234,10 +234,12 @@ export const generateGantt = (data, navigate) => (dispatch) => {
 };
 
 export const getPlanningList = () => (dispatch) => {
+  dispatch(setLoadHistory(true));
   axios
     .get('http://35.174.106.95/api/planning/orders-planning/list')
     .then((response) => {
       if (response.status === 200) {
+        dispatch(setLoadHistory(false));
         dispatch(setPlanningList(response.data));
       }
     })
