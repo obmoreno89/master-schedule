@@ -45,9 +45,6 @@ const PlanningOrdersTable = ({ orders }) => {
                 <p className='font-semibold text-center'>Línea de producto</p>
               </th>
               <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap '>
-                <p className='font-semibold text-center'>Order date</p>
-              </th>
-              <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap '>
                 <p className='font-semibold text-center'>Request date</p>
               </th>
               <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-2/5'>
@@ -76,7 +73,9 @@ const PlanningOrdersTable = ({ orders }) => {
                   </div>
                 </td>
                 <td className='px-3 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                  <p className='font-semibold text-sm'>{order.Order_Type}</p>
+                  <p className='font-semibold text-sm text-center'>
+                    {order.Order_Type}
+                  </p>
                 </td>
                 <td className='px-3 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
                   <p className='font-semibold text-sm'>{order.Item_Name}</p>
@@ -92,11 +91,7 @@ const PlanningOrdersTable = ({ orders }) => {
                 <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
                   <p className='text-center text-sm'>{order.Pline}</p>
                 </td>
-                <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                  <p className='text-center text-sm'>
-                    {formatDate(order?.Date_Ordered)}
-                  </p>
-                </td>
+
                 <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap text-slate-400'>
                   <p className='text-center text-sm'>
                     {formatDate(order?.Request_Date)}
