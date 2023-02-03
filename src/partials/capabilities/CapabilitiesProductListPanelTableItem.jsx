@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import icons from "../../images/icon/icons";
-import AddButtonForTable from "../../pages/component/AddButtonForTable";
-import { setPLDelete, setPLEdit } from "../../store/slice/capabilitiesSlice";
-import { orderGAsc, orderGDesc, orderPLAsc, orderPLDesc } from "./orderFunc";
+import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import icons from '../../images/icon/icons';
+import AddButtonForTable from '../../pages/component/AddButtonForTable';
+import { setPLDelete, setPLEdit } from '../../store/slice/capabilitiesSlice';
+import { orderGAsc, orderGDesc, orderPLAsc, orderPLDesc } from './orderFunc';
 
 function CapabilitiesProductListPanelTableItem({
   setOpenModalPL,
@@ -13,16 +13,16 @@ function CapabilitiesProductListPanelTableItem({
   setOpenModalPLEdit,
   setOpenModalPLDelete,
 }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [orderPL, setOrderPL] = useState({ state: false, asc: false });
   const [orderG, setOrderG] = useState({ state: false, asc: false });
 
   useEffect(() => {
     if (orderPL.state) {
       if (!orderPL.asc) {
-        orderPLAsc(productLines, setPl, "productLine");
+        orderPLAsc(productLines, setPl, 'productLine');
       } else {
-        orderPLDesc(productLines, setPl, "productLine");
+        orderPLDesc(productLines, setPl, 'productLine');
       }
     }
   }, [orderPL]);
@@ -30,71 +30,71 @@ function CapabilitiesProductListPanelTableItem({
   useEffect(() => {
     if (orderG.state) {
       if (!orderG.asc) {
-        orderGAsc(productLines, setPl, "productLine");
+        orderGAsc(productLines, setPl, 'productLine');
       } else {
-        orderGDesc(productLines, setPl, "productLine");
+        orderGDesc(productLines, setPl, 'productLine');
       }
     }
   }, [orderG]);
   return (
     <>
-      <table className="table-auto w-full">
+      <table className='table-auto w-full'>
         {/* Table header */}
-        <thead className="text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50">
+        <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50 sticky top-0 z-40'>
           <tr>
             <th
-              className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap cursor-pointer w-2/4"
+              className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap cursor-pointer w-2/4'
               onClick={() => {
                 setOrderPL({ state: true, asc: !orderPL.asc });
               }}
             >
-              <div className="flex items-center space-x-3">
-                <div className="font-semibold text-left">
+              <div className='flex items-center space-x-3'>
+                <div className='font-semibold text-left'>
                   Línea de productos
                 </div>
                 <img
                   src={orderPL.asc ? icons.doubleDown : icons.doubleUp}
-                  alt="Flecha abajo"
-                  className="w-5"
+                  alt='Flecha abajo'
+                  className='w-5'
                 />
               </div>
             </th>
             <th
-              className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap cursor-pointer w-1/4"
+              className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap cursor-pointer w-1/4'
               onClick={() => {
                 setOrderG({ state: true, asc: !orderG.asc });
               }}
             >
-              <div className="flex items-center space-x-2">
-                <p className="font-semibold text-left">Grupo</p>
+              <div className='flex items-center space-x-2'>
+                <p className='font-semibold text-left'>Grupo</p>
                 <img
                   src={orderG.asc ? icons.doubleDown : icons.doubleUp}
-                  alt="Flecha abajo"
-                  className="w-5"
+                  alt='Flecha abajo'
+                  className='w-5'
                 />
               </div>
             </th>
-            <th className="py-3 w-2/4"></th>
+            <th className='py-3 w-2/4'></th>
           </tr>
         </thead>
-        <tbody className="text-sm divide-y divide-slate-200">
+        <tbody className='text-sm divide-y divide-slate-200'>
           <AddButtonForTable
-            buttonName="Nueva línea de producto"
+            buttonName='Nueva línea de producto'
             setOpenModalPL={setOpenModalPL}
             group={false}
           />
           {currentPost.map((pl, index) => (
-            <tr key={index} className="text-textTableItem">
-              <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                <div className="flex items-center">
-                  <p className="capitalize">{pl.name}</p>
+            <tr key={index} className='text-textTableItem'>
+              <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
+                <div className='flex items-center'>
+                  <p className='capitalize'>{pl.name}</p>
                 </div>
               </td>
-              <td className="px-4 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                <p className="text-left font-bold ">{pl.group.name}</p>
+              <td className='px-4 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
+                <p className='text-left font-bold '>{pl.group.name}</p>
               </td>
-              <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                <figure className="flex justify-end items-center space-x-3">
+              <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
+                <figure className='flex justify-end items-center space-x-3'>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
@@ -102,7 +102,7 @@ function CapabilitiesProductListPanelTableItem({
                       setOpenModalPLEdit(true);
                     }}
                   >
-                    <img src={icons.pencilIcon} alt="Lapiz" />
+                    <img src={icons.pencilIcon} alt='Lapiz' />
                   </button>
                   <button
                     onClick={(e) => {
@@ -111,7 +111,7 @@ function CapabilitiesProductListPanelTableItem({
                       setOpenModalPLDelete(true);
                     }}
                   >
-                    <img src={icons.garbageIcon} alt="Basura" />
+                    <img src={icons.garbageIcon} alt='Basura' />
                   </button>
                 </figure>
               </td>

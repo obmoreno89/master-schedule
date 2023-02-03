@@ -20,7 +20,7 @@ const PlanningOrdersTable = ({ orders }) => {
     <>
       <div className='border border-slate-300 rounded-xl orders-table overflow-x-auto'>
         <table className='table-auto w-full table rounded-xl'>
-          <thead className='text-[14px] text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50'>
+          <thead className='text-[14px] text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50 sticky top-0 z-40'>
             <tr>
               <th className='px-2 first:pl-5 w-1/4'>
                 <div className='flex items-center space-x-10'>
