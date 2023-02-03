@@ -18,6 +18,15 @@ import Loading from '../../../pages/component/Loading';
 import { selectGroup } from '../../../store/slice/capabilitiesSlice';
 
 function PlanningsTable({ setGroupOptionsPanel }) {
+  const [orderItem, setOrderItem] = useState({ state: false, asc: false });
+  const [orderUser, setOrderUser] = useState({ state: false, asc: false });
+  const [orderQuantity, setOrderQuantity] = useState({
+    state: false,
+    asc: false,
+  });
+  const [startSearch, setStartSearch] = useState(false);
+  const [loadData, setLoadData] = useState(true);
+
   const dispatch = useDispatch();
   const listHistory = useSelector(selectListHistory);
   const load = useSelector(selectLoadHistory);
@@ -28,10 +37,6 @@ function PlanningsTable({ setGroupOptionsPanel }) {
   const [planningListOrder, setPlanningListOrder] = useState(
     useSelector(selectPlanningList)
   );
-  const [orderItem, setOrderItem] = useState({ state: false, asc: false });
-  const [orderUser, setOrderUser] = useState({ state: false, asc: false });
-  const [startSearch, setStartSearch] = useState(false);
-  const [loadData, setLoadData] = useState(true);
 
   useEffect(() => {
     dispatch(getPlanningList());
@@ -65,6 +70,17 @@ function PlanningsTable({ setGroupOptionsPanel }) {
     }
   }, [orderUser]);
 
+  // useEffect(() => {
+  //   if (orderQuantity.state) {
+  //     if (!orderQuantity.asc) {
+  //       orderAsc(planningsList, setPlanningListOrder, 'order_quantity');
+  //     } else {
+  //       orderDesc(planningsList, setPlanningListOrder, 'order_quantity');
+  //     }
+  //   }
+  // }, [orderQuantity]);
+
+  console.log(planningListOrder);
   // const handleSearch = (e) => {
   //   if (e.target.value.length > 0) {
   //     setStartSearch(true);
@@ -134,7 +150,7 @@ function PlanningsTable({ setGroupOptionsPanel }) {
                 }}
               >
                 <div className='flex items-center space-x-2'>
-                  <div className='font-semibold text-left'>order_item</div>
+                  <div className='font-semibold text-left'>Order Item</div>
                   <img
                     src={orderItem.asc ? icons.doubleDown : icons.doubleUp}
                     alt='Flecha abajo'
@@ -160,16 +176,31 @@ function PlanningsTable({ setGroupOptionsPanel }) {
                   />
                 </div>
               </th>
-              <th className='px-4 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                <p className='font-semibold text-center'>order_quantity</p>
+              <th
+                className='px-4 first:pl-5 last:pr-5 py-3 whitespace-nowrap'
+                // onClick={() => {
+                //   setOrderQuantity({
+                //     state: true,
+                //     asc: !orderQuantity.asc,
+                //   });
+                // }}
+              >
+                <div className='flex items-center justify-center space-x-2'>
+                  <div className='font-semibold'>Order Quantity</div>
+                  {/* <img
+                    src={orderQuantity.asc ? icons.doubleDown : icons.doubleUp}
+                    alt='Flecha abajo'
+                    className='w-5'
+                  /> */}
+                </div>
               </th>
               <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
                 <p className='font-semibold text-center'>
-                  start_production_date
+                  Start Production Date
                 </p>
               </th>
               <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                <p className='font-semibold text-center'>end_production_date</p>
+                <p className='font-semibold text-center'>End Production Date</p>
               </th>
               <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'></th>
 
