@@ -86,9 +86,7 @@ function OrdersTableItems({ data, ordersList, setList }) {
               <p className='font-semibold text-center'>On-Hand</p>
             </th>
             <th className='py-3 whitespace-nowrap'>
-              <p className='font-semibold text-center'>
-                Re-Order QTY
-              </p>
+              <p className='font-semibold text-center'>Re-Order QTY</p>
             </th>
 
             <th className='py-3 whitespace-nowrap px-2'>

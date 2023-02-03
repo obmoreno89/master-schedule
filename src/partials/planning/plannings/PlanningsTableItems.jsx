@@ -7,7 +7,6 @@ import { selectdataFilter } from '../../../store/slice/filterSlice';
 
 function PlanningsTableItems(props) {
   const [descriptionOpen, setDescriptionOpen] = useState(false);
-  const [orderId, setOrderId] = useState({ state: false, asc: false });
   const [orderPlaneador, setOrderPlaneador] = useState({
     state: false,
     asc: false,
@@ -15,27 +14,15 @@ function PlanningsTableItems(props) {
 
   const dataFilter = useSelector(selectdataFilter);
 
-  console.log(props.dem_children);
-
-  useEffect(() => {
-    if (orderId.state) {
-      if (!orderId.asc) {
-        orderAsc(listHistory, setList, 'planning_id');
-      } else {
-        orderDesc(listHistory, setList, 'planning_id');
-      }
-    }
-  }, [orderId]);
-
-  useEffect(() => {
-    if (orderPlaneador.state) {
-      if (!orderPlaneador.asc) {
-        orderAsc(listHistory, setList, 'user_id__first_name');
-      } else {
-        orderDesc(listHistory, setList, 'user_id__first_name');
-      }
-    }
-  }, [orderPlaneador]);
+  // useEffect(() => {
+  //   if (orderPlaneador.state) {
+  //     if (!orderPlaneador.asc) {
+  //       orderAsc(listHistory, setList, 'user_id__first_name');
+  //     } else {
+  //       orderDesc(listHistory, setList, 'user_id__first_name');
+  //     }
+  //   }
+  // }, [orderPlaneador]);
 
   const formatDate = (date) => {
     const newDate = new Date(date);

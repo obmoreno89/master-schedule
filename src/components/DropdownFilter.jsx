@@ -44,8 +44,6 @@ function DropdownFilter({ align }) {
     user_id__first_name: 'Mis planeaciones',
   });
 
-  console.log(idUserFilter);
-
   // close on click outside
   useEffect(() => {
     const clickHandler = ({ target }) => {

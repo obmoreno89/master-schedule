@@ -1,5 +1,6 @@
 import PlanningsTableItems from './PlanningsTableItems';
 import { useDispatch, useSelector } from 'react-redux';
+import { orderAsc, orderDesc } from '../../capabilities/orderFunc';
 import { useEffect, useState } from 'react';
 import icons from '../../../images/icon/icons';
 import DropdownFilter from '../../../components/DropdownFilter';
@@ -24,7 +25,10 @@ function PlanningsTable({ setGroupOptionsPanel }) {
   const groups = useSelector(selectGroup);
   const planningsList = useSelector(selectPlanningList);
 
-  const [list, setList] = useState(useSelector(selectListHistory));
+  const [planningListOrder, setPlanningListOrder] = useState(
+    useSelector(selectPlanningList)
+  );
+  const [orderItem, setOrderItem] = useState({ state: false, asc: false });
   const [startSearch, setStartSearch] = useState(false);
   const [loadData, setLoadData] = useState(true);
 
@@ -33,36 +37,42 @@ function PlanningsTable({ setGroupOptionsPanel }) {
   }, []);
 
   useEffect(() => {
-    dispatch(getListHistory());
-  }, [groups]);
-
-  useEffect(() => {
-    setList(listHistory);
-  }, [listHistory]);
+    setPlanningListOrder(planningsList);
+  }, [planningsList]);
 
   useEffect(() => {
     setLoadData(load);
   }, [load]);
 
-  const handleSearch = (e) => {
-    if (e.target.value.length > 0) {
-      setStartSearch(true);
-      let result = list.filter((element) => {
-        if (
-          element.planning_id
-            .toString()
-            .toLowerCase()
-            .includes(e.target.value.toLowerCase())
-        ) {
-          return element;
-        }
-      });
-      dispatch(setSearch(result));
-    } else {
-      dispatch(revertSearch());
-      setStartSearch(false);
+  useEffect(() => {
+    if (orderItem.state) {
+      if (!orderItem.asc) {
+        orderAsc(planningsList, setPlanningListOrder, 'order_item');
+      } else {
+        orderDesc(planningsList, setPlanningListOrder, 'order_item');
+      }
     }
-  };
+  }, [orderItem]);
+
+  // const handleSearch = (e) => {
+  //   if (e.target.value.length > 0) {
+  //     setStartSearch(true);
+  //     let result = planningListOrder.filter((element) => {
+  //       if (
+  //         element.planning_id
+  //           .toString()
+  //           .toLowerCase()
+  //           .includes(e.target.value.toLowerCase())
+  //       ) {
+  //         return element;
+  //       }
+  //     });
+  //     dispatch(setSearch(result));
+  //   } else {
+  //     dispatch(revertSearch());
+  //     setStartSearch(false);
+  //   }
+  // };
 
   return (
     <>
@@ -78,7 +88,7 @@ function PlanningsTable({ setGroupOptionsPanel }) {
             className='form-input w-72'
             placeholder='Buscar por ID...'
             type='search'
-            onChange={handleSearch}
+            // onChange={handleSearch}
           />
           <button
             type='button'
@@ -108,17 +118,17 @@ function PlanningsTable({ setGroupOptionsPanel }) {
             <tr>
               <th
                 className='px-2 first:pl-5 cursor-pointer'
-                // onClick={() => {
-                //   setOrderId({ state: true, asc: !orderId.asc });
-                // }}
+                onClick={() => {
+                  setOrderItem({ state: true, asc: !orderItem.asc });
+                }}
               >
                 <div className='flex items-center space-x-2'>
                   <div className='font-semibold text-left'>order_item</div>
-                  {/* <img
-                    src={orderId.asc ? icons.doubleDown : icons.doubleUp}
+                  <img
+                    src={orderItem.asc ? icons.doubleDown : icons.doubleUp}
                     alt='Flecha abajo'
                     className='w-5'
-                  /> */}
+                  />
                 </div>
               </th>
               <th
@@ -158,7 +168,7 @@ function PlanningsTable({ setGroupOptionsPanel }) {
             </tr>
           </thead>
 
-          {planningsList.map((data) => {
+          {planningListOrder.map((data) => {
             return (
               <PlanningsTableItems
                 key={data.order_planning_id}
@@ -169,6 +179,8 @@ function PlanningsTable({ setGroupOptionsPanel }) {
                 start_production_date={data.start_production_date}
                 end_production_date={data.end_production_date}
                 dem_children={data.dem_childrens}
+                setOrderItem={setOrderItem}
+                orderItem={orderItem}
               />
             );
           })}
