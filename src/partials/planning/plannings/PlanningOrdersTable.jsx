@@ -16,8 +16,6 @@ const PlanningOrdersTable = ({ orders }) => {
     return newDate.toLocaleDateString('es-ES');
   };
 
-  console.log(orders);
-
   return (
     <>
       <div className='border border-slate-300 rounded-xl orders-table overflow-x-auto'>
