@@ -16,7 +16,7 @@ function GetPlanningReportModal({
           {/* Modal header */}
           <div className='mb-2 flex justify-between items-center'>
             <div className='text-lg font-bold text-slate-800 w-72'>
-              ¿Demanda del planning report?
+              Demanda del planning report
             </div>
             <button
               onClick={(e) => {
