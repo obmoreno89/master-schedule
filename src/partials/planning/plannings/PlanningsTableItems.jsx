@@ -92,15 +92,15 @@ function PlanningsTableItems(props) {
         {props.dem_children.map((data, index) => (
           <tr key={index} className={`${!descriptionOpen && 'hidden'}`}>
             <td colSpan='10' className='px-0 py-3'>
-              <div className='flex items-center bg-slate-50 border-l-8 border-primary px-8 py-3 -mt-3 space-x-[40px] shadow-inner'>
+              <div className='flex items-center bg-slate-50 border-l-8 border-primary px-4 py-3 -mt-3 space-x-[40px] shadow-inner'>
               {
                  data.dem_order === null ?
                  null
                  :
                  <h2 className='flex flex-col text-textTableHeader text-xs font-semibold '>
                   Origen
-                  <span className='text-center font-normal'>
-                    Sales Order
+                  <span className='font-normal'>
+                    Sales Order {data.dem_org}
                   </span>
                 </h2>
                 }
@@ -108,8 +108,8 @@ function PlanningsTableItems(props) {
                  data.dem_order === null ? 
                  <h2 className='flex flex-col text-textTableHeader text-xs font-semibold '>
                  Origen
-                 <span className=' font-normal'>
-                   Planning Report
+                 <span className='font-normal'>
+                   Planning Report {data.dem_org}
                  </span>
                </h2>
                  :
@@ -120,7 +120,16 @@ function PlanningsTableItems(props) {
                   </span>
                 </h2>
                 }
-              {data.dem_pline === null ? <h2 className='flex flex-col text-textTableHeader text-xs font-semibold'>
+                {data.dem_total_order === null ? null :
+                 <h2 className='flex flex-col text-textTableHeader text-xs font-semibold'>
+                 Total Order
+                 <span className='font-normal'>
+                   ${data.dem_total_order}
+                 </span>
+               </h2>
+                
+                }
+                {data.dem_pline === null ? <h2 className='flex flex-col text-textTableHeader text-xs font-semibold'>
                   Product Line
                   <span className='font-normal'>
                     No identificada
@@ -134,19 +143,19 @@ function PlanningsTableItems(props) {
                   </span>
                 </h2>
               }
+                {data.dem_line_no === null ? null : 
+
+                  <h2 className='flex flex-col text-textTableHeader text-xs font-semibold'>
+                    LineNo
+                  <span className='font-normal'>
+                    {data.dem_line_no}
+                  </span>
+                  </h2>
+                }  
                 <h2 className='flex flex-col text-textTableHeader text-xs font-semibold'>
                   Item
                   <span className='text-center font-normal'>
                     {data.dem_item}
-                  </span>
-                </h2>
-               
-               
-                
-                <h2 className='flex flex-col text-textTableHeader text-xs font-semibold '>
-                  Org
-                  <span className='font-normal'>
-                    {data.dem_org}
                   </span>
                 </h2>
                 <h2 className='flex flex-col text-textTableHeader text-xs font-semibold '>
@@ -174,12 +183,12 @@ function PlanningsTableItems(props) {
                     {formatDate(data.dem_end_date)}
                   </span>
                 </h2>
-                <h2 className='flex flex-col text-textTableHeader text-xs font-semibold '>
+                {/* <h2 className='flex flex-col text-textTableHeader text-xs font-semibold '>
                   Production Time
                   <span className='font-normal'>
                     {data.dem_production_time}
                   </span>
-                </h2>
+                </h2> */}
               </div>
             </td>
           </tr>
