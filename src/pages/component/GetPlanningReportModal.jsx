@@ -37,8 +37,8 @@ function GetPlanningReportModal({
           <div className='text-sm mb-10'>
             <div className='space-y-2'>
               <p>
-                ¿Deseas agregar la consideración de la demanda del planning
-                report a tu planeación?
+                ¿Deseas agregar la consideración de la demanda del Planning
+                Report a tu planeación?
               </p>
             </div>
           </div>
