@@ -77,12 +77,34 @@ function PlanningsTableItems(props) {
                     {data.dem_item}
                   </span>
                 </h2>
-                <h2 className='flex flex-col text-textTableHeader text-xs font-semibold '>
+                {
+                 data.dem_order === null ?
+                 null
+                 :
+                 <h2 className='flex flex-col text-center text-textTableHeader text-xs font-semibold '>
+                  Origen
+                  <span className='text-center font-normal'>
+                    Sales Order
+                  </span>
+                </h2>
+                }
+                {
+                 data.dem_order === null ? 
+                 <h2 className='flex flex-col text-center text-textTableHeader text-xs font-semibold '>
+                 Origen
+                 <span className='text-center font-normal'>
+                   Planning Report
+                 </span>
+               </h2>
+                 :
+                 <h2 className='flex flex-col text-textTableHeader text-xs font-semibold '>
                   Order No.
                   <span className='text-center font-normal'>
                     {data.dem_order}
                   </span>
                 </h2>
+                }
+                
                 <h2 className='flex flex-col text-textTableHeader text-xs font-semibold '>
                   Org
                   <span className='text-center font-normal'>
