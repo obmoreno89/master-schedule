@@ -47,7 +47,7 @@ function UserTableItem({
         setOpenModalUserDelete={setOpenModalUserDelete}
       />
       <table className='table-auto w-full table'>
-        <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50'>
+        <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50 sticky top-0 z-40'>
           <tr>
             <th
               className='px-2 first:pl-5 cursor-pointer'

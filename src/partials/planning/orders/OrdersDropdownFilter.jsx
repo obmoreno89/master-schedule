@@ -1,48 +1,37 @@
-import React, { useState, useRef, useEffect } from 'react';
-import Transition from '../utils/Transition';
+import { useState, useRef, useEffect } from 'react';
+import Transition from '../../../utils/Transition';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  getUserFilter,
-  selectFilterUser,
-  setIdUserFilter,
-  selectIdUserFilter,
-  getDataFilter,
-  setDataFilter,
-} from '../store/slice/filterSlice';
-import { getListHistory } from '../store/slice/planningSlice';
+  getDataFiltered,
+  getFilterOptions,
+  selectFilterOptions,
+  selectOrgFiltered,
+  setDataFiltered,
+  setOrders,
+  setOrgFiltered,
+} from '../../../store/slice/ordersPlannedSlice';
 
-function DropdownFilter({ align }) {
+function OrdersDropdownFilter({ align }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef(null);
   const dropdown = useRef(null);
-
   const dispatch = useDispatch();
-  const filterUserList = useSelector(selectFilterUser);
-  const idUserFilter = useSelector(selectIdUserFilter);
+  const filter = useSelector(selectFilterOptions);
+  const orgFiltered = useSelector(selectOrgFiltered);
 
   useEffect(() => {
-    dispatch(getUserFilter());
+    dispatch(getFilterOptions());
   }, []);
 
-  const onChangeIdUserFilter = (optionId) => {
-    if (idUserFilter === optionId) {
-      dispatch(setIdUserFilter(null));
+  const handleChange = (org) => {
+    if (orgFiltered === org) {
+      dispatch(setOrgFiltered(null));
     } else {
-      dispatch(setIdUserFilter(optionId));
+      // dispatch(setOrders([]));
+      dispatch(setOrgFiltered(org));
     }
   };
-
-  const nameUserFilter = sessionStorage.getItem('first_name');
-  const id = sessionStorage.getItem('id');
-
-  const filteredName = filterUserList.filter(
-    (obj) => obj.user_id__first_name !== nameUserFilter
-  );
-  filteredName.unshift({
-    user_id__id: id,
-    user_id__first_name: 'Mis planeaciones',
-  });
 
   // close on click outside
   useEffect(() => {
@@ -100,36 +89,33 @@ function DropdownFilter({ align }) {
       >
         <div ref={dropdown}>
           <div className='text-xs font-semibold text-slate-400 uppercase pt-1.5 pb-2 px-4'>
-            Filtro
+            Filtrar por org
           </div>
           <ul className='mb-4'>
-            {filteredName?.map((options, index) => (
+            {filter?.map((org, index) => (
               <li className='py-1 px-3' key={index}>
                 <label className='flex items-center'>
                   <input
                     type='checkbox'
                     className='form-checkbox'
-                    value={options.user_id__id}
-                    checked={idUserFilter === options.user_id__id}
-                    onChange={() => {
-                      onChangeIdUserFilter(options.user_id__id);
-                    }}
+                    value={org.org}
+                    checked={orgFiltered === org.org}
+                    onChange={() => handleChange(org.org)}
                   />
-                  <span className='text-sm font-medium ml-2'>
-                    {options.user_id__first_name} {options.user_id__last_name}
-                  </span>
+                  <span className='text-sm font-medium ml-2'>{org?.org}</span>
                 </label>
               </li>
             ))}
           </ul>
           <div className='py-2 px-3 border-t border-slate-200 bg-slate-50'>
-            {idUserFilter > 0 ? (
+            {orgFiltered !== null ? (
               <ul className='flex items-center justify-between'>
                 <li>
                   <button
                     className='btn-xs bg-primary hover:bg-slate-400 text-white'
                     onClick={() => {
-                      dispatch(getDataFilter(idUserFilter, id));
+                      dispatch(setDataFiltered([]));
+                      dispatch(getDataFiltered(orgFiltered));
                       setDropdownOpen(false);
                     }}
                     onBlur={() => setDropdownOpen(false)}
@@ -141,9 +127,8 @@ function DropdownFilter({ align }) {
                   <button
                     className='btn-xs bg-white hover:text-slate-600 text-slate-500 hover:border-borderInput'
                     onClick={() => {
-                      dispatch(getListHistory());
-                      dispatch(setDataFilter([]));
-                      dispatch(setIdUserFilter(null));
+                      dispatch(setDataFiltered([]));
+                      dispatch(setOrgFiltered(null));
                       setDropdownOpen(false);
                     }}
                     onBlur={() => setDropdownOpen(false)}
@@ -166,11 +151,6 @@ function DropdownFilter({ align }) {
                   <button
                     className='btn-xs bg-white hover:text-slate-600 text-slate-500 hover:border-borderInput disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed'
                     disabled
-                    onClick={() => {
-                      dispatch(getListHistory());
-                      dispatch(setDataFilter([]));
-                      setDropdownOpen(false);
-                    }}
                     onBlur={() => setDropdownOpen(false)}
                   >
                     Mostrar todas
@@ -185,4 +165,4 @@ function DropdownFilter({ align }) {
   );
 }
 
-export default DropdownFilter;
+export default OrdersDropdownFilter;

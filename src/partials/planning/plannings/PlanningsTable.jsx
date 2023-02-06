@@ -1,49 +1,49 @@
 import PlanningsTableItems from './PlanningsTableItems';
 import { useDispatch, useSelector } from 'react-redux';
+import { orderAsc, orderDesc } from '../../capabilities/orderFunc';
 import { useEffect, useState } from 'react';
+import icons from '../../../images/icon/icons';
+import DropdownFilter from '../../../components/DropdownFilter';
 import {
-  getListHistory,
   revertSearch,
   selectHistorySearch,
   selectListHistory,
   selectLoadHistory,
   setSearch,
+  selectPlanningList,
+  getPlanningList,
 } from '../../../store/slice/planningSlice';
 import Loading from '../../../pages/component/Loading';
 import { selectGroup } from '../../../store/slice/capabilitiesSlice';
 
-function PlanningsTable({ setGroupOptionsPanel }) {
-  const dispatch = useDispatch();
-  const listHistory = useSelector(selectListHistory);
-  const load = useSelector(selectLoadHistory);
-  const searchItems = useSelector(selectHistorySearch);
-  const groups = useSelector(selectGroup)
-
-  const [list, setList] = useState(useSelector(selectListHistory));
+function PlanningsTable({
+  setGroupOptionsPanel,
+  setGetPlanningReportModalOpen,
+}) {
   const [startSearch, setStartSearch] = useState(false);
-  const [loadData, setLoadData] = useState(true);
+  const dispatch = useDispatch();
+  const searchItems = useSelector(selectHistorySearch);
+  const planningsList = useSelector(selectPlanningList);
 
-
-
-  useEffect(() => {
-    dispatch(getListHistory());
-  }, [groups]);
-
-  useEffect(() => {
-    setList(listHistory);
-  }, [listHistory]);
+  const [planningListOrder, setPlanningListOrder] = useState(
+    useSelector(selectPlanningList)
+  );
 
   useEffect(() => {
-    setLoadData(load);
-  }, [load]);
+    dispatch(getPlanningList());
+  }, []);
+
+  useEffect(() => {
+    setPlanningListOrder(planningsList);
+  }, [planningsList]);
 
   const handleSearch = (e) => {
     if (e.target.value.length > 0) {
       setStartSearch(true);
-      let result = list.filter((element) => {
+      let result = planningListOrder.filter((element) => {
         if (
-          element.planning_id
-            .toString()
+          element.order_item
+            //.toString()
             .toLowerCase()
             .includes(e.target.value.toLowerCase())
         ) {
@@ -65,13 +65,22 @@ function PlanningsTable({ setGroupOptionsPanel }) {
             Planeaciones
           </h1>
         </div>
-        <div className='flex space-x-3'>
+        <div className='flex space-x-3 z-50'>
+          <DropdownFilter />
+
           <input
             className='form-input w-72'
-            placeholder='Buscar por ID...'
+            placeholder='Buscar por Item...'
             type='search'
             onChange={handleSearch}
           />
+          <button
+            type='button'
+            className=' font-medium text-sm bg-white text-primary w-54 space-x-2 border border-primary rounded px-2 flex justify-center items-center'
+          >
+            <img className='w-5' src={icons.graphGantt} alt='Gantt' />
+            <span>Vista de Gantt</span>
+          </button>
           <button
             onClick={() => setGroupOptionsPanel(true)}
             type='button'
@@ -87,41 +96,129 @@ function PlanningsTable({ setGroupOptionsPanel }) {
           </button>
         </div>
       </section>
-      {loadData ? (
-        list?.length > 0 ? (
-          <section>
-            <div className='overflow-x-auto rounded-xl border border-slate-300 h-[550px]'>
-              {!startSearch ? (
-                <PlanningsTableItems
-                  data={list}
-                  listHistory={listHistory}
-                  setList={setList}
-                />
-              ) : startSearch && searchItems.length > 0 ? (
-                <PlanningsTableItems
-                  data={searchItems}
-                  listHistory={listHistory}
-                  setList={setList}
-                />
-              ) : (
-                <section className='justify-center items-center flex h-96'>
-                  <h2 className='font-semibold text-2xl'>
-                    Sin datos que mostrar
-                  </h2>
-                </section>
-              )}
-            </div>
-          </section>
+      <section className='overflow-x-auto rounded-xl border border-slate-300 h-[550px]'>
+        {planningListOrder.length > 0 ? (
+          !startSearch ? (
+            <Table
+              array={planningListOrder}
+              setPlanningListOrder={setPlanningListOrder}
+            />
+          ) : startSearch && searchItems.length > 0 ? (
+            <Table
+              array={searchItems}
+              setPlanningListOrder={setPlanningListOrder}
+            />
+          ) : (
+            <section className='justify-center items-center flex mt-56'>
+              <h2 className='font-semibold text-2xl'>Sin datos para mostrar</h2>
+            </section>
+          )
         ) : (
-          <Loading />
-        )
-      ) : (
-        <section className='justify-center items-center flex h-96'>
-          <h2 className='font-semibold text-2xl'>Sin datos que mostrar</h2>
-        </section>
-      )}
+          <section className='justify-center items-center flex mt-56'>
+            <div className='loader'></div>
+            <span className='ml-3 text-primary font-semibold'>Cargando</span>
+          </section>
+        )}
+      </section>
     </>
   );
 }
+
+const Table = ({ array, setPlanningListOrder }) => {
+  const planningsList = useSelector(selectPlanningList);
+
+  const [orderItem, setOrderItem] = useState({ state: false, asc: false });
+  const [orderUser, setOrderUser] = useState({ state: false, asc: false });
+
+  useEffect(() => {
+    if (orderItem.state) {
+      if (!orderItem.asc) {
+        orderAsc(planningsList, setPlanningListOrder, 'order_item');
+      } else {
+        orderDesc(planningsList, setPlanningListOrder, 'order_item');
+      }
+    }
+  }, [orderItem]);
+
+  useEffect(() => {
+    if (orderUser.state) {
+      if (!orderUser.asc) {
+        orderAsc(planningsList, setPlanningListOrder, 'user');
+      } else {
+        orderDesc(planningsList, setPlanningListOrder, 'user');
+      }
+    }
+  }, [orderUser]);
+
+  return (
+    <table className='table-auto w-full '>
+      <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50 sticky top-0 z-40'>
+        <tr>
+          <th
+            className='px-2 first:pl-5 cursor-pointer'
+            onClick={() => {
+              setOrderItem({ state: true, asc: !orderItem.asc });
+            }}
+          >
+            <div className='flex items-center space-x-2'>
+              <div className='font-semibold text-left'>Order Item</div>
+              <img
+                src={orderItem.asc ? icons.doubleDown : icons.doubleUp}
+                alt='Flecha abajo'
+                className='w-5'
+              />
+            </div>
+          </th>
+          <th
+            className='px-5 first:pl-5 last:pr-5 py-3 whitespace-nowrap cursor-pointer'
+            onClick={() => {
+              setOrderUser({
+                state: true,
+                asc: !orderUser.asc,
+              });
+            }}
+          >
+            <div className='flex items-center space-x-2'>
+              <div className='font-semibold'>User</div>
+              <img
+                src={orderUser.asc ? icons.doubleDown : icons.doubleUp}
+                alt='Flecha abajo'
+                className='w-5'
+              />
+            </div>
+          </th>
+          <th className='px-4 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
+            <div className='flex items-center justify-center space-x-2'>
+              <div className='font-semibold'>Order Quantity</div>
+            </div>
+          </th>
+          <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
+            <p className='font-semibold text-center'>Start Production Date</p>
+          </th>
+          <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
+            <p className='font-semibold text-center'>End Production Date</p>
+          </th>
+          <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'></th>
+        </tr>
+      </thead>
+      {array.map((data) => {
+        return (
+          <PlanningsTableItems
+            key={data.order_planning_id}
+            id={data.order_planning_id}
+            order_item={data.order_item}
+            user={data.user}
+            order_quantity={data.order_quantity}
+            start_production_date={data.start_production_date}
+            end_production_date={data.end_production_date}
+            dem_children={data.dem_childrens}
+            setOrderItem={setOrderItem}
+            orderItem={orderItem}
+          />
+        );
+      })}
+    </table>
+  );
+};
 
 export default PlanningsTable;

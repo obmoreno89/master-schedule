@@ -6,6 +6,9 @@ import calendarSlice from './slice/calendarSlice';
 import planningSlice from './slice/planningSlice';
 import kpiSlice from './slice/kpiSlice';
 import systemStatusSlice from './slice/systemStatusSlice';
+import filterSlice from './slice/filterSlice';
+import ordersPlannedSlice from './slice/ordersPlannedSlice';
+import openOrdersSlice from './slice/openOrdersSlice';
 
 const store = configureStore({
   reducer: {
@@ -16,6 +19,9 @@ const store = configureStore({
     planning: planningSlice,
     kpi: kpiSlice,
     systemStatus: systemStatusSlice,
+    filter: filterSlice,
+    orders: ordersPlannedSlice,
+    openOrders: openOrdersSlice,
   },
 });
 

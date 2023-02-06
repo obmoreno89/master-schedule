@@ -16,6 +16,14 @@ function DemoGantt() {
     // console.log(dataInitial);
   }, []);
 
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     localStorage.removeItem("b-gantt-trial-start");
+  //     window.location.reload();
+  //   }, 60000);
+   
+  // }, []);
+
   const loadData = async () => {
     const data = await axios.get(
       'http://35.174.106.95/api/gantt/list-order-planning?planning-id=mp-91'
