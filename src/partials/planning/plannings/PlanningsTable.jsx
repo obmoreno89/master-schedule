@@ -207,6 +207,8 @@ const Table = ({ array, setPlanningListOrder }) => {
             key={data.order_planning_id}
             id={data.order_planning_id}
             order_item={data.order_item}
+            pline={data.pline}
+            org={data.org}
             user={data.user}
             order_quantity={data.order_quantity}
             start_production_date={data.start_production_date}
