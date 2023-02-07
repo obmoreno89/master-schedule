@@ -1,10 +1,13 @@
 import React from 'react';
 import ModalBlank from '../../components/ModalBlank';
+import { useNavigate } from 'react-router-dom';
 
 function GetPlanningReportModal({
   setGetPlanningReportModalOpen,
   getPlanningReportModalOpen,
 }) {
+  const navigate = useNavigate();
+
   return (
     <ModalBlank
       id='success-modal'
@@ -48,6 +51,7 @@ function GetPlanningReportModal({
               onClick={(e) => {
                 e.stopPropagation();
                 setGetPlanningReportModalOpen(false);
+                navigate('/mp-pro/planning/plannings/demand-planning/');
               }}
               className='btn-lg bg-primary font-semibold text-white w-full'
             >
