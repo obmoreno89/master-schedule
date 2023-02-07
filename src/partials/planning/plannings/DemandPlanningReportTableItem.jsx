@@ -2,18 +2,13 @@ import React, { useState, useEffect } from 'react';
 import icons from '../../../images/icon/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectDemandPlanning } from '../../../store/slice/demandPlanningOrdersSlice';
-import { useForm } from 'react-hook-form';
 
 function DemandPlanningReportTableItem() {
   const dispatch = useDispatch();
   const demandPlanningList = useSelector(selectDemandPlanning);
 
-  const { register, handleSubmit, setValue, watch } = useForm();
-  const inputValue = watch('reorder_quantity');
-
   const [editFinalReorder, setEditFinalReorder] = useState(null);
   const [changeNumber, setchangeNumber] = useState(null);
-  const [prueba, setPrueba] = useState({ demandPlanningList });
   const [otro, setOtro] = useState('');
 
   // function onSubmit(id) {
@@ -29,15 +24,15 @@ function DemandPlanningReportTableItem() {
 
   // useEffect(() => {
   //   let defaultValues = {};
-  //   defaultValues.reorder_quantity = parseInt(changeNumber);
+  //   defaultValues.reorder_quantity = parseInt(!otro ? changeNumber : otro);
 
   //   reset({ ...defaultValues });
-  // }, [, changeNumber]);
+  // }, [, changeNumber, otro]);
 
   const onChange = (e) => setOtro(e.target.value);
 
   const onSubmit = (id) => {
-    setPrueba(
+    setchangeNumber(
       demandPlanningList?.map((data) => {
         if (data.id === id) {
           return { ...data, reorder_quantity: otro };
@@ -47,7 +42,7 @@ function DemandPlanningReportTableItem() {
     );
   };
 
-  console.log(prueba);
+  console.log(changeNumber);
 
   return (
     <>
@@ -161,7 +156,6 @@ function DemandPlanningReportTableItem() {
                         type='button'
                         onClick={() => {
                           setEditFinalReorder(null);
-                          setchangeNumber(null);
                         }}
                       >
                         <img src={icons.cancel} alt='Cancelar' />
@@ -179,7 +173,6 @@ function DemandPlanningReportTableItem() {
                   <button
                     onClick={() => {
                       setEditFinalReorder(order.id);
-                      setchangeNumber(order.reorder_quantity);
                     }}
                   >
                     <img src={icons.pencilIcon} alt='Lapiz' />
