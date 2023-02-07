@@ -1,6 +1,14 @@
 import React from 'react';
+import icons from '../../../images/icon/icons';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectDemandPlanning } from '../../../store/slice/demandPlanningOrdersSlice';
 
 function DemandPlanningReportTableItem() {
+  const dispatch = useDispatch();
+  const demandPlanningList = useSelector(selectDemandPlanning);
+
+  console.log(demandPlanningList);
+
   return (
     <>
       <table className='table-auto w-full table'>
@@ -43,39 +51,60 @@ function DemandPlanningReportTableItem() {
               </div>
             </th>
             <th className='py-3 whitespace-nowrap'>
-              <p className='font-semibold text-center'>On-Hand</p>
+              <p className='font-semibold text-center'>On Hand</p>
             </th>
             <th className='py-3 whitespace-nowrap'>
-              <p className='font-semibold text-center'>Re-Order QTY</p>
+              <p className='font-semibold text-center'>Re Order QTY</p>
             </th>
+            <th className='py-3 whitespace-nowrap'></th>
           </tr>
         </thead>
 
         <tbody className='text-sm divide-y divide-slate-200'>
-          <tr>
-            <td className='px-2 first:pl-5 py-3 whitespace-nowrap md:w-1/6'>
-              <span className='text-slate-400'>category</span>
-              <p className='text-textTableItem font-medium capitalize'>item</p>
-              <span className='text-primary'>category</span>
-            </td>
-            <td className='py-3 whitespace-nowrap'>
-              <p className='text-center'>org</p>
-            </td>
-            <td className='py-3 whitespace-nowrap md:w-1/6'>
-              <p className='font-medium capitalize text-center'>
-                minimum quanty
-              </p>
-            </td>
-            <td className='py-3 whitespace-nowrap md:w-1/6'>
-              <p className='font-medium text-center'>maximum quanty</p>
-            </td>
-            <td className='py-3 whitespace-nowrap md:w-1/6'>
-              <p className='text-center'>on_hand_quantity</p>
-            </td>
-            <td className='py-3 whitespace-nowrap md:w-1/6'>
-              <p className='text-center'>reorder_quantity</p>
-            </td>
-          </tr>
+          {demandPlanningList.map((order, index) => (
+            <tr key={index}>
+              <td className='px-2 first:pl-5 py-3 whitespace-nowrap md:w-1/6'>
+                <span className='text-slate-400'>
+                  {order.EMRPRODUCTIONLINE}
+                </span>
+                <p className='text-textTableItem font-medium '>{order.item}</p>
+                <span className='text-primary'>{order.category}</span>
+              </td>
+              <td className='py-3 whitespace-nowrap'>
+                <p className='text-center'>{order.org}</p>
+              </td>
+              <td className='py-3 whitespace-nowrap md:w-1/6'>
+                <p className='font-medium capitalize text-center'>
+                  {order.minimum_quantity === null
+                    ? '0'
+                    : parseInt(order.minimum_quantity)}
+                </p>
+              </td>
+              <td className='py-3 whitespace-nowrap md:w-1/6'>
+                <p className='font-medium text-center'>
+                  {order.maximum_quantity === null
+                    ? '0'
+                    : parseInt(order.maximum_quantity)}
+                </p>
+              </td>
+              <td className='py-3 whitespace-nowrap md:w-1/6'>
+                <p className='text-center'>
+                  {parseInt(order.on_hand_quantity)}
+                </p>
+              </td>
+              <td className='py-3 whitespace-nowrap md:w-1/6'>
+                <p className='text-center'>
+                  {' '}
+                  {parseInt(order.reorder_quantity)}
+                </p>
+              </td>
+              <td className='py-3 whitespace-nowrap'>
+                <button>
+                  <img src={icons.pencilIcon} alt='Lapiz' />
+                </button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </>

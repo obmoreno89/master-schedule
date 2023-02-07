@@ -43,11 +43,15 @@ function PlanningsTableItems(props) {
             <div className='  text-center'>{props.order_quantity}</div>
           </td>
           <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-            <div className='  text-center'>{props.start_production_date}</div>
+            <div className='  text-center'>
+              {formatDate(props.start_production_date)}
+            </div>
           </td>
 
           <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-            <div className='text-center'>{props.end_production_date}</div>
+            <div className='text-center'>
+              {formatDate(props.end_production_date)}
+            </div>
           </td>
           <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px '>
             <div className='flex items-center'>
