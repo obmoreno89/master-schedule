@@ -46,14 +46,20 @@ export const getDemandList =
 
 export const postDemandPlanningOrders = (changeName) => (dispatch) => {
   dispatch(setDemandLoading(true));
+  let data = {"orders_report": changeName}
+  const tokenUser = sessionStorage.getItem('token');
   axios
     .post(
       'http://35.174.106.95/api/planning/new-order-planning/save-report',
-      changeName
+      data,
+      {
+        headers: { Authorization: `Token ${tokenUser}` },
+      }
     )
     .then((response) => {
       if (response.status === 200) {
         dispatch(setDemandLoading(false));
+        // TODO: Redirección a Planning
       }
     })
     .catch((error) => setDemandLoading(false));
