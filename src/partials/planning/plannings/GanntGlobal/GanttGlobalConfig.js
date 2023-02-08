@@ -16,6 +16,14 @@ export const GanttGlobalConfig = {
     block: 'center',
   },
   features: {
+    labels : {
+      left : {
+          field  : 'name',
+          editor : {
+              type : 'textfield'
+          }
+      }
+  },
     taskResize: false,
     taskTooltip : {
       cls: "tooltip",
@@ -31,19 +39,9 @@ export const GanttGlobalConfig = {
       // Tooltip configs can be used here
       align    : 'l-r' // Align left to right
     },
-    taskNonWorkingTime: {
-      tooltipTemplate({ startDate, endDate, iconCls }) {
-        return `                   
-                <p class="b-nonworkingtime-tip-title">${
-                  iconCls ? `<i class="${iconCls}"></i>` : ''
-                }Non-working time</p>
-                ${DateHelper.format(startDate, 'L')} - ${DateHelper.format(
-          endDate,
-          'L'
-        )}
-            `;
-      },
-    },
+    // projectLines: {
+    //   disabled: true,
+    // },
     percentBar: true,
     filter: true,
     indicators: true,
@@ -130,12 +128,10 @@ export const GanttGlobalConfig = {
     }
 },
   columns: [
-    { type : 'wbs', region : 'fixed' },
-    { type: 'name', field: 'order', width: 30, text: 'Order', region : 'fixed' },
+    { type : 'wbs', region : 'fixed', text: 'ID' },
+    { type: 'name', field: 'name', width: 260, text: 'Order', region : 'fixed' },
     { type: 'name', field: 'item', width: 30, text: 'Item', region : 'fixed' },
-    { type: 'number', field: 'line_no', width: 50, text: 'LineNo' },
-   
-    { type: 'name', field: 'pline', width: 100, text: 'Product Line' },
+    { type: 'name', field: 'pline', width: 180, text: 'Product Line', region: 'fixed' },
     {
       type: 'date',
       field: 'ssd',
@@ -151,8 +147,8 @@ export const GanttGlobalConfig = {
       text: 'Suggested Pieces',
     },
     // { type: 'name', field: 'suggested_time_formatted', width: 40, text: 'Tiempo de Producción' },
-    { type: 'date', field: 'startDate', width: 110, text: 'Start Date' },
-    { type: 'date', field: 'endDate', width: 110, text: 'End Date' },
+    { type: 'date', field: 'startDate', width: 40, text: 'Start Date' },
+    { type: 'date', field: 'endDate', width: 40, text: 'End Date' },
   ],
 
   // project : {

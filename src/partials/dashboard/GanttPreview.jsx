@@ -38,11 +38,9 @@ function DemoGantt() {
     await project.loadInlineData({
       eventsData: data['data']['tasks']['rows'],
       calendarsData: data['data']['calendars']['rows'],
-      dependenciesData: data['data']['tasks']['dependencies'],
+      dependenciesData: data['data']['tasks']['dependencies']['rows'],
     });
     project.calendar = 'general';
-    console.log(project.calendar);
-    // console.log(project.inlineData);
   };
 
   return (
