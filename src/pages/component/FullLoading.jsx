@@ -1,10 +1,17 @@
 import React from 'react';
+import icons from '../../images/icon/icons';
 
 function FullLoading() {
   return (
     <>
-      <div className='flex justify-center relative top-10'>logo</div>
       <div className='flex flex-col space-y-6 items-center justify-center min-h-screen'>
+        <div className='flex justify-center relative top-10'>
+          <img
+            className='w-28 relative -top-72'
+            src={icons.logoNide}
+            alt='Logo'
+          />
+        </div>
         <div
           style={{ borderTopColor: 'transparent' }}
           className='w-8 h-8 border-4 border-primary rounded-full animate-spin'
@@ -13,6 +20,7 @@ function FullLoading() {
           <p className='ml-2 animate-pulse'>Generando planeación</p>
           <p className=''>Esto puede demorar algunos segundos...</p>
         </div>
+        <div className='relative top-[285.4px] w-full h-6 bg-primary '></div>
       </div>
     </>
   );

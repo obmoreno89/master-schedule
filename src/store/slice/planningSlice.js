@@ -223,16 +223,7 @@ export const generatePlanningFromSalesOrder =
       )
       .then((response) => {
         if (response.status === 200) {
-          // const json = {
-          //   first_name: response.data.first_name,
-          //   last_name: response.data.last_name,
-          //   id_history_planning: response.data.id_history_planning,
-          //   created_date: response.data.created_date,
-          //   selected_groups: response.data.selected_groups,
-          //   last_update: response.data.last_update,
-          // };
-          // sessionStorage.setItem('planningId', JSON.stringify(json));
-          // navigate(`/mp-pro/planning/plannings/`);
+          navigate(`/mp-pro/planning/plannings/`);
           dispatch(setFullLoading(false));
           dispatch(setGanttLoading(false));
         }
@@ -240,6 +231,7 @@ export const generatePlanningFromSalesOrder =
       .catch((err) => {
         console.log(err);
         dispatch(setGanttLoading(false));
+        dispatch(setFullLoading(false));
       });
   };
 

@@ -32,8 +32,6 @@ const PlanningOrders = () => {
   const planning = useSelector(selectPlanning);
   const fullLoading = useSelector(selectFullLoading);
 
-  console.log(fullLoading);
-
   useEffect(() => {
     const json = {
       group: planning?.group,
