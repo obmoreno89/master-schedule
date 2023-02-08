@@ -114,16 +114,17 @@ function DemandPlanningReportTableItem({ setchangeNumber, changeNumber }) {
                   {parseInt(order.reorder_quantity)}
                 </p>
               </td>
-              <td className='py-3 whitespace-nowrap text-center relative'>
+              <td className='py-3 whitespace-nowrap text-center'>
                 {editFinalReorder === order.id ? (
-                  <form className='flex justify-center absolute top-[26px] left-[85px]'>
+                  <form className='relative top-3'>
                     <input
                       className='form-input w-28 text-center'
                       type='text'
                       autoComplete='off'
                       onChange={onChange}
+                      required
                     />
-                    <div className='flex justify-center relative left-6'>
+                    <div className='flex justify-center'>
                       <button
                         onClick={() => {
                           setEditFinalReorder(null);

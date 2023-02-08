@@ -46,7 +46,7 @@ export const getDemandList =
 
 export const postDemandPlanningOrders = (changeName) => (dispatch) => {
   dispatch(setDemandLoading(true));
-  let data = {"orders_report": changeName}
+  let data = { orders_report: changeName };
   const tokenUser = sessionStorage.getItem('token');
   axios
     .post(
