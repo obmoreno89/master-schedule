@@ -7,7 +7,7 @@ function FullLoading() {
       <div className='flex flex-col space-y-6 items-center justify-center min-h-screen'>
         <div className='flex justify-center relative top-10'>
           <img
-            className='w-28 relative -top-72'
+            className='w-28 relative -top-60'
             src={icons.logoNide}
             alt='Logo'
           />
@@ -20,7 +20,7 @@ function FullLoading() {
           <p className='ml-2 animate-pulse'>Generando planeación</p>
           <p className=''>Esto puede demorar algunos segundos...</p>
         </div>
-        <div className='relative top-[285.4px] w-full h-6 bg-primary '></div>
+        <div className='relative top-[234.4px] w-full h-6 bg-primary '></div>
       </div>
     </>
   );
