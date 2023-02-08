@@ -143,7 +143,7 @@ const PlanningOrdersPanel = ({
 
   // const goToGantt = () => {
   //   // console.log(orders);
-  //   generateGantt();
+  //   generatePlanningFromSalesOrder();
   //   navigate("/mp-pro/demo-gantt/");
   // };
 

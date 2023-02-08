@@ -290,7 +290,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                 (isActive ? '!text-primary' : '')
                               }
                             >
-                              <span className='text-sm'>Planning Report</span>
+                              <span className='text-sm'>Demanda de Planning Report</span>
                             </NavLink>
                           </li>
                           <li className='mb-1 last:mb-0'>
@@ -305,7 +305,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                 (isActive ? '!text-primary' : '')
                               }
                             >
-                              <span className='text-sm'>Open Orders</span>
+                              <span className='text-sm'>Demanda de Open Orders</span>
                             </NavLink>
                           </li>
                           {/* <li className='mb-1 last:mb-0'>

@@ -104,7 +104,9 @@ const PlanningOrdersTable = ({ orders }) => {
                 </td>
                 <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap '>
                   <p className='text-center text-sm'>
-                    {formatDate(order?.Schedule_Ship_Date)}
+                    {order?.Schedule_Ship_Date === null
+                      ? ''
+                      : formatDate(order?.Schedule_Ship_Date)}
                   </p>
                 </td>
               </tr>
