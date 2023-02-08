@@ -8,7 +8,7 @@ function DemandPlanningReportTableItem() {
   const demandPlanningList = useSelector(selectDemandPlanning);
 
   const [editFinalReorder, setEditFinalReorder] = useState(null);
-  const [changeNumber, setchangeNumber] = useState(null);
+  const [changeNumber, setchangeNumber] = useState(demandPlanningList);
   const [otro, setOtro] = useState('');
 
   // function onSubmit(id) {
@@ -33,16 +33,14 @@ function DemandPlanningReportTableItem() {
 
   const onSubmit = (id) => {
     setchangeNumber(
-      demandPlanningList?.map((data) => {
+      changeNumber?.map((data) => {
         if (data.id === id) {
-          return { ...data, reorder_quantity: otro };
+          return { ...data, final_reorder_quantity: otro };
         }
         return data;
       })
     );
   };
-
-  console.log(changeNumber);
 
   return (
     <>
@@ -103,7 +101,7 @@ function DemandPlanningReportTableItem() {
         </thead>
 
         <tbody className='text-sm divide-y divide-slate-200'>
-          {demandPlanningList.map((order, index) => (
+          {changeNumber.map((order, index) => (
             <tr key={index}>
               <td className='px-2 first:pl-5 py-3 whitespace-nowrap md:w-1/6'>
                 <span className='text-slate-400'>
@@ -149,7 +147,13 @@ function DemandPlanningReportTableItem() {
                       onChange={onChange}
                     />
                     <div className='flex justify-center relative left-6'>
-                      <button onClick={() => onSubmit(order.id)} type='button'>
+                      <button
+                        onClick={() => {
+                          setEditFinalReorder(null);
+                          onSubmit(order.id);
+                        }}
+                        type='button'
+                      >
                         <img src={icons.confirm} alt='Confirmar' />
                       </button>
                       <button
@@ -164,7 +168,7 @@ function DemandPlanningReportTableItem() {
                   </form>
                 ) : (
                   <p className='text-center'>
-                    {parseInt(order.reorder_quantity)}
+                    {parseInt(order.final_reorder_quantity)}
                   </p>
                 )}
               </td>
