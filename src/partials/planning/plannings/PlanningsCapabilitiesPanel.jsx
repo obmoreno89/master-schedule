@@ -55,6 +55,7 @@ const PlanningsCapabilitiesPanel = ({
       selected_groups: groups,
       criteria: ['A'],
     };
+    console.log(data);
     dispatch(generateGantt(data, navigate));
   };
 
@@ -143,7 +144,7 @@ const PlanningsCapabilitiesPanel = ({
                   e.stopPropagation();
                   //setPlanningCapabilities(false);
                   //setOrdersPanelOpen(true);
-                  // goOrdersPlanningGantt();
+                   goOrdersPlanningGantt();
                   setGetPlanningReportModalOpen(true);
                 }}
                 className='w-80 h-12 bg-primary rounded text-white text-base flex justify-center items-center hover:bg-secondary hover:text-primary'
