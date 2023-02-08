@@ -73,7 +73,7 @@ const PlanningOrders = () => {
             {notFound ? (
               <section className='justify-center items-center flex orders-table'>
                 <h2 className='font-semibold text-2xl'>
-                  Sin datos para mostrar
+                  No existen órdenes disponibles para planear en este grupo
                 </h2>
               </section>
             ) : orders?.length > 0 ? (
@@ -126,6 +126,8 @@ const PlanningOrders = () => {
         <GetPlanningReportModal
           getPlanningReportModalOpen={getPlanningReportModalOpen}
           setGetPlanningReportModalOpen={setGetPlanningReportModalOpen}
+          orders={orders}
+          groups={groups}
         />
       </section>
     </Layout>

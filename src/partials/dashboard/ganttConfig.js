@@ -16,12 +16,26 @@ export const ganttConfig = {
     block: 'center',
   },
   features: {
+    labels : {
+      left : {
+          field  : 'name',
+          editor : {
+              type : 'textfield'
+          }
+      }
+  },
     taskDragCreate: false,
     taskEdit: false,
     taskResize: false,
     columnReorder: false,
     contextMenu: false,
     taskCopyPaste: false,
+    percentBar: true,
+    filter: true,
+    indicators: true,
+    taskCopyPaste: false,
+    dependencies: true,
+    parentArea : true,
     projectLines: {
       disabled: true,
     },
@@ -44,12 +58,13 @@ export const ganttConfig = {
   },
   rowHeight: 40,
   height: 480,
+  disabled: true,
 
   columns: [
-    { type: 'name', field: 'order', width: 30, text: 'Order' },
-    { type: 'number', field: 'line_no', width: 50, text: 'LineNo' },
-    { type: 'name', field: 'item', width: 30, text: 'Item' },
-    { type: 'name', field: 'pline', width: 100, text: 'Product Line' },
+    { type : 'wbs', region : 'fixed', text: 'ID' },
+    { type: 'name', field: 'name', width: 260, text: 'Order', region : 'fixed' },
+    { type: 'name', field: 'item', width: 30, text: 'Item', region : 'fixed' },
+    { type: 'name', field: 'pline', width: 180, text: 'Product Line', region: 'fixed' },
     {
       type: 'date',
       field: 'ssd',
@@ -58,14 +73,6 @@ export const ganttConfig = {
       text: 'SSD',
     },
     { type: 'number', field: 'ord_qty', width: 30, text: 'Cantidad' },
-    {
-      type: 'number',
-      field: 'ord_qty',
-      width: 30,
-      text: 'Suggested Pieces',
-    },
-    { type: 'date', field: 'startDate', width: 110, text: 'Start Date' },
-    { type: 'date', field: 'endDate', width: 110, text: 'End Date' },
   ],
 
   // project : {

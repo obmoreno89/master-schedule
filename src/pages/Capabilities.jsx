@@ -31,7 +31,7 @@ function Capabilities() {
       <Layout
         icon={icons.planningIcon}
         nameRoute={'Planeación'}
-        nameSubRoute={'Capacidades'}
+        nameSubRoute={'Capacidades Base'}
       >
         <div className='px-4 sm:px-6 lg:px-0 py-1 w-full max-w-9xl mx-auto pb-6'>
           <div className='sm:flex sm:justify-between sm:items-center mb-4 md:mb-2'></div>

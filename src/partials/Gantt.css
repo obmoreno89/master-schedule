@@ -175,3 +175,27 @@ header.b-grid-header-container {
 .b-parent-area{
   background-color:  #15b05320 !important;
 }
+
+#b-button-10{
+  border-radius: 5px !important;
+  left: 10px;
+  background-color: #15b053 !important;
+  color: white !important;
+}
+
+.b-panel.b-floating>.b-panel-header.b-dock-top, .b-panel.b-floating:not(.b-has-header)>.b-panel-body-wrap>.b-toolbar.b-dock-top{
+  background-color: #15b053 !important;
+}
+
+.b-gantt-task-parent:not(.b-milestone-wrap) .b-gantt-task{
+  background-color:#0f72fd !important;
+}
+
+.b-gantt-task-parent:not(.b-milestone-wrap) .b-gantt-task .b-gantt-task-content p{
+  display: none !important;
+}
+
+.b-tree-icon, .b-icon-tree-leaf, .b-icon-tree-folder, .b-icon-tree-folder-open, .b-icon-tree-expand, .b-icon-tree-collapse{
+  color: rgb(85, 85, 85) !important;
+  width: 1em;
+}

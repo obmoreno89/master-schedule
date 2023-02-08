@@ -230,19 +230,15 @@ function GanttGlobal() {
           ]}
         />
         <article className='absolute -translate-y-[50px]'>
-          <p className='text-sm'>
-            Creado por:{' '}
-            <span className='text-primary'>
-              {first_name_id} {last_name_id} el {formatDate(created_date)} a las{' '}
-              {formatHour(created_date)}
-            </span>
-          </p>
+          <h2 className='font-semibold'>
+            Vista Global de Planeación
+          </h2>
           <p
             className={`text-sm ${
               last_update === null || last_update ? 'hidden' : ''
             }`}
           >
-            Actualizado por:
+            Actualizada por última vez:
           </p>
         </article>
 
@@ -273,7 +269,7 @@ function GanttGlobal() {
             taskRenderer={({ taskRecord }) => {
               return {
                 tag: 'p',
-                html: StringHelper.encodeHtml(taskRecord.name),
+                html: StringHelper.encodeHtml(taskRecord.item),
               };
             }}
             {...GanttGlobalConfig}

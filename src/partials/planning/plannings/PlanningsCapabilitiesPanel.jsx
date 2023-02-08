@@ -3,7 +3,7 @@ import Transition from '../../../utils/Transition';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  generateGantt,
+  generatePlanningFromSalesOrder,
   selectGanttLoading,
 } from '../../../store/slice/planningSlice';
 import GetPlanningReportModal from '../../../pages/component/GetPlanningReportModal';
@@ -51,7 +51,7 @@ const PlanningsCapabilitiesPanel = ({
       selected_groups: groups,
       criteria: ['A'],
     };
-    dispatch(generateGantt(data, navigate));
+    dispatch(generatePlanningFromSalesOrder(data, navigate));
   };
 
   return (

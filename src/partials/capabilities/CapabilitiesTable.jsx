@@ -80,7 +80,7 @@ const CapabilitiesTable = ({
         <section className='flex justify-between mb-5'>
           <div className='mb-4 sm:mb-0'>
             <h1 className='text-2xl md:text-3xl text-slate-800 font-bold'>
-              Capacidades
+              Capacidades Base
             </h1>
           </div>
           <div className='flex space-x-3'>
