@@ -3,8 +3,6 @@ import icons from '../../../images/icon/icons';
 import { useDispatch } from 'react-redux';
 
 function DemandPlanningReportTableItem({ setchangeNumber, changeNumber }) {
-  const dispatch = useDispatch();
-
   const [editFinalReorder, setEditFinalReorder] = useState(null);
   const [inputValue, setInputValue] = useState('');
 
