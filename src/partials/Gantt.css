@@ -171,3 +171,7 @@ header.b-grid-header-container {
 .b-indicator.b-early-dates, .b-indicator.b-late-dates{
   display: none !important
 }
+
+.b-parent-area{
+  background-color:  #15b05320 !important;
+}

@@ -87,7 +87,7 @@ const PlanningOrdersTable = ({ orders }) => {
                   </p>
                 </td>
                 <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                  <p className='text-center text-sm'>{order.Pline}</p>
+                  <p className='text-center text-sm'>{order.EMRPRODUCTIONLINE}</p>
                 </td>
 
                 <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap '>

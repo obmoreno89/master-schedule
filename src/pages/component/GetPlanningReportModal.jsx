@@ -24,7 +24,7 @@ function GetPlanningReportModal({
           {/* Modal header */}
           <div className='mb-2 flex justify-between items-center'>
             <div className='text-lg font-bold text-slate-800 w-72'>
-              ¿Demanda del planning report?
+              Demanda del planning report
             </div>
             <button
               onClick={(e) => {
@@ -45,8 +45,8 @@ function GetPlanningReportModal({
           <div className='text-sm mb-10'>
             <div className='space-y-2'>
               <p>
-                ¿Deseas agregar la consideración de la demanda del planning
-                report a tu planeación?
+                ¿Deseas agregar la consideración de la demanda del Planning
+                Report a tu planeación?
               </p>
             </div>
           </div>

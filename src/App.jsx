@@ -35,6 +35,7 @@ import User from './pages/User';
 //DEMO GANTT
 import DemoGantt from './partials/DemoGantt';
 import GanttForId from './partials/planning/plannings/GanttForId';
+import GanttGlobal from './partials/planning/plannings/GanntGlobal/GanttGlobal';
 
 //COMPONENTS FOR DESIGN
 import ButtonPage from './pages/component/ButtonPage';
@@ -206,6 +207,15 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        <Route
+                  path='/mp-pro/gantt/global'
+                  element={
+                    <PrivateRoute>
+                      <GanttGlobal />
+                    </PrivateRoute>
+                  }
+                />
 
         <Route
           path='/mp-pro/planning/plannings/gantt/:id'
