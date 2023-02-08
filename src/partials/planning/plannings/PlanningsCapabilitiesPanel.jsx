@@ -5,9 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   generateGantt,
   selectGanttLoading,
-  selectPlanning,
 } from '../../../store/slice/planningSlice';
-import ButtonLoading from '../../../helpers/ButtonLoading';
 import GetPlanningReportModal from '../../../pages/component/GetPlanningReportModal';
 
 const PlanningsCapabilitiesPanel = ({
@@ -16,8 +14,6 @@ const PlanningsCapabilitiesPanel = ({
   planningCapabilities,
   setPlanningCapabilities,
 }) => {
-  const [getPlanningReportModalOpen, setGetPlanningReportModalOpen] =
-    useState(false);
   const closeBtn = useRef(null);
   const panelContent = useRef(null);
   const navigate = useNavigate();
@@ -154,12 +150,6 @@ const PlanningsCapabilitiesPanel = ({
           </section>
         </div>
       </Transition>
-      <section>
-        <GetPlanningReportModal
-          getPlanningReportModalOpen={getPlanningReportModalOpen}
-          setGetPlanningReportModalOpen={setGetPlanningReportModalOpen}
-        />
-      </section>
     </>
   );
 };

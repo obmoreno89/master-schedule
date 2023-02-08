@@ -1,4 +1,5 @@
 import Layout from '../../../components/Layout';
+import GetPlanningReportModal from '../../../pages/component/GetPlanningReportModal';
 import icons from '../../../images/icon/icons';
 import { useState } from 'react';
 import PlanningOrdersTable from './PlanningOrdersTable';
@@ -19,6 +20,8 @@ const PlanningOrders = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [ordersPanelOpen, setOrdersPanelOpen] = useState(false);
+  const [getPlanningReportModalOpen, setGetPlanningReportModalOpen] =
+    useState(false);
   const [planningCapabilities, setPlanningCapabilities] = useState(false);
   const orders = useSelector(selectOrders);
   const groups = useSelector(selectGroups);
@@ -87,8 +90,9 @@ const PlanningOrders = () => {
               </Link>
 
               <button
-                onClick={() => {
-                  setPlanningCapabilities(true);
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setGetPlanningReportModalOpen(true);
                 }}
                 className={`w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-secondary hover:text-primary ${
                   (notFound || orders?.length === 0) && 'cursor-not-allowed'
@@ -105,7 +109,8 @@ const PlanningOrders = () => {
               </button>
             </div>
 
-            <section>
+            {/* DISABLED */}
+            {/* <section>
               <PlanningsCapabilitiesPanel
                 orders={orders}
                 groups={groups}
@@ -113,10 +118,16 @@ const PlanningOrders = () => {
                 setPlanningCapabilities={setPlanningCapabilities}
                 setOrdersPanelOpen={setOrdersPanelOpen}
               />
-            </section>
+            </section> */}
           </main>
         </section>
       </div>
+      <section>
+        <GetPlanningReportModal
+          getPlanningReportModalOpen={getPlanningReportModalOpen}
+          setGetPlanningReportModalOpen={setGetPlanningReportModalOpen}
+        />
+      </section>
     </Layout>
   );
 };

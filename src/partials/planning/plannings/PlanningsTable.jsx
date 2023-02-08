@@ -8,19 +8,12 @@ import DropdownFilter from '../../../components/DropdownFilter';
 import {
   revertSearch,
   selectHistorySearch,
-  selectListHistory,
-  selectLoadHistory,
   setSearch,
   selectPlanningList,
   getPlanningList,
 } from '../../../store/slice/planningSlice';
-import Loading from '../../../pages/component/Loading';
-import { selectGroup } from '../../../store/slice/capabilitiesSlice';
 
-function PlanningsTable({
-  setGroupOptionsPanel,
-  setGetPlanningReportModalOpen,
-}) {
+function PlanningsTable({ setGroupOptionsPanel }) {
   const [startSearch, setStartSearch] = useState(false);
   const dispatch = useDispatch();
   const searchItems = useSelector(selectHistorySearch);
@@ -61,7 +54,7 @@ function PlanningsTable({
 
   const handleNavigate = (e) => {
     navigate('/mp-pro/gantt/global');
-  }
+  };
 
   return (
     <>
@@ -81,7 +74,7 @@ function PlanningsTable({
             onChange={handleSearch}
           />
           <button
-          onClick={()=>handleNavigate()}
+            onClick={() => handleNavigate()}
             type='button'
             className=' font-medium text-sm bg-white text-primary w-54 space-x-2 border border-primary rounded px-2 flex justify-center items-center'
           >
