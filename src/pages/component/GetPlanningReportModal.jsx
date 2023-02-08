@@ -4,13 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectGroups } from '../../store/slice/planningSlice';
 import { getDemandList } from '../../store/slice/demandPlanningOrdersSlice';
-import { generatePlanningFromSalesOrder } from '../../store/slice/planningSlice'
+import { generatePlanningFromSalesOrder } from '../../store/slice/planningSlice';
 
 function GetPlanningReportModal({
   setGetPlanningReportModalOpen,
   getPlanningReportModalOpen,
+  setFullLoading,
   orders,
-  groups
+  groups,
 }) {
   const navigate = useNavigate();
   const letter = useSelector(selectGroups);
@@ -77,8 +78,8 @@ function GetPlanningReportModal({
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                goToGeneratePlanningFromSalesOrder()
-                setGetPlanningReportModalOpen(false); 
+                setFullLoading(true);
+                goToGeneratePlanningFromSalesOrder();
               }}
               className='btn-lg bg-red-500 font-semibold text-white w-full'
             >

@@ -5,6 +5,7 @@ import { endpointsCodes } from './functions';
 
 const initialState = {
   ganttLoading: false,
+  fullLoading: false,
   planningList: [],
   orders: [],
   groups: [],
@@ -88,6 +89,9 @@ const planningSlice = createSlice({
     setPlanningList: (state, action) => {
       state.planningList = action.payload;
     },
+    setFullLoading: (state, action) => {
+      state.fullLoading = action.payload;
+    },
   },
 });
 
@@ -106,6 +110,7 @@ export const {
   setGanttLoading,
   setAllTypes,
   setPlanningList,
+  setFullLoading,
 } = planningSlice.actions;
 
 export const selectOrders = (state) => state.planning.orders;
@@ -122,6 +127,7 @@ export const selectPlanning = (state) => state.planning.planningValues;
 export const selectGanttLoading = (state) => state.planning.ganttLoading;
 export const selectAllTypes = (state) => state.planning.allTypes;
 export const selectPlanningList = (state) => state.planning.planningList;
+export const selectFullLoading = (state) => state.planning.fullLoading;
 
 export default planningSlice.reducer;
 
@@ -202,36 +208,40 @@ export const getAllTypes = (name) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export const generatePlanningFromSalesOrder = (data, navigate) => (dispatch) => {
-  const token = sessionStorage.getItem('token');
-  dispatch(setGanttLoading(true));
-  axios
-    .post(`http://35.174.106.95/api/planning/new-order-planning/save-sales-order`, data, {
-      headers: { Authorization: `Token ${token}` },
-    })
-    .then((response) => {
-      if (response.status === 200) {
-        // const json = {
-        //   first_name: response.data.first_name,
-        //   last_name: response.data.last_name,
-        //   id_history_planning: response.data.id_history_planning,
-        //   created_date: response.data.created_date,
-        //   selected_groups: response.data.selected_groups,
-        //   last_update: response.data.last_update,
-        // };
-        // sessionStorage.setItem('planningId', JSON.stringify(json));
-        console.log(response);
-        navigate(
-          `/mp-pro/planning/plannings/`
-        );
+export const generatePlanningFromSalesOrder =
+  (data, navigate) => (dispatch) => {
+    const token = sessionStorage.getItem('token');
+    dispatch(setGanttLoading(true));
+    dispatch(setFullLoading(true));
+    axios
+      .post(
+        `http://35.174.106.95/api/planning/new-order-planning/save-sales-order`,
+        data,
+        {
+          headers: { Authorization: `Token ${token}` },
+        }
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          // const json = {
+          //   first_name: response.data.first_name,
+          //   last_name: response.data.last_name,
+          //   id_history_planning: response.data.id_history_planning,
+          //   created_date: response.data.created_date,
+          //   selected_groups: response.data.selected_groups,
+          //   last_update: response.data.last_update,
+          // };
+          // sessionStorage.setItem('planningId', JSON.stringify(json));
+          // navigate(`/mp-pro/planning/plannings/`);
+          dispatch(setFullLoading(false));
+          dispatch(setGanttLoading(false));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
         dispatch(setGanttLoading(false));
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      dispatch(setGanttLoading(false));
-    });
-};
+      });
+  };
 
 export const getPlanningList = () => (dispatch) => {
   dispatch(setLoadHistory(true));

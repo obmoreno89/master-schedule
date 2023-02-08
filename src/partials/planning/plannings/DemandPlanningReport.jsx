@@ -2,8 +2,12 @@ import React from 'react';
 import Layout from '../../../components/Layout';
 import icons from '../../../images/icon/icons';
 import DemandPlanningReportTable from './DemandPlanningReportTable';
+import { useSelector } from 'react-redux';
+import { selectFullLoading } from '../../../store/slice/planningSlice';
 
 function DemandPlanningReport() {
+  const fullLoading = useSelector(selectFullLoading);
+
   return (
     <>
       <Layout
