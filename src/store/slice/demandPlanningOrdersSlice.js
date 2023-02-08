@@ -4,7 +4,7 @@ import { endpointsCodes } from './functions';
 
 const initialState = {
   demandList: [],
-  loading: false,
+  demandLoading: false,
 };
 
 const demandPlanningOrdersSlice = createSlice({
@@ -14,17 +14,19 @@ const demandPlanningOrdersSlice = createSlice({
     setDemandList: (state, action) => {
       state.demandList = action.payload;
     },
-    setLoading: (state, action) => {
-      state.loading = action.payload;
+    setDemandLoading: (state, action) => {
+      state.demandLoading = action.payload;
     },
   },
 });
 
-export const { setDemandList, setLoading } = demandPlanningOrdersSlice.actions;
+export const { setDemandList, setDemandLoading } =
+  demandPlanningOrdersSlice.actions;
 
 export const selectDemandPlanning = (state) =>
   state.demandPlanningOrders.demandList;
-export const selectLoading = (state) => state.demandPlanningOrders.loading;
+export const selectDemandLoading = (state) =>
+  state.demandPlanningOrders.demandLoading;
 
 export default demandPlanningOrdersSlice.reducer;
 
@@ -43,6 +45,7 @@ export const getDemandList =
   };
 
 export const postDemandPlanningOrders = (changeName) => (dispatch) => {
+  dispatch(setDemandLoading(true));
   axios
     .post(
       'http://35.174.106.95/api/planning/new-order-planning/save-report',
@@ -50,7 +53,8 @@ export const postDemandPlanningOrders = (changeName) => (dispatch) => {
     )
     .then((response) => {
       if (response.status === 200) {
+        dispatch(setDemandLoading(false));
       }
     })
-    .catch((error) => console.log(error));
+    .catch((error) => setDemandLoading(false));
 };

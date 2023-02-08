@@ -7,14 +7,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   selectDemandPlanning,
   postDemandPlanningOrders,
-  selectLoading,
+  selectDemandLoading,
 } from '../../../store/slice/demandPlanningOrdersSlice';
 
 function DemandPlanningReportTable() {
   const demandPlanningList = useSelector(selectDemandPlanning);
-  const loading = useSelector(selectLoading);
+  const loading = useSelector(selectDemandLoading);
   const dispatch = useDispatch();
   const [changeNumber, setchangeNumber] = useState(demandPlanningList);
+
+  console.log(loading);
 
   return (
     <>
@@ -40,18 +42,22 @@ function DemandPlanningReportTable() {
                 Cancelar
               </button>
             </Link>
-            <button
-              onClick={() => dispatch(postDemandPlanningOrders(changeNumber))}
-              className={`w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-secondary hover:text-primary `}
-            >
-              <span className='my-auto'>Continuar</span>
+            {!loading ? (
+              <button
+                onClick={() => dispatch(postDemandPlanningOrders(changeNumber))}
+                className={`w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-secondary hover:text-primary `}
+              >
+                <span className='my-auto'>Continuar</span>
 
-              <img
-                src={icons.arrowRight}
-                alt='icon-arrow-right'
-                className='my-auto ml-3 text-white'
-              />
-            </button>
+                <img
+                  src={icons.arrowRight}
+                  alt='icon-arrow-right'
+                  className='my-auto ml-3 text-white'
+                />
+              </button>
+            ) : (
+              <ButtonLoading loading='Enviando' demand={true} />
+            )}
           </div>
         </>
       ) : (

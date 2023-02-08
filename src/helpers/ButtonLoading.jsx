@@ -7,7 +7,7 @@ function ButtonLoading(props) {
         props.calendar && 'w-[100%]'
       }  ${props.calendarEdit && 'w-[100%]'} ${props.update && 'w-[363px]'} ${
         props.createGroup && 'w-[440px]'
-      } ${props.gantt && 'w-80'}`}
+      } ${props.gantt && 'w-80'} ${props.demand && 'w-[320px]'}`}
     >
       {/* Start */}
       <button
