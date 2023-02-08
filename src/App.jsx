@@ -27,6 +27,7 @@ import PlanningOrders from './partials/planning/plannings/PlanningOrders';
 import OrdersPlanned from './pages/OrdersPlanned';
 import OldVersionPlannings from './pages/OldVersionPlannings';
 import OpenOrders from './pages/OpenOrders';
+import DemandPlanningReport from './partials/planning/plannings/DemandPlanningReport';
 
 //MANAGEMENT
 import User from './pages/User';
@@ -34,6 +35,7 @@ import User from './pages/User';
 //DEMO GANTT
 import DemoGantt from './partials/DemoGantt';
 import GanttForId from './partials/planning/plannings/GanttForId';
+import GanttGlobal from './partials/planning/plannings/GanntGlobal/GanttGlobal';
 
 //COMPONENTS FOR DESIGN
 import ButtonPage from './pages/component/ButtonPage';
@@ -136,6 +138,14 @@ function App() {
           }
         />
         <Route
+          path='/mp-pro/planning/plannings/demand-planning/'
+          element={
+            <PrivateRoute>
+              <DemandPlanningReport />
+            </PrivateRoute>
+          }
+        />
+        <Route
           path='/mp-pro/planning/old-version/'
           element={
             <PrivateRoute>
@@ -197,6 +207,15 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        <Route
+                  path='/mp-pro/gantt/global'
+                  element={
+                    <PrivateRoute>
+                      <GanttGlobal />
+                    </PrivateRoute>
+                  }
+                />
 
         <Route
           path='/mp-pro/planning/plannings/gantt/:id'

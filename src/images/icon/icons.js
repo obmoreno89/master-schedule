@@ -29,6 +29,8 @@ import arrowRight from './arrow-right.svg';
 import arrowLeft from './arrowLeft.svg';
 import play from './play.svg';
 import graphGantt from './graphGantt.svg';
+import confirm from './confirm.svg';
+import cancel from './cancel.svg';
 
 export default {
   openEye,
@@ -62,4 +64,6 @@ export default {
   arrowLeft,
   play,
   graphGantt,
+  confirm,
+  cancel,
 };

@@ -202,27 +202,27 @@ export const getAllTypes = (name) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export const generateGantt = (data, navigate) => (dispatch) => {
+export const generatePlanningFromSalesOrder = (data, navigate) => (dispatch) => {
   const token = sessionStorage.getItem('token');
   dispatch(setGanttLoading(true));
   axios
-    .post(`http://35.174.106.95/api/planning/list`, data, {
+    .post(`http://35.174.106.95/api/planning/new-order-planning/save-sales-order`, data, {
       headers: { Authorization: `Token ${token}` },
     })
     .then((response) => {
       if (response.status === 200) {
-        const json = {
-          first_name: response.data.first_name,
-          last_name: response.data.last_name,
-          id_history_planning: response.data.id_history_planning,
-          created_date: response.data.created_date,
-          selected_groups: response.data.selected_groups,
-          last_update: response.data.last_update,
-        };
-        sessionStorage.setItem('planningId', JSON.stringify(json));
+        // const json = {
+        //   first_name: response.data.first_name,
+        //   last_name: response.data.last_name,
+        //   id_history_planning: response.data.id_history_planning,
+        //   created_date: response.data.created_date,
+        //   selected_groups: response.data.selected_groups,
+        //   last_update: response.data.last_update,
+        // };
+        // sessionStorage.setItem('planningId', JSON.stringify(json));
         console.log(response);
         navigate(
-          `/mp-pro/planning/plannings/gantt/${response.data.id_history_planning}`
+          `/mp-pro/planning/plannings/`
         );
         dispatch(setGanttLoading(false));
       }
