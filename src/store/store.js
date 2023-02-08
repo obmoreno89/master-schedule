@@ -9,6 +9,7 @@ import systemStatusSlice from './slice/systemStatusSlice';
 import filterSlice from './slice/filterSlice';
 import ordersPlannedSlice from './slice/ordersPlannedSlice';
 import openOrdersSlice from './slice/openOrdersSlice';
+import demandPlanningOrdersSlice from './slice/DemandPlanningOrdersSlice';
 
 const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ const store = configureStore({
     filter: filterSlice,
     orders: ordersPlannedSlice,
     openOrders: openOrdersSlice,
+    demandPlanningOrders: demandPlanningOrdersSlice,
   },
 });
 

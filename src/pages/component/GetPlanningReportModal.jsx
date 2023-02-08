@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ModalBlank from '../../components/ModalBlank';
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectGroups } from '../../store/slice/planningSlice';
+import { getDemandList } from '../../store/slice/demandPlanningOrdersSlice';
 
 function GetPlanningReportModal({
   setGetPlanningReportModalOpen,
   getPlanningReportModalOpen,
 }) {
+  const navigate = useNavigate();
+  const letter = useSelector(selectGroups);
+  const dispatch = useDispatch();
+
   return (
     <ModalBlank
       id='success-modal'
@@ -45,9 +53,10 @@ function GetPlanningReportModal({
           {/* Modal footer */}
           <div className='flex justify-center items-center space-x-8'>
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setGetPlanningReportModalOpen(false);
+              onClick={() => {
+                dispatch(
+                  getDemandList(letter, navigate, setGetPlanningReportModalOpen)
+                );
               }}
               className='btn-lg bg-primary font-semibold text-white w-full'
             >

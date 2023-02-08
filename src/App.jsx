@@ -27,6 +27,7 @@ import PlanningOrders from './partials/planning/plannings/PlanningOrders';
 import OrdersPlanned from './pages/OrdersPlanned';
 import OldVersionPlannings from './pages/OldVersionPlannings';
 import OpenOrders from './pages/OpenOrders';
+import DemandPlanningReport from './partials/planning/plannings/DemandPlanningReport';
 
 //MANAGEMENT
 import User from './pages/User';
@@ -133,6 +134,14 @@ function App() {
           element={
             <PrivateRoute>
               <PlanningOrders />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/mp-pro/planning/plannings/demand-planning/'
+          element={
+            <PrivateRoute>
+              <DemandPlanningReport />
             </PrivateRoute>
           }
         />
