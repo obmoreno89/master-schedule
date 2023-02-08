@@ -1,5 +1,6 @@
 import PlanningsTableItems from './PlanningsTableItems';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { orderAsc, orderDesc } from '../../capabilities/orderFunc';
 import { useEffect, useState } from 'react';
 import icons from '../../../images/icon/icons';
@@ -24,6 +25,7 @@ function PlanningsTable({
   const dispatch = useDispatch();
   const searchItems = useSelector(selectHistorySearch);
   const planningsList = useSelector(selectPlanningList);
+  const navigate = useNavigate();
 
   const [planningListOrder, setPlanningListOrder] = useState(
     useSelector(selectPlanningList)
@@ -57,6 +59,10 @@ function PlanningsTable({
     }
   };
 
+  const handleNavigate = (e) => {
+    navigate('/mp-pro/gantt/global');
+  }
+
   return (
     <>
       <section className='mb-5 flex justify-between'>
@@ -75,6 +81,7 @@ function PlanningsTable({
             onChange={handleSearch}
           />
           <button
+          onClick={()=>handleNavigate()}
             type='button'
             className=' font-medium text-sm bg-white text-primary w-54 space-x-2 border border-primary rounded px-2 flex justify-center items-center'
           >
@@ -207,6 +214,8 @@ const Table = ({ array, setPlanningListOrder }) => {
             key={data.order_planning_id}
             id={data.order_planning_id}
             order_item={data.order_item}
+            pline={data.pline}
+            org={data.org}
             user={data.user}
             order_quantity={data.order_quantity}
             start_production_date={data.start_production_date}
