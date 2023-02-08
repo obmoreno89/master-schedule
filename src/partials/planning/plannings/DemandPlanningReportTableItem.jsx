@@ -1,41 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import icons from '../../../images/icon/icons';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectDemandPlanning } from '../../../store/slice/demandPlanningOrdersSlice';
+import { useDispatch } from 'react-redux';
 
-function DemandPlanningReportTableItem() {
+function DemandPlanningReportTableItem({ setchangeNumber, changeNumber }) {
   const dispatch = useDispatch();
-  const demandPlanningList = useSelector(selectDemandPlanning);
 
   const [editFinalReorder, setEditFinalReorder] = useState(null);
-  const [changeNumber, setchangeNumber] = useState(demandPlanningList);
-  const [otro, setOtro] = useState('');
+  const [inputValue, setInputValue] = useState('');
 
-  // function onSubmit(id) {
-  //   setPrueba(
-  //     prueba.map((data) => {
-  //       if (data.id === id) {
-  //         return { ...data, reorder_quantity: '10' };
-  //       }
-  //       return console.log(data);
-  //     })
-  //   );
-  // }
-
-  // useEffect(() => {
-  //   let defaultValues = {};
-  //   defaultValues.reorder_quantity = parseInt(!otro ? changeNumber : otro);
-
-  //   reset({ ...defaultValues });
-  // }, [, changeNumber, otro]);
-
-  const onChange = (e) => setOtro(e.target.value);
+  const onChange = (e) => setInputValue(e.target.value);
 
   const onSubmit = (id) => {
     setchangeNumber(
       changeNumber?.map((data) => {
         if (data.id === id) {
-          return { ...data, final_reorder_quantity: otro };
+          return { ...data, final_reorder_quantity: inputValue };
         }
         return data;
       })

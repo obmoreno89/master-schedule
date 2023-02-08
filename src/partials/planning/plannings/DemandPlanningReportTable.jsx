@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import DemandPlanningReportTableItem from './DemandPlanningReportTableItem';
 import icons from '../../../images/icon/icons';
+import ButtonLoading from '../../../helpers/ButtonLoading';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  selectDemandPlanning,
+  postDemandPlanningOrders,
+  selectLoading,
+} from '../../../store/slice/demandPlanningOrdersSlice';
 
 function DemandPlanningReportTable() {
+  const demandPlanningList = useSelector(selectDemandPlanning);
+  const loading = useSelector(selectLoading);
+  const dispatch = useDispatch();
+  const [changeNumber, setchangeNumber] = useState(demandPlanningList);
+
   return (
     <>
       <section className='mb-5 flex justify-between'>
@@ -12,25 +25,40 @@ function DemandPlanningReportTable() {
           </h1>
         </div>
       </section>
-      <section className='overflow-x-auto rounded-xl border border-slate-300 h-[550px]'>
-        <DemandPlanningReportTableItem />
-      </section>
-      <div className='flex justify-end py-5'>
-        <button className='border border-slate-300 rounded w-64 h-12 text-base font-semibold mr-6'>
-          Cancelar
-        </button>
-        <button
-          className={`w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-secondary hover:text-primary `}
-        >
-          <span className='my-auto'>Continuar</span>
 
-          <img
-            src={icons.arrowRight}
-            alt='icon-arrow-right'
-            className='my-auto ml-3 text-white'
-          />
-        </button>
-      </div>
+      {changeNumber.length > 0 ? (
+        <>
+          <section className='overflow-x-auto rounded-xl border border-slate-300 h-[550px]'>
+            <DemandPlanningReportTableItem
+              changeNumber={changeNumber}
+              setchangeNumber={setchangeNumber}
+            />
+          </section>
+          <div className='flex justify-end py-5'>
+            <Link to='/mp-pro/planning/plannings/'>
+              <button className='border border-slate-300 rounded w-64 h-12 text-base font-semibold mr-6'>
+                Cancelar
+              </button>
+            </Link>
+            <button
+              onClick={() => dispatch(postDemandPlanningOrders(changeNumber))}
+              className={`w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-secondary hover:text-primary `}
+            >
+              <span className='my-auto'>Continuar</span>
+
+              <img
+                src={icons.arrowRight}
+                alt='icon-arrow-right'
+                className='my-auto ml-3 text-white'
+              />
+            </button>
+          </div>
+        </>
+      ) : (
+        <section className='justify-center items-center flex orders-table'>
+          <h2 className='font-semibold text-2xl'>Sin datos para mostrar</h2>
+        </section>
+      )}
     </>
   );
 }
