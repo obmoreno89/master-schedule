@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import DemandPlanningReportTableItem from './DemandPlanningReportTableItem';
 import icons from '../../../images/icon/icons';
 import ButtonLoading from '../../../helpers/ButtonLoading';
@@ -12,6 +12,7 @@ import {
 
 function DemandPlanningReportTable() {
   const demandPlanningList = useSelector(selectDemandPlanning);
+  const navigate = useNavigate();
   const loading = useSelector(selectDemandLoading);
   const dispatch = useDispatch();
   const [changeNumber, setchangeNumber] = useState(demandPlanningList);
@@ -42,7 +43,9 @@ function DemandPlanningReportTable() {
             </Link>
             {!loading ? (
               <button
-                onClick={() => dispatch(postDemandPlanningOrders(changeNumber))}
+                onClick={() =>
+                  dispatch(postDemandPlanningOrders(changeNumber, navigate))
+                }
                 className={`w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-secondary hover:text-primary `}
               >
                 <span className='my-auto'>Continuar</span>

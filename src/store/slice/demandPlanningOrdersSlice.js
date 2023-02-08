@@ -44,23 +44,24 @@ export const getDemandList =
       .catch((error) => console.log(error));
   };
 
-export const postDemandPlanningOrders = (changeName) => (dispatch) => {
-  dispatch(setDemandLoading(true));
-  let data = { orders_report: changeName };
-  const tokenUser = sessionStorage.getItem('token');
-  axios
-    .post(
-      'http://35.174.106.95/api/planning/new-order-planning/save-report',
-      data,
-      {
-        headers: { Authorization: `Token ${tokenUser}` },
-      }
-    )
-    .then((response) => {
-      if (response.status === 200) {
-        dispatch(setDemandLoading(false));
-        // TODO: Redirección a Planning
-      }
-    })
-    .catch((error) => setDemandLoading(false));
-};
+export const postDemandPlanningOrders =
+  (changeName, navigate) => (dispatch) => {
+    dispatch(setDemandLoading(true));
+    let data = { orders_report: changeName };
+    const tokenUser = sessionStorage.getItem('token');
+    axios
+      .post(
+        'http://35.174.106.95/api/planning/new-order-planning/save-report',
+        data,
+        {
+          headers: { Authorization: `Token ${tokenUser}` },
+        }
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          dispatch(setDemandLoading(false));
+          navigate('/mp-pro/planning/plannings/');
+        }
+      })
+      .catch((error) => setDemandLoading(false));
+  };
