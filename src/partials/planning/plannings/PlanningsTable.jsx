@@ -1,5 +1,6 @@
 import PlanningsTableItems from "./PlanningsTableItems";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { orderAsc, orderDesc } from "../../capabilities/orderFunc";
 import { useEffect, useState } from "react";
 import icons from "../../../images/icon/icons";
@@ -7,26 +8,28 @@ import DropdownFilter from "../../../components/DropdownFilter";
 import {
   revertSearch,
   selectHistorySearch,
-  selectListHistory,
-  selectLoadHistory,
   setSearch,
   selectPlanningList,
   getPlanningList,
+  selectLoadHistory,
+  selectLoadPlanning,
+  revertPlanningList,
 } from "../../../store/slice/planningSlice";
-import Loading from "../../../pages/component/Loading";
-import { selectGroup } from "../../../store/slice/capabilitiesSlice";
 
 function PlanningsTable({ setGroupOptionsPanel }) {
   const [startSearch, setStartSearch] = useState(false);
   const dispatch = useDispatch();
   const searchItems = useSelector(selectHistorySearch);
   const planningsList = useSelector(selectPlanningList);
+  const load = useSelector(selectLoadPlanning);
+  const navigate = useNavigate();
 
   const [planningListOrder, setPlanningListOrder] = useState(
     useSelector(selectPlanningList)
   );
 
   useEffect(() => {
+    dispatch(revertPlanningList());
     dispatch(getPlanningList());
   }, []);
 
@@ -54,6 +57,10 @@ function PlanningsTable({ setGroupOptionsPanel }) {
     }
   };
 
+  const handleNavigate = (e) => {
+    navigate("/mp-pro/gantt/global");
+  };
+
   return (
     <>
       <section className="mb-5 flex justify-between">
@@ -72,6 +79,7 @@ function PlanningsTable({ setGroupOptionsPanel }) {
             onChange={handleSearch}
           />
           <button
+            onClick={() => handleNavigate()}
             type="button"
             className=" font-medium text-sm bg-white text-primary w-54 space-x-2 border border-primary rounded px-2 flex justify-center items-center"
           >
@@ -94,7 +102,12 @@ function PlanningsTable({ setGroupOptionsPanel }) {
         </div>
       </section>
       <section className="overflow-x-auto rounded-xl border border-slate-300 h-[550px]">
-        {planningListOrder.length > 0 ? (
+        {load ? (
+          <section className="justify-center items-center flex mt-56">
+            <div className="loader"></div>
+            <span className="ml-3 text-primary font-semibold">Cargando</span>
+          </section>
+        ) : planningsList.length > 0 ? (
           !startSearch ? (
             <Table
               array={planningListOrder}
@@ -112,8 +125,7 @@ function PlanningsTable({ setGroupOptionsPanel }) {
           )
         ) : (
           <section className="justify-center items-center flex mt-56">
-            <div className="loader"></div>
-            <span className="ml-3 text-primary font-semibold">Cargando</span>
+            <h2 className="font-semibold text-2xl">Crea tu primera planeación</h2>
           </section>
         )}
       </section>
@@ -204,6 +216,8 @@ const Table = ({ array, setPlanningListOrder }) => {
             key={data.order_planning_id}
             id={data.order_planning_id}
             order_item={data.order_item}
+            pline={data.pline}
+            org={data.org}
             user={data.user}
             order_quantity={data.order_quantity}
             start_production_date={data.start_production_date}

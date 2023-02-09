@@ -26,22 +26,21 @@ function DemoGantt() {
 
   const loadData = async () => {
     const data = await axios.get(
-      'http://35.174.106.95/api/gantt/list-order-planning?planning-id=mp-91'
+      'http://35.174.106.95/api/gantt/list/global'
     );
 
     const project = ganttRef.current.instance.project;
     // Feed it to the project
+    console.log(data)
     project.inlineData = data;
     project.stm.autoRecord = true;
     project.stm.enable();
     await project.loadInlineData({
       eventsData: data['data']['tasks']['rows'],
       calendarsData: data['data']['calendars']['rows'],
-      dependenciesData: data['data']['tasks']['dependencies'],
+      dependenciesData: data['data']['tasks']['dependencies']['rows'],
     });
     project.calendar = 'general';
-    console.log(project.calendar);
-    // console.log(project.inlineData);
   };
 
   return (
@@ -70,9 +69,7 @@ function DemoGantt() {
               `;
             },
           }}
-          nonWorkingTime={{
-            disabled: true,
-          }}
+          
           percentBar={true}
           {...ganttConfig}
           // other props, event handlers, etc

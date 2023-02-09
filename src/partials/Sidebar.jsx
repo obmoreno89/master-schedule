@@ -290,7 +290,9 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                 (isActive ? '!text-primary' : '')
                               }
                             >
-                              <span className='text-sm'>Planning Report</span>
+                              <span className='text-sm'>
+                                Demanda de Planning Report
+                              </span>
                             </NavLink>
                           </li>
                           <li className='mb-1 last:mb-0'>
@@ -305,10 +307,12 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                 (isActive ? '!text-primary' : '')
                               }
                             >
-                              <span className='text-sm'>Open Orders</span>
+                              <span className='text-sm'>
+                                Demanda de Open Orders
+                              </span>
                             </NavLink>
                           </li>
-                          <li className='mb-1 last:mb-0'>
+                          {/* <li className='mb-1 last:mb-0'>
                             <NavLink
                               onClick={() =>
                                 sessionStorage.removeItem('planningId')
@@ -324,7 +328,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                 Planeación version anterior
                               </span>
                             </NavLink>
-                          </li>
+                          </li> */}
                           <li className='mb-1 last:mb-0'>
                             <NavLink
                               end
@@ -334,7 +338,21 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                                 (isActive ? '!text-primary' : '')
                               }
                             >
-                              <span className='text-sm'>Capacidades</span>
+                              <span className='text-sm'>Capacidades Base</span>
+                            </NavLink>
+                          </li>
+                          <li className='mb-1 last:mb-0'>
+                            <NavLink
+                              end
+                              to='/mp-pro/planning/capabilities/custom'
+                              className={({ isActive }) =>
+                                'block hover:text-primary text-textSidebar transition duration-150 truncate ' +
+                                (isActive ? '!text-primary' : '')
+                              }
+                            >
+                              <span className='text-sm'>
+                                Capacidades Custom
+                              </span>
                             </NavLink>
                           </li>
                           <li className='mb-1 last:mb-0'>

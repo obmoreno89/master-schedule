@@ -16,8 +16,6 @@ const PlanningOrdersTable = ({ orders }) => {
     return newDate.toLocaleDateString('es-ES');
   };
 
-  console.log(orders);
-
   return (
     <>
       <div className='border border-slate-300 rounded-xl orders-table overflow-x-auto'>
@@ -89,7 +87,7 @@ const PlanningOrdersTable = ({ orders }) => {
                   </p>
                 </td>
                 <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                  <p className='text-center text-sm'>{order.Pline}</p>
+                  <p className='text-center text-sm'>{order.EMRPRODUCTIONLINE}</p>
                 </td>
 
                 <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap '>
@@ -99,12 +97,16 @@ const PlanningOrdersTable = ({ orders }) => {
                 </td>
                 <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
                   <p className='text-center text-sm'>
-                    {formatDate(order?.Promise_Date)}
+                    {order?.Promise_Date === null
+                      ? ''
+                      : formatDate(order?.Promise_Date)}
                   </p>
                 </td>
                 <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap '>
                   <p className='text-center text-sm'>
-                    {formatDate(order?.Schedule_Ship_Date)}
+                    {order?.Schedule_Ship_Date === null
+                      ? ''
+                      : formatDate(order?.Schedule_Ship_Date)}
                   </p>
                 </td>
               </tr>
