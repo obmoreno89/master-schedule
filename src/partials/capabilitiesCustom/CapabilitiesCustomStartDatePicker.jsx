@@ -1,14 +1,18 @@
 import React from 'react';
 import Flatpickr from 'react-flatpickr';
 
-function Datepicker({ align, setValueDate, dateChosen }) {
+function CapabilitiesCustomStartDatePicker({
+  align,
+  setFinalDate,
+  setStartDate,
+}) {
   const dateNow = new Date(Date.now());
 
   const options = {
     static: true,
     monthSelectorType: 'static',
     dateFormat: 'Y-m-d',
-    // defaultDate: dateChosen ? dateChosen : dateNow,
+    defaultDate: [new Date()],
 
     prevArrow:
       '<svg class="fill-current" width="7" height="11" viewBox="0 0 7 11"><path d="M5.4 10.8l1.4-1.4-4-4 4-4L5.4 0 0 5.4z" /></svg>',
@@ -18,11 +22,11 @@ function Datepicker({ align, setValueDate, dateChosen }) {
       instance.element.value = dateStr.replace('to', '-');
       const customClass = align ? align : '';
       instance.calendarContainer.classList.add(`flatpickr-${customClass}`);
-      //   setValueDate(selectedDates)
+      setStartDate(selectedDates);
     },
 
     onChange: (selectedDates, dateStr, instance) => {
-      //   setValueDate(selectedDates);
+      setStartDate(selectedDates);
     },
   };
 
@@ -45,4 +49,4 @@ function Datepicker({ align, setValueDate, dateChosen }) {
   );
 }
 
-export default Datepicker;
+export default CapabilitiesCustomStartDatePicker;

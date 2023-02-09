@@ -1,16 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import ButtonLoading from '../../helpers/ButtonLoading';
-import CapabilitiesCustomDatePicker from './CapabilitiesCustomDatePicker';
+import CapabilitiesCustomStartDatePicker from './CapabilitiesCustomStartDatePicker';
+import CapabilitiesCustomEndDatePicker from './CapabilitiesCustomEndDatePicker';
 import {
   selectPLines,
   getProductLines,
 } from '../../store/slice/capabilitiesSlice';
+import { capabilitiesCustomCreate } from '../../store/slice/capabilitiesCustomSlice';
 
 function CapabilitiesCustomCreateForm({
-  capabilitiesPanelOpen,
-  setCapabilitiesOpenPanel,
+  capabilitiesCustomCreateOpenPanel,
+  setCapabilitiesCustomCreateOpenPanel,
 }) {
   const {
     register,
@@ -18,11 +20,42 @@ function CapabilitiesCustomCreateForm({
     reset,
     formState: { errors },
   } = useForm();
-  const distpatch = useDispatch();
+
+  const [startDate, setStartDate] = useState(null);
+  const [finalDate, setFinalDate] = useState(null);
+  const dispatch = useDispatch();
   const ProductLineList = useSelector(selectPLines);
 
   const onSubmit = (data) => {
-    console.log(data);
+    const firstDate = new Date(startDate);
+    const firstYear = firstDate.getFullYear();
+    const firstMonth = firstDate.getMonth();
+    const firstDay = firstDate.getDate();
+
+    const endDateDate = new Date(finalDate);
+    const endDateYear = endDateDate.getFullYear();
+    const endDateMonth = endDateDate.getMonth();
+    const endDateDay = endDateDate.getDate();
+    const json = {
+      start_date: `${firstYear}-${firstMonth + 1}-${firstDay}`,
+      end_date: `${endDateYear}-${endDateMonth + 1}-${endDateDay}`,
+      name: data.name,
+      description: data.description,
+      planner_code: data.planner_code,
+      product_line: data.product_line,
+      type_name: data.type_name,
+      piece_per_day: data.piece_per_day,
+      shift_per_day: data.shift_per_day,
+      piece_per_hour: data.piece_per_hour,
+      comments: data.comments,
+    };
+    dispatch(
+      capabilitiesCustomCreate(
+        json,
+        setCapabilitiesCustomCreateOpenPanel,
+        reset
+      )
+    );
   };
 
   const loading = true;
@@ -41,17 +74,20 @@ function CapabilitiesCustomCreateForm({
 
   useEffect(() => {
     let defaultValues = {};
-    defaultValues.p_line_id = '';
+    defaultValues.name = '';
+    defaultValues.description = '';
+    defaultValues.planner_code = '';
+    defaultValues.product_line = '';
     defaultValues.type_name = '';
-    defaultValues.piece_per_hour = '';
-    defaultValues.shift_per_day = '';
     defaultValues.piece_per_day = '';
+    defaultValues.shift_per_day = '';
+    defaultValues.piece_per_hour = '';
     defaultValues.comments = '';
     reset({ ...defaultValues });
-  }, [reset, capabilitiesPanelOpen]);
+  }, [reset, capabilitiesCustomCreateOpenPanel]);
 
   useEffect(() => {
-    distpatch(getProductLines());
+    dispatch(getProductLines());
   }, []);
 
   return (
@@ -210,7 +246,7 @@ function CapabilitiesCustomCreateForm({
               Fecha Inicio
             </label>
             <div className=''>
-              <CapabilitiesCustomDatePicker />
+              <CapabilitiesCustomStartDatePicker setStartDate={setStartDate} />
             </div>
           </div>
           {/* FINAL DATE */}
@@ -222,7 +258,7 @@ function CapabilitiesCustomCreateForm({
               Fecha final
             </label>
             <div className=''>
-              <CapabilitiesCustomDatePicker />
+              <CapabilitiesCustomEndDatePicker setFinalDate={setFinalDate} />
             </div>
           </div>
           {/* PZ/HOURS */}

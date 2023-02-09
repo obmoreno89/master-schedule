@@ -4,15 +4,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   selectCapabilitiesCustom,
   getCapabilitiesCustom,
+  selectReloadList,
 } from '../../store/slice/capabilitiesCustomSlice';
 
 function CapabilitiesCustomTable({ setCapabilitiesCustomCreateOpenPanel }) {
   const dispatch = useDispatch();
   const capabilitiesCustomList = useSelector(selectCapabilitiesCustom);
+  const reloadList = useSelector(selectReloadList);
 
   useEffect(() => {
     dispatch(getCapabilitiesCustom());
-  }, []);
+  }, [reloadList]);
 
   return (
     <>

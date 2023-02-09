@@ -6,6 +6,7 @@ import { endpointsCodes } from './functions';
 
 const initialState = {
   capabilitiesCustomList: [],
+  realoadList: false,
 };
 
 const capabilitiesCustomSlice = createSlice({
@@ -16,13 +17,18 @@ const capabilitiesCustomSlice = createSlice({
     setCapabilitiesCustomList: (state, action) => {
       state.capabilitiesCustomList = action.payload;
     },
+    setReloadList: (state, action) => {
+      state.realoadList = !state.realoadList;
+    },
   },
 });
 
-export const { setCapabilitiesCustomList } = capabilitiesCustomSlice.actions;
+export const { setCapabilitiesCustomList, setReloadList } =
+  capabilitiesCustomSlice.actions;
 
 export const selectCapabilitiesCustom = (state) =>
   state.capabilitiesCustom.capabilitiesCustomList;
+export const selectReloadList = (state) => state.capabilitiesCustom.realoadList;
 
 export default capabilitiesCustomSlice.reducer;
 
@@ -36,3 +42,20 @@ export const getCapabilitiesCustom = () => (dispatch) => {
     })
     .catch((error) => console.log(error));
 };
+
+export const capabilitiesCustomCreate =
+  (data, setCapabilitiesCustomCreateOpenPanel, reset) => (dispatch) => {
+    const tokenUser = sessionStorage.getItem('token');
+    axios
+      .post('http://35.174.106.95/api/capacities/new-register', data, {
+        headers: { Authorization: `Token ${tokenUser}` },
+      })
+      .then((response) => {
+        if (response.status === 201) {
+          dispatch(setReloadList());
+          setCapabilitiesCustomCreateOpenPanel(false);
+          reset();
+        }
+      })
+      .catch((error) => console.log(error));
+  };
