@@ -136,14 +136,13 @@ function GanttGlobal() {
     console.log(dataGantt);
     const tasks = dataGantt.eventsData;
     const dependencies = dataGantt.dependenciesData;
-    console.log(dependencies);
-    console.log(id);
     const data = {
       tasks: tasks,
       dependencies: dependencies,
     };
+    console.log(data); 
     const save = await axios
-      .post(`http://35.174.106.95/api/planning/save-planning/${id}`, data)
+      .post(`http://35.174.106.95/api/planning/save-planning-update`, data)
       .then((response) => {
         if (response.status === 200) {
           setOpenStatusToast(true);

@@ -12,6 +12,8 @@ import {
   selectPlanningList,
   getPlanningList,
   selectLoadHistory,
+  selectLoadPlanning,
+  revertPlanningList,
 } from "../../../store/slice/planningSlice";
 
 function PlanningsTable({ setGroupOptionsPanel }) {
@@ -19,7 +21,7 @@ function PlanningsTable({ setGroupOptionsPanel }) {
   const dispatch = useDispatch();
   const searchItems = useSelector(selectHistorySearch);
   const planningsList = useSelector(selectPlanningList);
-  const load = useSelector(selectLoadHistory);
+  const load = useSelector(selectLoadPlanning);
   const navigate = useNavigate();
 
   const [planningListOrder, setPlanningListOrder] = useState(
@@ -27,6 +29,7 @@ function PlanningsTable({ setGroupOptionsPanel }) {
   );
 
   useEffect(() => {
+    dispatch(revertPlanningList());
     dispatch(getPlanningList());
   }, []);
 
@@ -104,7 +107,7 @@ function PlanningsTable({ setGroupOptionsPanel }) {
             <div className="loader"></div>
             <span className="ml-3 text-primary font-semibold">Cargando</span>
           </section>
-        ) : planningListOrder.length > 0 ? (
+        ) : planningsList.length > 0 ? (
           !startSearch ? (
             <Table
               array={planningListOrder}
