@@ -25,7 +25,9 @@ function PlanningsTableItems(props) {
   // }, [orderPlaneador]);
 
   const formatDate = (dateTime) => {
-    const date = new Date(dateTime);
+    const dateTimeWithoutZ = dateTime.replace(/\+00:00|Z/g, '');
+    const date = new Date(dateTimeWithoutZ);
+    console.log(date);
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear();

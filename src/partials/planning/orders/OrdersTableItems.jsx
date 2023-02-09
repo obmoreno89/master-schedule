@@ -107,36 +107,43 @@ function OrdersTableItems({ data, ordersList, setList }) {
                 <td className='py-3 whitespace-nowrap'>
                   <p className='text-center'>{item?.org}</p>
                 </td>
-                <td className='py-3 whitespace-nowrap md:w-1/6'>
+                <td className='py-3 whitespace-nowrap'>
                   <p className='font-medium capitalize text-center'>
                     {formatNumber(item?.minimum_quantity)}
                   </p>
                 </td>
-                <td className='py-3 whitespace-nowrap md:w-1/6'>
+                <td className='py-3 whitespace-nowrap'>
                   <p className='font-medium text-center'>
                     {formatNumber(item?.maximum_quantity)}
                   </p>
                 </td>
-                <td className='py-3 whitespace-nowrap md:w-1/6'>
+                <td className='py-3 whitespace-nowrap'>
                   <p className='text-center'>
                     {formatNumber(item?.on_hand_quantity)}
                   </p>
                 </td>
-                <td className='py-3 whitespace-nowrap md:w-1/6'>
+                <td className='py-3 whitespace-nowrap'>
                   <p className='text-center'>
                     {formatNumber(item?.reorder_quantity)}
                   </p>
                 </td>
 
-                <td className='py-3 whitespace-nowrap px-2'>
+                <td className='py-3 whitespace-nowrap px-6 md:w-[12%]'>
                   <div className='mt-2 h-4 relative rounded-full overflow-hidden border border-slate-300'>
                     <div className='w-full h-full bg-gray-200 absolute '></div>
                     <div
                       className='h-full sm:bg-green-500 absolute'
-                      style={{ width: '10%' }}
+                      style={ item?.demand_progress_qty === null ? {  width: '0%' } : {  width: item?.demand_progress_qty + `%`}}
                     ></div>
                   </div>
-                  <span>10%</span>
+                  {
+                 item?.demand_progress_qty === null ?
+                 <span>0%</span>
+                 :
+                 <span>{item?.demand_progress_qty}%</span>
+                }
+                  
+                
                 </td>
               </tr>
             ))}
