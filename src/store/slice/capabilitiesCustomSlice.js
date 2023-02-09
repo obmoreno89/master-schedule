@@ -1,5 +1,6 @@
 import { createSlice, createAction } from '@reduxjs/toolkit';
 import axios from 'axios';
+import Loading from '../../pages/component/Loading';
 
 import { endpointsCodes } from './functions';
 

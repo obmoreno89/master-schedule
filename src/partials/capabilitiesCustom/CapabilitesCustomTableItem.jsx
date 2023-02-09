@@ -2,8 +2,6 @@ import React from 'react';
 import icons from '../../images/icon/icons';
 
 function CapabilitesCustomTableItem({ capabilitiesCustomList }) {
-  console.log(capabilitiesCustomList);
-
   return (
     <>
       <table className='table-auto w-full table'>

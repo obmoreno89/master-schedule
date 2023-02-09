@@ -6,7 +6,7 @@ import {
   getCapabilitiesCustom,
 } from '../../store/slice/capabilitiesCustomSlice';
 
-function CapabilitiesCustomTable() {
+function CapabilitiesCustomTable({ setCapabilitiesCustomCreateOpenPanel }) {
   const dispatch = useDispatch();
   const capabilitiesCustomList = useSelector(selectCapabilitiesCustom);
 
@@ -31,6 +31,10 @@ function CapabilitiesCustomTable() {
                 type='search'
               />
               <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setCapabilitiesCustomCreateOpenPanel(true);
+                }}
                 type='button'
                 className='btn bg-primary text-white w-54 space-x-2'
               >
