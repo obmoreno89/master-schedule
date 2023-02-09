@@ -151,10 +151,17 @@ export const GanttGlobalConfig = {
       listeners : {
           change(context) {
               console.log(context);
+              let newQuantity = context.value
               let idTask = context.source.eventRecord.id
               let parentId = context.source.eventRecord.parentId;
+              let oldTimeDuration = bryntum.query('gantt').taskStore.getById(idTask).duration
+              let oldPieces = bryntum.query('gantt').taskStore.getById(idTask).ord_qty
+              let olDurationPerPiece = oldTimeDuration / oldPieces
               console.log('Parent ID ' + parentId)
               console.log('ID Task ' + idTask)
+              console.log('New Qty'  + newQuantity)
+              console.log('Old time duration ' + oldTimeDuration)
+              bryntum.query('gantt').taskStore.getById(idTask).duration = olDurationPerPiece * newQuantity
           }
       }
   } },
