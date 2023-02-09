@@ -1,7 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CapabilitesCustomTableItem from './CapabilitesCustomTableItem';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  selectCapabilitiesCustom,
+  getCapabilitiesCustom,
+} from '../../store/slice/capabilitiesCustomSlice';
 
 function CapabilitiesCustomTable() {
+  const dispatch = useDispatch();
+  const capabilitiesCustomList = useSelector(selectCapabilitiesCustom);
+
+  useEffect(() => {
+    dispatch(getCapabilitiesCustom());
+  }, []);
+
   return (
     <>
       <div className='bg-white'>
@@ -28,13 +40,14 @@ function CapabilitiesCustomTable() {
                 >
                   <path d='M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z' />
                 </svg>
-                <span>Crear capacidad</span>
+                <span>Crear capacidad custom</span>
               </button>
             </div>
           </section>
-
           <div className='overflow-x-auto rounded-xl border border-slate-300 h-[550px]'>
-            <CapabilitesCustomTableItem />
+            <CapabilitesCustomTableItem
+              capabilitiesCustomList={capabilitiesCustomList}
+            />
           </div>
         </div>
       </div>
