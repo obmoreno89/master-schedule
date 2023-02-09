@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ButtonLoading from '../../helpers/ButtonLoading';
 import CapabilitiesCustomStartDatePicker from './CapabilitiesCustomStartDatePicker';
 import CapabilitiesCustomEndDatePicker from './CapabilitiesCustomEndDatePicker';
+import { selectLoading } from '../../store/slice/capabilitiesCustomSlice';
 import {
   selectPLines,
   getProductLines,
@@ -25,6 +26,7 @@ function CapabilitiesCustomCreateForm({
   const [finalDate, setFinalDate] = useState(null);
   const dispatch = useDispatch();
   const ProductLineList = useSelector(selectPLines);
+  const loading = useSelector(selectLoading);
 
   const onSubmit = (data) => {
     const firstDate = new Date(startDate);
@@ -57,8 +59,6 @@ function CapabilitiesCustomCreateForm({
       )
     );
   };
-
-  const loading = true;
 
   const handleButtonCreate = () => {
     return loading ? (

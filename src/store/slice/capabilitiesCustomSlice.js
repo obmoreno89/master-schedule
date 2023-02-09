@@ -1,12 +1,12 @@
 import { createSlice, createAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-import Loading from '../../pages/component/Loading';
 
 import { endpointsCodes } from './functions';
 
 const initialState = {
   capabilitiesCustomList: [],
   realoadList: false,
+  loading: false,
 };
 
 const capabilitiesCustomSlice = createSlice({
@@ -20,15 +20,19 @@ const capabilitiesCustomSlice = createSlice({
     setReloadList: (state, action) => {
       state.realoadList = !state.realoadList;
     },
+    setLoading: (state, action) => {
+      state.realoadList = action.payload;
+    },
   },
 });
 
-export const { setCapabilitiesCustomList, setReloadList } =
+export const { setCapabilitiesCustomList, setReloadList, setLoading } =
   capabilitiesCustomSlice.actions;
 
 export const selectCapabilitiesCustom = (state) =>
   state.capabilitiesCustom.capabilitiesCustomList;
 export const selectReloadList = (state) => state.capabilitiesCustom.realoadList;
+export const selectLoading = (state) => state.capabilitiesCustom.loading;
 
 export default capabilitiesCustomSlice.reducer;
 
@@ -45,6 +49,7 @@ export const getCapabilitiesCustom = () => (dispatch) => {
 
 export const capabilitiesCustomCreate =
   (data, setCapabilitiesCustomCreateOpenPanel, reset) => (dispatch) => {
+    dispatch(setLoading(true));
     const tokenUser = sessionStorage.getItem('token');
     axios
       .post('http://35.174.106.95/api/capacities/new-register', data, {
@@ -52,10 +57,13 @@ export const capabilitiesCustomCreate =
       })
       .then((response) => {
         if (response.status === 201) {
-          dispatch(setReloadList());
+          dispatch(setLoading(false));
           setCapabilitiesCustomCreateOpenPanel(false);
+          dispatch(setReloadList());
           reset();
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        dispatch(setLoading(false));
+      });
   };

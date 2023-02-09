@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import CapabilitesCustomTableItem from './CapabilitesCustomTableItem';
+import Loading from '../../pages/component/Loading';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   selectCapabilitiesCustom,
@@ -50,11 +51,16 @@ function CapabilitiesCustomTable({ setCapabilitiesCustomCreateOpenPanel }) {
               </button>
             </div>
           </section>
-          <div className='overflow-x-auto rounded-xl border border-slate-300 h-[550px]'>
-            <CapabilitesCustomTableItem
-              capabilitiesCustomList={capabilitiesCustomList}
-            />
-          </div>
+
+          {capabilitiesCustomList.length > 0 ? (
+            <div className='overflow-x-auto rounded-xl border border-slate-300 h-[550px]'>
+              <CapabilitesCustomTableItem
+                capabilitiesCustomList={capabilitiesCustomList}
+              />
+            </div>
+          ) : (
+            <Loading />
+          )}
         </div>
       </div>
     </>
