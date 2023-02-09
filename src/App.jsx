@@ -22,6 +22,7 @@ import SystemStatus from './pages/SystemStatus';
 //PLANNING
 import Planning from './pages/Planning';
 import Capabilities from './pages/Capabilities';
+import CapabilitiesCustom from './pages/CapabilitiesCustom';
 import Calendar from './pages/Calendar';
 import PlanningOrders from './partials/planning/plannings/PlanningOrders';
 import OrdersPlanned from './pages/OrdersPlanned';
@@ -180,6 +181,14 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route
+          path='/mp-pro/planning/capabilities/custom'
+          element={
+            <PrivateRoute>
+              <CapabilitiesCustom />
+            </PrivateRoute>
+          }
+        />
 
         <Route
           path='/mp-pro/planning/calendar/'
@@ -209,13 +218,13 @@ function App() {
         />
 
         <Route
-                  path='/mp-pro/gantt/global'
-                  element={
-                    <PrivateRoute>
-                      <GanttGlobal />
-                    </PrivateRoute>
-                  }
-                />
+          path='/mp-pro/gantt/global'
+          element={
+            <PrivateRoute>
+              <GanttGlobal />
+            </PrivateRoute>
+          }
+        />
 
         <Route
           path='/mp-pro/planning/plannings/gantt/:id'
