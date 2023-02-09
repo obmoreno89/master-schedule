@@ -125,7 +125,7 @@ function PlanningsTable({ setGroupOptionsPanel }) {
           )
         ) : (
           <section className="justify-center items-center flex mt-56">
-            <h2 className="font-semibold text-2xl">Sin datos para mostrar</h2>
+            <h2 className="font-semibold text-2xl">Crea tu primera planeación</h2>
           </section>
         )}
       </section>

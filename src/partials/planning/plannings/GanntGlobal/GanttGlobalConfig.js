@@ -43,7 +43,7 @@ export const GanttGlobalConfig = {
     //   disabled: true,
     // },
     percentBar: true,
-    filter: true,
+    filter: false, 
     indicators: true,
     taskCopyPaste: false,
     dependencies: true,
