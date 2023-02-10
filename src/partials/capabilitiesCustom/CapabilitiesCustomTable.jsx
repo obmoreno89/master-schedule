@@ -11,6 +11,7 @@ import {
 function CapabilitiesCustomTable({
   setCapabilitiesCustomCreateOpenPanel,
   setOpenModalCapabilitiesCustomDelete,
+  setCapabilitiesCustomEditOpenPanel,
 }) {
   const dispatch = useDispatch();
   const capabilitiesCustomList = useSelector(selectCapabilitiesCustom);
@@ -61,6 +62,9 @@ function CapabilitiesCustomTable({
                 capabilitiesCustomList={capabilitiesCustomList}
                 setOpenModalCapabilitiesCustomDelete={
                   setOpenModalCapabilitiesCustomDelete
+                }
+                setCapabilitiesCustomEditOpenPanel={
+                  setCapabilitiesCustomEditOpenPanel
                 }
               />
             </div>

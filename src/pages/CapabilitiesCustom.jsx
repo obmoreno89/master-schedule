@@ -4,6 +4,7 @@ import icons from '../images/icon/icons';
 import CapabilitiesCustomTable from '../partials/capabilitiesCustom/CapabilitiesCustomTable';
 import CapabilitiesCustomCreatePanel from '../partials/capabilitiesCustom/CapabilitiesCustomCreatePanel';
 import ModalCapabilitiesCustomDelete from './component/ModalCapabilitiesCustomDelete';
+import CapabilitiesCustomEditPanel from '../partials/capabilitiesCustom/ CapabilitiesCustomEditPanel';
 
 function CapabilitiesCustom() {
   const [
@@ -15,6 +16,9 @@ function CapabilitiesCustom() {
     openModalCapabilitiesCustomDelete,
     setOpenModalCapabilitiesCustomDelete,
   ] = useState(false);
+
+  const [capabilitiesCustomEditOpenPanel, setCapabilitiesCustomEditOpenPanel] =
+    useState(false);
 
   return (
     <>
@@ -31,6 +35,9 @@ function CapabilitiesCustom() {
               }
               setOpenModalCapabilitiesCustomDelete={
                 setOpenModalCapabilitiesCustomDelete
+              }
+              setCapabilitiesCustomEditOpenPanel={
+                setCapabilitiesCustomEditOpenPanel
               }
             />
           </section>
@@ -49,6 +56,14 @@ function CapabilitiesCustom() {
           openModalCapabilitiesCustomDelete={openModalCapabilitiesCustomDelete}
           setOpenModalCapabilitiesCustomDelete={
             setOpenModalCapabilitiesCustomDelete
+          }
+        />
+      </section>
+      <section>
+        <CapabilitiesCustomEditPanel
+          capabilitiesCustomEditOpenPanel={capabilitiesCustomEditOpenPanel}
+          setCapabilitiesCustomEditOpenPanel={
+            setCapabilitiesCustomEditOpenPanel
           }
         />
       </section>

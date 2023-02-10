@@ -1,18 +1,14 @@
 import React from 'react';
 import Flatpickr from 'react-flatpickr';
 
-function CapabilitiesCustomStartDatePicker({
-  align,
-  setFinalDate,
-  setStartDate,
-}) {
-  const dateNow = new Date(Date.now());
+function CapabilitiesCustomStartDatePicker({ align, setStartDate, firstDate }) {
+  const dateNow = new Date(firstDate);
 
   const options = {
     static: true,
     monthSelectorType: 'static',
     dateFormat: 'Y-m-d',
-    defaultDate: [new Date()],
+    defaultDate: dateNow,
 
     prevArrow:
       '<svg class="fill-current" width="7" height="11" viewBox="0 0 7 11"><path d="M5.4 10.8l1.4-1.4-4-4 4-4L5.4 0 0 5.4z" /></svg>',

@@ -1,11 +1,15 @@
 import React from 'react';
 import icons from '../../images/icon/icons';
-import { setCapabilitiesCustomDeleteData } from '../../store/slice/capabilitiesCustomSlice';
+import {
+  setCapabilitiesCustomDeleteData,
+  setCapabilitiesCustomEditData,
+} from '../../store/slice/capabilitiesCustomSlice';
 import { useDispatch } from 'react-redux';
 
 function CapabilitesCustomTableItem({
   capabilitiesCustomList,
   setOpenModalCapabilitiesCustomDelete,
+  setCapabilitiesCustomEditOpenPanel,
 }) {
   const dispatch = useDispatch();
 
@@ -89,7 +93,13 @@ function CapabilitesCustomTableItem({
               </td>
               <td className='last:pr-1 py-3 whitespace-nowrap'>
                 <figure className='flex justify-start items-center space-x-3'>
-                  <button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCapabilitiesCustomEditOpenPanel(true);
+                      dispatch(setCapabilitiesCustomEditData(data));
+                    }}
+                  >
                     <img src={icons.pencilIcon} alt='Lapiz' />
                   </button>
                   <button

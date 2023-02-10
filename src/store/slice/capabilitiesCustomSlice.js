@@ -6,6 +6,7 @@ import { endpointsCodes } from './functions';
 const initialState = {
   capabilitiesCustomList: [],
   capablitiesCustomDeleteData: [],
+  capabilitiesCustomEditData: [],
   realoadList: false,
   loading: false,
 };
@@ -27,6 +28,9 @@ const capabilitiesCustomSlice = createSlice({
     setCapabilitiesCustomDeleteData: (state, action) => {
       state.capablitiesCustomDeleteData = action.payload;
     },
+    setCapabilitiesCustomEditData: (state, action) => {
+      state.capabilitiesCustomEditData = action.payload;
+    },
   },
 });
 
@@ -35,6 +39,7 @@ export const {
   setReloadList,
   setLoading,
   setCapabilitiesCustomDeleteData,
+  setCapabilitiesCustomEditData,
 } = capabilitiesCustomSlice.actions;
 
 export const selectCapabilitiesCustom = (state) =>
@@ -43,6 +48,8 @@ export const selectReloadList = (state) => state.capabilitiesCustom.realoadList;
 export const selectLoading = (state) => state.capabilitiesCustom.loading;
 export const selectCapabilitiesCustomDeleteData = (state) =>
   state.capabilitiesCustom.capablitiesCustomDeleteData;
+export const selectCapabilitiesCustomEditData = (state) =>
+  state.capabilitiesCustom.capabilitiesCustomEditData;
 
 export default capabilitiesCustomSlice.reducer;
 
