@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import ButtonLoading from '../../helpers/ButtonLoading';
-import CapabilitiesCustomStartDatePicker from './CapabilitiesCustomStartDatePicker';
-import CapabilitiesCustomEndDatePicker from './CapabilitiesCustomEndDatePicker';
-import { selectLoading } from '../../store/slice/capabilitiesCustomSlice';
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import ButtonLoading from "../../helpers/ButtonLoading";
+import CapabilitiesCustomStartDatePicker from "./CapabilitiesCustomStartDatePicker";
+import CapabilitiesCustomEndDatePicker from "./CapabilitiesCustomEndDatePicker";
+import { selectLoading } from "../../store/slice/capabilitiesCustomSlice";
 import {
   selectPLines,
   getProductLines,
-} from '../../store/slice/capabilitiesSlice';
-import { capabilitiesCustomCreate } from '../../store/slice/capabilitiesCustomSlice';
+} from "../../store/slice/capabilitiesSlice";
+import { capabilitiesCustomCreate } from "../../store/slice/capabilitiesCustomSlice";
 
 function CapabilitiesCustomCreateForm({
   capabilitiesCustomCreateOpenPanel,
@@ -55,34 +55,34 @@ function CapabilitiesCustomCreateForm({
       capabilitiesCustomCreate(
         json,
         setCapabilitiesCustomCreateOpenPanel,
-        reset
+        reset,
       )
     );
   };
 
   const handleButtonCreate = () => {
     return !loading ? (
-      <button className='btn bg-primary hover:bg-secondary hover:text-primary text-white font-semibold text-base w-[27rem] h-12 rounded-[4px]'>
-        <span className='ml-3 align-baseline'>Crear capacidad custom</span>
+      <button className="btn bg-primary hover:bg-secondary hover:text-primary text-white font-semibold text-base w-[27rem] h-12 rounded-[4px]">
+        <span className="ml-3 align-baseline">Crear capacidad custom</span>
       </button>
     ) : (
       <div>
-        <ButtonLoading loading='Creando' update={true} />
+        <ButtonLoading loading="Creando" update={true} />
       </div>
     );
   };
 
   useEffect(() => {
     let defaultValues = {};
-    defaultValues.name = '';
-    defaultValues.description = '';
-    defaultValues.planner_code = '';
-    defaultValues.product_line = '';
-    defaultValues.type_name = '';
-    defaultValues.piece_per_day = '';
-    defaultValues.shift_per_day = '';
-    defaultValues.piece_per_hour = '';
-    defaultValues.comments = '';
+    defaultValues.name = "";
+    defaultValues.description = "";
+    defaultValues.planner_code = "";
+    defaultValues.product_line = "";
+    defaultValues.type_name = "";
+    defaultValues.piece_per_day = "";
+    defaultValues.shift_per_day = "";
+    defaultValues.piece_per_hour = "";
+    defaultValues.comments = "";
     reset({ ...defaultValues });
   }, [reset, capabilitiesCustomCreateOpenPanel]);
 
@@ -93,25 +93,25 @@ function CapabilitiesCustomCreateForm({
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <section className='grid gap-5 md:grid-cols-1'>
+        <section className="grid gap-5 md:grid-cols-1">
           {/* PRODUCT LINE */}
           <div>
             <label
-              className='block text-sm font-semibold mb-1'
-              htmlFor='product_line'
+              className="block text-sm font-semibold mb-1"
+              htmlFor="product_line"
             >
               Lista de producto y grupo
             </label>
             <select
-              className='form-select w-full'
-              {...register('product_line', {
+              className="form-select w-full"
+              {...register("product_line", {
                 required: {
                   value: true,
-                  message: 'El campo es requerido',
+                  message: "El campo es requerido",
                 },
               })}
             >
-              <option value=''>Selecciona...</option>
+              <option value="">Selecciona...</option>
               {ProductLineList.map((data, index) => (
                 <option key={index} value={data.id}>
                   {data.name} - {data.group.name}
@@ -119,33 +119,33 @@ function CapabilitiesCustomCreateForm({
               ))}
             </select>
             {errors.product_line && (
-              <span className='text-red-500 text-sm'>
+              <span className="text-red-500 text-sm">
                 {errors.product_line.message}
               </span>
             )}
           </div>
           {/* NAME */}
           <div>
-            <label className='block text-sm font-semibold mb-1' htmlFor='name'>
+            <label className="block text-sm font-semibold mb-1" htmlFor="name">
               Nombre
             </label>
             <input
-              className='form-input w-full'
-              type='text'
-              autoComplete='off'
-              {...register('name', {
+              className="form-input w-full"
+              type="text"
+              autoComplete="off"
+              {...register("name", {
                 required: {
                   value: true,
-                  message: 'El campo es requerido',
+                  message: "El campo es requerido",
                 },
                 pattern: {
                   value: /[a-zA-Z]/,
-                  message: 'El formato no es correcto',
+                  message: "El formato no es correcto",
                 },
               })}
             />
             {errors.name && (
-              <span className='text-red-500 text-sm'>
+              <span className="text-red-500 text-sm">
                 {errors.name.message}
               </span>
             )}
@@ -153,28 +153,28 @@ function CapabilitiesCustomCreateForm({
           {/* TYPE */}
           <div>
             <label
-              className='block text-sm font-semibold mb-1'
-              htmlFor='type_name'
+              className="block text-sm font-semibold mb-1"
+              htmlFor="type_name"
             >
               Tipo
             </label>
             <input
-              className='form-input w-full'
-              type='text'
-              autoComplete='off'
-              {...register('type_name', {
+              className="form-input w-full"
+              type="text"
+              autoComplete="off"
+              {...register("type_name", {
                 required: {
                   value: true,
-                  message: 'El campo es requerido',
+                  message: "El campo es requerido",
                 },
                 pattern: {
                   value: /[a-zA-Z0-9]/,
-                  message: 'El formato no es correcto',
+                  message: "El formato no es correcto",
                 },
               })}
             />
             {errors.type_name && (
-              <span className='text-red-500 text-sm'>
+              <span className="text-red-500 text-sm">
                 {errors.type_name.message}
               </span>
             )}
@@ -182,28 +182,28 @@ function CapabilitiesCustomCreateForm({
           {/* PLANNER CODE */}
           <div>
             <label
-              className='block text-sm font-semibold mb-1'
-              htmlFor='planner_code'
+              className="block text-sm font-semibold mb-1"
+              htmlFor="planner_code"
             >
               Código del planificador
             </label>
             <input
-              className='form-input w-full'
-              type='text'
-              autoComplete='off'
-              {...register('planner_code', {
+              className="form-input w-full"
+              type="text"
+              autoComplete="off"
+              {...register("planner_code", {
                 required: {
                   value: true,
-                  message: 'El campo es requerido',
+                  message: "El campo es requerido",
                 },
                 pattern: {
                   value: /[a-zA-Z0-9]/,
-                  message: 'El formato no es correcto',
+                  message: "El formato no es correcto",
                 },
               })}
             />
             {errors.planner_code && (
-              <span className='text-red-500 text-sm'>
+              <span className="text-red-500 text-sm">
                 {errors.planner_code.message}
               </span>
             )}
@@ -211,28 +211,28 @@ function CapabilitiesCustomCreateForm({
           {/* Description */}
           <div>
             <label
-              className='block text-sm font-semibold mb-1'
-              htmlFor='description'
+              className="block text-sm font-semibold mb-1"
+              htmlFor="description"
             >
               Descripción
             </label>
             <input
-              className='form-input w-full'
-              type='text'
-              autoComplete='off'
-              {...register('description', {
+              className="form-input w-full"
+              type="text"
+              autoComplete="off"
+              {...register("description", {
                 required: {
                   value: true,
-                  message: 'El campo es requerido',
+                  message: "El campo es requerido",
                 },
                 pattern: {
                   value: /[a-zA-Z0-9]/,
-                  message: 'El formato no es correcto',
+                  message: "El formato no es correcto",
                 },
               })}
             />
             {errors.description && (
-              <span className='text-red-500 text-sm'>
+              <span className="text-red-500 text-sm">
                 {errors.description.message}
               </span>
             )}
@@ -240,52 +240,58 @@ function CapabilitiesCustomCreateForm({
           {/* START DATE */}
           <div>
             <label
-              className='block text-sm font-semibold mb-1'
-              htmlFor='piece_per_day'
+              className="block text-sm font-semibold mb-1"
+              htmlFor="piece_per_day"
             >
               Fecha Inicio
             </label>
-            <div className=''>
-              <CapabilitiesCustomStartDatePicker setStartDate={setStartDate} />
+            <div className="">
+              <CapabilitiesCustomStartDatePicker
+                setStartDate={setStartDate}
+                create={true}
+              />
             </div>
           </div>
           {/* FINAL DATE */}
           <div>
             <label
-              className='block text-sm font-semibold mb-1'
-              htmlFor='piece_per_day'
+              className="block text-sm font-semibold mb-1"
+              htmlFor="piece_per_day"
             >
               Fecha final
             </label>
-            <div className=''>
-              <CapabilitiesCustomEndDatePicker setFinalDate={setFinalDate} />
+            <div className="">
+              <CapabilitiesCustomEndDatePicker
+                setFinalDate={setFinalDate}
+                create={true}
+              />
             </div>
           </div>
           {/* PZ/HOURS */}
           <div>
             <label
-              className='block text-sm font-semibold mb-1'
-              htmlFor='piece_per_hour'
+              className="block text-sm font-semibold mb-1"
+              htmlFor="piece_per_hour"
             >
               Piezas por hora
             </label>
             <input
-              className='form-input w-full'
-              type='text'
-              autoComplete='off'
-              {...register('piece_per_hour', {
+              className="form-input w-full"
+              type="text"
+              autoComplete="off"
+              {...register("piece_per_hour", {
                 required: {
                   value: true,
-                  message: 'El campo es requerido',
+                  message: "El campo es requerido",
                 },
                 pattern: {
                   value: /[0-9]/,
-                  message: 'El formato no es correcto',
+                  message: "El formato no es correcto",
                 },
               })}
             />
             {errors.piece_per_hour && (
-              <span className='text-red-500 text-sm'>
+              <span className="text-red-500 text-sm">
                 {errors.piece_per_hour.message}
               </span>
             )}
@@ -293,28 +299,28 @@ function CapabilitiesCustomCreateForm({
           {/* SHIFT/DAY */}
           <div>
             <label
-              className='block text-sm font-semibold mb-1'
-              htmlFor='shift_per_day'
+              className="block text-sm font-semibold mb-1"
+              htmlFor="shift_per_day"
             >
               Turno por dia
             </label>
             <input
-              className='form-input w-full'
-              type='text'
-              autoComplete='off'
-              {...register('shift_per_day', {
+              className="form-input w-full"
+              type="text"
+              autoComplete="off"
+              {...register("shift_per_day", {
                 required: {
                   value: true,
-                  message: 'El campo es requerido',
+                  message: "El campo es requerido",
                 },
                 pattern: {
                   value: /[0-9]/,
-                  message: 'El formato no es correcto',
+                  message: "El formato no es correcto",
                 },
               })}
             />
             {errors.shift_per_day && (
-              <span className='text-red-500 text-sm'>
+              <span className="text-red-500 text-sm">
                 {errors.shift_per_day.message}
               </span>
             )}
@@ -322,28 +328,28 @@ function CapabilitiesCustomCreateForm({
           {/* PIECE/DAY */}
           <div>
             <label
-              className='block text-sm font-semibold mb-1'
-              htmlFor='piece_per_day'
+              className="block text-sm font-semibold mb-1"
+              htmlFor="piece_per_day"
             >
               Piezas por dia
             </label>
             <input
-              className='form-input w-full'
-              type='text'
-              autoComplete='off'
-              {...register('piece_per_day', {
+              className="form-input w-full"
+              type="text"
+              autoComplete="off"
+              {...register("piece_per_day", {
                 required: {
                   value: true,
-                  message: 'El campo es requerido',
+                  message: "El campo es requerido",
                 },
                 pattern: {
                   value: /[0-9]/,
-                  message: 'El formato no es correcto',
+                  message: "El formato no es correcto",
                 },
               })}
             />
             {errors.piece_per_day && (
-              <span className='text-red-500 text-sm'>
+              <span className="text-red-500 text-sm">
                 {errors.piece_per_day.message}
               </span>
             )}
@@ -352,34 +358,34 @@ function CapabilitiesCustomCreateForm({
           {/* COMMENTS */}
           <div>
             <label
-              className='block text-sm font-semibold mb-1'
-              htmlFor='comments'
+              className="block text-sm font-semibold mb-1"
+              htmlFor="comments"
             >
               Comentarios
             </label>
             <input
-              className='form-input w-full'
-              type='text'
-              autoComplete='off'
-              {...register('comments', {
+              className="form-input w-full"
+              type="text"
+              autoComplete="off"
+              {...register("comments", {
                 required: {
                   value: false,
-                  message: 'El campo es requerido',
+                  message: "El campo es requerido",
                 },
                 pattern: {
                   value: /[a-zA-Z0-9]/,
-                  message: 'El formato no es correcto',
+                  message: "El formato no es correcto",
                 },
               })}
             />
             {errors.comments && (
-              <span className='text-red-500 text-sm'>
+              <span className="text-red-500 text-sm">
                 {errors.comments.message}
               </span>
             )}
           </div>
         </section>
-        <div className='mt-10 flex justify-center'>{handleButtonCreate()}</div>
+        <div className="mt-10 flex justify-center">{handleButtonCreate()}</div>
       </form>
     </>
   );
