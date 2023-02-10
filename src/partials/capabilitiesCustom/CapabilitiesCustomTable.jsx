@@ -1,7 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CapabilitesCustomTableItem from './CapabilitesCustomTableItem';
+import Loading from '../../pages/component/Loading';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  selectCapabilitiesCustom,
+  getCapabilitiesCustom,
+  selectReloadList,
+} from '../../store/slice/capabilitiesCustomSlice';
 
-function CapabilitiesCustomTable() {
+function CapabilitiesCustomTable({
+  setCapabilitiesCustomCreateOpenPanel,
+  setOpenModalCapabilitiesCustomDelete,
+}) {
+  const dispatch = useDispatch();
+  const capabilitiesCustomList = useSelector(selectCapabilitiesCustom);
+  const reloadList = useSelector(selectReloadList);
+
+  useEffect(() => {
+    dispatch(getCapabilitiesCustom());
+  }, [reloadList]);
+
   return (
     <>
       <div className='bg-white'>
@@ -19,6 +37,10 @@ function CapabilitiesCustomTable() {
                 type='search'
               />
               <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setCapabilitiesCustomCreateOpenPanel(true);
+                }}
                 type='button'
                 className='btn bg-primary text-white w-54 space-x-2'
               >
@@ -28,14 +50,23 @@ function CapabilitiesCustomTable() {
                 >
                   <path d='M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z' />
                 </svg>
-                <span>Crear capacidad</span>
+                <span>Crear capacidad custom</span>
               </button>
             </div>
           </section>
 
-          <div className='overflow-x-auto rounded-xl border border-slate-300 h-[550px]'>
-            <CapabilitesCustomTableItem />
-          </div>
+          {capabilitiesCustomList.length > 0 ? (
+            <div className='overflow-x-auto rounded-xl border border-slate-300 h-[550px]'>
+              <CapabilitesCustomTableItem
+                capabilitiesCustomList={capabilitiesCustomList}
+                setOpenModalCapabilitiesCustomDelete={
+                  setOpenModalCapabilitiesCustomDelete
+                }
+              />
+            </div>
+          ) : (
+            <Loading />
+          )}
         </div>
       </div>
     </>
