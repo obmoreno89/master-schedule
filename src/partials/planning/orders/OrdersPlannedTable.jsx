@@ -62,7 +62,7 @@ function OrdersPlannedTable() {
             Planning Report
           </h1>
         </div>
-        <div className='flex space-x-3 z-50'>
+        <div className='flex space-x-3'>
           <OrdersDropdownFilter />
           <input
             className='form-input w-72'

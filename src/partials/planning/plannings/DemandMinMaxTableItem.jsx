@@ -22,7 +22,7 @@ function DemandMinMaxTableItem({ setchangeNumber, changeNumber }) {
   return (
     <>
       <table className='table-auto w-full table'>
-        <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50 sticky top-0 z-40'>
+        <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50 sticky top-0'>
           <tr>
             <th className='first:pl-5'>
               <p className='font-semibold text-left'>Item - Categoria</p>

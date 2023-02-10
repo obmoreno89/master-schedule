@@ -40,7 +40,7 @@ const CapabilitiesTableItem = ({
     <>
       <table className='table-auto w-full table'>
         {/* Table header */}
-        <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50 sticky top-0 z-40'>
+        <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50 sticky top-0 '>
           <tr>
             <th
               className='px-2 first:pl-5 w-1/4 cursor-pointer'
