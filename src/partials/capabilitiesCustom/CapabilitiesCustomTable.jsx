@@ -8,7 +8,10 @@ import {
   selectReloadList,
 } from '../../store/slice/capabilitiesCustomSlice';
 
-function CapabilitiesCustomTable({ setCapabilitiesCustomCreateOpenPanel }) {
+function CapabilitiesCustomTable({
+  setCapabilitiesCustomCreateOpenPanel,
+  setOpenModalCapabilitiesCustomDelete,
+}) {
   const dispatch = useDispatch();
   const capabilitiesCustomList = useSelector(selectCapabilitiesCustom);
   const reloadList = useSelector(selectReloadList);
@@ -56,6 +59,9 @@ function CapabilitiesCustomTable({ setCapabilitiesCustomCreateOpenPanel }) {
             <div className='overflow-x-auto rounded-xl border border-slate-300 h-[550px]'>
               <CapabilitesCustomTableItem
                 capabilitiesCustomList={capabilitiesCustomList}
+                setOpenModalCapabilitiesCustomDelete={
+                  setOpenModalCapabilitiesCustomDelete
+                }
               />
             </div>
           ) : (

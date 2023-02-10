@@ -1,7 +1,14 @@
 import React from 'react';
 import icons from '../../images/icon/icons';
+import { setCapabilitiesCustomDeleteData } from '../../store/slice/capabilitiesCustomSlice';
+import { useDispatch } from 'react-redux';
 
-function CapabilitesCustomTableItem({ capabilitiesCustomList }) {
+function CapabilitesCustomTableItem({
+  capabilitiesCustomList,
+  setOpenModalCapabilitiesCustomDelete,
+}) {
+  const dispatch = useDispatch();
+
   return (
     <>
       <table className='table-auto w-full table'>
@@ -85,7 +92,13 @@ function CapabilitesCustomTableItem({ capabilitiesCustomList }) {
                   <button>
                     <img src={icons.pencilIcon} alt='Lapiz' />
                   </button>
-                  <button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setOpenModalCapabilitiesCustomDelete(true);
+                      dispatch(setCapabilitiesCustomDeleteData(data));
+                    }}
+                  >
                     <img src={icons.garbageIcon} alt='Basura' />
                   </button>
                 </figure>

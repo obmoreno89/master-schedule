@@ -5,6 +5,7 @@ import { endpointsCodes } from './functions';
 
 const initialState = {
   capabilitiesCustomList: [],
+  capablitiesCustomDeleteData: [],
   realoadList: false,
   loading: false,
 };
@@ -23,16 +24,25 @@ const capabilitiesCustomSlice = createSlice({
     setLoading: (state, action) => {
       state.realoadList = action.payload;
     },
+    setCapabilitiesCustomDeleteData: (state, action) => {
+      state.capablitiesCustomDeleteData = action.payload;
+    },
   },
 });
 
-export const { setCapabilitiesCustomList, setReloadList, setLoading } =
-  capabilitiesCustomSlice.actions;
+export const {
+  setCapabilitiesCustomList,
+  setReloadList,
+  setLoading,
+  setCapabilitiesCustomDeleteData,
+} = capabilitiesCustomSlice.actions;
 
 export const selectCapabilitiesCustom = (state) =>
   state.capabilitiesCustom.capabilitiesCustomList;
 export const selectReloadList = (state) => state.capabilitiesCustom.realoadList;
 export const selectLoading = (state) => state.capabilitiesCustom.loading;
+export const selectCapabilitiesCustomDeleteData = (state) =>
+  state.capabilitiesCustom.capablitiesCustomDeleteData;
 
 export default capabilitiesCustomSlice.reducer;
 
@@ -66,4 +76,23 @@ export const capabilitiesCustomCreate =
       .catch((error) => {
         dispatch(setLoading(false));
       });
+  };
+
+export const capabilitiesCustomDelete =
+  (capabilitiesCustomId) => (dispatch) => {
+    const token = sessionStorage.getItem('token');
+    dispatch(setReloadList(true));
+    axios
+      .delete(
+        `http://35.174.106.95/api/capacities/custom-delete/${capabilitiesCustomId}/`,
+        {
+          headers: { Authorization: `Token ${token}` },
+        }
+      )
+      .then((response) => {
+        if (response.status === 204) {
+          dispatch(setReloadList(false));
+        }
+      })
+      .catch((error) => dispatch(setReloadList(false)));
   };
