@@ -6,7 +6,7 @@ import {
   generatePlanningFromSalesOrder,
   selectGanttLoading,
 } from '../../../store/slice/planningSlice';
-import GetPlanningReportModal from '../../../pages/component/GetPlanningReportModal';
+import GetMinMaxModal from '../../../pages/component/GetMinMaxModal';
 
 const PlanningsCapabilitiesPanel = ({
   orders,
@@ -140,7 +140,7 @@ const PlanningsCapabilitiesPanel = ({
                   //setPlanningCapabilities(false);
                   //setOrdersPanelOpen(true);
                   // goOrdersPlanningGantt();
-                  setGetPlanningReportModalOpen(true);
+                  setGetMinMaxModalOpen(true);
                 }}
                 className='w-80 h-12 bg-primary rounded text-white text-base flex justify-center items-center hover:bg-secondary hover:text-primary'
               >

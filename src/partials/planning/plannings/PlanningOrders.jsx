@@ -1,5 +1,5 @@
 import Layout from '../../../components/Layout';
-import GetPlanningReportModal from '../../../pages/component/GetPlanningReportModal';
+import GetMinMaxModal from '../../../pages/component/GetMinMaxModal';
 import icons from '../../../images/icon/icons';
 import { useState } from 'react';
 import PlanningOrdersTable from './PlanningOrdersTable';
@@ -23,8 +23,7 @@ const PlanningOrders = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [ordersPanelOpen, setOrdersPanelOpen] = useState(false);
-  const [getPlanningReportModalOpen, setGetPlanningReportModalOpen] =
-    useState(false);
+  const [getMinMaxModalOpen, setGetMinMaxModalOpen] = useState(false);
   const [planningCapabilities, setPlanningCapabilities] = useState(false);
   const orders = useSelector(selectOrders);
   const groups = useSelector(selectGroups);
@@ -102,7 +101,7 @@ const PlanningOrders = () => {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      setGetPlanningReportModalOpen(true);
+                      setGetMinMaxModalOpen(true);
                     }}
                     className='w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-secondary hover:text-primary'
                     // disabled={notFound || orders?.length === 0 ? true : false}
@@ -131,9 +130,9 @@ const PlanningOrders = () => {
             </section>
           </div>
           <section>
-            <GetPlanningReportModal
-              getPlanningReportModalOpen={getPlanningReportModalOpen}
-              setGetPlanningReportModalOpen={setGetPlanningReportModalOpen}
+            <GetMinMaxModal
+              getMinMaxModalOpen={getMinMaxModalOpen}
+              setGetMinMaxModalOpen={setGetMinMaxModalOpen}
               setFullLoading={setFullLoading}
               orders={orders}
               groups={groups}
