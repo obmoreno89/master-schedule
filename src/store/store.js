@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import authSlice from './slice/authSlice';
 import usersSlice from './slice/usersSlice';
 import capabilitiesSlice from './slice/capabilitiesSlice';
+import capabilitiesCustomSlice from './slice/capabilitiesCustomSlice';
 import calendarSlice from './slice/calendarSlice';
 import planningSlice from './slice/planningSlice';
 import kpiSlice from './slice/kpiSlice';
@@ -24,6 +25,7 @@ const store = configureStore({
     orders: ordersPlannedSlice,
     openOrders: openOrdersSlice,
     demandPlanningOrders: demandPlanningOrdersSlice,
+    capabilitiesCustom: capabilitiesCustomSlice,
   },
 });
 
