@@ -4,16 +4,19 @@ import { useDispatch, useSelector } from "react-redux";
 import ButtonLoading from "../../helpers/ButtonLoading";
 import CapabilitiesCustomStartDatePicker from "./CapabilitiesCustomStartDatePicker";
 import CapabilitiesCustomEndDatePicker from "./CapabilitiesCustomEndDatePicker";
-import { selectLoading } from "../../store/slice/capabilitiesCustomSlice";
+import {
+  capabilitiesCustomUpdate,
+  selectLoading,
+} from "../../store/slice/capabilitiesCustomSlice";
 import {
   selectPLines,
   getProductLines,
 } from "../../store/slice/capabilitiesSlice";
-import { capabilitiesCustomCreate } from "../../store/slice/capabilitiesCustomSlice";
+import { selectCapabilitiesCustomEditData } from "../../store/slice/capabilitiesCustomSlice";
 
-function CapabilitiesCustomCreateForm({
-  capabilitiesCustomCreateOpenPanel,
-  setCapabilitiesCustomCreateOpenPanel,
+function CapabilitiesCustomEditForm({
+  capabilitiesCustomEditOpenPanel,
+  setCapabilitiesCustomEditOpenPanel,
 }) {
   const {
     register,
@@ -22,11 +25,14 @@ function CapabilitiesCustomCreateForm({
     formState: { errors },
   } = useForm();
 
-  const [startDate, setStartDate] = useState(null);
-  const [finalDate, setFinalDate] = useState(null);
   const dispatch = useDispatch();
   const ProductLineList = useSelector(selectPLines);
   const loading = useSelector(selectLoading);
+  const capabilitiesCustomEditData = useSelector(
+    selectCapabilitiesCustomEditData
+  );
+  const [startDate, setStartDate] = useState(null);
+  const [finalDate, setFinalDate] = useState(null);
 
   const onSubmit = (data) => {
     const firstDate = new Date(startDate);
@@ -52,10 +58,11 @@ function CapabilitiesCustomCreateForm({
       comments: data.comments,
     };
     dispatch(
-      capabilitiesCustomCreate(
+      capabilitiesCustomUpdate(
+        capabilitiesCustomEditData.id,
         json,
-        setCapabilitiesCustomCreateOpenPanel,
-        reset,
+        setCapabilitiesCustomEditOpenPanel,
+        reset
       )
     );
   };
@@ -63,7 +70,7 @@ function CapabilitiesCustomCreateForm({
   const handleButtonCreate = () => {
     return !loading ? (
       <button className="btn bg-primary hover:bg-secondary hover:text-primary text-white font-semibold text-base w-[27rem] h-12 rounded-[4px]">
-        <span className="ml-3 align-baseline">Crear capacidad custom</span>
+        <span className="ml-3 align-baseline">Editar capacidad custom</span>
       </button>
     ) : (
       <div>
@@ -74,17 +81,17 @@ function CapabilitiesCustomCreateForm({
 
   useEffect(() => {
     let defaultValues = {};
-    defaultValues.name = "";
-    defaultValues.description = "";
-    defaultValues.planner_code = "";
-    defaultValues.product_line = "";
-    defaultValues.type_name = "";
-    defaultValues.piece_per_day = "";
-    defaultValues.shift_per_day = "";
-    defaultValues.piece_per_hour = "";
-    defaultValues.comments = "";
+    defaultValues.name = capabilitiesCustomEditData.name;
+    defaultValues.description = capabilitiesCustomEditData.description;
+    defaultValues.planner_code = capabilitiesCustomEditData.planner_code;
+    defaultValues.product_line = capabilitiesCustomEditData?.product_line?.id;
+    defaultValues.type_name = capabilitiesCustomEditData.type_name;
+    defaultValues.piece_per_day = capabilitiesCustomEditData.piece_per_day;
+    defaultValues.shift_per_day = capabilitiesCustomEditData.shift_per_day;
+    defaultValues.piece_per_hour = capabilitiesCustomEditData.piece_per_day;
+    defaultValues.comments = capabilitiesCustomEditData.comments;
     reset({ ...defaultValues });
-  }, [reset, capabilitiesCustomCreateOpenPanel]);
+  }, [reset, capabilitiesCustomEditOpenPanel]);
 
   useEffect(() => {
     dispatch(getProductLines());
@@ -246,10 +253,13 @@ function CapabilitiesCustomCreateForm({
               Fecha Inicio
             </label>
             <div className="">
-              <CapabilitiesCustomStartDatePicker
-                setStartDate={setStartDate}
-                create={true}
-              />
+              {capabilitiesCustomEditData?.start_date && (
+                <CapabilitiesCustomStartDatePicker
+                  setStartDate={setStartDate}
+                  firstDate={capabilitiesCustomEditData?.start_date}
+                  create={false}
+                />
+              )}
             </div>
           </div>
           {/* FINAL DATE */}
@@ -261,10 +271,13 @@ function CapabilitiesCustomCreateForm({
               Fecha final
             </label>
             <div className="">
-              <CapabilitiesCustomEndDatePicker
-                setFinalDate={setFinalDate}
-                create={true}
-              />
+              {capabilitiesCustomEditData?.end_date && (
+                <CapabilitiesCustomEndDatePicker
+                  setFinalDate={setFinalDate}
+                  finalDate={capabilitiesCustomEditData?.end_date}
+                  create={false}
+                />
+              )}
             </div>
           </div>
           {/* PZ/HOURS */}
@@ -391,4 +404,4 @@ function CapabilitiesCustomCreateForm({
   );
 }
 
-export default CapabilitiesCustomCreateForm;
+export default CapabilitiesCustomEditForm;
