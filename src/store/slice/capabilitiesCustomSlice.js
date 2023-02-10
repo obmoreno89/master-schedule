@@ -1,19 +1,31 @@
-import { createSlice, createAction } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice, createAction } from "@reduxjs/toolkit";
+import axios from "axios";
 
-import { endpointsCodes } from './functions';
+import { endpointsCodes } from "./functions";
 
 const initialState = {
   capabilitiesCustomList: [],
   capablitiesCustomDeleteData: [],
   capabilitiesCustomEditData: [],
+  capabCustomSearch: [],
   realoadList: false,
   loading: false,
 };
 
+export const revertEdit = createAction("REVERT_EDIT");
+export const revertCapCustSearch = createAction("REVERT_SEARCH");
+
 const capabilitiesCustomSlice = createSlice({
   initialState,
-  name: 'capabilitiesCustom',
+  name: "capabilitiesCustom",
+  extraReducers: (builder) => {
+    builder.addCase(revertEdit, (state, action) => {
+      state.capabilitiesCustomEditData = [];
+    });
+    builder.addCase(revertCapCustSearch, (state, action) => {
+      state.capabCustomSearch = [];
+    });
+  },
 
   reducers: {
     setCapabilitiesCustomList: (state, action) => {
@@ -31,6 +43,9 @@ const capabilitiesCustomSlice = createSlice({
     setCapabilitiesCustomEditData: (state, action) => {
       state.capabilitiesCustomEditData = action.payload;
     },
+    setCapCustomSearch: (state, action) => {
+      state.capabCustomSearch = action.payload;
+    },
   },
 });
 
@@ -40,6 +55,7 @@ export const {
   setLoading,
   setCapabilitiesCustomDeleteData,
   setCapabilitiesCustomEditData,
+  setCapCustomSearch,
 } = capabilitiesCustomSlice.actions;
 
 export const selectCapabilitiesCustom = (state) =>
@@ -50,12 +66,14 @@ export const selectCapabilitiesCustomDeleteData = (state) =>
   state.capabilitiesCustom.capablitiesCustomDeleteData;
 export const selectCapabilitiesCustomEditData = (state) =>
   state.capabilitiesCustom.capabilitiesCustomEditData;
+export const selectCapCustomSearch = (state) =>
+  state.capabilitiesCustom.capabCustomSearch;
 
 export default capabilitiesCustomSlice.reducer;
 
 export const getCapabilitiesCustom = () => (dispatch) => {
   axios
-    .get('http://35.174.106.95/api/capacities/list-custom-capacities')
+    .get("http://35.174.106.95/api/capacities/list-custom-capacities")
     .then((response) => {
       if (response.status === 200) {
         dispatch(setCapabilitiesCustomList(response.data));
@@ -65,11 +83,16 @@ export const getCapabilitiesCustom = () => (dispatch) => {
 };
 
 export const capabilitiesCustomCreate =
-  (data, setCapabilitiesCustomCreateOpenPanel, reset) => (dispatch) => {
+  (
+    data,
+    setCapabilitiesCustomCreateOpenPanel,
+    reset,
+  ) =>
+  (dispatch) => {
     dispatch(setLoading(true));
-    const tokenUser = sessionStorage.getItem('token');
+    const tokenUser = sessionStorage.getItem("token");
     axios
-      .post('http://35.174.106.95/api/capacities/new-register', data, {
+      .post("http://35.174.106.95/api/capacities/new-register", data, {
         headers: { Authorization: `Token ${tokenUser}` },
       })
       .then((response) => {
@@ -85,9 +108,33 @@ export const capabilitiesCustomCreate =
       });
   };
 
+export const capabilitiesCustomUpdate =
+  (id, data, setCapabilitiesCustomEditOpenPanel, reset) => (dispatch) => {
+    dispatch(setLoading(true));
+    const tokenUser = sessionStorage.getItem("token");
+    axios
+      .put(`http://35.174.106.95/api/capacities/custom-update/${id}/`, data, {
+        headers: { Authorization: `Token ${tokenUser}` },
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          dispatch(setLoading(false));
+          setCapabilitiesCustomEditOpenPanel(false);
+          dispatch(setReloadList());
+          dispatch(revertEdit());
+          reset();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch(setLoading(false));
+      });
+  };
+
 export const capabilitiesCustomDelete =
   (capabilitiesCustomId) => (dispatch) => {
-    const token = sessionStorage.getItem('token');
+    const token = sessionStorage.getItem("token");
     dispatch(setReloadList(true));
     axios
       .delete(
