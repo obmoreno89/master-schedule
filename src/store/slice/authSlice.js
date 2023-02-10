@@ -50,6 +50,7 @@ export const sendData = (data, navigate) => (dispatch) => {
         sessionStorage.setItem('email', response.data.email);
         sessionStorage.setItem('first_name', response.data.first_name);
         sessionStorage.setItem('id', response.data.id);
+        sessionStorage.setItem('rol', response.data.rol);
         dispatch(setIsCorrect(false));
         navigate('/mp-pro/');
       }
@@ -115,7 +116,7 @@ export const codeSend = (data, navigate) => (dispatch) => {
         sessionStorage.setItem('token2', response.data.token);
         sessionStorage.setItem('email', response.data.email);
         dispatch(setIsCorrect(false));
-        console.log(response.data);
+
         navigate('/mp-pro/confirm-password/');
       }
     })
