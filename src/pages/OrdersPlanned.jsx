@@ -8,7 +8,7 @@ const OrdersPlanning = () => {
     <Layout
       icon={icons.planningIcon}
       nameRoute={'Planeación'}
-      nameSubRoute={'Planning Report'}
+      nameSubRoute={'Demand MinMax'}
     >
       <div className='px-4 sm:px-6 lg:px-0 py-1 w-full max-w-9xl mx-auto'>
         <div className='lg:px-8 mt-5'>

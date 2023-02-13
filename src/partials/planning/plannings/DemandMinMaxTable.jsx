@@ -25,7 +25,7 @@ function DemandMinMaxTable() {
       <section className='mb-5 flex items-center justify-between'>
         <div className='mb-4 sm:mb-0 flex'>
           <h1 className='text-2xl md:text-3xl text-slate-800 font-bold'>
-            Demanda de Planning Report
+            Demanda de MinMax
           </h1>
         </div>
         <p className='my-auto mb-1 font-medium'>
