@@ -332,27 +332,25 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className='mb-1 last:mb-0'>
                             <NavLink
                               end
-                              to='/mp-pro/planning/capabilities/'
+                              to='/mp-pro/planning/LineRate/'
                               className={({ isActive }) =>
                                 'block hover:text-primary text-textSidebar transition duration-150 truncate ' +
                                 (isActive ? '!text-primary' : '')
                               }
                             >
-                              <span className='text-sm'>Capacidades Base</span>
+                              <span className='text-sm'>Line Rate Base</span>
                             </NavLink>
                           </li>
                           <li className='mb-1 last:mb-0'>
                             <NavLink
                               end
-                              to='/mp-pro/planning/capabilities/custom'
+                              to='/mp-pro/planning/LineRate/custom'
                               className={({ isActive }) =>
                                 'block hover:text-primary text-textSidebar transition duration-150 truncate ' +
                                 (isActive ? '!text-primary' : '')
                               }
                             >
-                              <span className='text-sm'>
-                                Capacidades Custom
-                              </span>
+                              <span className='text-sm'>Line Rate Custom</span>
                             </NavLink>
                           </li>
                           <li className='mb-1 last:mb-0'>

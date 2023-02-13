@@ -3,7 +3,7 @@ import GetMinMaxModal from '../../../pages/component/GetMinMaxModal';
 import icons from '../../../images/icon/icons';
 import { useState } from 'react';
 import PlanningOrdersTable from './PlanningOrdersTable';
-import PlanningsCapabilitiesPanel from './PlanningsCapabilitiesPanel';
+// import PlanningsLineRatePanel from './PlanningsLineRatePanel';
 import FullLoading from '../../../pages/component/FullLoading';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -24,7 +24,7 @@ const PlanningOrders = () => {
   const dispatch = useDispatch();
   const [ordersPanelOpen, setOrdersPanelOpen] = useState(false);
   const [getMinMaxModalOpen, setGetMinMaxModalOpen] = useState(false);
-  const [planningCapabilities, setPlanningCapabilities] = useState(false);
+  const [planningLineRate, setPlanningLineRate] = useState(false);
   const orders = useSelector(selectOrders);
   const groups = useSelector(selectGroups);
   const notFound = useSelector(selectNotFound);
@@ -118,11 +118,11 @@ const PlanningOrders = () => {
 
                 {/* DISABLED */}
                 {/* <section>
-              <PlanningsCapabilitiesPanel
+              <PlanningsLine RatePanel
                 orders={orders}
                 groups={groups}
-                planningCapabilities={planningCapabilities}
-                setPlanningCapabilities={setPlanningCapabilities}
+                planningLine Rate={planningLine Rate}
+                setPlanningLine Rate={setPlanningLine Rate}
                 setOrdersPanelOpen={setOrdersPanelOpen}
               />
             </section> */}

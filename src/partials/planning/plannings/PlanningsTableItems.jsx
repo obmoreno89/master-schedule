@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import icons from '../../../images/icon/icons';
-import { orderAsc, orderDesc } from '../../capabilities/orderFunc';
+import { orderAsc, orderDesc } from '../../LineRate/orderFunc';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectdataFilter } from '../../../store/slice/filterSlice';
@@ -35,11 +35,11 @@ function PlanningsTableItems(props) {
     const minutes = date.getMinutes().toString().padStart(2, '0');
     let ampm = 'AM';
     if (hours >= 12) {
-        ampm = 'PM';
-        hours = hours % 12;
+      ampm = 'PM';
+      hours = hours % 12;
     }
     if (hours === 0) {
-        hours = 12;
+      hours = 12;
     }
     const formattedDateTime = `${day}/${month}/${year} a las ${hours}:${minutes} ${ampm}`;
     return formattedDateTime;
@@ -49,17 +49,17 @@ function PlanningsTableItems(props) {
     <>
       <tbody className='text-sm'>
         <tr className='border-b border-borderInput'>
-        <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap md:w-1/5">
-              <div className="flex flex-col">
-                <p className="font-medium capitalize text-slate-400 text-sm">
+          <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap md:w-1/5'>
+            <div className='flex flex-col'>
+              <p className='font-medium capitalize text-slate-400 text-sm'>
                 {props.pline}
-                </p>
-                <div className='flex items-center '>{props.order_item}</div>
-                <p className="text-primary font-medium capitalize text-sm">
+              </p>
+              <div className='flex items-center '>{props.order_item}</div>
+              <p className='text-primary font-medium capitalize text-sm'>
                 {props.org}
-                </p>
-              </div>
-            </td>
+              </p>
+            </div>
+          </td>
           <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
             <div>{props.user}</div>
           </td>
@@ -67,11 +67,15 @@ function PlanningsTableItems(props) {
             <div className='  text-center'>{props.order_quantity}</div>
           </td>
           <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-            <div className='  text-center'>{formatDate(props.start_production_date)}</div>
+            <div className='  text-center'>
+              {formatDate(props.start_production_date)}
+            </div>
           </td>
 
           <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-            <div className='text-center'>{formatDate(props.end_production_date)}</div>
+            <div className='text-center'>
+              {formatDate(props.end_production_date)}
+            </div>
           </td>
           <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px '>
             <div className='flex items-center'>
@@ -95,65 +99,50 @@ function PlanningsTableItems(props) {
           <tr key={index} className={`${!descriptionOpen && 'hidden'}`}>
             <td colSpan='10' className='px-0 py-3'>
               <div className='flex items-center bg-slate-50 border-l-8 border-primary px-4 py-3 -mt-3 space-x-[40px] shadow-inner'>
-              {
-                 data.dem_order === null ?
-                 null
-                 :
-                 <h2 className='flex flex-col text-textTableHeader text-xs font-semibold '>
-                  Origen
-                  <span className='font-normal'>
-                    Sales Order {data.dem_org}
-                  </span>
-                </h2>
-                }
-                 {
-                 data.dem_order === null ? 
-                 <h2 className='flex flex-col text-textTableHeader text-xs font-semibold '>
-                 Origen
-                 <span className='font-normal'>
-                   Planning Report {data.dem_org}
-                 </span>
-               </h2>
-                 :
-                 <h2 className='flex flex-col text-textTableHeader text-xs font-semibold '>
-                  Order No.
-                  <span className='font-normal'>
-                    {data.dem_order}
-                  </span>
-                </h2>
-                }
-                {data.dem_total_order === null ? null :
-                 <h2 className='flex flex-col text-textTableHeader text-xs font-semibold'>
-                 Total Order
-                 <span className='font-normal'>
-                   ${data.dem_total_order}
-                 </span>
-               </h2>
-                
-                }
-                {data.dem_pline === null ? <h2 className='flex flex-col text-textTableHeader text-xs font-semibold'>
-                  Product Line
-                  <span className='font-normal'>
-                    No identificada
-                  </span>
-                </h2>
-              :
-              <h2 className='flex flex-col text-textTableHeader text-xs font-semibold'>
-                  Product Line
-                  <span className='font-normal'>
-                    {data.dem_pline}
-                  </span>
-                </h2>
-              }
-                {data.dem_line_no === null ? null : 
-
+                {data.dem_order === null ? null : (
+                  <h2 className='flex flex-col text-textTableHeader text-xs font-semibold '>
+                    Origen
+                    <span className='font-normal'>
+                      Sales Order {data.dem_org}
+                    </span>
+                  </h2>
+                )}
+                {data.dem_order === null ? (
+                  <h2 className='flex flex-col text-textTableHeader text-xs font-semibold '>
+                    Origen
+                    <span className='font-normal'>
+                      Planning Report {data.dem_org}
+                    </span>
+                  </h2>
+                ) : (
+                  <h2 className='flex flex-col text-textTableHeader text-xs font-semibold '>
+                    Order No.
+                    <span className='font-normal'>{data.dem_order}</span>
+                  </h2>
+                )}
+                {data.dem_total_order === null ? null : (
+                  <h2 className='flex flex-col text-textTableHeader text-xs font-semibold'>
+                    Total Order
+                    <span className='font-normal'>${data.dem_total_order}</span>
+                  </h2>
+                )}
+                {data.dem_pline === null ? (
+                  <h2 className='flex flex-col text-textTableHeader text-xs font-semibold'>
+                    Product Line
+                    <span className='font-normal'>No identificada</span>
+                  </h2>
+                ) : (
+                  <h2 className='flex flex-col text-textTableHeader text-xs font-semibold'>
+                    Product Line
+                    <span className='font-normal'>{data.dem_pline}</span>
+                  </h2>
+                )}
+                {data.dem_line_no === null ? null : (
                   <h2 className='flex flex-col text-textTableHeader text-xs font-semibold'>
                     LineNo
-                  <span className='font-normal'>
-                    {data.dem_line_no}
-                  </span>
+                    <span className='font-normal'>{data.dem_line_no}</span>
                   </h2>
-                }  
+                )}
                 <h2 className='flex flex-col text-textTableHeader text-xs font-semibold'>
                   Item
                   <span className='text-center font-normal'>
@@ -162,9 +151,7 @@ function PlanningsTableItems(props) {
                 </h2>
                 <h2 className='flex flex-col text-textTableHeader text-xs font-semibold '>
                   Quantity
-                  <span className='font-normal'>
-                    {data.dem_qty}
-                  </span>
+                  <span className='font-normal'>{data.dem_qty}</span>
                 </h2>
 
                 <h2 className='flex flex-col text-textTableHeader text-xs font-semibold '>

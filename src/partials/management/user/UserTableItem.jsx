@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import icons from '../../../images/icon/icons';
 import UserPanel from '../../../partials/management/user/UserPanel';
 import ModalUserDelete from '../../../pages/component/ModalUserDelete';
-import { orderAsc, orderDesc } from '../../capabilities/orderFunc';
+import { orderAsc, orderDesc } from '../../LineRate/orderFunc';
 
 function UserTableItem({
   dataUser,

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import icons from '../../../images/icon/icons';
-import { orderNumAsc, orderNumDesc } from '../../capabilities/orderFunc';
+import { orderNumAsc, orderNumDesc } from '../../LineRate/orderFunc';
 import { useSelector } from 'react-redux';
 import { selectDataFiltered } from '../../../store/slice/ordersPlannedSlice';
 

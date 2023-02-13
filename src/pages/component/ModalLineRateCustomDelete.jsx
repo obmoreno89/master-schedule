@@ -1,34 +1,36 @@
+import React from 'react';
 import ModalBlank from '../../components/ModalBlank';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
-  deletePLine,
-  revertPLDelete,
-  selectPLDelete,
-} from '../../store/slice/LineRateSlice';
+  selectLineRateCustomDeleteData,
+  LineRateCustomDelete,
+} from '../../store/slice/LineRateCustomSlice';
 
-function ModalProductLineDelete({ setOpenModalPLDelete, openModalPLDelete }) {
+function ModalLineRateCustomDelete({
+  openModalLineRateCustomDelete,
+  setOpenModalLineRateCustomDelete,
+}) {
   const dispatch = useDispatch();
-  const plFromTable = useSelector(selectPLDelete);
+  const LineRateCustomDeleteData = useSelector(selectLineRateCustomDeleteData);
 
   return (
     <ModalBlank
       id='success-modal'
-      modalOpen={openModalPLDelete}
-      setModalOpen={setOpenModalPLDelete}
+      modalOpen={openModalLineRateCustomDelete}
+      SetModalOpen={setOpenModalLineRateCustomDelete}
     >
       <div className='p-5 flex space-x-4'>
         <div>
           {/* Modal header */}
           <div className='mb-2 flex justify-between items-center'>
-            <div className='text-lg font-bold text-slate-800 w-72'>
-              ¿Estás seguro de eliminar la línea de producto{' '}
-              {plFromTable?.name?.toUpperCase()}?
+            <div className='text-lg font-bold text-slate-800 w-96'>
+              ¿Estas seguro de eliminar la siguiente capacidad{' '}
+              {LineRateCustomDeleteData?.product_line?.name} ?
             </div>
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                dispatch(revertPLDelete());
-                setOpenModalPLDelete(false);
+                setOpenModalLineRateCustomDelete(false);
               }}
             >
               <svg
@@ -44,8 +46,8 @@ function ModalProductLineDelete({ setOpenModalPLDelete, openModalPLDelete }) {
           <div className='text-sm mb-10'>
             <div className='space-y-2'>
               <p>
-                Esta acción no se puede revertir, estás a punto de eliminar la
-                línea de producto y todos sus datos asociados.
+                Esta acción no se puede revertir, estás a punto de eliminar el
+                la capacidad custom y todos sus datos asociados.
               </p>
             </div>
           </div>
@@ -54,11 +56,12 @@ function ModalProductLineDelete({ setOpenModalPLDelete, openModalPLDelete }) {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                dispatch(deletePLine(plFromTable?.id, setOpenModalPLDelete));
+                dispatch(LineRateCustomDelete(LineRateCustomDeleteData.id));
+                setOpenModalLineRateCustomDelete(false);
               }}
               className='btn-lg bg-red-500 font-semibold text-white w-full'
             >
-              Eliminar línea de producto
+              Eliminar capacidad custom
             </button>
           </div>
         </div>
@@ -67,4 +70,4 @@ function ModalProductLineDelete({ setOpenModalPLDelete, openModalPLDelete }) {
   );
 }
 
-export default ModalProductLineDelete;
+export default ModalLineRateCustomDelete;

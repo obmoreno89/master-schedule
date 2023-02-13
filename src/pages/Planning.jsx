@@ -12,7 +12,7 @@ function Planning() {
   const [groupOptionsPanel, setGroupOptionsPanel] = useState(false);
   const [ordersPanelOpen, setOrdersPanelOpen] = useState(false);
   const orders = useSelector(selectOrders);
-  const [planningCapabilities, setPlanningCapabilities] = useState(false);
+  const [planningLineRate, setPlanningLineRate] = useState(false);
   const [chooseOption, setChooseOption] = useState(false);
 
   return (
@@ -41,7 +41,8 @@ function Planning() {
               ordersPanelOpen={ordersPanelOpen}
               setOrdersPanelOpen={setOrdersPanelOpen}
               setChooseOption={setChooseOption}
-              setPlanningCapabilities={setPlanningCapabilities}
+              setPlanningLine
+              Rate={setPlanningLineRate}
               orders={orders}
             />
           </section>

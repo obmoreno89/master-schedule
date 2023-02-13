@@ -21,8 +21,8 @@ import SystemStatus from './pages/SystemStatus';
 
 //PLANNING
 import Planning from './pages/Planning';
-import Capabilities from './pages/Capabilities';
-import CapabilitiesCustom from './pages/CapabilitiesCustom';
+import LineRate from './pages/LineRate';
+import LineRateCustom from './pages/LineRateCustom';
 import Calendar from './pages/Calendar';
 import PlanningOrders from './partials/planning/plannings/PlanningOrders';
 import OrdersPlanned from './pages/OrdersPlanned';
@@ -174,18 +174,18 @@ function App() {
         ></Route>
 
         <Route
-          path='/mp-pro/planning/capabilities/'
+          path='/mp-pro/planning/LineRate/'
           element={
             <PrivateRoute>
-              <Capabilities />
+              <LineRate />
             </PrivateRoute>
           }
         />
         <Route
-          path='/mp-pro/planning/capabilities/custom'
+          path='/mp-pro/planning/LineRate/custom'
           element={
             <PrivateRoute>
-              <CapabilitiesCustom />
+              <LineRateCustom />
             </PrivateRoute>
           }
         />
