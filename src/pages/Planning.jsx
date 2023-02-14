@@ -7,6 +7,7 @@ import PlanningOrdersPanel from '../partials/planning/plannings/PlanningOrdersPa
 import { useSelector } from 'react-redux';
 import { selectOrders } from '../store/slice/planningSlice';
 import OptionsPanel from '../partials/planning/plannings/OptionsPanel';
+import GroupOptionsGanttPanel from '../partials/planning/plannings/GroupOptionsGanttPanel';
 
 function Planning() {
   const [groupOptionsPanel, setGroupOptionsPanel] = useState(false);
@@ -14,6 +15,8 @@ function Planning() {
   const orders = useSelector(selectOrders);
   const [planningLineRate, setPlanningLineRate] = useState(false);
   const [chooseOption, setChooseOption] = useState(false);
+  const [groupsOptionGanttPanelOpen, setGroupsOptionGanttPanelOpen] =
+    useState(false);
 
   return (
     <>
@@ -27,6 +30,7 @@ function Planning() {
             <PlanningsTable
               setGroupOptionsPanel={setGroupOptionsPanel}
               groupOptionsPanel={groupOptionsPanel}
+              setGroupsOptionGanttPanelOpen={setGroupsOptionGanttPanelOpen}
             />
           </div>
           <section>
@@ -41,8 +45,7 @@ function Planning() {
               ordersPanelOpen={ordersPanelOpen}
               setOrdersPanelOpen={setOrdersPanelOpen}
               setChooseOption={setChooseOption}
-              setPlanningLine
-              Rate={setPlanningLineRate}
+              setPlanningLineRate={setPlanningLineRate}
               orders={orders}
             />
           </section>
@@ -52,6 +55,12 @@ function Planning() {
               chooseOption={chooseOption}
               setChooseOption={setChooseOption}
               setOrdersPanelOpen={setOrdersPanelOpen}
+            />
+          </section>
+          <section>
+            <GroupOptionsGanttPanel
+              groupsOptionGanttPanelOpen={groupsOptionGanttPanelOpen}
+              setGroupsOptionGanttPanelOpen={setGroupsOptionGanttPanelOpen}
             />
           </section>
         </div>

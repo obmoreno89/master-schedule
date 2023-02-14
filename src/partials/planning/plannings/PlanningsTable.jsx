@@ -16,7 +16,10 @@ import {
   revertPlanningList,
 } from '../../../store/slice/planningSlice';
 
-function PlanningsTable({ setGroupOptionsPanel }) {
+function PlanningsTable({
+  setGroupOptionsPanel,
+  setGroupsOptionGanttPanelOpen,
+}) {
   const [startSearch, setStartSearch] = useState(false);
   const dispatch = useDispatch();
   const searchItems = useSelector(selectHistorySearch);
@@ -79,7 +82,7 @@ function PlanningsTable({ setGroupOptionsPanel }) {
             onChange={handleSearch}
           />
           <button
-            onClick={() => handleNavigate()}
+            onClick={() => setGroupsOptionGanttPanelOpen(true)}
             type='button'
             className=' font-medium text-sm bg-white text-primary w-54 space-x-2 border border-primary rounded px-2 flex justify-center items-center'
           >

@@ -2,26 +2,21 @@ import { useEffect, useRef, useState } from 'react';
 import Transition from '../../../utils/Transition';
 import icons from '../../../images/icon/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGroupList, selectGroup } from '../../../store/slice/LineRateSlice';
 import {
-  getAllTypes,
-  revertAll,
-  selectAllTypes,
-  setGroups,
-  setPlanningValues,
+  selectGanttGroupsList,
+  getGanttGroups,
+  setGanttGroupLetter,
 } from '../../../store/slice/planningSlice';
 
-const GroupsOptionsPanel = ({
-  setGroupOptionsPanel,
-  groupOptionsPanel,
-  setOrdersPanelOpen,
+const GroupOptionsGanttPanel = ({
+  setGroupsOptionGanttPanelOpen,
   groupsOptionGanttPanelOpen,
 }) => {
   /**
    * generales
    */
   const dispatch = useDispatch();
-  const groups = useSelector(selectGroup);
+  const ganttGroups = useSelector(selectGanttGroupsList);
   const [error, setError] = useState(false);
 
   /**
@@ -33,20 +28,19 @@ const GroupsOptionsPanel = ({
   /**
    * grupos para radio input
    */
-  const [letters, setLetters] = useState([]);
-  const [letterChosen, setLetterChosen] = useState();
+  const [ganttLetters, setGanttLetters] = useState([]);
+  const [ganttLetterChosen, setGanttLetterChosen] = useState();
 
   useEffect(() => {
-    dispatch(getGroupList());
-    dispatch(revertAll());
+    dispatch(getGanttGroups());
   }, []);
 
   useEffect(() => {
-    setLetters(groups);
-  }, [groups]);
+    setGanttLetters(ganttGroups);
+  }, [ganttGroups]);
 
   useEffect(() => {
-    setLetters(groups);
+    setGanttLetters(ganttGroups);
   }, []);
 
   useEffect(() => {
@@ -57,12 +51,9 @@ const GroupsOptionsPanel = ({
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    if (letterChosen?.length > 0) {
-      dispatch(setGroups(letterChosen));
-      dispatch(setPlanningValues({ item: 'group', value: letterChosen }));
-      setOrdersPanelOpen(true);
-      setGroupOptionsPanel(false);
+    if (ganttLetterChosen?.length > 0) {
+      dispatch(setGanttGroupLetter(ganttLetterChosen));
+      setGroupsOptionGanttPanelOpen(false);
     } else {
       setError(true);
     }
@@ -70,32 +61,24 @@ const GroupsOptionsPanel = ({
 
   const handleChange = (e) => {
     const { value } = e.target;
-    setLetterChosen(value);
+    setGanttLetterChosen(value);
   };
 
   // close if the esc key is pressed
   useEffect(() => {
     const keyHandler = ({ keyCode }) => {
-      if (!groupOptionsPanel || keyCode !== 27) return;
-      setGroupOptionsPanel(false);
+      if (!groupsOptionGanttPanelOpen || keyCode !== 27) return;
+      setGroupsOptionGanttPanelOpen(false);
     };
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   });
 
-  useEffect(() => {
-    dispatch(getAllTypes('eto'));
-    dispatch(getAllTypes('abc code'));
-    dispatch(getAllTypes('amount (total order)'));
-    dispatch(getAllTypes('request date'));
-    dispatch(getAllTypes('schedule ship date'));
-  }, []);
-
   return (
     <>
       <Transition
         className='fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity'
-        show={groupOptionsPanel}
+        show={groupsOptionGanttPanelOpen}
         enter='transition ease-out duration-200'
         enterStart='opacity-0'
         enterEnd='opacity-100'
@@ -109,7 +92,7 @@ const GroupsOptionsPanel = ({
         className='fixed inset-0 z-50 overflow-hidden flex items-center justify-center transform px-4 sm:px-6'
         role='dialog'
         aria-modal='true'
-        show={groupOptionsPanel}
+        show={groupsOptionGanttPanelOpen}
         enter='transition ease-in-out duration-500'
         enterStart='opacity-0 translate-x-4'
         enterEnd='opacity-100 translate-x-0'
@@ -120,21 +103,17 @@ const GroupsOptionsPanel = ({
         <div
           ref={panelContent}
           className={`w-[480px] bg-white absolute inset-0 sm:left-auto z-40 transform shadow-xl transition-transform duration-200 ease-in-out ${
-            groupOptionsPanel ? 'translate-x-' : 'translate-x-full'
+            groupsOptionGanttPanelOpen ? 'translate-x-' : 'translate-x-full'
           }`}
         >
           <section className='mb-10 flex items-center justify-between'>
             <h2 className='mt-4 ml-5 w-full font-bold text-black text-2xl'>
-              {groupsOptionGanttPanelOpen ? (
-                <span>hola</span>
-              ) : (
-                <span> Selecciona el grupo a planear</span>
-              )}
+              Selecciona el grupo a visualizar
             </h2>
 
             <button
               ref={closeBtn}
-              onClick={() => setGroupOptionsPanel(false)}
+              onClick={() => setGroupsOptionGanttPanelOpen(false)}
               className=' top-1 right-0 mt-4 mr-3 group p-1'
             >
               <svg
@@ -150,18 +129,18 @@ const GroupsOptionsPanel = ({
             <form>
               <div className='h-[470px] 2xl:h-[460px] overflow-y-auto mb-8 ml-5'>
                 <div>
-                  {letters.map((letter, index) => (
+                  {ganttLetters.map((letter, index) => (
                     <div key={index} className='mb-7'>
                       <label className='flex items-center'>
                         <input
                           type='radio'
                           name='radio-buttons'
                           className='form-checkbox'
-                          value={letter.group}
+                          value={letter.id}
                           onChange={handleChange}
                         />
                         <span className='text-base font-medium ml-2 text-black'>
-                          {letter?.group}
+                          {letter?.value}
                         </span>
                       </label>
                     </div>
@@ -198,4 +177,4 @@ const GroupsOptionsPanel = ({
   );
 };
 
-export default GroupsOptionsPanel;
+export default GroupOptionsGanttPanel;
