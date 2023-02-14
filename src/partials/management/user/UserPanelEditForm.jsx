@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import ButtonLoading from '../../../helpers/ButtonLoading';
 
-function CapabilitiesGroupPanelTableItem({ setUserPanelOpen }) {
+function UserPanelEditForm({ setUserPanelOpen }) {
   const [eye, setEye] = useState(false);
   const toggleEye = () => setEye(!eye);
 
@@ -324,4 +324,4 @@ function CapabilitiesGroupPanelTableItem({ setUserPanelOpen }) {
   );
 }
 
-export default CapabilitiesGroupPanelTableItem;
+export default UserPanelEditForm;
