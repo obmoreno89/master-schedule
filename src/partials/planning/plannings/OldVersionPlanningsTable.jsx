@@ -12,7 +12,7 @@ import {
   setSearch,
 } from '../../../store/slice/planningSlice';
 import Loading from '../../../pages/component/Loading';
-import { selectGroup } from '../../../store/slice/capabilitiesSlice';
+import { selectGroup } from '../../../store/slice/LineRateSlice';
 
 function OldVersionPlanningTable({ setGroupOptionsPanel }) {
   const dispatch = useDispatch();

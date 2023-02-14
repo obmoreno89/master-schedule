@@ -59,10 +59,10 @@ function OrdersPlannedTable() {
       <section className='mb-5 flex justify-between'>
         <div className='mb-4 sm:mb-0'>
           <h1 className='text-2xl md:text-3xl text-slate-800 font-bold'>
-            Planning Report
+            MinMax
           </h1>
         </div>
-        <div className='flex space-x-3 z-50'>
+        <div className='flex space-x-3'>
           <OrdersDropdownFilter />
           <input
             className='form-input w-72'
