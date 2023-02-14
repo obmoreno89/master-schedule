@@ -42,8 +42,14 @@ export const GanttGlobalConfig = {
     // projectLines: {
     //   disabled: true,
     // },
+    taskDragCreate: false,
+    taskEdit: false,
+    taskResize: false,
+    columnReorder: false,
+    contextMenu: false,
+    taskCopyPaste: false,
     percentBar: true,
-    filter: false, 
+    filter: true,
     indicators: true,
     taskCopyPaste: false,
     dependencies: true,
@@ -127,6 +133,7 @@ export const GanttGlobalConfig = {
         weight : 2
     }
 },
+readOnly: true,
   columns: [
     { type : 'wbs', region : 'fixed', text: 'ID' },
     { type: 'name', field: 'name', width: 260, text: 'Order', region : 'fixed', editor: false },
