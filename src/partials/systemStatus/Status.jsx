@@ -9,6 +9,7 @@ import {
   selectSyncUrl,
   sendUrl,
 } from "../../store/slice/systemStatusSlice";
+import Tooltip from "../../components/Tooltip";
 
 function Status({ openStatusToast, setOpenStatusToast }) {
   const dispatch = useDispatch();
@@ -20,11 +21,11 @@ function Status({ openStatusToast, setOpenStatusToast }) {
     dispatch(getStatusList());
   }, []);
 
-  useEffect(()=> {
-    if(!syncUrl.isLoading && syncUrl.isSuccess){
-      dispatch(getStatusList())
+  useEffect(() => {
+    if (!syncUrl.isLoading && syncUrl.isSuccess) {
+      dispatch(getStatusList());
     }
-  }, [syncUrl])
+  }, [syncUrl]);
 
   const formatDate = (date) => {
     const newDate = new Date(date);
@@ -89,13 +90,35 @@ function Status({ openStatusToast, setOpenStatusToast }) {
                 <div className="flex">
                   <button
                     onClick={() => handleClick(status)}
-                    className="text-sm flex justify-center items-center space-x-2 mt-3 bg-green-50 rounded h-6 w-[165px]"
+                    className={`text-sm flex justify-center items-center space-x-2 mt-3 rounded h-6 w-[165px] ${
+                      status?.is_active
+                        ? "bg-green-50"
+                        : "bg-slate-400 cursor-not-allowed"
+                    }`}
+                    disabled={status?.is_active ? false : true}
                   >
-                    <img src={icons.refresh} alt="Refresh" />
-                    <span className="font-semibold text-primary">
+                    {status?.is_active ? (
+                      <img src={icons.refresh} alt="Refresh" />
+                    ) : (
+                      <img src={icons.refreshGray} alt="Refresh" />
+                    )}
+
+                    <span
+                      className={`font-semibold ${
+                        status?.is_active ? "text-primary" : "text-slate-600"
+                      }`}
+                    >
                       Volver a sincronizar
                     </span>
                   </button>
+                  {!status?.is_active && (
+                    <Tooltip bg="dark" className="mt-4 ml-1">
+                      <div className="text-sm font-medium text-slate-200">
+                        Deshabilitado
+                      </div>
+                    </Tooltip>
+                  )}
+
                   {syncUrl.isLoading && status.name === syncChosen && (
                     <div className="justify-center items-end flex ml-8">
                       <div className="loader w-5 h-5"></div>
@@ -108,12 +131,34 @@ function Status({ openStatusToast, setOpenStatusToast }) {
                 </div>
               </div>
               <figure>
-                {status.STATUS_CODE === "200" ? (
-                  <img src={icons.check} alt="Success" />
-                ) : status.STATUS_CODE === "500" ? (
-                  <img src={icons.warning} alt="Alerta" />
+                {status.is_active ? (
+                  status.STATUS_CODE === "200" ? (
+                    <img src={icons.check} alt="Success" />
+                  ) : status.STATUS_CODE === "500" ? (
+                    <img src={icons.warning} alt="Alerta" />
+                  ) : (
+                    <img src={icons.circleDown} alt="Peligro" />
+                  )
                 ) : (
-                  <img src={icons.circleDown} alt="Peligro" />
+                  <div className="bg-slate-400 rounded-[50%] p-1">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="icon icon-tabler icon-tabler-lock"
+                      width="30"
+                      height="30"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="#5b636f"
+                      fill="none"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <rect x="5" y="11" width="14" height="10" rx="2" />
+                      <circle cx="12" cy="16" r="1" />
+                      <path d="M8 11v-4a4 4 0 0 1 8 0v4" />
+                    </svg>
+                  </div>
                 )}
               </figure>
             </article>
