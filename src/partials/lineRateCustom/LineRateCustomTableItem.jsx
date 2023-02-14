@@ -10,7 +10,7 @@ import {
   orderGDesc,
   orderPLAsc,
   orderPLDesc,
-} from '../LineRate/orderFunc';
+} from '../baseCapabilities/orderFunc';
 
 function LineRateCustomTableItem({
   lineRateCustomList,

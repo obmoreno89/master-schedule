@@ -1,7 +1,7 @@
 import PlanningsTableItems from './PlanningsTableItems';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { orderAsc, orderDesc } from '../../LineRate/orderFunc';
+import { orderAsc, orderDesc } from '../../baseCapabilities/orderFunc';
 import { useEffect, useState } from 'react';
 import icons from '../../../images/icon/icons';
 import DropdownFilter from '../../../components/DropdownFilter';
