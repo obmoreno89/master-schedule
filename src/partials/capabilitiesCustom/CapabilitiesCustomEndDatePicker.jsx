@@ -31,9 +31,6 @@ function CapabilitiesCustomEndDatePicker({
     onChange: (selectedDates, dateStr, instance) => {
       setFinalDate(selectedDates);
     },
-    onAbort: () => {
-      setFinalDate(create ? new Date() : finalDate && dateFrom);
-    },
   };
 
   return (
