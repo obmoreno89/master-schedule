@@ -86,7 +86,7 @@ function UserTable({
                 onClick={(e) => {
                   e.stopPropagation();
                   setUsersCreateOpen(true);
-                  //setCapabilitiesOpenPanel(true);
+                  //setLine RateOpenPanel(true);
                 }}
                 type='button'
                 className='btn bg-primary text-white w-54 space-x-2'

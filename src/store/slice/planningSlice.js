@@ -1,9 +1,11 @@
-import { createAction, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createAction, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-import { endpointsCodes } from "./functions";
+import { endpointsCodes } from './functions';
 
 const initialState = {
+  ganttGroupsList: [],
+  groupGanttLetter: [],
   ganttLoading: false,
   fullLoading: false,
   planningList: [],
@@ -24,21 +26,21 @@ const initialState = {
   },
   allTypes: {
     eto: null,
-    "abc code": null,
-    "amount (total order)": null,
-    "request date": null,
-    "schedule ship date": null,
+    'abc code': null,
+    'amount (total order)': null,
+    'request date': null,
+    'schedule ship date': null,
   },
 };
 
-export const revertAll = createAction("REVERT_ALL");
-export const revertSearch = createAction("REVERT_SEARCH");
-export const revertPlanning = createAction("REVERT_PLANNING");
-export const revertPlanningList = createAction("REVERT_PLAN_LIST");
+export const revertAll = createAction('REVERT_ALL');
+export const revertSearch = createAction('REVERT_SEARCH');
+export const revertPlanning = createAction('REVERT_PLANNING');
+export const revertPlanningList = createAction('REVERT_PLAN_LIST');
 
 const planningSlice = createSlice({
   initialState,
-  name: "planning",
+  name: 'planning',
   extraReducers: (builder) => {
     builder.addCase(revertAll, () => initialState);
     builder.addCase(revertSearch, (state, action) => {
@@ -100,6 +102,12 @@ const planningSlice = createSlice({
     setLoadPlanning: (state, action) => {
       state.loadPlanning = action.payload;
     },
+    setGanttGroupsList: (state, action) => {
+      state.ganttGroupsList = action.payload;
+    },
+    setGanttGroupLetter: (state, action) => {
+      state.groupGanttLetter = action.payload;
+    },
   },
 });
 
@@ -120,6 +128,8 @@ export const {
   setPlanningList,
   setFullLoading,
   setLoadPlanning,
+  setGanttGroupsList,
+  setGanttGroupLetter,
 } = planningSlice.actions;
 
 export const selectOrders = (state) => state.planning.orders;
@@ -138,16 +148,19 @@ export const selectAllTypes = (state) => state.planning.allTypes;
 export const selectPlanningList = (state) => state.planning.planningList;
 export const selectFullLoading = (state) => state.planning.fullLoading;
 export const selectLoadPlanning = (state) => state.planning.loadPlanning;
+export const selectGanttGroupsList = (state) => state.planning.ganttGroupsList;
+export const selectGroupGanttLetter = (state) =>
+  state.planning.groupGanttLetter;
 
 export default planningSlice.reducer;
 
 const sortCriteria = (criteria) => {
   let sortOrder = [
-    "ETO",
-    "ABC Code",
-    "Amount (Total Order)",
-    "Request Date",
-    "Schedule Ship Date",
+    'ETO',
+    'ABC Code',
+    'Amount (Total Order)',
+    'Request Date',
+    'Schedule Ship Date',
   ];
 
   criteria.sort(function (a, b) {
@@ -159,7 +172,7 @@ const sortCriteria = (criteria) => {
 
 export const getOrders = (data) => (dispatch) => {
   axios
-    .post("http://35.174.106.95/api/open-orders/list", data)
+    .post('http://35.174.106.95/api/open-orders/list', data)
     .then((response) => {
       if (response.status === 200) {
         dispatch(setOrders(response.data));
@@ -170,7 +183,7 @@ export const getOrders = (data) => (dispatch) => {
 
 export const getSortOrder = () => (dispatch) => {
   axios
-    .get("http://35.174.106.95/api/planning/list-criteria")
+    .get('http://35.174.106.95/api/planning/list-criteria')
     .then((response) => {
       if (response.status === 200) {
         dispatch(setSortOrder(sortCriteria(response.data.criteria)));
@@ -182,7 +195,7 @@ export const getSortOrder = () => (dispatch) => {
 export const getListHistory = () => (dispatch) => {
   dispatch(setLoadHistory(true));
   axios
-    .get("http://35.174.106.95/api/planning/list-history")
+    .get('http://35.174.106.95/api/planning/list-history')
     .then((response) => {
       if (response.status === 200) {
         dispatch(setListHistory(response.data.history_planning));
@@ -220,7 +233,7 @@ export const getAllTypes = (name) => (dispatch) => {
 
 export const generatePlanningFromSalesOrder =
   (data, navigate) => (dispatch) => {
-    const token = sessionStorage.getItem("token");
+    const token = sessionStorage.getItem('token');
     dispatch(setGanttLoading(true));
     dispatch(setFullLoading(true));
     axios
@@ -248,7 +261,7 @@ export const generatePlanningFromSalesOrder =
 export const getPlanningList = () => (dispatch) => {
   dispatch(setLoadPlanning(true));
   axios
-    .get("http://35.174.106.95/api/planning/orders-planning/list")
+    .get('http://35.174.106.95/api/planning/orders-planning/list')
     .then((response) => {
       if (response.status === 200) {
         dispatch(setPlanningList(response.data));
@@ -256,4 +269,13 @@ export const getPlanningList = () => (dispatch) => {
       }
     })
     .catch(() => dispatch(setLoadPlanning(false)));
+};
+
+export const getGanttGroups = () => (dispatch) => {
+  axios
+    .get('http://35.174.106.95/api/planning/orders-planning/existent-groups')
+    .then((response) => {
+      dispatch(setGanttGroupsList(response.data));
+    })
+    .catch((error) => console.log(error));
 };

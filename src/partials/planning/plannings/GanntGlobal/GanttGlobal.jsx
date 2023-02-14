@@ -7,18 +7,15 @@ import { BryntumGantt, BryntumToolbar } from '@bryntum/gantt-react';
 import { GanttGlobalConfig } from './GanttGlobalConfig';
 import '@bryntum/gantt/gantt.material.css';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 import ToastStatus from '../../../../components/ToastStatus';
 
 function GanttGlobal() {
   const [openStatusToast, setOpenStatusToast] = useState(false);
-  const { id } = useParams();
+  const [date, setDate] = useState();
 
   const first_name_id = JSON.parse(
     sessionStorage.getItem('planningId')
   )?.first_name;
-
-  console.log(first_name_id);
 
   const last_name_id = JSON.parse(
     sessionStorage.getItem('planningId')
@@ -40,13 +37,37 @@ function GanttGlobal() {
     sessionStorage.getItem('planningId')
   )?.id_history_planning;
 
-  const formatDate = (date) => {
-    const newDate = new Date(date);
+  const formatDate = (oldDate) => {
+    const newDate = new Date(oldDate);
     return newDate.toLocaleDateString('es-ES');
   };
 
-  const formatHour = (date) => {
-    const newDate = new Date(date);
+  const formatHour = (oldDate) => {
+    const newDate = new Date(oldDate);
+    return newDate.toLocaleTimeString('es-ES', {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  };
+
+  const formatDate2 = (oldDate) => {
+    const newDate = new Date(oldDate);
+    const today = new Date();
+
+    const newDateFinal = newDate.toLocaleDateString('es-ES');
+    const todayFinal = today.toLocaleDateString('es-ES');
+
+    if (newDateFinal === todayFinal) {
+      return 'hoy';
+    } else {
+      return newDateFinal;
+    }
+  };
+  const formatHour2 = (oldDate) => {
+    const newDate = new Date(oldDate);
+    const nada = newDate.getHours();
+    console.log(nada);
+
     return newDate.toLocaleTimeString('es-ES', {
       hour: '2-digit',
       minute: '2-digit',
@@ -62,13 +83,12 @@ function GanttGlobal() {
   }, []);
 
   const loadData = async () => {
-    const data = await axios.get(
-      `http://35.174.106.95/api/gantt/list/global`
-    );
+    const data = await axios.get(`http://35.174.106.95/api/gantt/list/global`);
 
     const project = ganttRef.current.instance.project;
     // Feed it to the project
-    console.log(data)
+    console.log(data);
+    setDate(data.data.history_planning.last_update);
     project.inlineData = data;
     project.stm.autoRecord = true;
     project.stm.enable();
@@ -140,11 +160,13 @@ function GanttGlobal() {
       tasks: tasks,
       dependencies: dependencies,
     };
-    console.log(data); 
+    console.log(data);
+
     const save = await axios
       .post(`http://35.174.106.95/api/planning/save-planning-update`, data)
       .then((response) => {
         if (response.status === 200) {
+          setDate(response.data.last_update);
           setOpenStatusToast(true);
           setTimeout(() => {
             setOpenStatusToast(false);
@@ -229,15 +251,16 @@ function GanttGlobal() {
           ]}
         />
         <article className='absolute -translate-y-[50px]'>
-          <h2 className='font-semibold'>
-            Vista Global de Planeación
-          </h2>
+          <h2 className='font-semibold'>Vista Global de Planeación</h2>
           <p
             className={`text-sm ${
               last_update === null || last_update ? 'hidden' : ''
             }`}
           >
-            Actualizada por última vez:
+            {date?.length > 0 &&
+              `Actualizada por última vez: ${formatDate2(
+                date
+              )} a las ${formatHour2(date)}`}
           </p>
         </article>
 

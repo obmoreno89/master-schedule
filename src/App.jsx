@@ -21,14 +21,14 @@ import SystemStatus from './pages/SystemStatus';
 
 //PLANNING
 import Planning from './pages/Planning';
-import Capabilities from './pages/Capabilities';
-import CapabilitiesCustom from './pages/CapabilitiesCustom';
+import LineRate from './pages/LineRate';
+import LineRateCustom from './pages/LineRateCustom';
 import Calendar from './pages/Calendar';
 import PlanningOrders from './partials/planning/plannings/PlanningOrders';
 import OrdersPlanned from './pages/OrdersPlanned';
 import OldVersionPlannings from './pages/OldVersionPlannings';
 import OpenOrders from './pages/OpenOrders';
-import DemandPlanningReport from './partials/planning/plannings/DemandPlanningReport';
+import DemandMinMax from './partials/planning/plannings/DemandMinMax';
 
 //MANAGEMENT
 import User from './pages/User';
@@ -37,6 +37,7 @@ import User from './pages/User';
 import DemoGantt from './partials/DemoGantt';
 import GanttForId from './partials/planning/plannings/GanttForId';
 import GanttGlobal from './partials/planning/plannings/GanntGlobal/GanttGlobal';
+import GanttGroup from './partials/planning/plannings/ganttGroup/GanttGroup';
 
 //COMPONENTS FOR DESIGN
 import ButtonPage from './pages/component/ButtonPage';
@@ -142,7 +143,7 @@ function App() {
           path='/mp-pro/planning/plannings/demand-planning/'
           element={
             <PrivateRoute>
-              <DemandPlanningReport />
+              <DemandMinMax />
             </PrivateRoute>
           }
         />
@@ -174,18 +175,18 @@ function App() {
         ></Route>
 
         <Route
-          path='/mp-pro/planning/capabilities/'
+          path='/mp-pro/planning/LineRate/'
           element={
             <PrivateRoute>
-              <Capabilities />
+              <LineRate />
             </PrivateRoute>
           }
         />
         <Route
-          path='/mp-pro/planning/capabilities/custom'
+          path='/mp-pro/planning/LineRate/custom'
           element={
             <PrivateRoute>
-              <CapabilitiesCustom />
+              <LineRateCustom />
             </PrivateRoute>
           }
         />
@@ -222,6 +223,15 @@ function App() {
           element={
             <PrivateRoute>
               <GanttGlobal />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path='/mp-pro/gantt/group'
+          element={
+            <PrivateRoute>
+              <GanttGroup />
             </PrivateRoute>
           }
         />

@@ -999,7 +999,7 @@ function W({ sidebarOpen: s, setSidebarOpen: a }) {
                                     className: 'mb-1 last:mb-0',
                                     children: e(ce, {
                                       end: !0,
-                                      to: '/mp-pro/planning/capabilities/',
+                                      to: '/mp-pro/planning/Line Rate/',
                                       className: ({ isActive: h }) =>
                                         'block hover:text-primary text-textSidebar transition duration-150 truncate ' +
                                         (h ? '!text-primary' : ''),
@@ -2932,7 +2932,7 @@ const il = () => {
   Ct = (s, a, l) => {
     const r = [...s];
     let n;
-    l === 'capabilities'
+    l === 'Line Rate'
       ? (n = r.sort((i, c) =>
           i.product_line.name.toLowerCase() < c.product_line.name.toLowerCase()
             ? 1
@@ -2953,7 +2953,7 @@ const il = () => {
   Et = (s, a, l) => {
     const r = [...s];
     let n;
-    l === 'capabilities'
+    l === 'Line Rate'
       ? (n = r.sort((i, c) =>
           i.product_line.name.toLowerCase() > c.product_line.name.toLowerCase()
             ? 1
@@ -2974,7 +2974,7 @@ const il = () => {
   Ye = (s, a, l) => {
     const r = [...s];
     let n;
-    l === 'capabilities'
+    l === 'Line Rate'
       ? (n = r.sort((i, c) =>
           i.product_line.group.name.toLowerCase() <
           c.product_line.group.name.toLowerCase()
@@ -3004,7 +3004,7 @@ const il = () => {
   Je = (s, a, l) => {
     const r = [...s];
     let n;
-    l === 'capabilities'
+    l === 'Line Rate'
       ? (n = r.sort((i, c) =>
           i.product_line.group.name.toLowerCase() >
           c.product_line.group.name.toLowerCase()
@@ -3429,10 +3429,10 @@ const zl = {
     plEdit: [],
     plDelete: [],
     loading: null,
-    capabilitiesList: [],
-    capabilitiesSearch: [],
-    capabilitiesEdit: [],
-    capabilitiesDelete: [],
+    Line RateList: [],
+    Line RateSearch: [],
+    Line RateEdit: [],
+    Line RateDelete: [],
     reload: !1,
     reloadCap: !1,
     error: !1,
@@ -3452,7 +3452,7 @@ const zl = {
     name: 'group',
     extraReducers: (s) => {
       s.addCase(Fe, (a, l) => {
-        a.capabilitiesSearch = [];
+        a.Line RateSearch = [];
       }),
         s.addCase(Ke, (a, l) => {
           a.groupEdit = [];
@@ -3467,16 +3467,16 @@ const zl = {
           a.plDelete = [];
         }),
         s.addCase(_l, (a, l) => {
-          a.capabilitiesList = [];
+          a.Line RateList = [];
         }),
         s.addCase(Ie, (a, l) => {
           (a.error = !1), (a.errorCapCreate = !1);
         }),
         s.addCase(jt, (a, l) => {
-          a.capabilitiesEdit = [];
+          a.Line RateEdit = [];
         }),
         s.addCase(Rt, (a, l) => {
-          a.capabilitiesDelete = [];
+          a.Line RateDelete = [];
         });
     },
     reducers: {
@@ -3489,11 +3489,11 @@ const zl = {
       setLoading: (s, a) => {
         s.loading = a.payload;
       },
-      setCapabilitiesList: (s, a) => {
-        s.capabilitiesList = a.payload;
+      setLine RateList: (s, a) => {
+        s.Line RateList = a.payload;
       },
-      setCapabilitiesSearch: (s, a) => {
-        s.capabilitiesSearch = a.payload;
+      setLine RateSearch: (s, a) => {
+        s.Line RateSearch = a.payload;
       },
       setReload: (s, a) => {
         s.reload = !s.reload;
@@ -3520,10 +3520,10 @@ const zl = {
         s.errorCapCreate = a.payload;
       },
       setCapEdit: (s, a) => {
-        s.capabilitiesEdit = a.payload;
+        s.Line RateEdit = a.payload;
       },
       setCapDelete: (s, a) => {
-        s.capabilitiesDelete = a.payload;
+        s.Line RateDelete = a.payload;
       },
     },
   }),
@@ -3531,8 +3531,8 @@ const zl = {
     setGroup: Dl,
     setProductLines: Ol,
     setLoading: A,
-    setCapabilitiesList: Bl,
-    setCapabilitiesSearch: Qe,
+    setLine RateList: Bl,
+    setLine RateSearch: Qe,
     setReload: de,
     setGroupEdit: Fl,
     setGroupDelete: Il,
@@ -3547,8 +3547,8 @@ const zl = {
   we = (s) => s.group.groupList,
   Pe = (s) => s.group.producLines,
   he = (s) => s.group.loading,
-  $t = (s) => s.group.capabilitiesList,
-  Xe = (s) => s.group.capabilitiesSearch,
+  $t = (s) => s.group.Line RateList,
+  Xe = (s) => s.group.Line RateSearch,
   qt = (s) => s.group.reload,
   Tl = (s) => s.group.reloadCap,
   Hl = (s) => s.group.groupEdit,
@@ -3557,8 +3557,8 @@ const zl = {
   Vl = (s) => s.group.plDelete,
   et = (s) => s.group.error,
   Vt = (s) => s.group.errorCapCreate,
-  Gl = (s) => s.group.capabilitiesEdit,
-  Ul = (s) => s.group.capabilitiesDelete;
+  Gl = (s) => s.group.Line RateEdit,
+  Ul = (s) => s.group.Line RateDelete;
 var Zl = Tt.reducer;
 const tt = () => (s) => {
     z.get('http://35.174.106.95/api/capacities/list-groups')
@@ -3929,9 +3929,9 @@ function nr() {
 const Gt = ({
   setTransactionPanelOpen: s,
   setGroupPanelOpen: a,
-  capabilitiesList: l,
-  setCapabilities: r,
-  setCapabilitiesEditOpen: n,
+  Line RateList: l,
+  setLine Rate: r,
+  setLine RateEditOpen: n,
   setOpenModalCapDelete: i,
 }) => {
   const c = _(),
@@ -3939,10 +3939,10 @@ const Gt = ({
     [u, p] = o.exports.useState({ state: !1, asc: !1 });
   return (
     o.exports.useEffect(() => {
-      d.state && (d.asc ? Et(l, r, 'capabilities') : Ct(l, r, 'capabilities'));
+      d.state && (d.asc ? Et(l, r, 'Line Rate') : Ct(l, r, 'Line Rate'));
     }, [d]),
     o.exports.useEffect(() => {
-      u.state && (u.asc ? Je(l, r, 'capabilities') : Ye(l, r, 'capabilities'));
+      u.state && (u.asc ? Je(l, r, 'Line Rate') : Ye(l, r, 'Line Rate'));
     }, [u]),
     e(C, {
       children: t('table', {
@@ -4155,7 +4155,7 @@ const Gt = ({
     })
   );
 };
-function ir({ capabilitiesPanelOpen: s, setCapabilitiesOpenPanel: a }) {
+function ir({ Line RatePanelOpen: s, setLine RateOpenPanel: a }) {
   const l = _(),
     r = v(he),
     n = v(Pe),
@@ -4430,20 +4430,20 @@ function ir({ capabilitiesPanelOpen: s, setCapabilitiesOpenPanel: a }) {
     })
   );
 }
-const or = ({ capabilitiesPanelOpen: s, setCapabilitiesOpenPanel: a }) =>
+const or = ({ Line RatePanelOpen: s, setLine RateOpenPanel: a }) =>
   e('div', {
     className: 'bg-white',
     children: e('div', {
       className: 'mt-6 px-3',
       children: e('section', {
         children: e(ir, {
-          capabilitiesPanelOpen: s,
-          setCapabilitiesOpenPanel: a,
+          Line RatePanelOpen: s,
+          setLine RateOpenPanel: a,
         }),
       }),
     }),
   });
-function cr({ capabilitiesPanelOpen: s, setCapabilitiesOpenPanel: a }) {
+function cr({ Line RatePanelOpen: s, setLine RateOpenPanel: a }) {
   const l = o.exports.useRef(null),
     r = o.exports.useRef(null);
   return (
@@ -4518,8 +4518,8 @@ function cr({ capabilitiesPanelOpen: s, setCapabilitiesOpenPanel: a }) {
                 e('section', {
                   className: 'mb-5',
                   children: e(or, {
-                    setCapabilitiesOpenPanel: a,
-                    capabilitiesPanelOpen: s,
+                    setLine RateOpenPanel: a,
+                    Line RatePanelOpen: s,
                   }),
                 }),
               ],
@@ -4530,7 +4530,7 @@ function cr({ capabilitiesPanelOpen: s, setCapabilitiesOpenPanel: a }) {
     })
   );
 }
-function dr({ capabilitiesEditOpen: s, setCapabilitiesEditOpen: a }) {
+function dr({ Line RateEditOpen: s, setLine RateEditOpen: a }) {
   const l = _(),
     r = v(Gl),
     n = v(he),
@@ -4805,20 +4805,20 @@ function dr({ capabilitiesEditOpen: s, setCapabilitiesEditOpen: a }) {
     })
   );
 }
-const mr = ({ capabilitiesEditOpen: s, setCapabilitiesEditOpen: a }) =>
+const mr = ({ Line RateEditOpen: s, setLine RateEditOpen: a }) =>
   e('div', {
     className: 'bg-white',
     children: e('div', {
       className: 'mt-6 px-3',
       children: e('section', {
         children: e(dr, {
-          capabilitiesEditOpen: s,
-          setCapabilitiesEditOpen: a,
+          Line RateEditOpen: s,
+          setLine RateEditOpen: a,
         }),
       }),
     }),
   });
-function pr({ capabilitiesEditOpen: s, setCapabilitiesEditOpen: a }) {
+function pr({ Line RateEditOpen: s, setLine RateEditOpen: a }) {
   const l = _(),
     r = o.exports.useRef(null),
     n = o.exports.useRef(null);
@@ -4896,8 +4896,8 @@ function pr({ capabilitiesEditOpen: s, setCapabilitiesEditOpen: a }) {
                 e('section', {
                   className: 'mb-5',
                   children: e(mr, {
-                    setCapabilitiesEditOpen: a,
-                    capabilitiesEditOpen: s,
+                    setLine RateEditOpen: a,
+                    Line RateEditOpen: s,
                   }),
                 }),
               ],
@@ -4911,10 +4911,10 @@ function pr({ capabilitiesEditOpen: s, setCapabilitiesEditOpen: a }) {
 const ur = ({
   setTransactionPanelOpen: s,
   setGroupPanelOpen: a,
-  setCapabilitiesOpenPanel: l,
-  capabilitiesPanelOpen: r,
-  capabilitiesEditOpen: n,
-  setCapabilitiesEditOpen: i,
+  setLine RateOpenPanel: l,
+  Line RatePanelOpen: r,
+  Line RateEditOpen: n,
+  setLine RateEditOpen: i,
   setOpenModalCapDelete: c,
 }) => {
   const d = _(),
@@ -4954,8 +4954,8 @@ const ur = ({
       children: [
         t('section', {
           children: [
-            e(cr, { setCapabilitiesOpenPanel: l, capabilitiesPanelOpen: r }),
-            e(pr, { capabilitiesEditOpen: n, setCapabilitiesEditOpen: i }),
+            e(cr, { setLine RateOpenPanel: l, Line RatePanelOpen: r }),
+            e(pr, { Line RateEditOpen: n, setLine RateEditOpen: i }),
           ],
         }),
         t('div', {
@@ -5011,9 +5011,9 @@ const ur = ({
                         ? e(Gt, {
                             setTransactionPanelOpen: s,
                             setGroupPanelOpen: a,
-                            capabilitiesList: x,
-                            setCapabilities: u,
-                            setCapabilitiesEditOpen: i,
+                            Line RateList: x,
+                            setLine Rate: u,
+                            setLine RateEditOpen: i,
                             setOpenModalCapDelete: c,
                           })
                         : e('section', {
@@ -5026,9 +5026,9 @@ const ur = ({
                       : e(Gt, {
                           setTransactionPanelOpen: s,
                           setGroupPanelOpen: a,
-                          capabilitiesList: m,
-                          setCapabilities: u,
-                          setCapabilitiesEditOpen: i,
+                          Line RateList: m,
+                          setLine Rate: u,
+                          setLine RateEditOpen: i,
                           setOpenModalCapDelete: c,
                         }),
                   }),
@@ -6778,10 +6778,10 @@ function Qr() {
               children: e(ur, {
                 setTransactionPanelOpen: a,
                 setGroupPanelOpen: r,
-                capabilitiesPanelOpen: E,
-                setCapabilitiesOpenPanel: M,
-                capabilitiesEditOpen: N,
-                setCapabilitiesEditOpen: S,
+                Line RatePanelOpen: E,
+                setLine RateOpenPanel: M,
+                Line RateEditOpen: N,
+                setLine RateEditOpen: S,
                 setOpenModalCapDelete: O,
               }),
             }),
@@ -15909,7 +15909,7 @@ const Tn = ({
     ordersPanelOpen: s,
     setOrdersPanelOpen: a,
     setChooseOption: l,
-    setPlanningCapabilities: r,
+    setPlanningLine Rate: r,
     orders: n,
   }) => {
     const c = (() => {
@@ -16463,8 +16463,8 @@ const Tn = ({
     });
   },
   $n = ({
-    planningCapabilities: s,
-    setPlanningCapabilities: a,
+    planningLine Rate: s,
+    setPlanningLine Rate: a,
     setOrdersPanelOpen: l,
   }) => {
     const r = o.exports.useRef(null),
@@ -16829,8 +16829,8 @@ const Tn = ({
                   }),
                   e('section', {
                     children: e($n, {
-                      planningCapabilities: n,
-                      setPlanningCapabilities: i,
+                      planningLine Rate: n,
+                      setPlanningLine Rate: i,
                       setOrdersPanelOpen: r,
                     }),
                   }),
@@ -16839,7 +16839,7 @@ const Tn = ({
                       ordersPanelOpen: l,
                       setOrdersPanelOpen: r,
                       setChooseOption: d,
-                      setPlanningCapabilities: i,
+                      setPlanningLine Rate: i,
                       orders: m,
                     }),
                   }),
@@ -16903,7 +16903,7 @@ function Gn() {
             element: e(ae, { children: e(Vn, {}) }),
           }),
           e(P, {
-            path: '/mp-pro/planning/capabilities/',
+            path: '/mp-pro/planning/Line Rate/',
             element: e(ae, { children: e(Qr, {}) }),
           }),
           e(P, {
