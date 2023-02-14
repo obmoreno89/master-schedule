@@ -6,13 +6,13 @@ import {
   generatePlanningFromSalesOrder,
   selectGanttLoading,
 } from '../../../store/slice/planningSlice';
-import GetPlanningReportModal from '../../../pages/component/GetPlanningReportModal';
+import GetMinMaxModal from '../../../pages/component/GetMinMaxModal';
 
-const PlanningsCapabilitiesPanel = ({
+const PlanningsLine RatePanel = ({
   orders,
   groups,
-  planningCapabilities,
-  setPlanningCapabilities,
+  planningLine Rate,
+  setPlanningLine Rate,
 }) => {
   const closeBtn = useRef(null);
   const panelContent = useRef(null);
@@ -34,8 +34,8 @@ const PlanningsCapabilitiesPanel = ({
   // close if the esc key is pressed
   useEffect(() => {
     const keyHandler = ({ keyCode }) => {
-      if (!planningCapabilities || keyCode !== 27) return;
-      setPlanningCapabilities(false);
+      if (!planningLine Rate || keyCode !== 27) return;
+      setPlanningLine Rate(false);
     };
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
@@ -58,7 +58,7 @@ const PlanningsCapabilitiesPanel = ({
     <>
       <Transition
         className='fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity'
-        show={planningCapabilities}
+        show={planningLine Rate}
         enter='transition ease-out duration-200'
         enterStart='opacity-0'
         enterEnd='opacity-100'
@@ -72,7 +72,7 @@ const PlanningsCapabilitiesPanel = ({
         className='fixed inset-0 z-50 overflow-hidden flex items-center justify-center transform px-4 sm:px-6'
         role='dialog'
         aria-modal='true'
-        show={planningCapabilities}
+        show={planningLine Rate}
         enter='transition ease-in-out duration-500'
         enterStart='opacity-0 translate-x-4'
         enterEnd='opacity-100 translate-x-0'
@@ -83,7 +83,7 @@ const PlanningsCapabilitiesPanel = ({
         <div
           ref={panelContent}
           className={`w-[480px] bg-white absolute inset-0 sm:left-auto z-40 transform shadow-xl transition-transform duration-200 ease-in-out ${
-            planningCapabilities ? 'translate-x-' : 'translate-x-full'
+            planningLine Rate ? 'translate-x-' : 'translate-x-full'
           }`}
         >
           <section className='mb-10'>
@@ -92,7 +92,7 @@ const PlanningsCapabilitiesPanel = ({
             </h2>
             <button
               ref={closeBtn}
-              onClick={() => setPlanningCapabilities(false)}
+              onClick={() => setPlanningLine Rate(false)}
               className='absolute top-1 right-0 mt-4 mr-3 group p-1'
             >
               <svg
@@ -137,10 +137,10 @@ const PlanningsCapabilitiesPanel = ({
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  //setPlanningCapabilities(false);
+                  //setPlanningLine Rate(false);
                   //setOrdersPanelOpen(true);
                   // goOrdersPlanningGantt();
-                  setGetPlanningReportModalOpen(true);
+                  setGetMinMaxModalOpen(true);
                 }}
                 className='w-80 h-12 bg-primary rounded text-white text-base flex justify-center items-center hover:bg-secondary hover:text-primary'
               >
@@ -154,4 +154,4 @@ const PlanningsCapabilitiesPanel = ({
   );
 };
 
-export default PlanningsCapabilitiesPanel;
+export default PlanningsLine RatePanel;

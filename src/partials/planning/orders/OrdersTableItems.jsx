@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import icons from '../../../images/icon/icons';
-import { orderNumAsc, orderNumDesc } from '../../capabilities/orderFunc';
+import { orderNumAsc, orderNumDesc } from '../../LineRate/orderFunc';
 import { useSelector } from 'react-redux';
 import { selectDataFiltered } from '../../../store/slice/ordersPlannedSlice';
 
@@ -44,16 +44,16 @@ function OrdersTableItems({ data, ordersList, setList }) {
   return (
     <>
       <table className='table-auto w-full table'>
-        <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50 sticky top-0 z-40'>
+        <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50 sticky top-0'>
           <tr>
-            <th className='first:pl-5 cursor-pointer'>
+            <th className='first:pl-5 '>
               <p className='font-semibold text-left'>Item - Categoria</p>
             </th>
             <th className='py-3 whitespace-nowrap'>
               <p className='font-semibold text-center'>Organización</p>
             </th>
             <th
-              className='py-3 whitespace-nowrap cursor-pointer'
+              className='py-3 whitespace-nowrap '
               onClick={() => {
                 setOrderMin({ state: true, asc: !orderMin.asc });
               }}
@@ -133,17 +133,18 @@ function OrdersTableItems({ data, ordersList, setList }) {
                     <div className='w-full h-full bg-gray-200 absolute '></div>
                     <div
                       className='h-full sm:bg-green-500 absolute'
-                      style={ item?.demand_progress_qty === null ? {  width: '0%' } : {  width: item?.demand_progress_qty + `%`}}
+                      style={
+                        item?.demand_progress_qty === null
+                          ? { width: '0%' }
+                          : { width: item?.demand_progress_qty + `%` }
+                      }
                     ></div>
                   </div>
-                  {
-                 item?.demand_progress_qty === null ?
-                 <span>0%</span>
-                 :
-                 <span>{item?.demand_progress_qty}%</span>
-                }
-                  
-                
+                  {item?.demand_progress_qty === null ? (
+                    <span>0%</span>
+                  ) : (
+                    <span>{item?.demand_progress_qty}%</span>
+                  )}
                 </td>
               </tr>
             ))}

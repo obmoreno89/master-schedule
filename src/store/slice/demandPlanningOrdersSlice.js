@@ -31,13 +31,13 @@ export const selectDemandLoading = (state) =>
 export default demandPlanningOrdersSlice.reducer;
 
 export const getDemandList =
-  (letter, navigate, setGetPlanningReportModalOpen) => (dispatch) => {
+  (letter, navigate, setGetMinMaxModalOpen) => (dispatch) => {
     axios
       .get(`http://35.174.106.95/api/planning/report/demand?group=${letter}`)
       .then((response) => {
         if (response.status === 200) {
           dispatch(setDemandList(response.data));
-          setGetPlanningReportModalOpen(false);
+          setGetMinMaxModalOpen(false);
           navigate('/mp-pro/planning/plannings/demand-planning/');
         }
       })

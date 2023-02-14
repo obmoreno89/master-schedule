@@ -41,7 +41,7 @@ function DropdownProfile({ align }) {
 
   return (
     <>
-      <div className='relative inline-flex'>
+      <div className='relative inline-flex '>
         <button
           ref={trigger}
           className='inline-flex justify-center items-center group'
@@ -56,7 +56,7 @@ function DropdownProfile({ align }) {
           height='32'
           alt='User'
         /> */}
-          <div className='flex items-center truncate'>
+          <div className='flex items-center truncate '>
             <span className='truncate ml-2 text-sm font-medium group-hover:text-slate-800'>
               {userName}
             </span>
@@ -86,8 +86,8 @@ function DropdownProfile({ align }) {
             onFocus={() => setDropdownOpen(true)}
             onBlur={() => setDropdownOpen(false)}
           >
-            <div className='pt-0.5 pb-2 px-3 mb-1 border-b border-slate-200'>
-              <div className='font-medium text-slate-800'>{userName}</div>
+            <div className='pt-0.5 pb-2 px-3 mb-1 border-b border-slate-200 '>
+              <div className='font-medium text-slate-800 '>{userName}</div>
               {/* <div className='text-xs text-primary italic'>Administrator</div> */}
             </div>
             <ul>
@@ -105,7 +105,7 @@ function DropdownProfile({ align }) {
                   className='font-medium text-sm text-gray hover:text-textHover flex items-center py-1 px-3'
                   onClick={() => {
                     setDropdownOpen(!dropdownOpen);
-                    dispatch(revertAll())
+                    dispatch(revertAll());
                     dispatch(logoutUser(navigate));
                   }}
                 >

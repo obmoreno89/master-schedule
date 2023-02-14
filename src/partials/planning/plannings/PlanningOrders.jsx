@@ -1,9 +1,9 @@
 import Layout from '../../../components/Layout';
-import GetPlanningReportModal from '../../../pages/component/GetPlanningReportModal';
+import GetMinMaxModal from '../../../pages/component/GetMinMaxModal';
 import icons from '../../../images/icon/icons';
 import { useState } from 'react';
 import PlanningOrdersTable from './PlanningOrdersTable';
-import PlanningsCapabilitiesPanel from './PlanningsCapabilitiesPanel';
+// import PlanningsLineRatePanel from './PlanningsLineRatePanel';
 import FullLoading from '../../../pages/component/FullLoading';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -23,9 +23,8 @@ const PlanningOrders = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [ordersPanelOpen, setOrdersPanelOpen] = useState(false);
-  const [getPlanningReportModalOpen, setGetPlanningReportModalOpen] =
-    useState(false);
-  const [planningCapabilities, setPlanningCapabilities] = useState(false);
+  const [getMinMaxModalOpen, setGetMinMaxModalOpen] = useState(false);
+  const [planningLineRate, setPlanningLineRate] = useState(false);
   const orders = useSelector(selectOrders);
   const groups = useSelector(selectGroups);
   const notFound = useSelector(selectNotFound);
@@ -102,7 +101,7 @@ const PlanningOrders = () => {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      setGetPlanningReportModalOpen(true);
+                      setGetMinMaxModalOpen(true);
                     }}
                     className='w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-secondary hover:text-primary'
                     // disabled={notFound || orders?.length === 0 ? true : false}
@@ -119,11 +118,11 @@ const PlanningOrders = () => {
 
                 {/* DISABLED */}
                 {/* <section>
-              <PlanningsCapabilitiesPanel
+              <PlanningsLine RatePanel
                 orders={orders}
                 groups={groups}
-                planningCapabilities={planningCapabilities}
-                setPlanningCapabilities={setPlanningCapabilities}
+                planningLine Rate={planningLine Rate}
+                setPlanningLine Rate={setPlanningLine Rate}
                 setOrdersPanelOpen={setOrdersPanelOpen}
               />
             </section> */}
@@ -131,9 +130,9 @@ const PlanningOrders = () => {
             </section>
           </div>
           <section>
-            <GetPlanningReportModal
-              getPlanningReportModalOpen={getPlanningReportModalOpen}
-              setGetPlanningReportModalOpen={setGetPlanningReportModalOpen}
+            <GetMinMaxModal
+              getMinMaxModalOpen={getMinMaxModalOpen}
+              setGetMinMaxModalOpen={setGetMinMaxModalOpen}
               setFullLoading={setFullLoading}
               orders={orders}
               groups={groups}
