@@ -3,14 +3,14 @@ import ModalBlank from '../../components/ModalBlank';
 import { deleteUser } from '../../store/slice/usersSlice.js';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  deleteCapability,
+  deleteBaseCapabilities,
   deleteGroup,
   revertCapDelete,
   revertGroupDelete,
   selectCapDelete,
   selectErrorCapCreate,
   selectGroupDelete,
-} from '../../store/slice/LineRateSlice';
+} from '../../store/slice/BaseCapabilitiesSlice';
 
 function ModalCapDelete({ openModalCapDelete, setOpenModalCapDelete }) {
   const dispatch = useDispatch();
@@ -64,7 +64,10 @@ function ModalCapDelete({ openModalCapDelete, setOpenModalCapDelete }) {
                 e.stopPropagation();
                 dispatch(
                   //deleteGroup(groupFromTable?.id, setOpenModalGroupDelete)
-                  deleteCapability(capFromTable?.id, setOpenModalCapDelete)
+                  deleteBaseCapabilities(
+                    capFromTable?.id,
+                    setOpenModalCapDelete
+                  )
                 );
               }}
               className='btn-lg bg-red-500 font-semibold text-white w-full'

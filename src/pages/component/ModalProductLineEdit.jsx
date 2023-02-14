@@ -10,7 +10,7 @@ import {
   editPLine,
   selectError,
   revertError,
-} from '../../store/slice/LineRateSlice';
+} from '../../store/slice/BaseCapabilitiesSlice';
 import { useEffect } from 'react';
 
 function ModalProductLineEdit({ openModalPLEdit, setOpenModalPLEdit }) {

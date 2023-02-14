@@ -9,7 +9,7 @@ import {
   selectError,
   selectGroupEdit,
   selectLoading,
-} from '../../store/slice/LineRateSlice';
+} from '../../store/slice/BaseCapabilitiesSlice';
 import { useEffect } from 'react';
 
 function ModalGroupEdit({ openModalGroupEdit, setOpenModalGroupEdit }) {

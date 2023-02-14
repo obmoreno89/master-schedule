@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authSlice from './slice/authSlice';
 import usersSlice from './slice/usersSlice';
-import LineRateSlice from './slice/LineRateSlice';
+import BaseCapabilitiesSlice from './slice/BaseCapabilitiesSlice';
 import LineRateCustomSlice from './slice/LineRateCustomSlice';
 import calendarSlice from './slice/calendarSlice';
 import planningSlice from './slice/planningSlice';
@@ -16,7 +16,7 @@ const store = configureStore({
   reducer: {
     auth: authSlice,
     users: usersSlice,
-    group: LineRateSlice,
+    group: BaseCapabilitiesSlice,
     calendar: calendarSlice,
     planning: planningSlice,
     kpi: kpiSlice,

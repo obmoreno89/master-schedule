@@ -2,7 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import Transition from '../../../utils/Transition';
 import icons from '../../../images/icon/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGroupList, selectGroup } from '../../../store/slice/LineRateSlice';
+import {
+  getGroupList,
+  selectGroup,
+} from '../../../store/slice/BaseCapabilitiesSlice';
 import {
   getAllTypes,
   revertAll,

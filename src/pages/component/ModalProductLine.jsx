@@ -8,7 +8,7 @@ import {
   selectGroup,
   createPLines,
   selectLoading,
-} from '../../store/slice/LineRateSlice';
+} from '../../store/slice/BaseCapabilitiesSlice';
 
 function ModalProductLine({ openModalPL, setOpenModalPL }) {
   const {

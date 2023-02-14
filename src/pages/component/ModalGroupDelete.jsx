@@ -6,7 +6,7 @@ import {
   deleteGroup,
   revertGroupDelete,
   selectGroupDelete,
-} from '../../store/slice/LineRateSlice';
+} from '../../store/slice/BaseCapabilitiesSlice';
 
 function ModalGroupDelete({ setOpenModalGroupDelete, openModalGroupDelete }) {
   const dispatch = useDispatch();

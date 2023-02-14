@@ -8,7 +8,10 @@ import {
   LineRateCustomUpdate,
   selectLoading,
 } from '../../store/slice/LineRateCustomSlice';
-import { selectPLines, getProductLines } from '../../store/slice/LineRateSlice';
+import {
+  selectPLines,
+  getProductLines,
+} from '../../store/slice/BaseCapabilitiesSlice';
 import { selectLineRateCustomEditData } from '../../store/slice/LineRateCustomSlice';
 
 function LineRateCustomEditForm({

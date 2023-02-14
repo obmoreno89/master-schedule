@@ -5,7 +5,10 @@ import ButtonLoading from '../../helpers/ButtonLoading';
 import LineRateCustomStartDatePicker from './LineRateCustomStartDatePicker';
 import LineRateCustomEndDatePicker from './LineRateCustomEndDatePicker';
 import { selectLoading } from '../../store/slice/LineRateCustomSlice';
-import { selectPLines, getProductLines } from '../../store/slice/LineRateSlice';
+import {
+  selectPLines,
+  getProductLines,
+} from '../../store/slice/BaseCapabilitiesSlice';
 import { LineRateCustomCreate } from '../../store/slice/LineRateCustomSlice';
 
 function LineRateCustomCreateForm({

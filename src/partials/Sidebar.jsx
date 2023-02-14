@@ -332,13 +332,13 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           <li className='mb-1 last:mb-0'>
                             <NavLink
                               end
-                              to='/mp-pro/planning/LineRate/'
+                              to='/mp-pro/planning/base-capabilities/'
                               className={({ isActive }) =>
                                 'block hover:text-primary text-textSidebar transition duration-150 truncate ' +
                                 (isActive ? '!text-primary' : '')
                               }
                             >
-                              <span className='text-sm'>Line Rate Base</span>
+                              <span className='text-sm'>Capacidades Base</span>
                             </NavLink>
                           </li>
                           <li className='mb-1 last:mb-0'>

@@ -4,7 +4,7 @@ import {
   deletePLine,
   revertPLDelete,
   selectPLDelete,
-} from '../../store/slice/LineRateSlice';
+} from '../../store/slice/BaseCapabilitiesSlice';
 
 function ModalProductLineDelete({ setOpenModalPLDelete, openModalPLDelete }) {
   const dispatch = useDispatch();
