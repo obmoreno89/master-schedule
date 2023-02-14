@@ -129,23 +129,43 @@ export const GanttGlobalConfig = {
 },
   columns: [
     { type : 'wbs', region : 'fixed', text: 'ID' },
-    { type: 'name', field: 'name', width: 260, text: 'Order', region : 'fixed' },
-    { type: 'name', field: 'item', width: 30, text: 'Item', region : 'fixed' },
-    { type: 'name', field: 'pline', width: 180, text: 'Product Line', region: 'fixed' },
+    { type: 'name', field: 'name', width: 260, text: 'Order', region : 'fixed', editor: false },
+    { type: 'name', field: 'item', width: 30, text: 'Item', region : 'fixed', editor: false },
+    { type: 'name', field: 'pline', width: 180, text: 'Product Line', region: 'fixed', editor: false },
     {
       type: 'date',
       field: 'ssd',
       format: 'DD-MM-YYYY',
       width: 110,
       text: 'SSD',
+      editor: false
     },
-    { type: 'number', field: 'ord_qty', width: 30, text: 'Cantidad' },
     {
       type: 'number',
       field: 'ord_qty',
       width: 30,
       text: 'Suggested Pieces',
+      editor: false,  
     },
+    { type: 'number', field: 'ord_qty', width: 30, text: 'Cantidad',  editor : {
+      listeners : {
+          change(context) {
+              console.log(context);
+              let newQuantity = context.value
+              let idTask = context.source.eventRecord.id
+              let parentId = context.source.eventRecord.parentId;
+              let oldTimeDuration = bryntum.query('gantt').taskStore.getById(idTask).duration
+              let oldPieces = bryntum.query('gantt').taskStore.getById(idTask).ord_qty
+              let olDurationPerPiece = oldTimeDuration / oldPieces
+              console.log('Parent ID ' + parentId)
+              console.log('ID Task ' + idTask)
+              console.log('New Qty'  + newQuantity)
+              console.log('Old time duration ' + oldTimeDuration)
+              bryntum.query('gantt').taskStore.getById(idTask).duration = olDurationPerPiece * newQuantity
+          }
+      }
+  } },
+    
     // { type: 'name', field: 'suggested_time_formatted', width: 40, text: 'Tiempo de Producción' },
     { type: 'date', field: 'startDate', width: 40, text: 'Start Date' },
     { type: 'date', field: 'endDate', width: 40, text: 'End Date' },
