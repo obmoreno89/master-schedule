@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import LineRateTable from '../partials/LineRate/LineRateTable';
+import BaseCapabilitiesTable from '../partials/baseCapabilities/BaseCapabilitiesTable';
 import PaginationNumeric from '../components/PaginationNumeric';
-import LineRateProductListPanel from '../partials/LineRate/LineRateProductListPanel';
-import CabalitiesGroupPanel from '../partials/LineRate/LineRateGroupPanel';
+import BaseCapabilitiesProductListPanel from '../partials/baseCapabilities/BaseCapabilitiesProductListPanel';
+import CabalitiesGroupPanel from '../partials/baseCapabilities/BaseCapabilitiesGroupPanel';
 import icons from '../images/icon/icons';
 import ModalProductLine from './component/ModalProductLine';
 import ModalGroup from './component/ModalGroup';
@@ -13,7 +13,7 @@ import ModalProductLineEdit from './component/ModalProductLineEdit';
 import ModalProductLineDelete from './component/ModalProductLineDelete';
 import ModalCapDelete from './component/ModalCapDelete';
 
-function LineRate() {
+function BaseCapabilities() {
   const [transactionPanelOpen, setTransactionPanelOpen] = useState(false);
   const [groupPanelOpen, setGroupPanelOpen] = useState(false);
   const [openModalPL, setOpenModalPL] = useState(false);
@@ -22,8 +22,10 @@ function LineRate() {
   const [openModalGroupDelete, setOpenModalGroupDelete] = useState(false);
   const [openModalPLEdit, setOpenModalPLEdit] = useState(false);
   const [openModalPLDelete, setOpenModalPLDelete] = useState(false);
-  const [LineRatePanelOpen, setLineRateOpenPanel] = useState(false);
-  const [LineRateEditOpen, setLineRateEditOpen] = useState(false);
+  const [baseCapabilitiesPanelOpen, setBaseCapabilitiesOpenPanel] =
+    useState(false);
+  const [baseCapabilitiesEditOpen, setbaseCapabilitiesEditOpen] =
+    useState(false);
   const [openModalCapDelete, setOpenModalCapDelete] = useState(false);
 
   return (
@@ -38,13 +40,13 @@ function LineRate() {
 
           {/* Table */}
           <div className='lg:px-8'>
-            <LineRateTable
+            <BaseCapabilitiesTable
               setTransactionPanelOpen={setTransactionPanelOpen}
               setGroupPanelOpen={setGroupPanelOpen}
-              LineRatePanelOpen={LineRatePanelOpen}
-              setLineRateOpenPanel={setLineRateOpenPanel}
-              LineRateEditOpen={LineRateEditOpen}
-              setLineRateEditOpen={setLineRateEditOpen}
+              baseCapabilitiesPanelOpen={baseCapabilitiesPanelOpen}
+              setBaseCapabilitiesOpenPanel={setBaseCapabilitiesOpenPanel}
+              baseCapabilitiesEditOpen={baseCapabilitiesEditOpen}
+              setbaseCapabilitiesEditOpen={setbaseCapabilitiesEditOpen}
               setOpenModalCapDelete={setOpenModalCapDelete}
             />
           </div>
@@ -52,7 +54,7 @@ function LineRate() {
           <div className='mt-4'>
             <PaginationNumeric />
           </div>
-          <LineRateProductListPanel
+          <BaseCapabilitiesProductListPanel
             transactionPanelOpen={transactionPanelOpen}
             setTransactionPanelOpen={setTransactionPanelOpen}
             setOpenModalPL={setOpenModalPL}
@@ -101,4 +103,4 @@ function LineRate() {
   );
 }
 
-export default LineRate;
+export default BaseCapabilities;

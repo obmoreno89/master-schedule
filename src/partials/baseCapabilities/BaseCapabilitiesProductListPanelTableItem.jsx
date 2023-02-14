@@ -2,10 +2,13 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import icons from '../../images/icon/icons';
 import AddButtonForTable from '../../pages/component/AddButtonForTable';
-import { setPLDelete, setPLEdit } from '../../store/slice/LineRateSlice';
+import {
+  setPLDelete,
+  setPLEdit,
+} from '../../store/slice/BaseCapabilitiesSlice';
 import { orderGAsc, orderGDesc, orderPLAsc, orderPLDesc } from './orderFunc';
 
-function LineRateProductListPanelTableItem({
+function BaseCapabilitiesProductListPanelTableItem({
   setOpenModalPL,
   currentPost,
   productLines,
@@ -123,4 +126,4 @@ function LineRateProductListPanelTableItem({
   );
 }
 
-export default LineRateProductListPanelTableItem;
+export default BaseCapabilitiesProductListPanelTableItem;

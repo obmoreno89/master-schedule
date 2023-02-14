@@ -9,10 +9,10 @@ const initialState = {
   plEdit: [],
   plDelete: [],
   loading: null,
-  LineRateList: [],
-  LineRateSearch: [],
-  LineRateEdit: [],
-  LineRateDelete: [],
+  baseCapabilitiesList: [],
+  baseCapabilitiesSearch: [],
+  BaseCapabilitiesEdit: [],
+  baseCapabilitiesDelete: [],
   reload: false,
   reloadCap: false,
   error: false,
@@ -29,12 +29,12 @@ export const revertError = createAction('REVERT_ERROR');
 export const revertCapEdit = createAction('REVERT_CAPEDIT');
 export const revertCapDelete = createAction('REVERT_CAPDELETE');
 
-const lineRateSlice = createSlice({
+const BaseCapabilitiesSlice = createSlice({
   initialState,
   name: 'group',
   extraReducers: (builder) => {
     builder.addCase(revertSearch, (state, action) => {
-      state.LineRateSearch = [];
+      state.baseCapabilitiesSearch = [];
     });
     builder.addCase(revertGroupEdit, (state, action) => {
       state.groupEdit = [];
@@ -49,17 +49,17 @@ const lineRateSlice = createSlice({
       state.plDelete = [];
     });
     builder.addCase(revertPList, (state, action) => {
-      state.LineRateList = [];
+      state.baseCapabilitiesList = [];
     });
     builder.addCase(revertError, (state, action) => {
       state.error = false;
       state.errorCapCreate = false;
     });
     builder.addCase(revertCapEdit, (state, action) => {
-      state.LineRateEdit = [];
+      state.BaseCapabilitiesEdit = [];
     });
     builder.addCase(revertCapDelete, (state, action) => {
-      state.LineRateDelete = [];
+      state.baseCapabilitiesDelete = [];
     });
   },
   reducers: {
@@ -72,11 +72,11 @@ const lineRateSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
-    setLineRateList: (state, action) => {
-      state.LineRateList = action.payload;
+    setBaseCapabilitiesList: (state, action) => {
+      state.baseCapabilitiesList = action.payload;
     },
-    setLineRateSearch: (state, action) => {
-      state.LineRateSearch = action.payload;
+    setBaseCapabilitiesSearch: (state, action) => {
+      state.baseCapabilitiesSearch = action.payload;
     },
     setReload: (state, action) => {
       state.reload = !state.reload;
@@ -103,10 +103,10 @@ const lineRateSlice = createSlice({
       state.errorCapCreate = action.payload;
     },
     setCapEdit: (state, action) => {
-      state.LineRateEdit = action.payload;
+      state.BaseCapabilitiesEdit = action.payload;
     },
     setCapDelete: (state, action) => {
-      state.LineRateDelete = action.payload;
+      state.baseCapabilitiesDelete = action.payload;
     },
   },
 });
@@ -115,8 +115,8 @@ export const {
   setGroup,
   setProductLines,
   setLoading,
-  setLineRateList,
-  setLineRateSearch,
+  setBaseCapabilitiesList,
+  setBaseCapabilitiesSearch,
   setReload,
   setGroupEdit,
   setGroupDelete,
@@ -127,13 +127,15 @@ export const {
   setCapDelete,
   setReloadCap,
   setErrorCapCreate,
-} = lineRateSlice.actions;
+} = BaseCapabilitiesSlice.actions;
 
 export const selectGroup = (state) => state.group.groupList;
 export const selectPLines = (state) => state.group.producLines;
 export const selectLoading = (state) => state.group.loading;
-export const selectLineRateList = (state) => state.group.LineRateList;
-export const selectLineRateSearch = (state) => state.group.LineRateSearch;
+export const selectBaseCapabilitiesList = (state) =>
+  state.group.baseCapabilitiesList;
+export const selectBaseCapabilitiesSearch = (state) =>
+  state.group.baseCapabilitiesSearch;
 export const selectReload = (state) => state.group.reload;
 export const selectReloadCap = (state) => state.group.reloadCap;
 export const selectGroupEdit = (state) => state.group.groupEdit;
@@ -142,10 +144,10 @@ export const selectPLEdit = (state) => state.group.plEdit;
 export const selectPLDelete = (state) => state.group.plDelete;
 export const selectError = (state) => state.group.error;
 export const selectErrorCapCreate = (state) => state.group.errorCapCreate;
-export const selectCapEdit = (state) => state.group.LineRateEdit;
-export const selectCapDelete = (state) => state.group.LineRateDelete;
+export const selectCapEdit = (state) => state.group.BaseCapabilitiesEdit;
+export const selectCapDelete = (state) => state.group.baseCapabilitiesDelete;
 
-export default lineRateSlice.reducer;
+export default BaseCapabilitiesSlice.reducer;
 
 export const getGroupList = () => (dispatch) => {
   axios
@@ -221,18 +223,18 @@ export const deletePLine = (id, setOpenModalPLDelete) => (dispatch) => {
     });
 };
 
-export const getLineRateList = () => (dispatch) => {
+export const getBaseCapabilitiesList = () => (dispatch) => {
   axios
     .get('http://35.174.106.95/api/capacities/list-default-capacities')
     .then((response) => {
-      dispatch(setLineRateList(response.data));
+      dispatch(setBaseCapabilitiesList(response.data));
       dispatch(setReload());
     })
     .catch((err) => console.log(err));
 };
 
-export const createLineRate =
-  (data, setLineRateOpenPanel, reset) => (dispatch) => {
+export const createBaseCapabilities =
+  (data, setBaseCapabilitiesOpenPanel, reset) => (dispatch) => {
     dispatch(setLoading(true));
     const userId = sessionStorage.getItem('id');
     axios
@@ -243,7 +245,7 @@ export const createLineRate =
       .then((response) => {
         if (response.status === 201) {
           dispatch(setLoading(false));
-          setLineRateOpenPanel(false);
+          setBaseCapabilitiesOpenPanel(false);
           reset();
           dispatch(setReloadCap());
         }
@@ -254,8 +256,8 @@ export const createLineRate =
       });
   };
 
-export const editCapability =
-  (data, id, setLineRateEditOpen, reset) => (dispatch) => {
+export const editBaseCapabilities =
+  (data, id, setbaseCapabilitiesEditOpen, reset) => (dispatch) => {
     const tokenUser = sessionStorage.getItem('token');
 
     dispatch(setLoading(true));
@@ -270,7 +272,7 @@ export const editCapability =
       .then((response) => {
         if (response.status === 201) {
           dispatch(setLoading(false));
-          setLineRateEditOpen(false);
+          setbaseCapabilitiesEditOpen(false);
           reset();
           dispatch(setReloadCap());
         }
@@ -281,29 +283,30 @@ export const editCapability =
       });
   };
 
-export const deleteCapability = (id, setOpenModalCapDelete) => (dispatch) => {
-  const tokenUser = sessionStorage.getItem('token');
+export const deleteBaseCapabilities =
+  (id, setOpenModalCapDelete) => (dispatch) => {
+    const tokenUser = sessionStorage.getItem('token');
 
-  dispatch(setLoading(true));
-  axios
-    .delete(
-      `http://35.174.106.95/api/capacities/delete-default-capacity/${id}/`,
-      {
-        headers: { Authorization: `Token ${tokenUser}` },
-      }
-    )
-    .then((response) => {
-      if (response.status === 204) {
+    dispatch(setLoading(true));
+    axios
+      .delete(
+        `http://35.174.106.95/api/capacities/delete-default-capacity/${id}/`,
+        {
+          headers: { Authorization: `Token ${tokenUser}` },
+        }
+      )
+      .then((response) => {
+        if (response.status === 204) {
+          dispatch(setLoading(false));
+          setOpenModalCapDelete(false);
+          dispatch(setReloadCap());
+        }
+      })
+      .catch(() => {
         dispatch(setLoading(false));
-        setOpenModalCapDelete(false);
-        dispatch(setReloadCap());
-      }
-    })
-    .catch(() => {
-      dispatch(setLoading(false));
-      dispatch(setErrorCapCreate(true));
-    });
-};
+        dispatch(setErrorCapCreate(true));
+      });
+  };
 
 export const createGroup = (data, setOpenModalGroup, reset) => (dispatch) => {
   dispatch(setLoading(true));

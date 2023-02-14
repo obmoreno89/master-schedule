@@ -5,12 +5,15 @@ import ButtonLoading from '../../helpers/ButtonLoading';
 import {
   selectLoading,
   selectPLines,
-  createLineRate,
+  createBaseCapabilities,
   revertError,
   selectErrorCapCreate,
-} from '../../store/slice/LineRateSlice';
+} from '../../store/slice/BaseCapabilitiesSlice';
 
-function LineRateCreateForm({ LineRatePanelOpen, setLineRateOpenPanel }) {
+function BaseCapabilitiesCreateForm({
+  baseCapabilitiesPanelOpen,
+  setBaseCapabilitiesOpenPanel,
+}) {
   const dispatch = useDispatch();
   const loading = useSelector(selectLoading);
   const ProductLineList = useSelector(selectPLines);
@@ -32,7 +35,7 @@ function LineRateCreateForm({ LineRatePanelOpen, setLineRateOpenPanel }) {
   }, [error]);
 
   const onSubmit = (data) => {
-    dispatch(createLineRate(data, setLineRateOpenPanel, reset));
+    dispatch(createBaseCapabilities(data, setBaseCapabilitiesOpenPanel, reset));
   };
 
   const handleButtonCreate = () => {
@@ -56,7 +59,7 @@ function LineRateCreateForm({ LineRatePanelOpen, setLineRateOpenPanel }) {
     defaultValues.piece_per_day = '';
     defaultValues.comments = '';
     reset({ ...defaultValues });
-  }, [reset, LineRatePanelOpen]);
+  }, [reset, baseCapabilitiesPanelOpen]);
 
   return (
     <>
@@ -250,4 +253,4 @@ function LineRateCreateForm({ LineRatePanelOpen, setLineRateOpenPanel }) {
   );
 }
 
-export default LineRateCreateForm;
+export default BaseCapabilitiesCreateForm;

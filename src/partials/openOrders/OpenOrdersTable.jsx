@@ -51,17 +51,18 @@ const OpenOrdersTable = () => {
           return element;
         }
       });
-      // let result = [];
-      // for (let i = 0; i < list.length; i++) {
-      //   if (list[i].Customer.indexOf(e.target.value) !== -1) {
-      //     result.push(list[i]);
-      //   }
-      // }
       dispatch(setSearch(result));
     } else {
       dispatch(revertSearch());
       setStartSearch(false);
     }
+  };
+
+  const formatCurrency = (num) => {
+    const options = { style: "currency", currency: "USD" };
+    const numberFormat = new Intl.NumberFormat("en-US", options);
+
+    return numberFormat.format(num);
   };
 
   return (

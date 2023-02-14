@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import icons from '../../images/icon/icons';
-import { setCapDelete, setCapEdit } from '../../store/slice/LineRateSlice';
+import {
+  setCapDelete,
+  setCapEdit,
+} from '../../store/slice/BaseCapabilitiesSlice';
 import { orderGAsc, orderGDesc, orderPLAsc, orderPLDesc } from './orderFunc';
 
-const LineRateTableItem = ({
+const BaseCapabilitiesTableItem = ({
   setTransactionPanelOpen,
   setGroupPanelOpen,
-  LineRateList,
+  baseCapabilitiesList,
   setLineRate,
-  setLineRateEditOpen,
+  setbaseCapabilitiesEditOpen,
   setOpenModalCapDelete,
 }) => {
   const dispatch = useDispatch();
@@ -19,9 +22,9 @@ const LineRateTableItem = ({
   useEffect(() => {
     if (orderPL.state) {
       if (!orderPL.asc) {
-        orderPLAsc(LineRateList, setLineRate, 'Line Rate');
+        orderPLAsc(baseCapabilitiesList, setLineRate, 'Line Rate');
       } else {
-        orderPLDesc(LineRateList, setLineRate, 'Line Rate');
+        orderPLDesc(baseCapabilitiesList, setLineRate, 'Line Rate');
       }
     }
   }, [orderPL]);
@@ -29,9 +32,9 @@ const LineRateTableItem = ({
   useEffect(() => {
     if (orderG.state) {
       if (!orderG.asc) {
-        orderGAsc(LineRateList, setLineRate, 'Line Rate');
+        orderGAsc(baseCapabilitiesList, setLineRate, 'Line Rate');
       } else {
-        orderGDesc(LineRateList, setLineRate, 'Line Rate');
+        orderGDesc(baseCapabilitiesList, setLineRate, 'Line Rate');
       }
     }
   }, [orderG]);
@@ -96,7 +99,7 @@ const LineRateTableItem = ({
         </thead>
         {/* Table body */}
         <tbody className='text-sm divide-y divide-slate-200'>
-          {LineRateList.map((data, index) => (
+          {baseCapabilitiesList.map((data, index) => (
             <tr key={index}>
               <td
                 onClick={(e) => {
@@ -145,7 +148,7 @@ const LineRateTableItem = ({
                     onClick={(e) => {
                       e.stopPropagation();
                       dispatch(setCapEdit(data));
-                      setLineRateEditOpen(true);
+                      setbaseCapabilitiesEditOpen(true);
                     }}
                   >
                     <img src={icons.pencilIcon} alt='Lapiz' />
@@ -169,4 +172,4 @@ const LineRateTableItem = ({
   );
 };
 
-export default LineRateTableItem;
+export default BaseCapabilitiesTableItem;

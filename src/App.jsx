@@ -21,7 +21,7 @@ import SystemStatus from './pages/SystemStatus';
 
 //PLANNING
 import Planning from './pages/Planning';
-import LineRate from './pages/LineRate';
+import BaseCapabilities from './pages/BaseCapabilities';
 import LineRateCustom from './pages/LineRateCustom';
 import Calendar from './pages/Calendar';
 import PlanningOrders from './partials/planning/plannings/PlanningOrders';
@@ -175,10 +175,10 @@ function App() {
         ></Route>
 
         <Route
-          path='/mp-pro/planning/LineRate/'
+          path='/mp-pro/planning/base-capabilities/'
           element={
             <PrivateRoute>
-              <LineRate />
+              <BaseCapabilities />
             </PrivateRoute>
           }
         />

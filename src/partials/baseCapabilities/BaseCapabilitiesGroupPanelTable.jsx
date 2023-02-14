@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import LineRateGroupPanelTableItem from './LineRateGroupPanelTableItem';
+import BaseCapabilitiesGroupPanelTableItem from './BaseCapabilitiesGroupPanelTableItem';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectGroup,
   getGroupList,
-  setLineRateSearch,
+  setBaseCapabilitiesSearch,
   revertSearch,
-  selectLineRateSearch,
+  selectBaseCapabilitiesSearch,
   selectReload,
-} from '../../store/slice/LineRateSlice.js';
+} from '../../store/slice/BaseCapabilitiesSlice.js';
 
-const LineRateGroupPanelTable = ({
+const BaseCapabilitiesGroupPanelTable = ({
   setOpenModalGroup,
   setOpenModalGroupEdit,
   setOpenModalGroupDelete,
@@ -19,7 +19,7 @@ const LineRateGroupPanelTable = ({
   const [startSearch, setStartSearch] = useState(false);
 
   const dispatch = useDispatch();
-  const searchItems = useSelector(selectLineRateSearch);
+  const searchItems = useSelector(selectBaseCapabilitiesSearch);
   const groups = useSelector(selectGroup);
   const reload = useSelector(selectReload);
 
@@ -45,7 +45,7 @@ const LineRateGroupPanelTable = ({
           return element;
         }
       });
-      dispatch(setLineRateSearch(result));
+      dispatch(setBaseCapabilitiesSearch(result));
     } else {
       dispatch(revertSearch());
       setStartSearch(false);
@@ -65,7 +65,7 @@ const LineRateGroupPanelTable = ({
         </div>
         <div className='overflow-x-auto rounded-xl border border-slate-300 h-[500px]'>
           {!startSearch ? (
-            <LineRateGroupPanelTableItem
+            <BaseCapabilitiesGroupPanelTableItem
               setOpenModalGroup={setOpenModalGroup}
               setOpenModalGroupEdit={setOpenModalGroupEdit}
               setOpenModalGroupDelete={setOpenModalGroupDelete}
@@ -73,7 +73,7 @@ const LineRateGroupPanelTable = ({
               setGroup={setGroup}
             />
           ) : startSearch && searchItems.length > 0 ? (
-            <LineRateGroupPanelTableItem
+            <BaseCapabilitiesGroupPanelTableItem
               setOpenModalGroup={setOpenModalGroup}
               setOpenModalGroupEdit={setOpenModalGroupEdit}
               setOpenModalGroupDelete={setOpenModalGroupDelete}
@@ -91,4 +91,4 @@ const LineRateGroupPanelTable = ({
   );
 };
 
-export default LineRateGroupPanelTable;
+export default BaseCapabilitiesGroupPanelTable;

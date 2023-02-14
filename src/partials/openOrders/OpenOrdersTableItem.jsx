@@ -20,6 +20,13 @@ const Table = ({ data }) => {
     return newDate.toLocaleDateString('es-ES');
   };
 
+  const formatCurrency = (num) => {
+    const options = { style: "currency", currency: "USD" };
+    const numberFormat = new Intl.NumberFormat("en-US", options);
+
+    return numberFormat.format(num);
+  };
+
   return (
     <table className='table-auto w-full table rounded-xl'>
       <thead className='text-[14px] text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50 sticky top-0 z-10'>
@@ -43,7 +50,7 @@ const Table = ({ data }) => {
             <p className='font-semibold text-center'>Quantity</p>
           </th>
           <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-            <p className='font-semibold text-center'>total Order</p>
+            <p className='font-semibold text-center'>Total Order</p>
           </th>
           <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap '>
             <p className='font-semibold text-center'>Request Date</p>
@@ -86,7 +93,7 @@ const Table = ({ data }) => {
               <p className='text-center text-sm'>{order.OrdQty}</p>
             </td>
             <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-              <p className='text-center text-sm'>{order.TotalOrder}</p>
+              <p className='text-center text-sm'>{formatCurrency(order.TotalOrder)}</p>
             </td>
             <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
               <p className='text-center text-sm'>
