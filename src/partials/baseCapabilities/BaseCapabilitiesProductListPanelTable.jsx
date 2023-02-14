@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import LineRateProductListPanelTableItem from './LineRateProductListPanelTableItem';
+import BaseCapabilitiesProductListPanelTableItem from './BaseCapabilitiesProductListPanelTableItem';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectPLines,
   getProductLines,
-  setLineRateSearch,
+  setBaseCapabilitiesSearch,
   revertSearch,
-  selectLineRateSearch,
+  selectBaseCapabilitiesSearch,
   selectReload,
-} from '../../store/slice/LineRateSlice.js';
+} from '../../store/slice/BaseCapabilitiesSlice.js';
 
-const LineRateProductListPanelTable = ({
+const BaseCapabilitiesProductListPanelTable = ({
   setOpenModalPL,
   setOpenModalPLEdit,
   setOpenModalPLDelete,
@@ -21,7 +21,7 @@ const LineRateProductListPanelTable = ({
   const productLines = useSelector(selectPLines);
   const reload = useSelector(selectReload);
 
-  const searchItems = useSelector(selectLineRateSearch);
+  const searchItems = useSelector(selectBaseCapabilitiesSearch);
 
   useEffect(() => {
     dispatch(getProductLines());
@@ -48,7 +48,7 @@ const LineRateProductListPanelTable = ({
           return element;
         }
       });
-      dispatch(setLineRateSearch(result));
+      dispatch(setBaseCapabilitiesSearch(result));
     } else {
       dispatch(revertSearch());
       setStartSearch(false);
@@ -69,7 +69,7 @@ const LineRateProductListPanelTable = ({
 
         <div className='overflow-x-auto rounded-xl border border-slate-300 h-[500px]'>
           {!startSearch ? (
-            <LineRateProductListPanelTableItem
+            <BaseCapabilitiesProductListPanelTableItem
               setOpenModalPL={setOpenModalPL}
               currentPost={pl}
               productLines={productLines}
@@ -78,7 +78,7 @@ const LineRateProductListPanelTable = ({
               setOpenModalPLDelete={setOpenModalPLDelete}
             />
           ) : startSearch && searchItems.length > 0 ? (
-            <LineRateProductListPanelTableItem
+            <BaseCapabilitiesProductListPanelTableItem
               setOpenModalPL={setOpenModalPL}
               currentPost={searchItems}
               productLines={productLines}
@@ -97,4 +97,4 @@ const LineRateProductListPanelTable = ({
   );
 };
 
-export default LineRateProductListPanelTable;
+export default BaseCapabilitiesProductListPanelTable;

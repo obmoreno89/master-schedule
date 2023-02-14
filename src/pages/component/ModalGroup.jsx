@@ -2,7 +2,10 @@ import ModalBasic from '../../components/ModalBasic';
 import { useForm } from 'react-hook-form';
 import ButtonLoading from '../../helpers/ButtonLoading';
 import { useSelector, useDispatch } from 'react-redux';
-import { createGroup, selectLoading } from '../../store/slice/LineRateSlice';
+import {
+  createGroup,
+  selectLoading,
+} from '../../store/slice/BaseCapabilitiesSlice';
 
 function ModalGroup({ openModalGroup, setOpenModalGroup }) {
   const {

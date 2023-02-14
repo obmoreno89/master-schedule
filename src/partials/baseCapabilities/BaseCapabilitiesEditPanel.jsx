@@ -1,10 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { revertCapEdit } from '../../store/slice/LineRateSlice';
+import { revertCapEdit } from '../../store/slice/BaseCapabilitiesSlice';
 import Transition from '../../utils/Transition';
-import LineRateEdit from './LineRateEdit';
+import BaseCapabilitiesEdit from './BaseCapabilitiesEdit';
 
-function LineRateEditPanel({ LineRateEditOpen, setLineRateEditOpen }) {
+function BaseCapabilitiesEditPanel({
+  baseCapabilitiesEditOpen,
+  setbaseCapabilitiesEditOpen,
+}) {
   const dispatch = useDispatch();
 
   const closeBtn = useRef(null);
@@ -28,8 +31,8 @@ function LineRateEditPanel({ LineRateEditOpen, setLineRateEditOpen }) {
   // close if the esc key is pressed
   useEffect(() => {
     const keyHandler = ({ keyCode }) => {
-      if (!LineRateEditOpen || keyCode !== 27) return;
-      setLineRateEditOpen(false);
+      if (!baseCapabilitiesEditOpen || keyCode !== 27) return;
+      setbaseCapabilitiesEditOpen(false);
     };
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
@@ -39,7 +42,7 @@ function LineRateEditPanel({ LineRateEditOpen, setLineRateEditOpen }) {
     <>
       <Transition
         className='fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity'
-        show={LineRateEditOpen}
+        show={baseCapabilitiesEditOpen}
         enter='transition ease-out duration-200'
         enterStart='opacity-0'
         enterEnd='opacity-100'
@@ -53,7 +56,7 @@ function LineRateEditPanel({ LineRateEditOpen, setLineRateEditOpen }) {
         className='fixed inset-0 z-50 overflow-hidden flex items-center justify-center transform px-4 sm:px-6'
         role='dialog'
         aria-modal='true'
-        show={LineRateEditOpen}
+        show={baseCapabilitiesEditOpen}
         enter='transition ease-in-out duration-500'
         enterStart='opacity-0 translate-x-4'
         enterEnd='opacity-100 translate-x-0'
@@ -64,7 +67,7 @@ function LineRateEditPanel({ LineRateEditOpen, setLineRateEditOpen }) {
         <div
           ref={panelContent}
           className={`absolute inset-0 sm:left-auto z-40 transform shadow-xl transition-transform duration-200 ease-in-out ${
-            LineRateEditOpen ? 'translate-x-' : 'translate-x-full'
+            baseCapabilitiesEditOpen ? 'translate-x-' : 'translate-x-full'
           }`}
         >
           <div className='top-16 bg-white overflow-x-hidden overflow-y-auto no-scrollbar shrink-0 border-l border-slate-200 w-full sm:w-[390px] h-screen'>
@@ -75,7 +78,7 @@ function LineRateEditPanel({ LineRateEditOpen, setLineRateEditOpen }) {
               <button
                 ref={closeBtn}
                 onClick={() => {
-                  setLineRateEditOpen(false);
+                  setbaseCapabilitiesEditOpen(false);
                   dispatch(revertCapEdit());
                 }}
                 className=' top-0 right-0 mt-4 mr-3 group p-1'
@@ -90,9 +93,9 @@ function LineRateEditPanel({ LineRateEditOpen, setLineRateEditOpen }) {
               </button>
             </div>
             <section className='mb-5'>
-              <LineRateEdit
-                setLineRateEditOpen={setLineRateEditOpen}
-                LineRateEditOpen={LineRateEditOpen}
+              <BaseCapabilitiesEdit
+                setbaseCapabilitiesEditOpen={setbaseCapabilitiesEditOpen}
+                baseCapabilitiesEditOpen={baseCapabilitiesEditOpen}
               />
             </section>
           </div>
@@ -102,4 +105,4 @@ function LineRateEditPanel({ LineRateEditOpen, setLineRateEditOpen }) {
   );
 }
 
-export default LineRateEditPanel;
+export default BaseCapabilitiesEditPanel;

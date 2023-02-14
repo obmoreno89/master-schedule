@@ -78,8 +78,6 @@ const GroupOptionsGanttPanel = ({
     setGanttGlobalOption(value);
   };
 
-  console.log(ganttGlobaloption);
-
   // close if the esc key is pressed
   useEffect(() => {
     const keyHandler = ({ keyCode }) => {

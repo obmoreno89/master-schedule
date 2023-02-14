@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import Transition from '../../utils/Transition';
-import LineRateProductListPanelTable from './LineRateProductListPanelTable';
+import BaseCapabilitiesProductListPanelTable from './BaseCapabilitiesProductListPanelTable';
 
-function LineRateProductListPanel({
+function BaseCapabilitiesProductListPanel({
   transactionPanelOpen,
   setTransactionPanelOpen,
   setOpenModalPL,
@@ -88,7 +88,7 @@ function LineRateProductListPanel({
                 </svg>
               </button>
             </section>
-            <LineRateProductListPanelTable
+            <BaseCapabilitiesProductListPanelTable
               setOpenModalPL={setOpenModalPL}
               setOpenModalPLEdit={setOpenModalPLEdit}
               setOpenModalPLDelete={setOpenModalPLDelete}
@@ -100,4 +100,4 @@ function LineRateProductListPanel({
   );
 }
 
-export default LineRateProductListPanel;
+export default BaseCapabilitiesProductListPanel;
