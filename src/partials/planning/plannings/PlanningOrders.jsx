@@ -1,13 +1,13 @@
-import Layout from '../../../components/Layout';
-import GetMinMaxModal from '../../../pages/component/GetMinMaxModal';
-import icons from '../../../images/icon/icons';
-import { useState } from 'react';
-import PlanningOrdersTable from './PlanningOrdersTable';
+import Layout from "../../../components/Layout";
+import GetMinMaxModal from "../../../pages/component/GetMinMaxModal";
+import icons from "../../../images/icon/icons";
+import { useState } from "react";
+import PlanningOrdersTable from "./PlanningOrdersTable";
 // import PlanningsLineRatePanel from './PlanningsLineRatePanel';
-import FullLoading from '../../../pages/component/FullLoading';
-import { Link, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import FullLoading from "../../../pages/component/FullLoading";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getOrders,
   selectGroups,
@@ -16,8 +16,8 @@ import {
   selectPlanning,
   selectFullLoading,
   setFullLoading,
-} from '../../../store/slice/planningSlice';
-import Loading from '../../../pages/component/Loading';
+} from "../../../store/slice/planningSlice";
+import Loading from "../../../pages/component/Loading";
 
 const PlanningOrders = () => {
   const navigate = useNavigate();
@@ -42,14 +42,12 @@ const PlanningOrders = () => {
       ],
     };
     //dispatch(getOrders(planning));
-    console.log(planning);
-    console.log(json);
     dispatch(getOrders(json));
   }, [groups]);
 
   useEffect(() => {
     if (groups.length === 0) {
-      navigate('/mp-pro/planning/plannings/');
+      navigate("/mp-pro/planning/plannings/");
     }
   }, [groups]);
 
@@ -60,28 +58,32 @@ const PlanningOrders = () => {
       ) : (
         <Layout
           icon={icons.planningIcon}
-          nameRoute={'Planeación'}
-          nameSubRoute={'Ordenes'}
+          nameRoute={"Planeación"}
+          nameSubRoute={"Ordenes"}
         >
-          <div className='px-4 sm:px-6 lg:px-0 py-1 w-full max-w-9xl mx-auto'>
-            <section className='lg:px-8'>
-              <header className='flex flex-1 py-5 justify-between'>
-                <h2 className='text-3xl font-semibold text-black my-auto'>
-                  Órdenes a planear
-                </h2>
-                {!notFound && orders?.length > 0 && (
-                  <p className='my-auto mb-1 font-medium'>
-                    Total de órdenes:
-                    <span className='font-bold text-primary'>
-                      {orders?.length}
-                    </span>
-                  </p>
-                )}
+          <div className="px-4 sm:px-6 lg:px-0 py-1 w-full max-w-9xl mx-auto">
+            <section className="lg:px-8">
+              <header className="py-4">
+                <div className="flex flex-1 justify-between">
+                  <h2 className="text-3xl font-semibold text-black my-auto">
+                    Órdenes a planear
+                  </h2>
+                  {!notFound && orders?.length > 0 && (
+                    <p className="my-auto mb-1 font-medium">
+                      Total de órdenes:
+                      <span className="font-bold text-primary">
+                        {orders?.length}
+                      </span>
+                    </p>
+                  )}
+                </div>
+                <span className="font-medium">Grupo {groups}</span>
               </header>
+
               <main>
                 {notFound ? (
-                  <section className='justify-center items-center flex orders-table'>
-                    <h2 className='font-semibold text-2xl'>
+                  <section className="justify-center items-center flex orders-table">
+                    <h2 className="font-semibold text-2xl">
                       No existen órdenes disponibles para planear en este grupo
                     </h2>
                   </section>
@@ -91,9 +93,9 @@ const PlanningOrders = () => {
                   <Loading />
                 )}
 
-                <div className='flex justify-end py-5'>
-                  <Link to='/mp-pro/planning/plannings/'>
-                    <button className='border border-slate-300 rounded w-64 h-12 text-base font-semibold mr-6'>
+                <div className="flex justify-end py-5">
+                  <Link to="/mp-pro/planning/plannings/">
+                    <button className="border border-slate-300 rounded w-64 h-12 text-base font-semibold mr-6">
                       Cancelar
                     </button>
                   </Link>
@@ -103,15 +105,15 @@ const PlanningOrders = () => {
                       e.stopPropagation();
                       setGetMinMaxModalOpen(true);
                     }}
-                    className='w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-secondary hover:text-primary'
+                    className="w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-secondary hover:text-primary"
                     // disabled={notFound || orders?.length === 0 ? true : false}
                   >
-                    <span className='my-auto'>Continuar</span>
+                    <span className="my-auto">Continuar</span>
 
                     <img
                       src={icons.arrowRight}
-                      alt='icon-arrow-right'
-                      className='my-auto ml-3 text-white'
+                      alt="icon-arrow-right"
+                      className="my-auto ml-3 text-white"
                     />
                   </button>
                 </div>
