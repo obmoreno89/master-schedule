@@ -1,7 +1,7 @@
-import { createAction, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createAction, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-import { endpointsCodes } from "./functions";
+import { endpointsCodes } from './functions';
 
 const initialState = {
   orders: [],
@@ -13,14 +13,15 @@ const initialState = {
   dataFiltered: [],
   loadData: false,
   loadDataFiltered: null,
+  minMaxExport: [],
 };
 
-export const revertAll = createAction("REVERT_ALL");
-export const revertSearch = createAction("REVERT_SEARCH");
+export const revertAll = createAction('REVERT_ALL');
+export const revertSearch = createAction('REVERT_SEARCH');
 
 const ordersPlannedSlice = createSlice({
   initialState,
-  name: "orders",
+  name: 'orders',
   extraReducers: (builder) => {
     builder.addCase(revertAll, () => initialState);
     builder.addCase(revertSearch, (state, action) => {
@@ -85,7 +86,7 @@ export default ordersPlannedSlice.reducer;
 export const getOrders = () => (dispatch) => {
   dispatch(setLoadData(true));
   axios
-    .get("http://35.174.106.95/api/planning/report/list/all")
+    .get('http://35.174.106.95/api/planning/report/list/all')
     .then((response) => {
       if (response.status === 200) {
         dispatch(setOrders(response.data));
@@ -99,7 +100,7 @@ export const getOrders = () => (dispatch) => {
 
 export const getFilterOptions = () => (dispatch) => {
   axios
-    .get("http://35.174.106.95/api/planning/report/list/org")
+    .get('http://35.174.106.95/api/planning/report/list/org')
     .then((response) => {
       if (response.status === 200) {
         dispatch(setFilterOptions(response.data));

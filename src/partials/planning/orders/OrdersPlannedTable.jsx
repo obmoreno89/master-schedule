@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState, lazy, Suspense } from 'react';
+import icons from '../../../images/icon/icons';
 import OrdersDropdownFilter from './OrdersDropdownFilter';
 import Loading from '../../../pages/component/Loading';
 import {
@@ -12,7 +13,7 @@ import {
 } from '../../../store/slice/ordersPlannedSlice';
 const OrdersTableItems = lazy(() => import('./OrdersTableItems'));
 
-function OrdersPlannedTable() {
+function OrdersPlannedTable({ setModalMinMaxExportOpen }) {
   const dispatch = useDispatch();
   const ordersList = useSelector(selectOrders);
   const load = useSelector(selectLoadData);
@@ -70,19 +71,17 @@ function OrdersPlannedTable() {
             type='search'
             onChange={handleSearch}
           />
-          {/* <button
-            onClick={() => setGroupOptionsPanel(true)}
-            type="button"
-            className="btn bg-primary text-white w-54 space-x-2"
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setModalMinMaxExportOpen(true);
+            }}
+            type='button'
+            className='btn bg-primary text-white w-54 space-x-2'
           >
-            <svg
-              className="w-4 h-4 fill-current opacity-50 shrink-0"
-              viewBox="0 0 16 16"
-            >
-              <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
-            </svg>
-            <span>Crear planeación </span>
-          </button> */}
+            <img className='w-4' src={icons.file} alt='Archivo' />
+            <span>Exportar archivo </span>
+          </button>
         </div>
       </section>
       {loadData ? (
