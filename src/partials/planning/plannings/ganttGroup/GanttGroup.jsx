@@ -4,14 +4,17 @@ import { useState, useEffect, useRef } from 'react';
 import '../../../Gantt.css';
 import { StringHelper } from '@bryntum/gantt';
 import { BryntumGantt, BryntumToolbar } from '@bryntum/gantt-react';
-import { GanttGlobalConfig } from './GanttGlobalConfig';
+import { GanttGroupConfig } from './GanttGroupConfig';
 import '@bryntum/gantt/gantt.material.css';
 import axios from 'axios';
 import ToastStatus from '../../../../components/ToastStatus';
+import { useSelector } from 'react-redux';
+import { selectGroupGanttLetter } from '../../../../store/slice/planningSlice';
 
-function GanttGlobal() {
+function GanttGroup() {
   const [openStatusToast, setOpenStatusToast] = useState(false);
   const [date, setDate] = useState();
+  const ganttLetter = useSelector(selectGroupGanttLetter);
 
   const first_name_id = JSON.parse(
     sessionStorage.getItem('planningId')
@@ -83,7 +86,9 @@ function GanttGlobal() {
   }, []);
 
   const loadData = async () => {
-    const data = await axios.get(`http://35.174.106.95/api/gantt/list/global`);
+    const data = await axios.get(
+      `http://35.174.106.95/api/gantt/list/by-group?group=${ganttLetter}`
+    );
 
     const project = ganttRef.current.instance.project;
     // Feed it to the project
@@ -183,7 +188,7 @@ function GanttGlobal() {
     <Layout
       icon={icons.planningIcon}
       nameRoute='Planeación'
-      nameSubRoute='Gantt'
+      nameSubRoute='Grupo'
     >
       <div className='px-4 relative'>
         <BryntumToolbar
@@ -251,17 +256,10 @@ function GanttGlobal() {
           ]}
         />
         <article className='absolute -translate-y-[50px]'>
-          <h2 className='font-semibold'>Vista Global de Planeación</h2>
-          <p
-            className={`text-sm ${
-              last_update === null || last_update ? 'hidden' : ''
-            }`}
-          >
-            {date?.length > 0 &&
-              `Actualizada por última vez: ${formatDate2(
-                date
-              )} a las ${formatHour2(date)}`}
-          </p>
+          <h2 className='font-semibold'>
+            Vista por grupo de Planeación:{' '}
+            <span className='text-primary'>{ganttLetter}</span>
+          </h2>
         </article>
 
         <div
@@ -294,7 +292,7 @@ function GanttGlobal() {
                 html: StringHelper.encodeHtml(taskRecord.item),
               };
             }}
-            {...GanttGlobalConfig}
+            {...GanttGroupConfig}
             // other props, event handlers, etc
           />
         </div>
@@ -320,4 +318,4 @@ function GanttGlobal() {
   );
 }
 
-export default GanttGlobal;
+export default GanttGroup;

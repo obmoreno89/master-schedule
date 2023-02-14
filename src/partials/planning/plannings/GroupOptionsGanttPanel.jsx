@@ -31,7 +31,8 @@ const GroupOptionsGanttPanel = ({
    * grupos para radio input
    */
   const [ganttLetters, setGanttLetters] = useState([]);
-  const [ganttLetterChosen, setGanttLetterChosen] = useState();
+  const [ganttLetterChosen, setGanttLetterChosen] = useState(null);
+  const [ganttGlobaloption, setGanttGlobalOption] = useState(null);
 
   useEffect(() => {
     dispatch(getGanttGroups());
@@ -56,7 +57,12 @@ const GroupOptionsGanttPanel = ({
     if (ganttLetterChosen?.length > 0) {
       dispatch(setGanttGroupLetter(ganttLetterChosen));
       setGroupsOptionGanttPanelOpen(false);
+      navigate('/mp-pro/gantt/group');
+      setGanttLetterChosen(null);
+    } else if (ganttGlobaloption?.length > 0) {
       navigate('/mp-pro/gantt/global');
+      setGroupsOptionGanttPanelOpen(false);
+      setGanttGlobalOption(null);
     } else {
       setError(true);
     }
@@ -66,6 +72,13 @@ const GroupOptionsGanttPanel = ({
     const { value } = e.target;
     setGanttLetterChosen(value);
   };
+
+  const handleGanttGlobal = (e) => {
+    const { value } = e.target;
+    setGanttGlobalOption(value);
+  };
+
+  console.log(ganttGlobaloption);
 
   // close if the esc key is pressed
   useEffect(() => {
@@ -132,6 +145,21 @@ const GroupOptionsGanttPanel = ({
             <form>
               <div className='h-[470px] 2xl:h-[460px] overflow-y-auto mb-8 ml-5'>
                 <div>
+                  <div className='mb-7'>
+                    <label className='flex items-center'>
+                      <input
+                        type='radio'
+                        name='radio'
+                        className='form-checkbox'
+                        value='1'
+                        onChange={handleGanttGlobal}
+                        disabled={ganttLetterChosen}
+                      />
+                      <span className='text-base font-medium ml-2 text-black'>
+                        Gantt global
+                      </span>
+                    </label>
+                  </div>
                   {ganttLetters.map((letter, index) => (
                     <div key={index} className='mb-7'>
                       <label className='flex items-center'>
@@ -141,6 +169,7 @@ const GroupOptionsGanttPanel = ({
                           className='form-checkbox'
                           value={letter.value}
                           onChange={handleChange}
+                          disabled={ganttGlobaloption > 0}
                         />
                         <span className='text-base font-medium ml-2 text-black'>
                           {letter?.value}
