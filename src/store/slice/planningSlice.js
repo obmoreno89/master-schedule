@@ -106,7 +106,7 @@ const planningSlice = createSlice({
       state.ganttGroupsList = action.payload;
     },
     setGanttGroupLetter: (state, action) => {
-      state.setGanttGroupLetter = action.payload;
+      state.groupGanttLetter = action.payload;
     },
   },
 });
@@ -150,7 +150,7 @@ export const selectFullLoading = (state) => state.planning.fullLoading;
 export const selectLoadPlanning = (state) => state.planning.loadPlanning;
 export const selectGanttGroupsList = (state) => state.planning.ganttGroupsList;
 export const selectGroupGanttLetter = (state) =>
-  state.planning.setGanttGroupLetter;
+  state.planning.groupGanttLetter;
 
 export default planningSlice.reducer;
 

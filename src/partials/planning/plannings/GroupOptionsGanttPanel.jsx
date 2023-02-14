@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import Transition from '../../../utils/Transition';
+import { useNavigate } from 'react-router-dom';
 import icons from '../../../images/icon/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -18,6 +19,7 @@ const GroupOptionsGanttPanel = ({
   const dispatch = useDispatch();
   const ganttGroups = useSelector(selectGanttGroupsList);
   const [error, setError] = useState(false);
+  const navigate = useNavigate();
 
   /**
    * generales del sider
@@ -54,6 +56,7 @@ const GroupOptionsGanttPanel = ({
     if (ganttLetterChosen?.length > 0) {
       dispatch(setGanttGroupLetter(ganttLetterChosen));
       setGroupsOptionGanttPanelOpen(false);
+      navigate('/mp-pro/gantt/global');
     } else {
       setError(true);
     }
@@ -136,7 +139,7 @@ const GroupOptionsGanttPanel = ({
                           type='radio'
                           name='radio-buttons'
                           className='form-checkbox'
-                          value={letter.id}
+                          value={letter.value}
                           onChange={handleChange}
                         />
                         <span className='text-base font-medium ml-2 text-black'>
