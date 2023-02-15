@@ -82,7 +82,7 @@ function OrdersPlannedTable({ setModalMinMaxExportOpen }) {
             className='btn bg-primary text-white w-54 space-x-2'
           >
             <img className='w-4' src={icons.file} alt='Archivo' />
-            <span>Exportar archivo </span>
+            <span>Exportar reporte (CSV) </span>
           </button>
         </div>
       </section>
