@@ -135,7 +135,7 @@ export const getOpenOrdersFile = () => (dispatch) => {
     .get('http://35.174.106.95/api/open-orders/to-excel')
     .then((response) => {
       if (response.status === 200) {
-        dispatch(setOpenOrdersDataFilter(response.data));
+        dispatch(setOpenOrdersFile(response.data));
         dispatch(setToggleOpenOrdersFile(true));
       }
     })

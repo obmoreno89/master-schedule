@@ -17,6 +17,8 @@ function ModalOpenOrdersExport({
   const fileDownload = useSelector(selectOpenOrdersFile);
   const handleFile = useSelector(selectToggleOpenOrdersFile);
 
+  console.log(fileDownload);
+
   return (
     <ModalBlank
       id='success-modal'

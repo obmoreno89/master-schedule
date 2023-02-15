@@ -571,6 +571,202 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                   );
                 }}
               </SidebarLinkGroup>
+
+              <SidebarLinkGroup
+                activecondition={
+                  pathname === '/mp-pro/system-status/' ||
+                  pathname.includes('dashboard')
+                }
+              >
+                {(handleClick) => {
+                  return (
+                    <Link
+                      to='/mp-pro/system-status/'
+                      className={`block text-slate-200 hover:text-white truncate transition duration-150 ${
+                        pathname.includes('/mp-pro/state-system/') &&
+                        'hover:text-slate-200'
+                      }`}
+                      onClick={() => {
+                        sidebarExpanded
+                          ? handleClick()
+                          : setSidebarExpanded(true);
+                      }}
+                    >
+                      <section className=''>
+                        <NavLink
+                          to='/mp-pro/system-status/'
+                          className={({ isActive }) =>
+                            'transition duration-150 truncate font-semibold text-sm flex items-center py-1 px-0 text-textSidebar hover:text-hoverTextSidebar space-x-[11px] ' +
+                            (isActive ? '!text-primary' : '')
+                          }
+                        >
+                          {({ isActive }) => (
+                            <>
+                              <figure>
+                                <svg
+                                  className='shrink-0 h-6 w-6'
+                                  viewBox='0 0 24 24'
+                                >
+                                  <svg
+                                    width='24'
+                                    height='24'
+                                    viewBox='0 0 24 24'
+                                    fill='none'
+                                  >
+                                    <path
+                                      className={
+                                        `stroke-current text-textSidebar` +
+                                        (isActive ? '!text-primary' : '')
+                                      }
+                                      d='M20 2H4C2.89543 2 2 2.89543 2 4V8C2 9.10457 2.89543 10 4 10H20C21.1046 10 22 9.10457 22 8V4C22 2.89543 21.1046 2 20 2Z'
+                                      stroke='#231F20'
+                                      strokeWidth='2'
+                                      strokeLinecap='round'
+                                      strokeLinejoin='round'
+                                    />
+                                    <path
+                                      className={
+                                        `stroke-current text-textSidebar` +
+                                        (isActive ? '!text-primary' : '')
+                                      }
+                                      d='M20 14H4C2.89543 14 2 14.8954 2 16V20C2 21.1046 2.89543 22 4 22H20C21.1046 22 22 21.1046 22 20V16C22 14.8954 21.1046 14 20 14Z'
+                                      stroke='#231F20'
+                                      strokeWidth='2'
+                                      strokeLinecap='round'
+                                      strokeLinejoin='round'
+                                    />
+                                    <path
+                                      className={
+                                        `stroke-current text-textSidebar` +
+                                        (isActive ? '!text-primary' : '')
+                                      }
+                                      d='M6 6H6.01'
+                                      stroke='#231F20'
+                                      strokeWidth='2'
+                                      strokeLinecap='round'
+                                      strokeLinejoin='round'
+                                    />
+                                    <path
+                                      className={
+                                        `stroke-current text-textSidebar ` +
+                                        (isActive ? '!text-primary' : '')
+                                      }
+                                      d='M6 18H6.01'
+                                      stroke='#231F20'
+                                      strokeWidth='2'
+                                      strokeLinecap='round'
+                                      strokeLinejoin='round'
+                                    />
+                                  </svg>
+                                </svg>
+                              </figure>
+                              <span>Exportar</span>
+                            </>
+                          )}
+                        </NavLink>
+                      </section>
+                    </Link>
+                  );
+                }}
+              </SidebarLinkGroup>
+
+              <SidebarLinkGroup
+                activecondition={
+                  pathname === '/mp-pro/system-status/' ||
+                  pathname.includes('dashboard')
+                }
+              >
+                {(handleClick) => {
+                  return (
+                    <Link
+                      to='/mp-pro/system-status/'
+                      className={`block text-slate-200 hover:text-white truncate transition duration-150 ${
+                        pathname.includes('/mp-pro/state-system/') &&
+                        'hover:text-slate-200'
+                      }`}
+                      onClick={() => {
+                        sidebarExpanded
+                          ? handleClick()
+                          : setSidebarExpanded(true);
+                      }}
+                    >
+                      <section className=''>
+                        <NavLink
+                          to='/mp-pro/system-status/'
+                          className={({ isActive }) =>
+                            'transition duration-150 truncate font-semibold text-sm flex items-center py-1 px-0 text-textSidebar hover:text-hoverTextSidebar space-x-[11px] ' +
+                            (isActive ? '!text-primary' : '')
+                          }
+                        >
+                          {({ isActive }) => (
+                            <>
+                              <figure>
+                                <svg
+                                  className='shrink-0 h-6 w-6'
+                                  viewBox='0 0 24 24'
+                                >
+                                  <svg
+                                    width='24'
+                                    height='24'
+                                    viewBox='0 0 24 24'
+                                    fill='none'
+                                  >
+                                    <path
+                                      className={
+                                        `stroke-current text-textSidebar` +
+                                        (isActive ? '!text-primary' : '')
+                                      }
+                                      d='M20 2H4C2.89543 2 2 2.89543 2 4V8C2 9.10457 2.89543 10 4 10H20C21.1046 10 22 9.10457 22 8V4C22 2.89543 21.1046 2 20 2Z'
+                                      stroke='#231F20'
+                                      strokeWidth='2'
+                                      strokeLinecap='round'
+                                      strokeLinejoin='round'
+                                    />
+                                    <path
+                                      className={
+                                        `stroke-current text-textSidebar` +
+                                        (isActive ? '!text-primary' : '')
+                                      }
+                                      d='M20 14H4C2.89543 14 2 14.8954 2 16V20C2 21.1046 2.89543 22 4 22H20C21.1046 22 22 21.1046 22 20V16C22 14.8954 21.1046 14 20 14Z'
+                                      stroke='#231F20'
+                                      strokeWidth='2'
+                                      strokeLinecap='round'
+                                      strokeLinejoin='round'
+                                    />
+                                    <path
+                                      className={
+                                        `stroke-current text-textSidebar` +
+                                        (isActive ? '!text-primary' : '')
+                                      }
+                                      d='M6 6H6.01'
+                                      stroke='#231F20'
+                                      strokeWidth='2'
+                                      strokeLinecap='round'
+                                      strokeLinejoin='round'
+                                    />
+                                    <path
+                                      className={
+                                        `stroke-current text-textSidebar ` +
+                                        (isActive ? '!text-primary' : '')
+                                      }
+                                      d='M6 18H6.01'
+                                      stroke='#231F20'
+                                      strokeWidth='2'
+                                      strokeLinecap='round'
+                                      strokeLinejoin='round'
+                                    />
+                                  </svg>
+                                </svg>
+                              </figure>
+                              <span>Importar</span>
+                            </>
+                          )}
+                        </NavLink>
+                      </section>
+                    </Link>
+                  );
+                }}
+              </SidebarLinkGroup>
             </ul>
           </div>
         </div>
