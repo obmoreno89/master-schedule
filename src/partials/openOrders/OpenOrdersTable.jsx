@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import OpenOrdersFilter from './OpenOrdersFilter';
+import icons from '../../images/icon/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   getOpenOrdersList,
@@ -10,11 +11,12 @@ import {
   selectOpenOrSearch,
   setSearch,
   revertSearch,
+  getOpenOrdersFile,
 } from '../../store/slice/openOrdersSlice.js';
 import Loading from '../../pages/component/Loading';
 import OpenOrdersTableItem from './OpenOrdersTableItem';
 
-const OpenOrdersTable = () => {
+const OpenOrdersTable = ({ setModalOpenOrdersExportOpen }) => {
   const dispatch = useDispatch();
   const openOrdersList = useSelector(selectOpenOrdersList);
   const loading = useSelector(selectLoading);
@@ -59,8 +61,8 @@ const OpenOrdersTable = () => {
   };
 
   const formatCurrency = (num) => {
-    const options = { style: "currency", currency: "USD" };
-    const numberFormat = new Intl.NumberFormat("en-US", options);
+    const options = { style: 'currency', currency: 'USD' };
+    const numberFormat = new Intl.NumberFormat('en-US', options);
 
     return numberFormat.format(num);
   };
@@ -98,6 +100,18 @@ const OpenOrdersTable = () => {
                 //onChange={handleSearch}
                 onKeyUp={handleSearch}
               />
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setModalOpenOrdersExportOpen(true);
+                  dispatch(getOpenOrdersFile());
+                }}
+                type='button'
+                className='btn bg-primary text-white w-54 space-x-2'
+              >
+                <img className='w-4' src={icons.file} alt='Archivo' />
+                <span>Exportar reporte (CSV) </span>
+              </button>
             </div>
           </header>
           {list?.length > 0 ? (

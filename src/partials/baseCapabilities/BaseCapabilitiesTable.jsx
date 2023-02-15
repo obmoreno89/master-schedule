@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import BaseCapabilitiesTableItem from './BaseCapabilitiesTableItem';
 import BaseCapabilitiesPanel from './BaseCapabilitiesPanel';
+import icons from '../../images/icon/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   selectBaseCapabilitiesList,
@@ -9,6 +10,7 @@ import {
   revertSearch,
   selectBaseCapabilitiesSearch,
   selectReloadCap,
+  getBaseCapabilitiesFile,
 } from '../../store/slice/BaseCapabilitiesSlice';
 import Loading from '../../pages/component/Loading';
 import BaseCapabilitiesEditPanel from './BaseCapabilitiesEditPanel';
@@ -21,6 +23,7 @@ const BaseCapabilitiesTable = ({
   baseCapabilitiesEditOpen,
   setbaseCapabilitiesEditOpen,
   setOpenModalCapDelete,
+  setModalBaseCapabilitiesExportOpen,
 }) => {
   const dispatch = useDispatch();
   const [LineRate, setLineRate] = useState(
@@ -105,6 +108,18 @@ const BaseCapabilitiesTable = ({
                 <path d='M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z' />
               </svg>
               <span>Crear capacidad</span>
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setModalBaseCapabilitiesExportOpen(true);
+                dispatch(getBaseCapabilitiesFile());
+              }}
+              type='button'
+              className='btn bg-primary text-white w-54 space-x-2'
+            >
+              <img className='w-4' src={icons.file} alt='Archivo' />
+              <span>Exportar reporte (CSV) </span>
             </button>
           </div>
         </section>
