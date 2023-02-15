@@ -17,6 +17,8 @@ const initialState = {
   reloadCap: false,
   error: false,
   errorCapCreate: false,
+  baseCapabilitiesFile: [],
+  toggleBaseCapabilitiesFile: false,
 };
 
 export const revertSearch = createAction('REVERT_SEARCH');
@@ -108,6 +110,12 @@ const BaseCapabilitiesSlice = createSlice({
     setCapDelete: (state, action) => {
       state.baseCapabilitiesDelete = action.payload;
     },
+    setBaseCapabilitiesFile: (state, action) => {
+      state.baseCapabilitiesFile = action.payload;
+    },
+    setToggleBaseCapabilitiesFile: (state, action) => {
+      state.toggleBaseCapabilitiesFile = action.payload;
+    },
   },
 });
 
@@ -127,6 +135,8 @@ export const {
   setCapDelete,
   setReloadCap,
   setErrorCapCreate,
+  setBaseCapabilitiesFile,
+  setToggleBaseCapabilitiesFile,
 } = BaseCapabilitiesSlice.actions;
 
 export const selectGroup = (state) => state.group.groupList;
@@ -146,6 +156,10 @@ export const selectError = (state) => state.group.error;
 export const selectErrorCapCreate = (state) => state.group.errorCapCreate;
 export const selectCapEdit = (state) => state.group.BaseCapabilitiesEdit;
 export const selectCapDelete = (state) => state.group.baseCapabilitiesDelete;
+export const selectBaseCapabilitiesFile = (state) =>
+  state.group.baseCapabilitiesFile;
+export const selectToggleBaseCapabilitiesFile = (state) =>
+  state.group.toggleBaseCapabilitiesFile;
 
 export default BaseCapabilitiesSlice.reducer;
 
@@ -359,4 +373,16 @@ export const deleteGroup = (id, setOpenModalGroupDelete) => (dispatch) => {
       dispatch(setLoading(false));
       dispatch(setError(true));
     });
+};
+
+export const getBaseCapabilitiesFile = () => (dispatch) => {
+  axios
+    .get('http://35.174.106.95/api/capacities/export-default-capacities')
+    .then((response) => {
+      if (response.status === 200) {
+        dispatch(setBaseCapabilitiesFile(response.data));
+        dispatch(setToggleBaseCapabilitiesFile(true));
+      }
+    })
+    .catch((error) => console.log(error));
 };

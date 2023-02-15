@@ -12,6 +12,7 @@ import ModalGroupDelete from './component/ModalGroupDelete';
 import ModalProductLineEdit from './component/ModalProductLineEdit';
 import ModalProductLineDelete from './component/ModalProductLineDelete';
 import ModalCapDelete from './component/ModalCapDelete';
+import ModalBaseCapabilitiesExport from './component/ModalBaseCapabilitiesExport';
 
 function BaseCapabilities() {
   const [transactionPanelOpen, setTransactionPanelOpen] = useState(false);
@@ -27,7 +28,8 @@ function BaseCapabilities() {
   const [baseCapabilitiesEditOpen, setbaseCapabilitiesEditOpen] =
     useState(false);
   const [openModalCapDelete, setOpenModalCapDelete] = useState(false);
-
+  const [modalBaseCapabilitiesExportOpen, setModalBaseCapabilitiesExportOpen] =
+    useState(false);
   return (
     <>
       <Layout
@@ -48,6 +50,9 @@ function BaseCapabilities() {
               baseCapabilitiesEditOpen={baseCapabilitiesEditOpen}
               setbaseCapabilitiesEditOpen={setbaseCapabilitiesEditOpen}
               setOpenModalCapDelete={setOpenModalCapDelete}
+              setModalBaseCapabilitiesExportOpen={
+                setModalBaseCapabilitiesExportOpen
+              }
             />
           </div>
           {/* Pagination */}
@@ -98,6 +103,10 @@ function BaseCapabilities() {
       <ModalCapDelete
         openModalCapDelete={openModalCapDelete}
         setOpenModalCapDelete={setOpenModalCapDelete}
+      />
+      <ModalBaseCapabilitiesExport
+        modalBaseCapabilitiesExportOpen={modalBaseCapabilitiesExportOpen}
+        setModalBaseCapabilitiesExportOpen={setModalBaseCapabilitiesExportOpen}
       />
     </>
   );
