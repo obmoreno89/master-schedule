@@ -33,6 +33,7 @@ import confirm from './confirm.svg';
 import cancel from './cancel.svg';
 import refreshGray from './refreshGray.svg';
 import file from './file.svg';
+import fileText from './fileText.svg';
 
 export default {
   openEye,
@@ -70,4 +71,5 @@ export default {
   cancel,
   refreshGray,
   file,
+  fileText,
 };

@@ -14,6 +14,7 @@ const initialState = {
   loadData: false,
   loadDataFiltered: null,
   minMaxExport: [],
+  fileExport: false,
 };
 
 export const revertAll = createAction('REVERT_ALL');
@@ -56,6 +57,12 @@ const ordersPlannedSlice = createSlice({
     setLoadDataFiltered: (state, action) => {
       state.loadDataFiltered = action.payload;
     },
+    setMinMaxExport: (state, action) => {
+      state.minMaxExport = action.payload;
+    },
+    setFileExport: (state, action) => {
+      state.fileExport = action.payload;
+    },
   },
 });
 
@@ -69,6 +76,8 @@ export const {
   setDataFiltered,
   setLoadData,
   setLoadDataFiltered,
+  setMinMaxExport,
+  setFileExport,
 } = ordersPlannedSlice.actions;
 
 export const selectOrders = (state) => state.orders.orders;
@@ -80,6 +89,8 @@ export const selectOrdersSearch = (state) => state.orders.search;
 export const selectDataFiltered = (state) => state.orders.dataFiltered;
 export const selectLoadData = (state) => state.orders.loadData;
 export const selectLoadFiltered = (state) => state.orders.loadDataFiltered;
+export const selectMinMaxExport = (state) => state.orders.minMaxExport;
+export const selectFileExport = (state) => state.orders.fileExport;
 
 export default ordersPlannedSlice.reducer;
 
@@ -120,4 +131,16 @@ export const getDataFiltered = (value) => (dispatch) => {
       }
     })
     .catch((err) => console.log(err));
+};
+
+export const getMinMaxExport = () => (dispatch) => {
+  axios
+    .get('http://35.174.106.95/api/planning/to-excel')
+    .then((response) => {
+      if (response.status === 200) {
+        dispatch(setMinMaxExport(response.data));
+        dispatch(setFileExport(true));
+      }
+    })
+    .catch((error) => console.log(error));
 };

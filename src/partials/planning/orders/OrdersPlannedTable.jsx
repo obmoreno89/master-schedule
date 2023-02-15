@@ -11,6 +11,7 @@ import {
   selectOrdersSearch,
   setSearch,
 } from '../../../store/slice/ordersPlannedSlice';
+import { getMinMaxExport } from '../../../store/slice/ordersPlannedSlice';
 const OrdersTableItems = lazy(() => import('./OrdersTableItems'));
 
 function OrdersPlannedTable({ setModalMinMaxExportOpen }) {
@@ -75,6 +76,7 @@ function OrdersPlannedTable({ setModalMinMaxExportOpen }) {
             onClick={(e) => {
               e.stopPropagation();
               setModalMinMaxExportOpen(true);
+              dispatch(getMinMaxExport());
             }}
             type='button'
             className='btn bg-primary text-white w-54 space-x-2'
