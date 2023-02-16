@@ -54,7 +54,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
   const onlyAdministrator = sessionStorage.getItem('rol');
 
   return (
-    <div>
+    <div className='z-50'>
       {/* Sidebar backdrop (mobile only) */}
       <div
         className={`fixed inset-0 bg-slate-900 bg-opacity-30 z-40 lg:hidden lg:z-auto transition-opacity duration-200 ${

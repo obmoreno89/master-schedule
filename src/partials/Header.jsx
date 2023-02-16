@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import icons from "../images/icon/icons";
 import Help from "../components/DropdownHelp";
 import UserMenu from "../components/DropdownProfile";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getOpenOrdersList,
+  selectOpenOrdersList,
+} from "../store/slice/openOrdersSlice";
 
 function Header({
   sidebarOpen,
@@ -11,6 +16,14 @@ function Header({
   nameRoute,
   nameSubRoute,
 }) {
+  const dispatch = useDispatch();
+  const rol = sessionStorage.getItem("rol");
+  const openOrdersList = useSelector(selectOpenOrdersList);
+
+  useEffect(() => {
+    dispatch(getOpenOrdersList());
+  }, []);
+
   return (
     <>
       <header className="sticky top-0 bg-white border-b  border-slate-200 z-30">
@@ -54,6 +67,10 @@ function Header({
 
             {/* Header: Right side */}
             <div className="flex items-center space-x-3">
+              <span className="text-primary">
+                {rol !== "1" &&
+                  `${openOrdersList?.length} órdenes por programar`}
+              </span>
               <Help align="right" />
 
               <UserMenu align="right" />

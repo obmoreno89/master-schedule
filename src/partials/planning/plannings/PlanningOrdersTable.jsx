@@ -1,4 +1,19 @@
 const PlanningOrdersTable = ({ orders }) => {
+  const monthNames = [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ];
+
   const roundTotalOrder = (number) => {
     try {
       if (number.toString().includes(".")) {
@@ -13,7 +28,13 @@ const PlanningOrdersTable = ({ orders }) => {
 
   const formatDate = (date) => {
     const newDate = new Date(date);
-    return newDate.toLocaleDateString("es-ES");
+
+    const day = newDate.getDate().toString().padStart(2, "0");
+    const month = monthNames[newDate.getMonth()];
+    const year = newDate.getFullYear();
+
+    const formattedDateTime = `${day}-${month}-${year}`;
+    return formattedDateTime;
   };
 
   const formatCurrency = (num) => {
@@ -23,12 +44,19 @@ const PlanningOrdersTable = ({ orders }) => {
     return numberFormat.format(num);
   };
 
+  console.log(orders);
+
   return (
     <>
       <div className="border border-slate-300 rounded-xl orders-table overflow-x-auto">
         <table className="table-auto w-full table rounded-xl">
           <thead className="text-[14px] text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50 sticky top-0 z-40">
             <tr>
+              <th className="px-2 first:pl-5 w-1/4">
+                <div className="flex items-center space-x-10">
+                  <div className="font-semibold text-left">Customer + Org</div>
+                </div>
+              </th>
               <th className="px-2 first:pl-5 w-1/4">
                 <div className="flex items-center space-x-10">
                   <div className="font-semibold text-left">Order</div>
@@ -51,9 +79,9 @@ const PlanningOrdersTable = ({ orders }) => {
               <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                 <p className="font-semibold text-center">Línea de producto</p>
               </th>
-              <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap ">
+              {/* <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap ">
                 <p className="font-semibold text-center">Request date</p>
-              </th>
+              </th> */}
               <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-2/5">
                 <p className="font-semibold text-center">Promise date</p>
               </th>
@@ -68,9 +96,9 @@ const PlanningOrdersTable = ({ orders }) => {
               <tr key={index}>
                 <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap md:w-1/5">
                   <div className="flex flex-col">
-                    <p className="font-medium capitalize text-slate-400 text-sm">
-                      {order.Order}
-                    </p>
+                    {/* <p className="font-medium capitalize text-slate-400 text-sm">
+                  {order.Order}
+                </p> */}
                     <p className="text-textTableItem font-medium capitalize text-base">
                       {order.Customer}
                     </p>
@@ -78,6 +106,11 @@ const PlanningOrdersTable = ({ orders }) => {
                       {order.Org}
                     </p>
                   </div>
+                </td>
+                <td className="px-3 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                  <p className="font-medium capitalize text-slate-400 text-sm">
+                    {order.Order}
+                  </p>
                 </td>
                 <td className="px-3 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                   <p className=" text-sm text-center">{order.Order_Type}</p>
@@ -99,11 +132,11 @@ const PlanningOrdersTable = ({ orders }) => {
                   </p>
                 </td>
 
-                <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap ">
+                {/* <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap ">
                   <p className="text-center text-sm">
                     {formatDate(order?.Request_Date)}
                   </p>
-                </td>
+                </td> */}
                 <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                   <p className="text-center text-sm">
                     {order?.Promise_Date === null
