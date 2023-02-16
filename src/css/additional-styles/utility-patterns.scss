@@ -101,12 +101,12 @@ input[type='search']::-webkit-search-results-decoration {
   @apply text-primary border border-slate-300;
 }
 
-.form-radio{
+.form-radio {
   @apply rounded-md w-[24px] h-[24px];
 }
 
 .form-checkbox {
-  @apply w-6 h-6 border-primary
+  @apply w-6 h-6 border-primary;
 }
 
 .table tbody tr:nth-child(2n + 2) {

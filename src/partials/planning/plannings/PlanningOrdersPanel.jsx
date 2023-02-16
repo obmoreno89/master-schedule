@@ -323,7 +323,7 @@ const PlanningOrdersPanel = ({
                   className={`h-12 rounded w-full text-base font-semibold 2xl:mt-6 ${
                     notCompleteCriteria
                       ? 'cursor-not-allowed text-slate-300'
-                      : 'bg-primary text-white hover:bg-secondary hover:text-primary'
+                      : 'bg-primary text-white hover:bg-green-500'
                   }`}
                   disabled={notCompleteCriteria ? true : false}
                 >

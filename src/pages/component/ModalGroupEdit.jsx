@@ -9,7 +9,7 @@ import {
   selectError,
   selectGroupEdit,
   selectLoading,
-} from '../../store/slice/LineRateSlice';
+} from '../../store/slice/BaseCapabilitiesSlice';
 import { useEffect } from 'react';
 
 function ModalGroupEdit({ openModalGroupEdit, setOpenModalGroupEdit }) {
@@ -108,7 +108,7 @@ function ModalGroupEdit({ openModalGroupEdit, setOpenModalGroupEdit }) {
                 {!loading ? (
                   <button
                     type='submit'
-                    className='bg-primary text-white w-full h-[51px] rounded-[4px] font-semibold'
+                    className='bg-primary text-white w-full h-[51px] rounded-[4px] font-semibold hover:bg-green-500'
                   >
                     Editar grupo
                   </button>
@@ -116,7 +116,7 @@ function ModalGroupEdit({ openModalGroupEdit, setOpenModalGroupEdit }) {
                   <ButtonLoading loading='Creando' createGroup={true} />
                 )}
                 {error && (
-                  <span className='text-red-500 text-sm font-bold'>
+                  <span className='text-red-600 text-sm font-bold'>
                     Ocurrió un error. Por favor vuelva a intentarlo.
                   </span>
                 )}

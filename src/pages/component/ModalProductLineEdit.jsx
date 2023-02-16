@@ -10,7 +10,7 @@ import {
   editPLine,
   selectError,
   revertError,
-} from '../../store/slice/LineRateSlice';
+} from '../../store/slice/BaseCapabilitiesSlice';
 import { useEffect } from 'react';
 
 function ModalProductLineEdit({ openModalPLEdit, setOpenModalPLEdit }) {
@@ -116,7 +116,7 @@ function ModalProductLineEdit({ openModalPLEdit, setOpenModalPLEdit }) {
                 {!loading ? (
                   <button
                     type='submit'
-                    className='bg-primary text-white w-full h-[51px] rounded-[4px] font-semibold'
+                    className='bg-primary text-white w-full h-[51px] rounded-[4px] font-semibold hover:bg-green-500'
                   >
                     Editar línea de producto
                   </button>

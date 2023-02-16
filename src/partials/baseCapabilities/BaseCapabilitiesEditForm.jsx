@@ -7,10 +7,13 @@ import {
   selectPLines,
   selectCapEdit,
   selectError,
-  editCapability,
-} from '../../store/slice/LineRateSlice';
+  editBaseCapabilities,
+} from '../../store/slice/BaseCapabilitiesSlice';
 
-function LineRateEditForm({ LineRateEditOpen, setLineRateEditOpen }) {
+function BaseCapabilitiesEditForm({
+  baseCapabilitiesEditOpen,
+  setbaseCapabilitiesEditOpen,
+}) {
   const dispatch = useDispatch();
   const editCap = useSelector(selectCapEdit);
   const loading = useSelector(selectLoading);
@@ -28,12 +31,19 @@ function LineRateEditForm({ LineRateEditOpen, setLineRateEditOpen }) {
     data.piece_per_hour = data.piece_per_hour.toString();
     data.shift_per_day = data.shift_per_day.toString();
     data.piece_per_day = data.piece_per_day.toString();
-    dispatch(editCapability(data, editCap?.id, setLineRateEditOpen, reset));
+    dispatch(
+      editBaseCapabilities(
+        data,
+        editCap?.id,
+        setbaseCapabilitiesEditOpen,
+        reset
+      )
+    );
   };
 
   const handleButtonCreate = () => {
     return !loading ? (
-      <button className='btn bg-primary hover:bg-secondary hover:text-primary text-white font-semibold text-base w-[27rem] h-12 rounded-[4px]'>
+      <button className='btn bg-primary hover:bg-green-500 text-white font-semibold text-base w-[27rem] h-12 rounded-[4px] '>
         <span className='ml-3 align-baseline'>Editar capacidad</span>
       </button>
     ) : (
@@ -52,7 +62,7 @@ function LineRateEditForm({ LineRateEditOpen, setLineRateEditOpen }) {
     defaultValues.piece_per_day = editCap.piece_per_day;
     defaultValues.comments = editCap?.comments;
     reset({ ...defaultValues });
-  }, [reset, LineRateEditOpen]);
+  }, [reset, baseCapabilitiesEditOpen]);
 
   return (
     <>
@@ -245,4 +255,4 @@ function LineRateEditForm({ LineRateEditOpen, setLineRateEditOpen }) {
   );
 }
 
-export default LineRateEditForm;
+export default BaseCapabilitiesEditForm;

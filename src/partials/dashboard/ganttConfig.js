@@ -24,6 +24,7 @@ export const ganttConfig = {
           }
       }
   },
+  
     taskDragCreate: false,
     taskEdit: false,
     taskResize: false,
@@ -58,6 +59,7 @@ export const ganttConfig = {
   },
   rowHeight: 40,
   height: 480,
+  readOnly: true,
   disabled: true,
 
   columns: [

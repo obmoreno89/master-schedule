@@ -6,7 +6,7 @@ import {
   deleteGroup,
   revertGroupDelete,
   selectGroupDelete,
-} from '../../store/slice/LineRateSlice';
+} from '../../store/slice/BaseCapabilitiesSlice';
 
 function ModalGroupDelete({ setOpenModalGroupDelete, openModalGroupDelete }) {
   const dispatch = useDispatch();
@@ -60,7 +60,7 @@ function ModalGroupDelete({ setOpenModalGroupDelete, openModalGroupDelete }) {
                   deleteGroup(groupFromTable?.id, setOpenModalGroupDelete)
                 );
               }}
-              className='btn-lg bg-red-500 font-semibold text-white w-full'
+              className='btn-lg bg-red-600 hover:bg-red-500 font-semibold text-white w-full'
             >
               Eliminar Grupo
             </button>

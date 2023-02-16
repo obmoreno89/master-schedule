@@ -19,9 +19,15 @@ import PublicRoute from './routes/PublicRoute';
 //SYSTEM STATUS
 import SystemStatus from './pages/SystemStatus';
 
+//EXPORT MODULE
+import Export from './pages/Export';
+
+//IMPORT MODULE
+import Report from './pages/Report';
+
 //PLANNING
 import Planning from './pages/Planning';
-import LineRate from './pages/LineRate';
+import BaseCapabilities from './pages/BaseCapabilities';
 import LineRateCustom from './pages/LineRateCustom';
 import Calendar from './pages/Calendar';
 import PlanningOrders from './partials/planning/plannings/PlanningOrders';
@@ -37,6 +43,7 @@ import User from './pages/User';
 import DemoGantt from './partials/DemoGantt';
 import GanttForId from './partials/planning/plannings/GanttForId';
 import GanttGlobal from './partials/planning/plannings/GanntGlobal/GanttGlobal';
+import GanttGroup from './partials/planning/plannings/ganttGroup/GanttGroup';
 
 //COMPONENTS FOR DESIGN
 import ButtonPage from './pages/component/ButtonPage';
@@ -174,10 +181,10 @@ function App() {
         ></Route>
 
         <Route
-          path='/mp-pro/planning/LineRate/'
+          path='/mp-pro/planning/base-capabilities/'
           element={
             <PrivateRoute>
-              <LineRate />
+              <BaseCapabilities />
             </PrivateRoute>
           }
         />
@@ -227,10 +234,36 @@ function App() {
         />
 
         <Route
+          path='/mp-pro/gantt/group'
+          element={
+            <PrivateRoute>
+              <GanttGroup />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
           path='/mp-pro/planning/plannings/gantt/:id'
           element={
             <PrivateRoute>
               <GanttForId />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path='/mp-pro/export/'
+          element={
+            <PrivateRoute>
+              <Export />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/mp-pro/report/'
+          element={
+            <PrivateRoute>
+              <Report />
             </PrivateRoute>
           }
         />

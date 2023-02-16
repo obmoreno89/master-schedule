@@ -1,33 +1,38 @@
 import React, { useEffect, useState } from 'react';
-import LineRateTableItem from './LineRateTableItem';
-import LineRatePanel from './LineRatePanel';
+import BaseCapabilitiesTableItem from './BaseCapabilitiesTableItem';
+import BaseCapabilitiesPanel from './BaseCapabilitiesPanel';
+import icons from '../../images/icon/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  selectLineRateList,
-  getLineRateList,
-  setLineRateSearch,
+  selectBaseCapabilitiesList,
+  getBaseCapabilitiesList,
+  setBaseCapabilitiesSearch,
   revertSearch,
-  selectLineRateSearch,
+  selectBaseCapabilitiesSearch,
   selectReloadCap,
-} from '../../store/slice/LineRateSlice';
+  getBaseCapabilitiesFile,
+} from '../../store/slice/BaseCapabilitiesSlice';
 import Loading from '../../pages/component/Loading';
-import LineRateEditPanel from './LineRateEditPanel';
+import BaseCapabilitiesEditPanel from './BaseCapabilitiesEditPanel';
 
-const LineRateTable = ({
+const BaseCapabilitiesTable = ({
   setTransactionPanelOpen,
   setGroupPanelOpen,
-  setLineRateOpenPanel,
-  LineRatePanelOpen,
-  LineRateEditOpen,
-  setLineRateEditOpen,
+  setBaseCapabilitiesOpenPanel,
+  baseCapabilitiesPanelOpen,
+  baseCapabilitiesEditOpen,
+  setbaseCapabilitiesEditOpen,
   setOpenModalCapDelete,
+  setModalBaseCapabilitiesExportOpen,
 }) => {
   const dispatch = useDispatch();
-  const [LineRate, setLineRate] = useState(useSelector(selectLineRateList));
+  const [LineRate, setLineRate] = useState(
+    useSelector(selectBaseCapabilitiesList)
+  );
   const [startSearch, setStartSearch] = useState(false);
 
-  const LineRateList = useSelector(selectLineRateList);
-  const searchItems = useSelector(selectLineRateSearch);
+  const baseCapabilitiesList = useSelector(selectBaseCapabilitiesList);
+  const searchItems = useSelector(selectBaseCapabilitiesSearch);
   const reload = useSelector(selectReloadCap);
 
   const handleSearch = (e) => {
@@ -47,7 +52,7 @@ const LineRateTable = ({
           return element;
         }
       });
-      dispatch(setLineRateSearch(result));
+      dispatch(setBaseCapabilitiesSearch(result));
     } else {
       dispatch(revertSearch());
       setStartSearch(false);
@@ -55,23 +60,23 @@ const LineRateTable = ({
   };
 
   useEffect(() => {
-    dispatch(getLineRateList());
+    dispatch(getBaseCapabilitiesList());
   }, [reload]);
 
   useEffect(() => {
-    setLineRate(LineRateList);
-  }, [LineRateList, reload]);
+    setLineRate(baseCapabilitiesList);
+  }, [baseCapabilitiesList, reload]);
 
   return (
     <div className='bg-white'>
       <section>
-        <LineRatePanel
-          setLineRateOpenPanel={setLineRateOpenPanel}
-          LineRatePanelOpen={LineRatePanelOpen}
+        <BaseCapabilitiesPanel
+          setBaseCapabilitiesOpenPanel={setBaseCapabilitiesOpenPanel}
+          baseCapabilitiesPanelOpen={baseCapabilitiesPanelOpen}
         />
-        <LineRateEditPanel
-          LineRateEditOpen={LineRateEditOpen}
-          setLineRateEditOpen={setLineRateEditOpen}
+        <BaseCapabilitiesEditPanel
+          baseCapabilitiesEditOpen={baseCapabilitiesEditOpen}
+          setbaseCapabilitiesEditOpen={setbaseCapabilitiesEditOpen}
         />
       </section>
       <div className='mt-6'>
@@ -91,10 +96,36 @@ const LineRateTable = ({
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                setLineRateOpenPanel(true);
+                setModalBaseCapabilitiesExportOpen(true);
+                dispatch(getBaseCapabilitiesFile());
               }}
               type='button'
-              className='btn bg-primary text-white w-54 space-x-2'
+              className='font-medium text-sm bg-white text-primary w-54 space-x-2 border border-primary rounded px-2 flex justify-center items-center hover:text-green-500 hover:border-green-500'
+            >
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='19'
+                height='19'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='#009B4A'
+                stroke-width='2'
+                stroke-linecap='round'
+                stroke-linejoin='round'
+                class='stroke-current text-gray-500'
+              >
+                <path d='M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z'></path>
+                <polyline points='13 2 13 9 20 9'></polyline>
+              </svg>
+              <span>Exportar reporte (CSV) </span>
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setBaseCapabilitiesOpenPanel(true);
+              }}
+              type='button'
+              className='btn bg-primary text-white w-54 space-x-2 hover:bg-green-500'
             >
               <svg
                 className='w-4 h-4 fill-current opacity-50 shrink-0'
@@ -110,21 +141,21 @@ const LineRateTable = ({
           <>
             <div className='overflow-x-auto rounded-xl border border-slate-300 h-[550px]'>
               {!startSearch ? (
-                <LineRateTableItem
+                <BaseCapabilitiesTableItem
                   setTransactionPanelOpen={setTransactionPanelOpen}
                   setGroupPanelOpen={setGroupPanelOpen}
-                  LineRateList={LineRate}
+                  baseCapabilitiesList={LineRate}
                   setLineRate={setLineRate}
-                  setLineRateEditOpen={setLineRateEditOpen}
+                  setbaseCapabilitiesEditOpen={setbaseCapabilitiesEditOpen}
                   setOpenModalCapDelete={setOpenModalCapDelete}
                 />
               ) : startSearch && searchItems.length > 0 ? (
-                <LineRateTableItem
+                <BaseCapabilitiesTableItem
                   setTransactionPanelOpen={setTransactionPanelOpen}
                   setGroupPanelOpen={setGroupPanelOpen}
-                  LineRateList={searchItems}
+                  baseCapabilitiesList={searchItems}
                   setLineRate={setLineRate}
-                  setLineRateEditOpen={setLineRateEditOpen}
+                  setbaseCapabilitiesEditOpen={setbaseCapabilitiesEditOpen}
                   setOpenModalCapDelete={setOpenModalCapDelete}
                 />
               ) : (
@@ -146,4 +177,4 @@ const LineRateTable = ({
   );
 };
 
-export default LineRateTable;
+export default BaseCapabilitiesTable;

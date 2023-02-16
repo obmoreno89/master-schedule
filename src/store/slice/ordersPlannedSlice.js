@@ -1,7 +1,7 @@
-import { createAction, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createAction, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-import { endpointsCodes } from "./functions";
+import { endpointsCodes } from './functions';
 
 const initialState = {
   orders: [],
@@ -13,14 +13,16 @@ const initialState = {
   dataFiltered: [],
   loadData: false,
   loadDataFiltered: null,
+  minMaxExport: [],
+  fileExport: false,
 };
 
-export const revertAll = createAction("REVERT_ALL");
-export const revertSearch = createAction("REVERT_SEARCH");
+export const revertAll = createAction('REVERT_ALL');
+export const revertSearch = createAction('REVERT_SEARCH');
 
 const ordersPlannedSlice = createSlice({
   initialState,
-  name: "orders",
+  name: 'orders',
   extraReducers: (builder) => {
     builder.addCase(revertAll, () => initialState);
     builder.addCase(revertSearch, (state, action) => {
@@ -55,6 +57,12 @@ const ordersPlannedSlice = createSlice({
     setLoadDataFiltered: (state, action) => {
       state.loadDataFiltered = action.payload;
     },
+    setMinMaxExport: (state, action) => {
+      state.minMaxExport = action.payload;
+    },
+    setFileExport: (state, action) => {
+      state.fileExport = action.payload;
+    },
   },
 });
 
@@ -68,6 +76,8 @@ export const {
   setDataFiltered,
   setLoadData,
   setLoadDataFiltered,
+  setMinMaxExport,
+  setFileExport,
 } = ordersPlannedSlice.actions;
 
 export const selectOrders = (state) => state.orders.orders;
@@ -79,13 +89,15 @@ export const selectOrdersSearch = (state) => state.orders.search;
 export const selectDataFiltered = (state) => state.orders.dataFiltered;
 export const selectLoadData = (state) => state.orders.loadData;
 export const selectLoadFiltered = (state) => state.orders.loadDataFiltered;
+export const selectMinMaxExport = (state) => state.orders.minMaxExport;
+export const selectFileExport = (state) => state.orders.fileExport;
 
 export default ordersPlannedSlice.reducer;
 
 export const getOrders = () => (dispatch) => {
   dispatch(setLoadData(true));
   axios
-    .get("http://35.174.106.95/api/planning/report/list/all")
+    .get('http://35.174.106.95/api/planning/report/list/all')
     .then((response) => {
       if (response.status === 200) {
         dispatch(setOrders(response.data));
@@ -99,7 +111,7 @@ export const getOrders = () => (dispatch) => {
 
 export const getFilterOptions = () => (dispatch) => {
   axios
-    .get("http://35.174.106.95/api/planning/report/list/org")
+    .get('http://35.174.106.95/api/planning/report/list/org')
     .then((response) => {
       if (response.status === 200) {
         dispatch(setFilterOptions(response.data));
@@ -119,4 +131,16 @@ export const getDataFiltered = (value) => (dispatch) => {
       }
     })
     .catch((err) => console.log(err));
+};
+
+export const getMinMaxExport = () => (dispatch) => {
+  axios
+    .get('http://35.174.106.95/api/planning/to-excel')
+    .then((response) => {
+      if (response.status === 200) {
+        dispatch(setMinMaxExport(response.data));
+        dispatch(setFileExport(true));
+      }
+    })
+    .catch((error) => console.log(error));
 };

@@ -37,7 +37,7 @@ function Signin() {
     return !loading ? (
       <button
         type='submit'
-        className='btn bg-primary hover:bg-secondary text-white hover:text-primary font-semibold w-full h-12'
+        className='btn bg-primary text-white hover:bg-green-500 font-semibold w-full h-12'
       >
         Iniciar sesión
       </button>

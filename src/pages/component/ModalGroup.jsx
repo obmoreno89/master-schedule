@@ -2,7 +2,10 @@ import ModalBasic from '../../components/ModalBasic';
 import { useForm } from 'react-hook-form';
 import ButtonLoading from '../../helpers/ButtonLoading';
 import { useSelector, useDispatch } from 'react-redux';
-import { createGroup, selectLoading } from '../../store/slice/LineRateSlice';
+import {
+  createGroup,
+  selectLoading,
+} from '../../store/slice/BaseCapabilitiesSlice';
 
 function ModalGroup({ openModalGroup, setOpenModalGroup }) {
   const {
@@ -85,7 +88,7 @@ function ModalGroup({ openModalGroup, setOpenModalGroup }) {
             {!loading ? (
               <button
                 type='submit'
-                className='bg-primary text-white w-full h-[51px] rounded-[4px] font-semibold'
+                className='bg-primary text-white w-full h-[51px] rounded-[4px] font-semibold hover:bg-green-500'
               >
                 Guardar grupo
               </button>

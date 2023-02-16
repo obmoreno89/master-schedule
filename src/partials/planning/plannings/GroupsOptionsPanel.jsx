@@ -2,7 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import Transition from '../../../utils/Transition';
 import icons from '../../../images/icon/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGroupList, selectGroup } from '../../../store/slice/LineRateSlice';
+import {
+  getGroupList,
+  selectGroup,
+} from '../../../store/slice/BaseCapabilitiesSlice';
 import {
   getAllTypes,
   revertAll,
@@ -172,7 +175,7 @@ const GroupsOptionsPanel = ({
               <div className='flex justify-center'>
                 <button
                   onClick={onSubmit}
-                  className='w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-secondary hover:text-primary '
+                  className='w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-green-500'
                 >
                   <span className='my-auto'>Continuar</span>
 

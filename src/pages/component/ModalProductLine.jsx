@@ -8,7 +8,7 @@ import {
   selectGroup,
   createPLines,
   selectLoading,
-} from '../../store/slice/LineRateSlice';
+} from '../../store/slice/BaseCapabilitiesSlice';
 
 function ModalProductLine({ openModalPL, setOpenModalPL }) {
   const {
@@ -109,7 +109,7 @@ function ModalProductLine({ openModalPL, setOpenModalPL }) {
             {!loading ? (
               <button
                 type='submit'
-                className='bg-primary text-white w-full h-[51px] rounded-[4px] font-semibold'
+                className='bg-primary text-white w-full h-[51px] rounded-[4px] font-semibold hover:bg-green-500'
               >
                 Guardar línea de producto
               </button>

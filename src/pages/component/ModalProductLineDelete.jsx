@@ -4,7 +4,7 @@ import {
   deletePLine,
   revertPLDelete,
   selectPLDelete,
-} from '../../store/slice/LineRateSlice';
+} from '../../store/slice/BaseCapabilitiesSlice';
 
 function ModalProductLineDelete({ setOpenModalPLDelete, openModalPLDelete }) {
   const dispatch = useDispatch();
@@ -56,7 +56,7 @@ function ModalProductLineDelete({ setOpenModalPLDelete, openModalPLDelete }) {
                 e.stopPropagation();
                 dispatch(deletePLine(plFromTable?.id, setOpenModalPLDelete));
               }}
-              className='btn-lg bg-red-500 font-semibold text-white w-full'
+              className='btn-lg bg-red-600 hover:bg-red-500 font-semibold text-white w-full'
             >
               Eliminar línea de producto
             </button>

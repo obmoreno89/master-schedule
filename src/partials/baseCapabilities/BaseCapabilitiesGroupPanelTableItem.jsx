@@ -2,10 +2,13 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import icons from '../../images/icon/icons';
 import AddButtonForTable from '../../pages/component/AddButtonForTable';
-import { setGroupDelete, setGroupEdit } from '../../store/slice/LineRateSlice';
+import {
+  setGroupDelete,
+  setGroupEdit,
+} from '../../store/slice/BaseCapabilitiesSlice';
 import { orderGAsc, orderGDesc } from './orderFunc';
 
-function LineRateGroupPanelTableItem({
+function BaseCapabilitiesGroupPanelTableItem({
   setOpenModalGroup,
   setOpenModalGroupEdit,
   setOpenModalGroupDelete,
@@ -96,4 +99,4 @@ function LineRateGroupPanelTableItem({
   );
 }
 
-export default LineRateGroupPanelTableItem;
+export default BaseCapabilitiesGroupPanelTableItem;

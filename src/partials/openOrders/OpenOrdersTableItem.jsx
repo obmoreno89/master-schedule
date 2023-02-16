@@ -84,7 +84,7 @@ const Table = ({ data }) => {
             <p className="font-semibold text-center">Quantity</p>
           </th>
           <th className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-            <p className="font-semibold text-center">total Order</p>
+            <p className="font-semibold text-center">Total Order</p>
           </th>
           {/* <th className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap '>
             <p className='font-semibold text-center'>Request Date</p>
