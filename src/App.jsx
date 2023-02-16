@@ -19,6 +19,12 @@ import PublicRoute from './routes/PublicRoute';
 //SYSTEM STATUS
 import SystemStatus from './pages/SystemStatus';
 
+//EXPORT MODULE
+import Export from './pages/Export';
+
+//IMPORT MODULE
+import Report from './pages/Report';
+
 //PLANNING
 import Planning from './pages/Planning';
 import BaseCapabilities from './pages/BaseCapabilities';
@@ -241,6 +247,23 @@ function App() {
           element={
             <PrivateRoute>
               <GanttForId />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path='/mp-pro/export/'
+          element={
+            <PrivateRoute>
+              <Export />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/mp-pro/report/'
+          element={
+            <PrivateRoute>
+              <Report />
             </PrivateRoute>
           }
         />
