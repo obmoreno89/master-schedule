@@ -79,13 +79,28 @@ function OrdersPlannedTable({ setModalMinMaxExportOpen }) {
               dispatch(getMinMaxExport());
             }}
             type='button'
-            className='btn bg-primary text-white w-54 space-x-2'
+            className='font-medium text-sm bg-white text-primary w-54 space-x-2 border border-primary rounded px-2 flex justify-center items-center hover:text-green-500 hover:border-green-500'
           >
-            <img className='w-4' src={icons.file} alt='Archivo' />
-            <span>Exportar reporte (CSV) </span>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              width='19'
+              height='19'
+              viewBox='0 0 24 24'
+              fill='none'
+              stroke='#009B4A'
+              stroke-width='2'
+              stroke-linecap='round'
+              stroke-linejoin='round'
+              class='stroke-current text-gray-500'
+            >
+              <path d='M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z'></path>
+              <polyline points='13 2 13 9 20 9'></polyline>
+            </svg>
+            <span class='hover:text-green-600'>Exportar reporte (CSV) </span>
           </button>
         </div>
       </section>
+
       {loadData ? (
         list?.length > 0 ? (
           <section>
