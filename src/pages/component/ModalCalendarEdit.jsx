@@ -51,7 +51,7 @@ function ModalCalendarEdit({
             Editar dia no laborable
           </div>
           <button
-            className='text-slate-400 hover:text-slate-500 mt-3'
+            className='text-slate-400 hover:text-slate-500 mt-3 '
             onClick={(e) => {
               e.stopPropagation();
               setOpenModalCalendarEdit(false);
@@ -98,7 +98,7 @@ function ModalCalendarEdit({
               {!loading ? (
                 <button
                   type='submit'
-                  className='bg-primary text-white w-full h-[51px] rounded mt-14 mb-6 font-semibold'
+                  className='bg-primary text-white w-full h-[51px] rounded mt-14 mb-6 font-semibold hover:bg-green-500'
                 >
                   Editar dia no laborable
                 </button>

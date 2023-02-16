@@ -59,7 +59,7 @@ function ModalLineRateCustomDelete({
                 dispatch(LineRateCustomDelete(LineRateCustomDeleteData.id));
                 setOpenModalLineRateCustomDelete(false);
               }}
-              className='btn-lg bg-red-500 font-semibold text-white w-full'
+              className='btn-lg bg-red-600 hover:bg-red-500 font-semibold text-white w-full'
             >
               Eliminar capacidad custom
             </button>

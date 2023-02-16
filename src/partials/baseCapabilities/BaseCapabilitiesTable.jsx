@@ -96,10 +96,36 @@ const BaseCapabilitiesTable = ({
             <button
               onClick={(e) => {
                 e.stopPropagation();
+                setModalBaseCapabilitiesExportOpen(true);
+                dispatch(getBaseCapabilitiesFile());
+              }}
+              type='button'
+              className='font-medium text-sm bg-white text-primary w-54 space-x-2 border border-primary rounded px-2 flex justify-center items-center hover:text-green-500 hover:border-green-500'
+            >
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='19'
+                height='19'
+                viewBox='0 0 24 24'
+                fill='none'
+                stroke='#009B4A'
+                stroke-width='2'
+                stroke-linecap='round'
+                stroke-linejoin='round'
+                class='stroke-current text-gray-500'
+              >
+                <path d='M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z'></path>
+                <polyline points='13 2 13 9 20 9'></polyline>
+              </svg>
+              <span>Exportar reporte (CSV) </span>
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
                 setBaseCapabilitiesOpenPanel(true);
               }}
               type='button'
-              className='btn bg-primary text-white w-54 space-x-2'
+              className='btn bg-primary text-white w-54 space-x-2 hover:bg-green-500'
             >
               <svg
                 className='w-4 h-4 fill-current opacity-50 shrink-0'
@@ -108,18 +134,6 @@ const BaseCapabilitiesTable = ({
                 <path d='M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z' />
               </svg>
               <span>Crear capacidad</span>
-            </button>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setModalBaseCapabilitiesExportOpen(true);
-                dispatch(getBaseCapabilitiesFile());
-              }}
-              type='button'
-              className='btn bg-primary text-white w-54 space-x-2'
-            >
-              <img className='w-4' src={icons.file} alt='Archivo' />
-              <span>Exportar reporte (CSV) </span>
             </button>
           </div>
         </section>

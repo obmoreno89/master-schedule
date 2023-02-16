@@ -71,7 +71,7 @@ function GetMinMaxModal({
                   getDemandList(letter, navigate, setGetMinMaxModalOpen)
                 );
               }}
-              className='btn-lg bg-primary font-semibold text-white w-full'
+              className='btn-lg bg-primary font-semibold text-white w-full hover:bg-green-500'
             >
               Si, agregar
             </button>
@@ -81,7 +81,7 @@ function GetMinMaxModal({
                 setFullLoading(true);
                 goToGeneratePlanningFromSalesOrder();
               }}
-              className='btn-lg bg-red-500 font-semibold text-white w-full'
+              className='btn-lg bg-red-600 hover:bg-red-500 font-semibold text-white w-full'
             >
               No, ignorar
             </button>

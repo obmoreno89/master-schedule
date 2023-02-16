@@ -84,7 +84,7 @@ function PlanningsTable({
           <button
             onClick={() => setGroupsOptionGanttPanelOpen(true)}
             type='button'
-            className=' font-medium text-sm bg-white text-primary w-54 space-x-2 border border-primary rounded px-2 flex justify-center items-center'
+            className='font-medium text-sm bg-white text-primary w-54 space-x-2 border border-primary rounded px-2 flex justify-center items-center'
           >
             <img className='w-5' src={icons.graphGantt} alt='Gantt' />
             <span>Vista de Gantt</span>
@@ -92,7 +92,7 @@ function PlanningsTable({
           <button
             onClick={() => setGroupOptionsPanel(true)}
             type='button'
-            className='btn bg-primary text-white w-54 space-x-2'
+            className='btn bg-primary text-white w-54 space-x-2 hover:bg-green-500'
           >
             <svg
               className='w-4 h-4 fill-current opacity-50 shrink-0'
