@@ -594,7 +594,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     >
                       <section className=''>
                         <NavLink
-                          to='/mp-pro/system-status/'
+                          to='/mp-pro/export/'
                           className={({ isActive }) =>
                             'transition duration-150 truncate font-semibold text-sm flex items-center py-1 px-0 text-textSidebar hover:text-hoverTextSidebar space-x-[11px] ' +
                             (isActive ? '!text-primary' : '')
@@ -604,60 +604,34 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                             <>
                               <figure>
                                 <svg
-                                  className='shrink-0 h-6 w-6'
+                                  className='shrink-0 h-[26px] w-[26px]'
+                                  width='24'
+                                  height='24'
                                   viewBox='0 0 24 24'
+                                  fill='none'
                                 >
-                                  <svg
-                                    width='24'
-                                    height='24'
-                                    viewBox='0 0 24 24'
-                                    fill='none'
-                                  >
-                                    <path
-                                      className={
-                                        `stroke-current text-textSidebar` +
-                                        (isActive ? '!text-primary' : '')
-                                      }
-                                      d='M20 2H4C2.89543 2 2 2.89543 2 4V8C2 9.10457 2.89543 10 4 10H20C21.1046 10 22 9.10457 22 8V4C22 2.89543 21.1046 2 20 2Z'
-                                      stroke='#231F20'
-                                      strokeWidth='2'
-                                      strokeLinecap='round'
-                                      strokeLinejoin='round'
-                                    />
-                                    <path
-                                      className={
-                                        `stroke-current text-textSidebar` +
-                                        (isActive ? '!text-primary' : '')
-                                      }
-                                      d='M20 14H4C2.89543 14 2 14.8954 2 16V20C2 21.1046 2.89543 22 4 22H20C21.1046 22 22 21.1046 22 20V16C22 14.8954 21.1046 14 20 14Z'
-                                      stroke='#231F20'
-                                      strokeWidth='2'
-                                      strokeLinecap='round'
-                                      strokeLinejoin='round'
-                                    />
-                                    <path
-                                      className={
-                                        `stroke-current text-textSidebar` +
-                                        (isActive ? '!text-primary' : '')
-                                      }
-                                      d='M6 6H6.01'
-                                      stroke='#231F20'
-                                      strokeWidth='2'
-                                      strokeLinecap='round'
-                                      strokeLinejoin='round'
-                                    />
-                                    <path
-                                      className={
-                                        `stroke-current text-textSidebar ` +
-                                        (isActive ? '!text-primary' : '')
-                                      }
-                                      d='M6 18H6.01'
-                                      stroke='#231F20'
-                                      strokeWidth='2'
-                                      strokeLinecap='round'
-                                      strokeLinejoin='round'
-                                    />
-                                  </svg>
+                                  <path
+                                    d='M14 3v4a1 1 0 0 0 1 1h4'
+                                    className={
+                                      `stroke-current text-textSidebar` +
+                                      (isActive ? '!text-primary' : '')
+                                    }
+                                    stroke='#231F20'
+                                    strokeWidth='2'
+                                    strokeLinecap='round'
+                                    strokeLinejoin='round'
+                                  />
+                                  <path
+                                    className={
+                                      `stroke-current text-textSidebar` +
+                                      (isActive ? '!text-primary' : '')
+                                    }
+                                    d='M11.5 21h-4.5a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v5m-5 6h7m-3 -3l3 3l-3 3'
+                                    stroke='#231F20'
+                                    strokeWidth='2'
+                                    strokeLinecap='round'
+                                    strokeLinejoin='round'
+                                  />
                                 </svg>
                               </figure>
                               <span>Exportar</span>
@@ -692,7 +666,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     >
                       <section className=''>
                         <NavLink
-                          to='/mp-pro/system-status/'
+                          to='/mp-pro/report/'
                           className={({ isActive }) =>
                             'transition duration-150 truncate font-semibold text-sm flex items-center py-1 px-0 text-textSidebar hover:text-hoverTextSidebar space-x-[11px] ' +
                             (isActive ? '!text-primary' : '')
@@ -702,63 +676,79 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                             <>
                               <figure>
                                 <svg
-                                  className='shrink-0 h-6 w-6'
+                                  className='shrink-0 h-[26px] w-[26px]'
                                   viewBox='0 0 24 24'
+                                  width='24'
+                                  height='24'
+                                  fill='none'
                                 >
-                                  <svg
-                                    width='24'
-                                    height='24'
-                                    viewBox='0 0 24 24'
-                                    fill='none'
-                                  >
-                                    <path
-                                      className={
-                                        `stroke-current text-textSidebar` +
-                                        (isActive ? '!text-primary' : '')
-                                      }
-                                      d='M20 2H4C2.89543 2 2 2.89543 2 4V8C2 9.10457 2.89543 10 4 10H20C21.1046 10 22 9.10457 22 8V4C22 2.89543 21.1046 2 20 2Z'
-                                      stroke='#231F20'
-                                      strokeWidth='2'
-                                      strokeLinecap='round'
-                                      strokeLinejoin='round'
-                                    />
-                                    <path
-                                      className={
-                                        `stroke-current text-textSidebar` +
-                                        (isActive ? '!text-primary' : '')
-                                      }
-                                      d='M20 14H4C2.89543 14 2 14.8954 2 16V20C2 21.1046 2.89543 22 4 22H20C21.1046 22 22 21.1046 22 20V16C22 14.8954 21.1046 14 20 14Z'
-                                      stroke='#231F20'
-                                      strokeWidth='2'
-                                      strokeLinecap='round'
-                                      strokeLinejoin='round'
-                                    />
-                                    <path
-                                      className={
-                                        `stroke-current text-textSidebar` +
-                                        (isActive ? '!text-primary' : '')
-                                      }
-                                      d='M6 6H6.01'
-                                      stroke='#231F20'
-                                      strokeWidth='2'
-                                      strokeLinecap='round'
-                                      strokeLinejoin='round'
-                                    />
-                                    <path
-                                      className={
-                                        `stroke-current text-textSidebar ` +
-                                        (isActive ? '!text-primary' : '')
-                                      }
-                                      d='M6 18H6.01'
-                                      stroke='#231F20'
-                                      strokeWidth='2'
-                                      strokeLinecap='round'
-                                      strokeLinejoin='round'
-                                    />
-                                  </svg>
+                                  <path
+                                    d='M14 3v4a1 1 0 0 0 1 1h4'
+                                    className={
+                                      `stroke-current text-textSidebar` +
+                                      (isActive ? '!text-primary' : '')
+                                    }
+                                    stroke='#231F20'
+                                    strokeWidth='2'
+                                    strokeLinecap='round'
+                                    strokeLinejoin='round'
+                                  />
+                                  <path
+                                    d='M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z'
+                                    className={
+                                      `stroke-current text-textSidebar` +
+                                      (isActive ? '!text-primary' : '')
+                                    }
+                                    stroke='#231F20'
+                                    strokeWidth='2'
+                                    strokeLinecap='round'
+                                    strokeLinejoin='round'
+                                  />
+                                  <line
+                                    x1='9'
+                                    y1='17'
+                                    x2='9'
+                                    y2='12'
+                                    className={
+                                      `stroke-current text-textSidebar` +
+                                      (isActive ? '!text-primary' : '')
+                                    }
+                                    stroke='#231F20'
+                                    strokeWidth='2'
+                                    strokeLinecap='round'
+                                    strokeLinejoin='round'
+                                  />
+                                  <line
+                                    x1='12'
+                                    y1='17'
+                                    x2='12'
+                                    y2='16'
+                                    className={
+                                      `stroke-current text-textSidebar` +
+                                      (isActive ? '!text-primary' : '')
+                                    }
+                                    stroke='#231F20'
+                                    strokeWidth='2'
+                                    strokeLinecap='round'
+                                    strokeLinejoin='round'
+                                  />
+                                  <line
+                                    x1='15'
+                                    y1='17'
+                                    x2='15'
+                                    y2='14'
+                                    className={
+                                      `stroke-current text-textSidebar` +
+                                      (isActive ? '!text-primary' : '')
+                                    }
+                                    stroke='#231F20'
+                                    strokeWidth='2'
+                                    strokeLinecap='round'
+                                    strokeLinejoin='round'
+                                  />
                                 </svg>
                               </figure>
-                              <span>Importar</span>
+                              <span>Reporte</span>
                             </>
                           )}
                         </NavLink>
