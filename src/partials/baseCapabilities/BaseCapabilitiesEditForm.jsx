@@ -43,7 +43,7 @@ function BaseCapabilitiesEditForm({
 
   const handleButtonCreate = () => {
     return !loading ? (
-      <button className='btn bg-primary hover:bg-secondary hover:text-primary text-white font-semibold text-base w-[27rem] h-12 rounded-[4px]'>
+      <button className='btn bg-primary hover:bg-green-500 text-white font-semibold text-base w-[27rem] h-12 rounded-[4px] '>
         <span className='ml-3 align-baseline'>Editar capacidad</span>
       </button>
     ) : (

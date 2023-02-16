@@ -89,7 +89,7 @@ function UserTable({
                   //setLine RateOpenPanel(true);
                 }}
                 type='button'
-                className='btn bg-primary text-white w-54 space-x-2'
+                className='btn bg-primary text-white w-54 space-x-2 hover:bg-green-500'
               >
                 <svg
                   className='w-4 h-4 fill-current opacity-50 shrink-0'

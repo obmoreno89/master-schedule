@@ -70,7 +70,7 @@ function ModalCapDelete({ openModalCapDelete, setOpenModalCapDelete }) {
                   )
                 );
               }}
-              className='btn-lg bg-red-500 font-semibold text-white w-full'
+              className='btn-lg bg-red-600 hover:bg-red-500 font-semibold text-white w-full'
             >
               Eliminar Capacidad
             </button>

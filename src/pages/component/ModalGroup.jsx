@@ -88,7 +88,7 @@ function ModalGroup({ openModalGroup, setOpenModalGroup }) {
             {!loading ? (
               <button
                 type='submit'
-                className='bg-primary text-white w-full h-[51px] rounded-[4px] font-semibold'
+                className='bg-primary text-white w-full h-[51px] rounded-[4px] font-semibold hover:bg-green-500'
               >
                 Guardar grupo
               </button>

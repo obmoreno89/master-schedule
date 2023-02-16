@@ -105,7 +105,7 @@ const PlanningOrders = () => {
                       e.stopPropagation();
                       setGetMinMaxModalOpen(true);
                     }}
-                    className='w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-secondary hover:text-primary'
+                    className='w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-green-500'
                     // disabled={notFound || orders?.length === 0 ? true : false}
                   >
                     <span className='my-auto'>Continuar</span>
