@@ -34,6 +34,7 @@ import cancel from './cancel.svg';
 import refreshGray from './refreshGray.svg';
 import file from './file.svg';
 import fileText from './fileText.svg';
+import nNidec from './nNidec.svg';
 
 export default {
   openEye,
@@ -72,4 +73,5 @@ export default {
   refreshGray,
   file,
   fileText,
+  nNidec,
 };
