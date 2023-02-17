@@ -91,9 +91,15 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
             </svg>
           </button>
           {/* Logo */}
-          <figure className='block'>
-            <img src={icons.logoNide} alt='logo' className='w-32' />
-          </figure>
+          {sidebarExpanded ? (
+            <figure className='block'>
+              <img src={icons.logoNide} alt='logo' className='w-32' />
+            </figure>
+          ) : (
+            <figure className='block'>
+              <img src={icons.nNidec} alt='logo' />
+            </figure>
+          )}
         </div>
 
         {/* Links */}
