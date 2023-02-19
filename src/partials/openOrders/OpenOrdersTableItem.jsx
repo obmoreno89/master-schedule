@@ -55,7 +55,7 @@ const Table = ({ data }) => {
         <tr>
           <th className="px-2 first:pl-5 w-1/4">
             <div className="flex items-center space-x-10">
-              <div className="font-semibold text-left">Customer + Org</div>
+              <div className="font-semibold text-left">P. Line / Customer / Org</div>
             </div>
           </th>
           <th className="px-2 first:pl-5 w-1/4">
@@ -102,9 +102,9 @@ const Table = ({ data }) => {
           <tr key={index}>
             <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap md:w-1/5">
               <div className="flex flex-col">
-                {/* <p className="font-medium capitalize text-slate-400 text-sm">
-                  {order.Order}
-                </p> */}
+                <p className="font-medium capitalize text-slate-400 text-sm">
+                  {order.EMRPRODUCTIONLINE}
+                </p>
                 <p className="text-textTableItem font-medium capitalize text-base">
                   {order.Customer}
                 </p>
@@ -123,11 +123,11 @@ const Table = ({ data }) => {
             </td>
 
             <td className="px-3 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-              <p className="font-semibold text-sm">grupo</p>
+              <p className="font-semibold text-sm">{order.group}</p>
             </td>
 
             <td className="px-3 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-              <p className="font-semibold text-sm">created date</p>
+              <p className="font-semibold text-sm">{formatDate(order.CREATED_DATE)}</p>
             </td>
 
             <td className="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
