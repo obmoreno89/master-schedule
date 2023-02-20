@@ -74,7 +74,6 @@ function App() {
       <Routes>
         <Route
           exact
-          // path='mp-pro/'
           path='mp-pro/'
           element={
             <PrivateRoute>
