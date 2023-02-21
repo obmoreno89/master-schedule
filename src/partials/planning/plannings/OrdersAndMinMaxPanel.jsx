@@ -15,8 +15,9 @@ const OrdersAndMinMaxPanel = ({
   const dispatch = useDispatch();
 
   const [error, setError] = useState(false);
-  const [openOrderstLetterChosen, setOpenOrdersLetterChosen] = useState(null);
-  const [minMaxLetterChosen, setMinMaxLetterChosen] = useState(null);
+  const [selectedCheckbox, setSelectedCheckbox] = useState(null);
+  const [openOrderstLetterChosen, setOpenOrdersLetterChosen] = useState(false);
+  const [minMaxLetterChosen, setMinMaxLetterChosen] = useState(false);
 
   useEffect(() => {
     if (error) {
@@ -26,29 +27,37 @@ const OrdersAndMinMaxPanel = ({
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (openOrderstLetterChosen === '1') {
-      dispatch(setOrderOrMinMaxValue(openOrderstLetterChosen));
+    if (selectedCheckbox === '1') {
+      dispatch(setOrderOrMinMaxValue(selectedCheckbox));
       setOrdersAndMinMaxPanelOpen(false);
       setGroupOptionsPanel(true);
-      setOpenOrdersLetterChosen(null);
-    } else if (minMaxLetterChosen === '2') {
-      dispatch(setOrderOrMinMaxValue(minMaxLetterChosen));
+    } else if (selectedCheckbox === '2') {
+      dispatch(setOrderOrMinMaxValue(selectedCheckbox));
       setOrdersAndMinMaxPanelOpen(false);
       setGroupOptionsPanel(true);
-      setMinMaxLetterChosen(null);
     } else {
       setError(true);
     }
   };
 
-  const handleOpenOrders = (e) => {
-    const { value } = e.target;
-    setOpenOrdersLetterChosen(value);
+  const handleOpenOrders = (event) => {
+    if (event.target.checked) {
+      setSelectedCheckbox(event.target.value);
+      setOpenOrdersLetterChosen(true);
+      setMinMaxLetterChosen(false);
+    } else {
+      setOpenOrdersLetterChosen(false);
+    }
   };
 
-  const handleMinMax = (e) => {
-    const { value } = e.target;
-    setMinMaxLetterChosen(value);
+  const handleMinMax = (event) => {
+    if (event.target.checked) {
+      setSelectedCheckbox(event.target.value);
+      setOpenOrdersLetterChosen(false);
+      setMinMaxLetterChosen(true);
+    } else {
+      setOpenOrdersLetterChosen(false);
+    }
   };
 
   // close if the esc key is pressed
@@ -121,12 +130,12 @@ const OrdersAndMinMaxPanel = ({
                   <div className='mb-7'>
                     <label className='flex items-center'>
                       <input
-                        type='radio'
+                        type='checkbox'
                         name='radio'
                         className='form-checkbox'
                         value='1'
+                        checked={openOrderstLetterChosen}
                         onChange={handleOpenOrders}
-                        disabled={minMaxLetterChosen === '2'}
                       />
                       <span className='text-base font-medium ml-2 text-black'>
                         Demanda de Open Orders
@@ -137,12 +146,12 @@ const OrdersAndMinMaxPanel = ({
                   <div className='mb-7'>
                     <label className='flex items-center'>
                       <input
-                        type='radio'
+                        type='checkbox'
                         name='radio-buttons'
                         className='form-checkbox'
                         value='2'
+                        checked={minMaxLetterChosen}
                         onChange={handleMinMax}
-                        disabled={openOrderstLetterChosen === '1'}
                       />
                       <span className='text-base font-medium ml-2 text-black'>
                         Demanda de MinMax
