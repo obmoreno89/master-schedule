@@ -16,6 +16,7 @@ import {
   selectPlanning,
   selectFullLoading,
   setFullLoading,
+  generatePlanningFromSalesOrder,
 } from '../../../store/slice/planningSlice';
 import Loading from '../../../pages/component/Loading';
 
@@ -50,6 +51,15 @@ const PlanningOrders = () => {
       navigate('/mp-pro/planning/plannings/');
     }
   }, [groups]);
+
+  const goToGeneratePlanningFromSalesOrder = () => {
+    const data = {
+      orders: orders,
+      selected_groups: groups,
+      criteria: ['A'],
+    };
+    dispatch(generatePlanningFromSalesOrder(data, navigate));
+  };
 
   return (
     <>
@@ -103,7 +113,8 @@ const PlanningOrders = () => {
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      setGetMinMaxModalOpen(true);
+                      setFullLoading(true);
+                      goToGeneratePlanningFromSalesOrder();
                     }}
                     className='w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-green-500'
                     // disabled={notFound || orders?.length === 0 ? true : false}
@@ -131,6 +142,7 @@ const PlanningOrders = () => {
               </main>
             </section>
           </div>
+          {/* DISABLED
           <section>
             <GetMinMaxModal
               getMinMaxModalOpen={getMinMaxModalOpen}
@@ -139,7 +151,7 @@ const PlanningOrders = () => {
               orders={orders}
               groups={groups}
             />
-          </section>
+          </section> */}
         </Layout>
       )}
     </>
