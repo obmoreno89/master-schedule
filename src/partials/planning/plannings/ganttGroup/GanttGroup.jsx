@@ -10,12 +10,16 @@ import axios from 'axios';
 import ToastStatus from '../../../../components/ToastStatus';
 import { useSelector } from 'react-redux';
 import { selectGroupGanttLetter } from '../../../../store/slice/planningSlice';
+import ModalAlertGantt from '../../../../pages/component/ModalAlertGantt';
 
 function GanttGroup() {
+  const [modalAlertGanttOpen, setModalAlertGanttOpen] = useState(false);
   const [openStatusToast, setOpenStatusToast] = useState(false);
   const [date, setDate] = useState();
   const ganttLetter = useSelector(selectGroupGanttLetter);
   const [data, setData] = useState('');
+
+  const questionExit = sessionStorage.getItem('saved');
 
   const handleBeforeUnload = (event) => {
     event.preventDefault();
@@ -105,6 +109,7 @@ function GanttGroup() {
     );
 
     const project = ganttRef.current.instance.project;
+    setData(project);
     // Feed it to the project
     console.log(data);
     setDate(data.data.history_planning.last_update);
@@ -198,12 +203,23 @@ function GanttGroup() {
       .catch((err) => console.log(err));
   };
 
+  const openModalGantt = (e) => {
+    setModalAlertGanttOpen(true);
+  };
+
   return (
     <Layout
       icon={icons.planningIcon}
       nameRoute='Planeación'
       nameSubRoute='Grupo'
     >
+      <section>
+        <ModalAlertGantt
+          setModalAlertGanttOpen={setModalAlertGanttOpen}
+          modalAlertGanttOpen={modalAlertGanttOpen}
+          data={data}
+        />
+      </section>
       <div className='px-4 relative'>
         <BryntumToolbar
           items={[
@@ -258,6 +274,14 @@ function GanttGroup() {
                   onAction: onShiftNextClick,
                 },
               ],
+            },
+            {
+              text: 'Cancelar',
+              icon: 'b-fa b-fa-cancel',
+              cls: 'cancel',
+              async onAction() {
+                openModalGantt();
+              },
             },
             {
               text: 'Guardar planeación',

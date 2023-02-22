@@ -11,6 +11,7 @@ import filterSlice from './slice/filterSlice';
 import ordersPlannedSlice from './slice/ordersPlannedSlice';
 import openOrdersSlice from './slice/openOrdersSlice';
 import demandPlanningOrdersSlice from './slice/DemandPlanningOrdersSlice';
+import ganttSlice from './slice/ganttSlice';
 
 const store = configureStore({
   reducer: {
@@ -26,6 +27,7 @@ const store = configureStore({
     openOrders: openOrdersSlice,
     demandPlanningOrders: demandPlanningOrdersSlice,
     LineRateCustom: LineRateCustomSlice,
+    gantt: ganttSlice,
   },
 });
 

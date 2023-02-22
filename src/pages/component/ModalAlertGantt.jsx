@@ -2,30 +2,11 @@ import React, { useEffect } from 'react';
 import ModalBlank from '../../components/ModalBlank';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectGroups } from '../../store/slice/planningSlice';
-import { getDemandList } from '../../store/slice/demandPlanningOrdersSlice';
-import { generatePlanningFromSalesOrder } from '../../store/slice/planningSlice';
+import { deleteGantt } from '../../store/slice/ganttSlice';
 
-function GetMinMaxModal({
-  setModalAlertGanttOpen,
-  modalAlertGanttOpen,
-  setFullLoading,
-
-  orders,
-  groups,
-}) {
+function GetMinMaxModal({ setModalAlertGanttOpen, modalAlertGanttOpen, data }) {
   const navigate = useNavigate();
-  const letter = useSelector(selectGroups);
   const dispatch = useDispatch();
-
-  const goToGeneratePlanningFromSalesOrder = () => {
-    const data = {
-      orders: orders,
-      selected_groups: groups,
-      criteria: ['A'],
-    };
-    dispatch(generatePlanningFromSalesOrder(data, navigate));
-  };
 
   return (
     <ModalBlank
@@ -35,10 +16,9 @@ function GetMinMaxModal({
     >
       <div className='p-5 flex space-x-4'>
         <div>
-          {/* Modal header */}
           <div className='mb-2 flex justify-between items-center'>
             <div className='text-lg font-bold text-slate-800 w-72'>
-              Demanda del planning report
+              ¿Seguro que quieres cancelar la operación?
             </div>
             <button
               onClick={(e) => {
@@ -59,8 +39,8 @@ function GetMinMaxModal({
           <div className='text-sm mb-10'>
             <div className='space-y-2'>
               <p>
-                ¿Deseas agregar la consideración de la demanda del Planning
-                Report a tu planeación?
+                Si cancelas la operacíon no podras recuperar los cambios
+                realizados en el gantt.
               </p>
             </div>
           </div>
@@ -68,23 +48,20 @@ function GetMinMaxModal({
           <div className='flex justify-center items-center space-x-8'>
             <button
               onClick={() => {
-                dispatch(
-                  getDemandList(letter, navigate, setModalAlertGanttOpen)
-                );
+                dispatch(deleteGantt(data, navigate, setModalAlertGanttOpen));
               }}
               className='btn-lg bg-primary font-semibold text-white w-full hover:bg-green-500'
             >
-              Si, agregar
+              Guardar
             </button>
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                setFullLoading(true);
-                goToGeneratePlanningFromSalesOrder();
+                setModalAlertGanttOpen(false);
               }}
               className='btn-lg bg-red-600 hover:bg-red-500 font-semibold text-white w-full'
             >
-              No, ignorar
+              Cancelar
             </button>
           </div>
         </div>

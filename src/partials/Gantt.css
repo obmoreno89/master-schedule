@@ -128,11 +128,22 @@ header.b-grid-header-container {
   color: white !important;
 }
 
+.cancel {
+  border-radius: 5px !important;
+  left: 10px;
+  background-color: #d62f09 !important;
+  color: white !important;
+}
+
 .b-fa {
   color: #575a61 !important;
 }
 
 .b-fa-save {
+  color: white !important;
+}
+
+.b-fa-cancel {
   color: white !important;
 }
 
