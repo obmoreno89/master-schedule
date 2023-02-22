@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, useLocation, Link } from 'react-router-dom';
 import icons from '../images/icon/icons';
+import ModalAlertGantt from '../pages/component/ModalAlertGantt';
 
 import SidebarLinkGroup from './SidebarLinkGroup';
 
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
+  const [modalAlertGanttOpen, setModalAlertGanttOpen] = useState(false);
   const location = useLocation();
   const { pathname } = location;
 
@@ -52,9 +54,23 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
   }, [sidebarExpanded]);
 
   const onlyAdministrator = sessionStorage.getItem('rol');
+  const questionExit = sessionStorage.getItem('saved');
+
+  console.log(questionExit);
+
+  const modalAlert = (e) => {
+    e.stopPropagation();
+    e.returnValue = '';
+  };
 
   return (
     <div className='z-50'>
+      <section>
+        <ModalAlertGantt
+          setModalAlertGanttOpen={setModalAlertGanttOpen}
+          modalAlertGanttOpen={modalAlertGanttOpen}
+        />
+      </section>
       {/* Sidebar backdrop (mobile only) */}
       <div
         className={`fixed inset-0 bg-slate-900 bg-opacity-30 z-40 lg:hidden lg:z-auto transition-opacity duration-200 ${
@@ -126,8 +142,16 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           : setSidebarExpanded(true);
                       }}
                     >
-                      <section className=''>
+                      <section>
                         <NavLink
+                          onClick={(e) => {
+                            e.preventDefault();
+                            window.onbeforeunload = function () {
+                              sessionStorage.removeItem('saved');
+                              return 'desea salir';
+                            };
+                            window.location.href = '/mp-pro/';
+                          }}
                           to='/mp-pro/'
                           className={({ isActive }) =>
                             'transition duration-150 truncate font-semibold text-sm flex items-center py-1 px-0 text-textSidebar hover:text-hoverTextSidebar space-x-[11px] ' +

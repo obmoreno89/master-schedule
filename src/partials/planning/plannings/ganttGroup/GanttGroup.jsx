@@ -15,6 +15,20 @@ function GanttGroup() {
   const [openStatusToast, setOpenStatusToast] = useState(false);
   const [date, setDate] = useState();
   const ganttLetter = useSelector(selectGroupGanttLetter);
+  const [data, setData] = useState('');
+
+  const handleBeforeUnload = (event) => {
+    event.preventDefault();
+    event.returnValue = '';
+  };
+
+  useEffect(() => {
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
 
   const first_name_id = JSON.parse(
     sessionStorage.getItem('planningId')

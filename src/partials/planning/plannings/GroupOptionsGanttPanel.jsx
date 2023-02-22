@@ -58,6 +58,7 @@ const GroupOptionsGanttPanel = ({
       dispatch(setGanttGroupLetter(ganttLetterChosen));
       setGroupsOptionGanttPanelOpen(false);
       navigate('/mp-pro/gantt/group');
+      sessionStorage.setItem('saved', true);
       setGanttLetterChosen(null);
     } else if (ganttGlobaloption?.length > 0) {
       navigate('/mp-pro/gantt/global');

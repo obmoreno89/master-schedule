@@ -15,6 +15,7 @@ import ConfirmNewPassword from './pages/ConfirmNewPassword';
 //PRIVATE ROUTE AND PUBLIC ROUTE
 import PrivateRoute from './routes/PrivateRoute';
 import PublicRoute from './routes/PublicRoute';
+import PrivateGantt from './routes/PrivateGantt';
 
 //SYSTEM STATUS
 import SystemStatus from './pages/SystemStatus';
@@ -131,9 +132,9 @@ function App() {
         <Route
           path='/mp-pro/planning/plannings/'
           element={
-            <PrivateRoute>
+            <PrivateGantt>
               <Planning />
-            </PrivateRoute>
+            </PrivateGantt>
           }
         />
 
