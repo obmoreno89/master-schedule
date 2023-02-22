@@ -11,9 +11,8 @@ function Layout({ icon, nameRoute, nameSubRoute, children }) {
   return (
     <div className='flex h-screen overflow-hidden bg-white'>
       {/* Sidebar */}
-      {!questionExit && (
-        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-      )}
+
+      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
       {/* Content area */}
       <div className='relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden'>

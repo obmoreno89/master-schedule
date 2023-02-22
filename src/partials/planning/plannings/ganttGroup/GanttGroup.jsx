@@ -17,9 +17,7 @@ function GanttGroup() {
   const [openStatusToast, setOpenStatusToast] = useState(false);
   const [date, setDate] = useState();
   const ganttLetter = useSelector(selectGroupGanttLetter);
-  const [data, setData] = useState('');
-
-  const questionExit = sessionStorage.getItem('saved');
+  const [data, setData] = useState([]);
 
   const handleBeforeUnload = (event) => {
     event.preventDefault();
@@ -109,7 +107,6 @@ function GanttGroup() {
     );
 
     const project = ganttRef.current.instance.project;
-    setData(project);
     // Feed it to the project
     console.log(data);
     setDate(data.data.history_planning.last_update);
@@ -184,6 +181,7 @@ function GanttGroup() {
       tasks: tasks,
       dependencies: dependencies,
     };
+    setData(data);
     console.log(data);
 
     const save = await axios
