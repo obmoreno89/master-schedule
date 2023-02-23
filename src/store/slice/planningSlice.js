@@ -11,6 +11,7 @@ const initialState = {
   fullLoading: false,
   planningList: [],
   orders: [],
+  hiddenSidebar: false,
   groups: [],
   sortOrder: [],
   planningsOption: [],
@@ -112,6 +113,9 @@ const planningSlice = createSlice({
     setOrderOrMinMaxValue: (state, action) => {
       state.ordersOrMinMaxValue = action.payload;
     },
+    setHiddenSidebar: (state, action) => {
+      state.hiddenSidebar = action.payload;
+    },
   },
 });
 
@@ -135,6 +139,7 @@ export const {
   setGanttGroupsList,
   setGanttGroupLetter,
   setOrderOrMinMaxValue,
+  setHiddenSidebar,
 } = planningSlice.actions;
 
 export const selectOrders = (state) => state.planning.orders;
@@ -158,6 +163,7 @@ export const selectGroupGanttLetter = (state) =>
   state.planning.groupGanttLetter;
 export const selectOrderOrMinMaxValue = (state) =>
   state.planning.ordersOrMinMaxValue;
+export const selectHiddenSidebar = (state) => state.planning.hiddenSidebar;
 
 export default planningSlice.reducer;
 
@@ -253,7 +259,7 @@ export const generatePlanningFromSalesOrder =
       )
       .then((response) => {
         if (response.status === 200) {
-          navigate(`/mp-pro/gantt/group/`)
+          navigate(`/mp-pro/gantt/group/`);
           // navigate(`/mp-pro/planning/plannings/`);
           dispatch(setFullLoading(false));
           dispatch(setGanttLoading(false));

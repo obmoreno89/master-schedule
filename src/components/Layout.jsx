@@ -1,18 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import icons from '../images/icon/icons';
 import Header from '../partials/Header';
 import Sidebar from '../partials/Sidebar';
+import { useSelector } from 'react-redux';
+import { selectHiddenSidebar } from '../store/slice/planningSlice';
 
 function Layout({ icon, nameRoute, nameSubRoute, children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const questionExit = sessionStorage.getItem('saved');
+  const hiddenSidebar = useSelector(selectHiddenSidebar);
+
+  console.log(hiddenSidebar);
 
   return (
     <div className='flex h-screen overflow-hidden bg-white'>
       {/* Sidebar */}
 
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      {!hiddenSidebar && (
+        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      )}
 
       {/* Content area */}
       <div className='relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden'>

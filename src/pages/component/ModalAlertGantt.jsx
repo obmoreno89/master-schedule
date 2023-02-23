@@ -3,6 +3,7 @@ import ModalBlank from '../../components/ModalBlank';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteGantt } from '../../store/slice/ganttSlice';
+import { setHiddenSidebar } from '../../store/slice/planningSlice';
 
 function GetMinMaxModal({ setModalAlertGanttOpen, modalAlertGanttOpen, data }) {
   const navigate = useNavigate();
@@ -48,8 +49,14 @@ function GetMinMaxModal({ setModalAlertGanttOpen, modalAlertGanttOpen, data }) {
           <div className='flex justify-center items-center space-x-8'>
             <button
               onClick={() => {
-                dispatch(deleteGantt(data, navigate));
-                setModalAlertGanttOpen(false);
+                dispatch(
+                  deleteGantt(
+                    data,
+                    navigate,
+                    setHiddenSidebar,
+                    setModalAlertGanttOpen
+                  )
+                );
               }}
               className='btn-lg bg-red-600 font-semibold text-white hover:bg-red-500  w-full '
             >

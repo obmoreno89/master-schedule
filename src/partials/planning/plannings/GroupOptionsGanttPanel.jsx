@@ -7,6 +7,7 @@ import {
   selectGanttGroupsList,
   getGanttGroups,
   setGanttGroupLetter,
+  setHiddenSidebar,
 } from '../../../store/slice/planningSlice';
 
 const GroupOptionsGanttPanel = ({
@@ -58,7 +59,7 @@ const GroupOptionsGanttPanel = ({
       dispatch(setGanttGroupLetter(ganttLetterChosen));
       setGroupsOptionGanttPanelOpen(false);
       navigate('/mp-pro/gantt/group');
-      sessionStorage.setItem('saved', true);
+      dispatch(setHiddenSidebar(true));
       setGanttLetterChosen(null);
     } else if (ganttGlobaloption?.length > 0) {
       navigate('/mp-pro/gantt/global');

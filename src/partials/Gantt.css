@@ -135,6 +135,14 @@ header.b-grid-header-container {
   color: white !important;
 }
 
+.exit {
+  border-radius: 5px !important;
+  left: 10px;
+  background-color: rgb(255, 255, 255) !important;
+  color: #15b053 !important;
+  border: 1px solid #15b053 !important;
+}
+
 .b-fa {
   color: #575a61 !important;
 }
@@ -145,6 +153,10 @@ header.b-grid-header-container {
 
 .b-fa-cancel {
   color: white !important;
+}
+
+.b-fa-door-open {
+  color: #15b053 !important;
 }
 
 .b-gantt-task-content {
