@@ -12,6 +12,7 @@ import {
   selectAllTypes,
   setGroups,
   setPlanningValues,
+  setGanttGroupLetter
 } from '../../../store/slice/planningSlice';
 
 const GroupsOptionsPanel = ({
@@ -64,6 +65,7 @@ const GroupsOptionsPanel = ({
     if (letterChosen?.length > 0) {
       dispatch(setGroups(letterChosen));
       dispatch(setPlanningValues({ item: 'group', value: letterChosen }));
+      dispatch(setGanttGroupLetter(letterChosen));
       setOrdersPanelOpen(true);
       setGroupOptionsPanel(false);
     } else {

@@ -253,7 +253,8 @@ export const generatePlanningFromSalesOrder =
       )
       .then((response) => {
         if (response.status === 200) {
-          navigate(`/mp-pro/planning/plannings/`);
+          navigate(`/mp-pro/gantt/group/`)
+          // navigate(`/mp-pro/planning/plannings/`);
           dispatch(setFullLoading(false));
           dispatch(setGanttLoading(false));
         }
