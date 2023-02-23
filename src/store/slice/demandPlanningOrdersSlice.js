@@ -58,7 +58,7 @@ export const postDemandPlanningOrders =
       .then((response) => {
         if (response.status === 200) {
           dispatch(setDemandLoading(false));
-          navigate('/mp-pro/planning/plannings/');
+          navigate(`/mp-pro/gantt/group/`);
         }
       })
       .catch((error) => setDemandLoading(false));
