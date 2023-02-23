@@ -82,14 +82,25 @@ function PlanningsTable({
             type='search'
             onChange={handleSearch}
           />
-          <button
-            onClick={() => setGroupsOptionGanttPanelOpen(true)}
-            type='button'
-            className='font-medium text-sm bg-white text-primary w-54 space-x-2 border border-primary rounded px-2 flex justify-center items-center'
-          >
-            <img className='w-5' src={icons.graphGantt} alt='Gantt' />
-            <span>Vista de Gantt</span>
-          </button>
+          {planningsList.length > 0 ? (
+            <button
+              onClick={() => setGroupsOptionGanttPanelOpen(true)}
+              type='button'
+              className='font-medium text-sm bg-white text-primary w-54 space-x-2 border border-primary rounded px-2 flex justify-center items-center'
+            >
+              <img className='w-5' src={icons.graphGantt} alt='Gantt' />
+              <span>Vista de Gantt</span>
+            </button>
+          ) : (
+            <button
+              type='button'
+              disabled
+              className='font-medium text-sm bg-white text-primary w-54 space-x-2 border border-primary rounded px-2 flex justify-center items-center disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed'
+            >
+              <img className='w-5' src={icons.graphGanttDisabled} alt='Gantt' />
+              <span>Vista de Gantt</span>
+            </button>
+          )}
           <button
             onClick={(e) => {
               e.stopPropagation();

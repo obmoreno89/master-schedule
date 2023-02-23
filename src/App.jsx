@@ -132,9 +132,9 @@ function App() {
         <Route
           path='/mp-pro/planning/plannings/'
           element={
-            <PrivateGantt>
+            <PrivateRoute>
               <Planning />
-            </PrivateGantt>
+            </PrivateRoute>
           }
         />
 

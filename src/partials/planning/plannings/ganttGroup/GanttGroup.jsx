@@ -180,8 +180,6 @@ function GanttGroup() {
     ganttRef.current.instance.shiftNext();
   };
 
-  const navigate = useNavigate();
-
   const onSavePlanning = async () => {
     console.log('Guardando planeación');
     const project = ganttRef.current.instance.project;
