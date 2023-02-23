@@ -39,7 +39,8 @@ function GetMinMaxModal({ setModalAlertGanttOpen, modalAlertGanttOpen, data }) {
           <div className='text-sm mb-10'>
             <div className='space-y-2'>
               <p>
-                Si descartas la planeación no podrás recuperar los cambios guardados en el Gantt.
+                Si descartas la planeación no podrás recuperar los cambios
+                guardados en el Gantt.
               </p>
             </div>
           </div>
@@ -47,7 +48,8 @@ function GetMinMaxModal({ setModalAlertGanttOpen, modalAlertGanttOpen, data }) {
           <div className='flex justify-center items-center space-x-8'>
             <button
               onClick={() => {
-                dispatch(deleteGantt(data, navigate, setModalAlertGanttOpen));
+                dispatch(deleteGantt(data, navigate));
+                setModalAlertGanttOpen(false);
               }}
               className='btn-lg bg-red-600 font-semibold text-white hover:bg-red-500  w-full '
             >
