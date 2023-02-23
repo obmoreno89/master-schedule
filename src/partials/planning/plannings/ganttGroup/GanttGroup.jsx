@@ -1,6 +1,7 @@
 import Layout from '../../../../components/Layout';
 import icons from '../../../../images/icon/icons';
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../../../Gantt.css';
 import { StringHelper } from '@bryntum/gantt';
 import { BryntumGantt, BryntumToolbar } from '@bryntum/gantt-react';
@@ -120,7 +121,6 @@ function GanttGroup() {
     });
     project.calendar = 'general';
 
-
     const dataGantt = project.inlineData;
     const tasks = dataGantt.eventsData;
     const dependencies = dataGantt.dependenciesData;
@@ -129,8 +129,6 @@ function GanttGroup() {
       dependencies: dependencies,
     };
     setData(ganttData);
-    console.log(ganttData)
-
   };
 
   useEffect(() => {
@@ -182,6 +180,8 @@ function GanttGroup() {
     ganttRef.current.instance.shiftNext();
   };
 
+  const navigate = useNavigate();
+
   const onSavePlanning = async () => {
     console.log('Guardando planeación');
     const project = ganttRef.current.instance.project;
@@ -200,6 +200,7 @@ function GanttGroup() {
       .post(`http://35.174.106.95/api/planning/save-planning-update`, data)
       .then((response) => {
         if (response.status === 200) {
+          sessionStorage.removeItem('saved');
           setDate(response.data.last_update);
           setOpenStatusToast(true);
           setTimeout(() => {
@@ -213,7 +214,7 @@ function GanttGroup() {
       .catch((err) => console.log(err));
   };
 
-  const openModalGantt = (e) => {
+  const openModalGantt = () => {
     setModalAlertGanttOpen(true);
   };
 
