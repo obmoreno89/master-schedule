@@ -107,6 +107,7 @@ function GanttGroup() {
     );
 
     const project = ganttRef.current.instance.project;
+
     // Feed it to the project
     console.log(data);
     setDate(data.data.history_planning.last_update);
@@ -119,6 +120,16 @@ function GanttGroup() {
       dependenciesData: data['data']['tasks']['dependencies']['rows'],
     });
     project.calendar = 'general';
+
+    const project = ganttRef.current.instance.project;
+    const dataGantt = project.inlineData;
+    const tasks = dataGantt.eventsData;
+    const dependencies = dataGantt.dependenciesData;
+    const ganttData = {
+      tasks: tasks,
+      dependencies: dependencies,
+    };
+    setData(ganttData);
   };
 
   useEffect(() => {
@@ -181,7 +192,6 @@ function GanttGroup() {
       tasks: tasks,
       dependencies: dependencies,
     };
-    setData(data);
     console.log(data);
 
     const save = await axios
@@ -274,7 +284,7 @@ function GanttGroup() {
               ],
             },
             {
-              text: 'Cancelar',
+              text: 'Descartar cambios',
               icon: 'b-fa b-fa-cancel',
               cls: 'cancel',
               async onAction() {
