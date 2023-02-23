@@ -35,6 +35,7 @@ import refreshGray from './refreshGray.svg';
 import file from './file.svg';
 import fileText from './fileText.svg';
 import nNidec from './nNidec.svg';
+import graphGanttDisabled from './graphGanttDisabled.svg';
 
 export default {
   openEye,
@@ -74,4 +75,5 @@ export default {
   file,
   fileText,
   nNidec,
+  graphGanttDisabled,
 };
