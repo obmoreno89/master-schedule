@@ -216,10 +216,6 @@ function GanttGroup() {
     setModalAlertGanttOpen(true);
   };
 
-  const prueba = ganttRef.current.instance;
-
-  console.log(prueba);
-
   return (
     <Layout
       icon={icons.planningIcon}
