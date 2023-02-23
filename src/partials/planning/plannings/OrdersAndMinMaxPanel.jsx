@@ -104,7 +104,7 @@ const OrdersAndMinMaxPanel = ({
         >
           <section className='mb-10 flex items-center justify-between'>
             <h2 className='mt-4 ml-5 w-full font-bold text-black text-2xl'>
-              Selecciona, Que quieres planear?
+              ¿Qué quieres planear? <br></br>Selecciona una opción
             </h2>
 
             <button

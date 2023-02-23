@@ -119,6 +119,18 @@ function GanttGroup() {
       dependenciesData: data['data']['tasks']['dependencies']['rows'],
     });
     project.calendar = 'general';
+
+
+    const dataGantt = project.inlineData;
+    const tasks = dataGantt.eventsData;
+    const dependencies = dataGantt.dependenciesData;
+    const ganttData = {
+      tasks: tasks,
+      dependencies: dependencies,
+    };
+    setData(ganttData);
+    console.log(ganttData)
+
   };
 
   useEffect(() => {
