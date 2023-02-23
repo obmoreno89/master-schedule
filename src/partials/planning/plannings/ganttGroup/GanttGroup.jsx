@@ -120,6 +120,7 @@ function GanttGroup() {
     });
     project.calendar = 'general';
 
+
     const dataGantt = project.inlineData;
     const tasks = dataGantt.eventsData;
     const dependencies = dataGantt.dependenciesData;
@@ -129,6 +130,7 @@ function GanttGroup() {
     };
     setData(ganttData);
     console.log(ganttData)
+
   };
 
   useEffect(() => {
@@ -191,6 +193,7 @@ function GanttGroup() {
       tasks: tasks,
       dependencies: dependencies,
     };
+    setData(data);
     console.log(data);
 
     const save = await axios
@@ -283,7 +286,7 @@ function GanttGroup() {
               ],
             },
             {
-              text: 'Descartar cambios',
+              text: 'Cancelar',
               icon: 'b-fa b-fa-cancel',
               cls: 'cancel',
               async onAction() {
