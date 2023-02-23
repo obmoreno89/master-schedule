@@ -27,7 +27,10 @@ export const deleteGantt =
       .delete('api/planning/discard-planning', ganttData)
       .then((response) => {
         if (response.status === 200) {
+          sessionStorage.removeItem('saved');
           console.log(response.data);
+          setModalAlertGanttOpen(false);
+          navigate('/mp-pro/');
         }
       })
       .catch((err) => console.log(err));

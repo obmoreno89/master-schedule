@@ -17,9 +17,7 @@ function GanttGroup() {
   const [openStatusToast, setOpenStatusToast] = useState(false);
   const [date, setDate] = useState();
   const ganttLetter = useSelector(selectGroupGanttLetter);
-  const [data, setData] = useState('');
-
-  const questionExit = sessionStorage.getItem('saved');
+  const [data, setData] = useState([]);
 
   const handleBeforeUnload = (event) => {
     event.preventDefault();
@@ -107,6 +105,8 @@ function GanttGroup() {
     const data = await axios.get(
       `http://35.174.106.95/api/gantt/list/by-group?group=${ganttLetter}`
     );
+
+    const project = ganttRef.current.instance.project;
 
     // Feed it to the project
     console.log(data);
