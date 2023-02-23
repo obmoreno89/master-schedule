@@ -108,8 +108,6 @@ function GanttGroup() {
       `http://35.174.106.95/api/gantt/list/by-group?group=${ganttLetter}`
     );
 
-    const project = ganttRef.current.instance.project;
-    setData(project);
     // Feed it to the project
     console.log(data);
     setDate(data.data.history_planning.last_update);
@@ -122,6 +120,16 @@ function GanttGroup() {
       dependenciesData: data['data']['tasks']['dependencies']['rows'],
     });
     project.calendar = 'general';
+
+    const project = ganttRef.current.instance.project;
+    const dataGantt = project.inlineData;
+    const tasks = dataGantt.eventsData;
+    const dependencies = dataGantt.dependenciesData;
+    const ganttData = {
+      tasks: tasks,
+      dependencies: dependencies,
+    };
+    setData(ganttData);
   };
 
   useEffect(() => {
@@ -276,7 +284,7 @@ function GanttGroup() {
               ],
             },
             {
-              text: 'Cancelar',
+              text: 'Descartar cambios',
               icon: 'b-fa b-fa-cancel',
               cls: 'cancel',
               async onAction() {

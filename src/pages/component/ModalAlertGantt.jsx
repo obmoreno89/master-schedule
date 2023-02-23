@@ -18,7 +18,7 @@ function GetMinMaxModal({ setModalAlertGanttOpen, modalAlertGanttOpen, data }) {
         <div>
           <div className='mb-2 flex justify-between items-center'>
             <div className='text-lg font-bold text-slate-800 w-72'>
-              ¿Seguro que quieres cancelar la operación?
+              ¿Seguro que quieres descartar los cambios de la planeación?
             </div>
             <button
               onClick={(e) => {
@@ -39,8 +39,7 @@ function GetMinMaxModal({ setModalAlertGanttOpen, modalAlertGanttOpen, data }) {
           <div className='text-sm mb-10'>
             <div className='space-y-2'>
               <p>
-                Si cancelas la operacíon no podras recuperar los cambios
-                realizados en el gantt.
+                Si descartas la planeación no podrás recuperar los cambios guardados en el Gantt.
               </p>
             </div>
           </div>
@@ -50,18 +49,18 @@ function GetMinMaxModal({ setModalAlertGanttOpen, modalAlertGanttOpen, data }) {
               onClick={() => {
                 dispatch(deleteGantt(data, navigate, setModalAlertGanttOpen));
               }}
-              className='btn-lg bg-primary font-semibold text-white w-full hover:bg-green-500'
+              className='btn-lg bg-red-600 font-semibold text-white hover:bg-red-500  w-full '
             >
-              Guardar
+              Si, descartar
             </button>
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 setModalAlertGanttOpen(false);
               }}
-              className='btn-lg bg-red-600 hover:bg-red-500 font-semibold text-white w-full'
+              className='btn-lg  bg-white font-semibold text-black w-full'
             >
-              Cancelar
+              No, regresar al Gantt
             </button>
           </div>
         </div>
