@@ -9,8 +9,11 @@ import { GanttGroupConfig } from './GanttGroupConfig';
 import '@bryntum/gantt/gantt.material.css';
 import axios from 'axios';
 import ToastStatus from '../../../../components/ToastStatus';
-import { useSelector } from 'react-redux';
-import { selectGroupGanttLetter } from '../../../../store/slice/planningSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  selectGroupGanttLetter,
+  setHiddenSidebar,
+} from '../../../../store/slice/planningSlice';
 import ModalAlertGantt from '../../../../pages/component/ModalAlertGantt';
 
 function GanttGroup() {
@@ -19,6 +22,9 @@ function GanttGroup() {
   const [date, setDate] = useState();
   const ganttLetter = useSelector(selectGroupGanttLetter);
   const [data, setData] = useState([]);
+  const [exit, setExit] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleBeforeUnload = (event) => {
     event.preventDefault();
@@ -193,12 +199,12 @@ function GanttGroup() {
     };
     setData(data);
     console.log(data);
+    setExit(true);
 
     const save = await axios
       .post(`http://35.174.106.95/api/planning/save-planning-update`, data)
       .then((response) => {
         if (response.status === 200) {
-          sessionStorage.removeItem('saved');
           setDate(response.data.last_update);
           setOpenStatusToast(true);
           setTimeout(() => {
@@ -214,6 +220,11 @@ function GanttGroup() {
 
   const openModalGantt = () => {
     setModalAlertGanttOpen(true);
+  };
+
+  const exitGantt = () => {
+    navigate('/mp-pro/planning/plannings/');
+    dispatch(setHiddenSidebar(false));
   };
 
   return (
@@ -284,14 +295,23 @@ function GanttGroup() {
                 },
               ],
             },
-            {
-              text: 'Cancelar',
-              icon: 'b-fa b-fa-cancel',
-              cls: 'cancel',
-              async onAction() {
-                openModalGantt();
-              },
-            },
+            !exit
+              ? {
+                  text: 'Cancelar',
+                  icon: 'b-fa b-fa-cancel',
+                  cls: 'cancel',
+                  async onAction() {
+                    openModalGantt();
+                  },
+                }
+              : {
+                  text: 'Salir',
+                  icon: 'b-fa b-fa-door-open',
+                  cls: 'exit',
+                  async onAction() {
+                    exitGantt();
+                  },
+                },
             {
               text: 'Guardar planeación',
               icon: 'b-fa b-fa-save',
