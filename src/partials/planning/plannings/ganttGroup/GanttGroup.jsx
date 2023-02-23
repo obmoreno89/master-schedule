@@ -180,8 +180,6 @@ function GanttGroup() {
     ganttRef.current.instance.shiftNext();
   };
 
-  const navigate = useNavigate();
-
   const onSavePlanning = async () => {
     console.log('Guardando planeación');
     const project = ganttRef.current.instance.project;
@@ -217,6 +215,10 @@ function GanttGroup() {
   const openModalGantt = () => {
     setModalAlertGanttOpen(true);
   };
+
+  const prueba = ganttRef.current.instance;
+
+  console.log(prueba);
 
   return (
     <Layout
