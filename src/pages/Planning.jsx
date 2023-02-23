@@ -9,6 +9,7 @@ import { selectOrders } from '../store/slice/planningSlice';
 import OptionsPanel from '../partials/planning/plannings/OptionsPanel';
 import GroupOptionsGanttPanel from '../partials/planning/plannings/GroupOptionsGanttPanel';
 import OrdersAndMinMaxPanel from '../partials/planning/plannings/OrdersAndMinMaxPanel';
+import ModalOracleExport from './component/ModalOracleExport';
 
 function Planning() {
   const [groupOptionsPanel, setGroupOptionsPanel] = useState(false);
@@ -20,6 +21,7 @@ function Planning() {
     useState(false);
   const [ordersAndMinMaxPanelOpen, setOrdersAndMinMaxPanelOpen] =
     useState(false);
+  const [modalOracleExport, setModalOracleExport] = useState(false);
 
   return (
     <>
@@ -35,6 +37,7 @@ function Planning() {
               groupOptionsPanel={groupOptionsPanel}
               setGroupsOptionGanttPanelOpen={setGroupsOptionGanttPanelOpen}
               setOrdersAndMinMaxPanelOpen={setOrdersAndMinMaxPanelOpen}
+              setModalOracleExport={setModalOracleExport}
             />
           </div>
           <section>
@@ -72,6 +75,12 @@ function Planning() {
               ordersAndMinMaxPanelOpen={ordersAndMinMaxPanelOpen}
               setOrdersAndMinMaxPanelOpen={setOrdersAndMinMaxPanelOpen}
               setGroupOptionsPanel={setGroupOptionsPanel}
+            />
+          </section>
+          <section>
+            <ModalOracleExport
+              setModalOracleExport={setModalOracleExport}
+              modalOracleExport={modalOracleExport}
             />
           </section>
         </div>
