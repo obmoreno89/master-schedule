@@ -107,7 +107,6 @@ function GanttGroup() {
     );
 
     const project = ganttRef.current.instance.project;
-
     // Feed it to the project
     console.log(data);
     setDate(data.data.history_planning.last_update);
@@ -121,7 +120,6 @@ function GanttGroup() {
     });
     project.calendar = 'general';
 
-    const project = ganttRef.current.instance.project;
     const dataGantt = project.inlineData;
     const tasks = dataGantt.eventsData;
     const dependencies = dataGantt.dependenciesData;
@@ -130,6 +128,7 @@ function GanttGroup() {
       dependencies: dependencies,
     };
     setData(ganttData);
+    console.log(ganttData)
   };
 
   useEffect(() => {

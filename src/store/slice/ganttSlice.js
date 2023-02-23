@@ -23,8 +23,10 @@ export default ganttSlice.reducer;
 
 export const deleteGantt =
   (ganttData, setModalAlertGanttOpen, navigate) => (dispatch) => {
+    console.log("Gantt data");
+    console.log(ganttData)
     axios
-      .delete('api/planning/discard-planning', ganttData)
+      .delete('http://35.174.106.95/api/planning/discard-planning',{data: ganttData})
       .then((response) => {
         if (response.status === 200) {
           sessionStorage.removeItem('saved');
