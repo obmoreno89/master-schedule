@@ -4,6 +4,7 @@ import axios from 'axios';
 import { endpointsCodes } from './functions';
 
 const initialState = {
+  ordersOrMinMaxValue: null,
   ganttGroupsList: [],
   groupGanttLetter: [],
   ganttLoading: false,
@@ -108,6 +109,9 @@ const planningSlice = createSlice({
     setGanttGroupLetter: (state, action) => {
       state.groupGanttLetter = action.payload;
     },
+    setOrderOrMinMaxValue: (state, action) => {
+      state.ordersOrMinMaxValue = action.payload;
+    },
   },
 });
 
@@ -130,6 +134,7 @@ export const {
   setLoadPlanning,
   setGanttGroupsList,
   setGanttGroupLetter,
+  setOrderOrMinMaxValue,
 } = planningSlice.actions;
 
 export const selectOrders = (state) => state.planning.orders;
@@ -151,6 +156,8 @@ export const selectLoadPlanning = (state) => state.planning.loadPlanning;
 export const selectGanttGroupsList = (state) => state.planning.ganttGroupsList;
 export const selectGroupGanttLetter = (state) =>
   state.planning.groupGanttLetter;
+export const selectOrderOrMinMaxValue = (state) =>
+  state.planning.ordersOrMinMaxValue;
 
 export default planningSlice.reducer;
 

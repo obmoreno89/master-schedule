@@ -18,8 +18,6 @@ function DemandMinMaxTable() {
   const dispatch = useDispatch();
   const [changeNumber, setchangeNumber] = useState(demandPlanningList);
 
-  console.log(demandPlanningList);
-
   return (
     <>
       <section className='mb-5 flex items-center justify-between'>

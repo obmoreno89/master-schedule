@@ -2,55 +2,22 @@ import { useEffect, useRef, useState } from 'react';
 import Transition from '../../../utils/Transition';
 import icons from '../../../images/icon/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  getGroupList,
-  selectGroup,
-} from '../../../store/slice/BaseCapabilitiesSlice';
-import {
-  getAllTypes,
-  revertAll,
-  selectAllTypes,
-  setGroups,
-  setPlanningValues,
-} from '../../../store/slice/planningSlice';
+import { setOrderOrMinMaxValue } from '../../../store/slice/planningSlice';
 
-const GroupsOptionsPanel = ({
+const OrdersAndMinMaxPanel = ({
+  setOrdersAndMinMaxPanelOpen,
+  ordersAndMinMaxPanelOpen,
   setGroupOptionsPanel,
-  groupOptionsPanel,
-  setOrdersPanelOpen,
-  groupsOptionGanttPanelOpen,
 }) => {
-  /**
-   * generales
-   */
-  const dispatch = useDispatch();
-  const groups = useSelector(selectGroup);
-  const [error, setError] = useState(false);
-
-  /**
-   * generales del sider
-   */
   const closeBtn = useRef(null);
   const panelContent = useRef(null);
 
-  /**
-   * grupos para radio input
-   */
-  const [letters, setLetters] = useState([]);
-  const [letterChosen, setLetterChosen] = useState();
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getGroupList());
-    dispatch(revertAll());
-  }, []);
-
-  useEffect(() => {
-    setLetters(groups);
-  }, [groups]);
-
-  useEffect(() => {
-    setLetters(groups);
-  }, []);
+  const [error, setError] = useState(false);
+  const [selectedCheckbox, setSelectedCheckbox] = useState(null);
+  const [openOrderstLetterChosen, setOpenOrdersLetterChosen] = useState(false);
+  const [minMaxLetterChosen, setMinMaxLetterChosen] = useState(false);
 
   useEffect(() => {
     if (error) {
@@ -60,45 +27,54 @@ const GroupsOptionsPanel = ({
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    if (letterChosen?.length > 0) {
-      dispatch(setGroups(letterChosen));
-      dispatch(setPlanningValues({ item: 'group', value: letterChosen }));
-      setOrdersPanelOpen(true);
-      setGroupOptionsPanel(false);
+    if (selectedCheckbox === '1') {
+      dispatch(setOrderOrMinMaxValue(selectedCheckbox));
+      setOrdersAndMinMaxPanelOpen(false);
+      setGroupOptionsPanel(true);
+    } else if (selectedCheckbox === '2') {
+      dispatch(setOrderOrMinMaxValue(selectedCheckbox));
+      setOrdersAndMinMaxPanelOpen(false);
+      setGroupOptionsPanel(true);
     } else {
       setError(true);
     }
   };
 
-  const handleChange = (e) => {
-    const { value } = e.target;
-    setLetterChosen(value);
+  const handleOpenOrders = (event) => {
+    if (event.target.checked) {
+      setSelectedCheckbox(event.target.value);
+      setOpenOrdersLetterChosen(true);
+      setMinMaxLetterChosen(false);
+    } else {
+      setOpenOrdersLetterChosen(false);
+    }
+  };
+
+  const handleMinMax = (event) => {
+    if (event.target.checked) {
+      setSelectedCheckbox(event.target.value);
+      setOpenOrdersLetterChosen(false);
+      setMinMaxLetterChosen(true);
+    } else {
+      setOpenOrdersLetterChosen(false);
+    }
   };
 
   // close if the esc key is pressed
   useEffect(() => {
     const keyHandler = ({ keyCode }) => {
-      if (!groupOptionsPanel || keyCode !== 27) return;
-      setGroupOptionsPanel(false);
+      if (!ordersAndMinMaxPanelOpen || keyCode !== 27) return;
+      setOrdersAndMinMaxPanelOpen(false);
     };
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   });
 
-  useEffect(() => {
-    dispatch(getAllTypes('eto'));
-    dispatch(getAllTypes('abc code'));
-    dispatch(getAllTypes('amount (total order)'));
-    dispatch(getAllTypes('request date'));
-    dispatch(getAllTypes('schedule ship date'));
-  }, []);
-
   return (
     <>
       <Transition
         className='fixed inset-0 bg-slate-900 bg-opacity-30 z-50 transition-opacity'
-        show={groupOptionsPanel}
+        show={ordersAndMinMaxPanelOpen}
         enter='transition ease-out duration-200'
         enterStart='opacity-0'
         enterEnd='opacity-100'
@@ -112,7 +88,7 @@ const GroupsOptionsPanel = ({
         className='fixed inset-0 z-50 overflow-hidden flex items-center justify-center transform px-4 sm:px-6'
         role='dialog'
         aria-modal='true'
-        show={groupOptionsPanel}
+        show={ordersAndMinMaxPanelOpen}
         enter='transition ease-in-out duration-500'
         enterStart='opacity-0 translate-x-4'
         enterEnd='opacity-100 translate-x-0'
@@ -123,21 +99,19 @@ const GroupsOptionsPanel = ({
         <div
           ref={panelContent}
           className={`w-[480px] bg-white absolute inset-0 sm:left-auto z-40 transform shadow-xl transition-transform duration-200 ease-in-out ${
-            groupOptionsPanel ? 'translate-x-' : 'translate-x-full'
+            ordersAndMinMaxPanelOpen ? 'translate-x-' : 'translate-x-full'
           }`}
         >
           <section className='mb-10 flex items-center justify-between'>
             <h2 className='mt-4 ml-5 w-full font-bold text-black text-2xl'>
-              {groupsOptionGanttPanelOpen ? (
-                <span>hola</span>
-              ) : (
-                <span> Selecciona el grupo a planear</span>
-              )}
+              ¿Qué quieres planear? <br></br>Selecciona una opción
             </h2>
 
             <button
               ref={closeBtn}
-              onClick={() => setGroupOptionsPanel(false)}
+              onClick={() => {
+                setOrdersAndMinMaxPanelOpen(false);
+              }}
               className=' top-1 right-0 mt-4 mr-3 group p-1'
             >
               <svg
@@ -153,22 +127,37 @@ const GroupsOptionsPanel = ({
             <form>
               <div className='h-[470px] 2xl:h-[460px] overflow-y-auto mb-8 ml-5'>
                 <div>
-                  {letters.map((letter, index) => (
-                    <div key={index} className='mb-7'>
-                      <label className='flex items-center'>
-                        <input
-                          type='radio'
-                          name='radio-buttons'
-                          className='form-checkbox'
-                          value={letter.group}
-                          onChange={handleChange}
-                        />
-                        <span className='text-base font-medium ml-2 text-black'>
-                          {letter?.group}
-                        </span>
-                      </label>
-                    </div>
-                  ))}
+                  <div className='mb-7'>
+                    <label className='flex items-center'>
+                      <input
+                        type='checkbox'
+                        name='radio'
+                        className='form-checkbox'
+                        value='1'
+                        checked={openOrderstLetterChosen}
+                        onChange={handleOpenOrders}
+                      />
+                      <span className='text-base font-medium ml-2 text-black'>
+                        Demanda de Open Orders
+                      </span>
+                    </label>
+                  </div>
+
+                  <div className='mb-7'>
+                    <label className='flex items-center'>
+                      <input
+                        type='checkbox'
+                        name='radio-buttons'
+                        className='form-checkbox'
+                        value='2'
+                        checked={minMaxLetterChosen}
+                        onChange={handleMinMax}
+                      />
+                      <span className='text-base font-medium ml-2 text-black'>
+                        Demanda de MinMax
+                      </span>
+                    </label>
+                  </div>
                 </div>
               </div>
 
@@ -189,7 +178,7 @@ const GroupsOptionsPanel = ({
               {error && (
                 <div className='flex justify-center mt-1'>
                   <span className='font-semibold text-red-600'>
-                    Debe elegir un grupo antes de continuar
+                    Debe elegir al menos una opción antes de continuar
                   </span>
                 </div>
               )}
@@ -201,4 +190,4 @@ const GroupsOptionsPanel = ({
   );
 };
 
-export default GroupsOptionsPanel;
+export default OrdersAndMinMaxPanel;

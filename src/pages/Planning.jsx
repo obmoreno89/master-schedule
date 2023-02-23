@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { selectOrders } from '../store/slice/planningSlice';
 import OptionsPanel from '../partials/planning/plannings/OptionsPanel';
 import GroupOptionsGanttPanel from '../partials/planning/plannings/GroupOptionsGanttPanel';
+import OrdersAndMinMaxPanel from '../partials/planning/plannings/OrdersAndMinMaxPanel';
 
 function Planning() {
   const [groupOptionsPanel, setGroupOptionsPanel] = useState(false);
@@ -16,6 +17,8 @@ function Planning() {
   const [planningLineRate, setPlanningLineRate] = useState(false);
   const [chooseOption, setChooseOption] = useState(false);
   const [groupsOptionGanttPanelOpen, setGroupsOptionGanttPanelOpen] =
+    useState(false);
+  const [ordersAndMinMaxPanelOpen, setOrdersAndMinMaxPanelOpen] =
     useState(false);
 
   return (
@@ -31,6 +34,7 @@ function Planning() {
               setGroupOptionsPanel={setGroupOptionsPanel}
               groupOptionsPanel={groupOptionsPanel}
               setGroupsOptionGanttPanelOpen={setGroupsOptionGanttPanelOpen}
+              setOrdersAndMinMaxPanelOpen={setOrdersAndMinMaxPanelOpen}
             />
           </div>
           <section>
@@ -61,6 +65,13 @@ function Planning() {
             <GroupOptionsGanttPanel
               groupsOptionGanttPanelOpen={groupsOptionGanttPanelOpen}
               setGroupsOptionGanttPanelOpen={setGroupsOptionGanttPanelOpen}
+            />
+          </section>
+          <section>
+            <OrdersAndMinMaxPanel
+              ordersAndMinMaxPanelOpen={ordersAndMinMaxPanelOpen}
+              setOrdersAndMinMaxPanelOpen={setOrdersAndMinMaxPanelOpen}
+              setGroupOptionsPanel={setGroupOptionsPanel}
             />
           </section>
         </div>

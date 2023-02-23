@@ -1,36 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ModalBlank from '../../components/ModalBlank';
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  selectLineRateCustomDeleteData,
-  LineRateCustomDelete,
-} from '../../store/slice/LineRateCustomSlice';
+import { deleteGantt } from '../../store/slice/ganttSlice';
 
-function ModalLineRateCustomDelete({
-  openModalLineRateCustomDelete,
-  setOpenModalLineRateCustomDelete,
-}) {
+function GetMinMaxModal({ setModalAlertGanttOpen, modalAlertGanttOpen, data }) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const LineRateCustomDeleteData = useSelector(selectLineRateCustomDeleteData);
 
   return (
     <ModalBlank
       id='success-modal'
-      modalOpen={openModalLineRateCustomDelete}
-      SetModalOpen={setOpenModalLineRateCustomDelete}
+      modalOpen={modalAlertGanttOpen}
+      setModalOpen={setModalAlertGanttOpen}
     >
       <div className='p-5 flex space-x-4'>
         <div>
-          {/* Modal header */}
           <div className='mb-2 flex justify-between items-center'>
-            <div className='text-lg font-bold text-slate-800 w-96'>
-              ¿Estas seguro de eliminar la siguiente capacidad{' '}
-              {LineRateCustomDeleteData?.product_line?.name} ?
+            <div className='text-lg font-bold text-slate-800 w-72'>
+              ¿Seguro que quieres descartar los cambios de la planeación?
             </div>
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                setOpenModalLineRateCustomDelete(false);
+                setModalAlertGanttOpen(false);
               }}
             >
               <svg
@@ -46,22 +39,28 @@ function ModalLineRateCustomDelete({
           <div className='text-sm mb-10'>
             <div className='space-y-2'>
               <p>
-                Esta acción no se puede revertir, estás a punto de eliminar el
-                la capacidad custom y todos sus datos asociados.
+                Si descartas la planeación no podrás recuperar los cambios guardados en el Gantt.
               </p>
             </div>
           </div>
           {/* Modal footer */}
-          <div className='flex justify-center items-center'>
+          <div className='flex justify-center items-center space-x-8'>
+            <button
+              onClick={() => {
+                dispatch(deleteGantt(data, navigate, setModalAlertGanttOpen));
+              }}
+              className='btn-lg bg-red-600 font-semibold text-white hover:bg-red-500  w-full '
+            >
+              Si, descartar
+            </button>
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                dispatch(LineRateCustomDelete(LineRateCustomDeleteData.id));
-                setOpenModalLineRateCustomDelete(false);
+                setModalAlertGanttOpen(false);
               }}
-              className='btn-lg bg-red-600 hover:bg-red-500 font-semibold text-white w-full'
+              className='btn-lg  bg-white font-semibold text-black w-full'
             >
-              Eliminar capacidad custom
+              No, regresar al Gantt
             </button>
           </div>
         </div>
@@ -70,4 +69,4 @@ function ModalLineRateCustomDelete({
   );
 }
 
-export default ModalLineRateCustomDelete;
+export default GetMinMaxModal;

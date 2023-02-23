@@ -58,11 +58,12 @@ const GroupOptionsGanttPanel = ({
       dispatch(setGanttGroupLetter(ganttLetterChosen));
       setGroupsOptionGanttPanelOpen(false);
       navigate('/mp-pro/gantt/group');
+      sessionStorage.setItem('saved', true);
       setGanttLetterChosen(null);
     } else if (ganttGlobaloption?.length > 0) {
       navigate('/mp-pro/gantt/global');
       setGroupsOptionGanttPanelOpen(false);
-      setGanttGlobalOption(null);
+      // setGanttGlobalOption(null);
     } else {
       setError(true);
     }
@@ -73,10 +74,10 @@ const GroupOptionsGanttPanel = ({
     setGanttLetterChosen(value);
   };
 
-  const handleGanttGlobal = (e) => {
-    const { value } = e.target;
-    setGanttGlobalOption(value);
-  };
+  // const handleGanttGlobal = (e) => {
+  //   const { value } = e.target;
+  //   setGanttGlobalOption(value);
+  // };
 
   // close if the esc key is pressed
   useEffect(() => {
@@ -143,7 +144,7 @@ const GroupOptionsGanttPanel = ({
             <form>
               <div className='h-[470px] 2xl:h-[460px] overflow-y-auto mb-8 ml-5'>
                 <div>
-                  <div className='mb-7'>
+                  {/* <div className='mb-7'>
                     <label className='flex items-center'>
                       <input
                         type='radio'
@@ -157,7 +158,7 @@ const GroupOptionsGanttPanel = ({
                         Gantt global
                       </span>
                     </label>
-                  </div>
+                  </div> */}
                   {ganttLetters.map((letter, index) => (
                     <div key={index} className='mb-7'>
                       <label className='flex items-center'>
@@ -167,7 +168,7 @@ const GroupOptionsGanttPanel = ({
                           className='form-checkbox'
                           value={letter.value}
                           onChange={handleChange}
-                          disabled={ganttGlobaloption > 0}
+                          // disabled={ganttGlobaloption > 0}
                         />
                         <span className='text-base font-medium ml-2 text-black'>
                           {letter?.value}
@@ -181,7 +182,7 @@ const GroupOptionsGanttPanel = ({
               <div className='flex justify-center'>
                 <button
                   onClick={onSubmit}
-                  className='w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-secondary hover:text-primary '
+                  className='w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-green-500'
                 >
                   <span className='my-auto'>Continuar</span>
 

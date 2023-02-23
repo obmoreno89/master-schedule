@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import OpenOrdersFilter from './OpenOrdersFilter';
+import icons from '../../images/icon/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   getOpenOrdersList,
@@ -10,11 +11,12 @@ import {
   selectOpenOrSearch,
   setSearch,
   revertSearch,
+  getOpenOrdersFile,
 } from '../../store/slice/openOrdersSlice.js';
 import Loading from '../../pages/component/Loading';
 import OpenOrdersTableItem from './OpenOrdersTableItem';
 
-const OpenOrdersTable = () => {
+const OpenOrdersTable = ({ setModalOpenOrdersExportOpen }) => {
   const dispatch = useDispatch();
   const openOrdersList = useSelector(selectOpenOrdersList);
   const loading = useSelector(selectLoading);
@@ -59,8 +61,8 @@ const OpenOrdersTable = () => {
   };
 
   const formatCurrency = (num) => {
-    const options = { style: "currency", currency: "USD" };
-    const numberFormat = new Intl.NumberFormat("en-US", options);
+    const options = { style: 'currency', currency: 'USD' };
+    const numberFormat = new Intl.NumberFormat('en-US', options);
 
     return numberFormat.format(num);
   };
@@ -98,6 +100,32 @@ const OpenOrdersTable = () => {
                 //onChange={handleSearch}
                 onKeyUp={handleSearch}
               />
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setModalOpenOrdersExportOpen(true);
+                  dispatch(getOpenOrdersFile());
+                }}
+                type='button'
+                className='font-medium text-sm bg-white text-primary w-54 space-x-2 border border-primary rounded px-2 flex justify-center items-center hover:text-green-500 hover:border-green-500'
+              >
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  width='19'
+                  height='19'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  stroke='#009B4A'
+                  stroke-width='2'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                  class='stroke-current text-gray-500'
+                >
+                  <path d='M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z'></path>
+                  <polyline points='13 2 13 9 20 9'></polyline>
+                </svg>
+                <span>Exportar reporte (CSV) </span>
+              </button>
             </div>
           </header>
           {list?.length > 0 ? (

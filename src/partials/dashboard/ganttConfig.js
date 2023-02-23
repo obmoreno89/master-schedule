@@ -16,14 +16,15 @@ export const ganttConfig = {
     block: 'center',
   },
   features: {
-    labels : {
-      left : {
-          field  : 'name',
-          editor : {
-              type : 'textfield'
-          }
-      }
-  },
+    labels: {
+      left: {
+        field: 'name',
+        editor: {
+          type: 'textfield',
+        },
+      },
+    },
+
     taskDragCreate: false,
     taskEdit: false,
     taskResize: false,
@@ -35,7 +36,7 @@ export const ganttConfig = {
     indicators: true,
     taskCopyPaste: false,
     dependencies: true,
-    parentArea : true,
+    parentArea: true,
     projectLines: {
       disabled: true,
     },
@@ -58,13 +59,20 @@ export const ganttConfig = {
   },
   rowHeight: 40,
   height: 480,
+  readOnly: true,
   disabled: true,
 
   columns: [
-    { type : 'wbs', region : 'fixed', text: 'ID' },
-    { type: 'name', field: 'name', width: 260, text: 'Order', region : 'fixed' },
-    { type: 'name', field: 'item', width: 30, text: 'Item', region : 'fixed' },
-    { type: 'name', field: 'pline', width: 180, text: 'Product Line', region: 'fixed' },
+    { type: 'wbs', region: 'fixed', text: 'ID' },
+    { type: 'name', field: 'name', width: 260, text: 'Order', region: 'fixed' },
+    { type: 'name', field: 'item', width: 30, text: 'Item', region: 'fixed' },
+    {
+      type: 'name',
+      field: 'pline',
+      width: 180,
+      text: 'Product Line',
+      region: 'fixed',
+    },
     {
       type: 'date',
       field: 'ssd',

@@ -1,3 +1,4 @@
+import { on } from 'events';
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, useLocation, Link } from 'react-router-dom';
 import icons from '../images/icon/icons';
@@ -52,9 +53,15 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
   }, [sidebarExpanded]);
 
   const onlyAdministrator = sessionStorage.getItem('rol');
+  const questionExit = sessionStorage.getItem('saved');
+
+  const handleBeforeUnload = () => {
+    sessionStorage.removeItem('saved');
+    console.log('hola');
+  };
 
   return (
-    <div>
+    <div className='z-50'>
       {/* Sidebar backdrop (mobile only) */}
       <div
         className={`fixed inset-0 bg-slate-900 bg-opacity-30 z-40 lg:hidden lg:z-auto transition-opacity duration-200 ${
@@ -91,9 +98,15 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
             </svg>
           </button>
           {/* Logo */}
-          <figure className='block'>
-            <img src={icons.logoNide} alt='logo' className='w-32' />
-          </figure>
+          {sidebarExpanded ? (
+            <figure className='block'>
+              <img src={icons.logoNide} alt='logo' className='w-32' />
+            </figure>
+          ) : (
+            <figure className='block'>
+              <img src={icons.nNidec} alt='logo' />
+            </figure>
+          )}
         </div>
 
         {/* Links */}
@@ -120,7 +133,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           : setSidebarExpanded(true);
                       }}
                     >
-                      <section className=''>
+                      <section>
                         <NavLink
                           to='/mp-pro/'
                           className={({ isActive }) =>
@@ -474,6 +487,193 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                 </SidebarLinkGroup>
               )}
               {/* Finance */}
+
+              <SidebarLinkGroup
+                activecondition={
+                  pathname === '/mp-pro/system-status/' ||
+                  pathname.includes('dashboard')
+                }
+              >
+                {(handleClick) => {
+                  return (
+                    <Link
+                      to='/mp-pro/system-status/'
+                      className={`block text-slate-200 hover:text-white truncate transition duration-150 ${
+                        pathname.includes('/mp-pro/state-system/') &&
+                        'hover:text-slate-200'
+                      }`}
+                      onClick={() => {
+                        sidebarExpanded
+                          ? handleClick()
+                          : setSidebarExpanded(true);
+                      }}
+                    >
+                      <section className=''>
+                        <NavLink
+                          to='/mp-pro/export/'
+                          className={({ isActive }) =>
+                            'transition duration-150 truncate font-semibold text-sm flex items-center py-1 px-0 text-textSidebar hover:text-hoverTextSidebar space-x-[11px] ' +
+                            (isActive ? '!text-primary' : '')
+                          }
+                        >
+                          {({ isActive }) => (
+                            <>
+                              <figure>
+                                <svg
+                                  className='shrink-0 h-[26px] w-[26px]'
+                                  width='24'
+                                  height='24'
+                                  viewBox='0 0 24 24'
+                                  fill='none'
+                                >
+                                  <path
+                                    d='M14 3v4a1 1 0 0 0 1 1h4'
+                                    className={
+                                      `stroke-current text-textSidebar` +
+                                      (isActive ? '!text-primary' : '')
+                                    }
+                                    stroke='#231F20'
+                                    strokeWidth='2'
+                                    strokeLinecap='round'
+                                    strokeLinejoin='round'
+                                  />
+                                  <path
+                                    className={
+                                      `stroke-current text-textSidebar` +
+                                      (isActive ? '!text-primary' : '')
+                                    }
+                                    d='M11.5 21h-4.5a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v5m-5 6h7m-3 -3l3 3l-3 3'
+                                    stroke='#231F20'
+                                    strokeWidth='2'
+                                    strokeLinecap='round'
+                                    strokeLinejoin='round'
+                                  />
+                                </svg>
+                              </figure>
+                              <span>Exportar</span>
+                            </>
+                          )}
+                        </NavLink>
+                      </section>
+                    </Link>
+                  );
+                }}
+              </SidebarLinkGroup>
+
+              <SidebarLinkGroup
+                activecondition={
+                  pathname === '/mp-pro/system-status/' ||
+                  pathname.includes('dashboard')
+                }
+              >
+                {(handleClick) => {
+                  return (
+                    <Link
+                      to='/mp-pro/system-status/'
+                      className={`block text-slate-200 hover:text-white truncate transition duration-150 ${
+                        pathname.includes('/mp-pro/state-system/') &&
+                        'hover:text-slate-200'
+                      }`}
+                      onClick={() => {
+                        sidebarExpanded
+                          ? handleClick()
+                          : setSidebarExpanded(true);
+                      }}
+                    >
+                      <section className=''>
+                        <NavLink
+                          to='/mp-pro/report/'
+                          className={({ isActive }) =>
+                            'transition duration-150 truncate font-semibold text-sm flex items-center py-1 px-0 text-textSidebar hover:text-hoverTextSidebar space-x-[11px] ' +
+                            (isActive ? '!text-primary' : '')
+                          }
+                        >
+                          {({ isActive }) => (
+                            <>
+                              <figure>
+                                <svg
+                                  className='shrink-0 h-[26px] w-[26px]'
+                                  viewBox='0 0 24 24'
+                                  width='24'
+                                  height='24'
+                                  fill='none'
+                                >
+                                  <path
+                                    d='M14 3v4a1 1 0 0 0 1 1h4'
+                                    className={
+                                      `stroke-current text-textSidebar` +
+                                      (isActive ? '!text-primary' : '')
+                                    }
+                                    stroke='#231F20'
+                                    strokeWidth='2'
+                                    strokeLinecap='round'
+                                    strokeLinejoin='round'
+                                  />
+                                  <path
+                                    d='M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z'
+                                    className={
+                                      `stroke-current text-textSidebar` +
+                                      (isActive ? '!text-primary' : '')
+                                    }
+                                    stroke='#231F20'
+                                    strokeWidth='2'
+                                    strokeLinecap='round'
+                                    strokeLinejoin='round'
+                                  />
+                                  <line
+                                    x1='9'
+                                    y1='17'
+                                    x2='9'
+                                    y2='12'
+                                    className={
+                                      `stroke-current text-textSidebar` +
+                                      (isActive ? '!text-primary' : '')
+                                    }
+                                    stroke='#231F20'
+                                    strokeWidth='2'
+                                    strokeLinecap='round'
+                                    strokeLinejoin='round'
+                                  />
+                                  <line
+                                    x1='12'
+                                    y1='17'
+                                    x2='12'
+                                    y2='16'
+                                    className={
+                                      `stroke-current text-textSidebar` +
+                                      (isActive ? '!text-primary' : '')
+                                    }
+                                    stroke='#231F20'
+                                    strokeWidth='2'
+                                    strokeLinecap='round'
+                                    strokeLinejoin='round'
+                                  />
+                                  <line
+                                    x1='15'
+                                    y1='17'
+                                    x2='15'
+                                    y2='14'
+                                    className={
+                                      `stroke-current text-textSidebar` +
+                                      (isActive ? '!text-primary' : '')
+                                    }
+                                    stroke='#231F20'
+                                    strokeWidth='2'
+                                    strokeLinecap='round'
+                                    strokeLinejoin='round'
+                                  />
+                                </svg>
+                              </figure>
+                              <span>Reportes</span>
+                            </>
+                          )}
+                        </NavLink>
+                      </section>
+                    </Link>
+                  );
+                }}
+              </SidebarLinkGroup>
+
               <SidebarLinkGroup
                 activecondition={
                   pathname === '/mp-pro/system-status/' ||

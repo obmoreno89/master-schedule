@@ -30,19 +30,17 @@ export const selectDemandLoading = (state) =>
 
 export default demandPlanningOrdersSlice.reducer;
 
-export const getDemandList =
-  (letter, navigate, setGetMinMaxModalOpen) => (dispatch) => {
-    axios
-      .get(`http://35.174.106.95/api/planning/report/demand?group=${letter}`)
-      .then((response) => {
-        if (response.status === 200) {
-          dispatch(setDemandList(response.data));
-          setGetMinMaxModalOpen(false);
-          navigate('/mp-pro/planning/plannings/demand-planning/');
-        }
-      })
-      .catch((error) => console.log(error));
-  };
+export const getDemandList = (letter, navigate) => (dispatch) => {
+  axios
+    .get(`http://35.174.106.95/api/planning/report/demand?group=${letter}`)
+    .then((response) => {
+      if (response.status === 200) {
+        dispatch(setDemandList(response.data));
+        navigate('/mp-pro/planning/plannings/demand-planning/');
+      }
+    })
+    .catch((error) => console.log(error));
+};
 
 export const postDemandPlanningOrders =
   (changeName, navigate) => (dispatch) => {

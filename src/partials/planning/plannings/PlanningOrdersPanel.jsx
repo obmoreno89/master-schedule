@@ -12,6 +12,11 @@ import {
   setPlanningValues,
   selectAllTypes,
 } from '../../../store/slice/planningSlice';
+import {
+  selectOrderOrMinMaxValue,
+  selectGroups,
+} from '../../../store/slice/planningSlice';
+import { getDemandList } from '../../../store/slice/demandPlanningOrdersSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 const PlanningOrdersPanel = ({
@@ -55,6 +60,8 @@ const PlanningOrdersPanel = ({
   const dispatch = useDispatch();
   const sortOrder = useSelector(selectSortOrder);
   const optionSort = useSelector(selectPlanningsOption);
+  const ordersOrminMaxValue = useSelector(selectOrderOrMinMaxValue);
+  const letter = useSelector(selectGroups);
   const allTypes = useSelector(selectAllTypes);
   const [criterios, setCriterios] = useState(useSelector(selectSortOrder));
   const [idsCriteria, setIdsCriteria] = useState([]);
@@ -63,6 +70,14 @@ const PlanningOrdersPanel = ({
   useEffect(() => {
     dispatch(getSortOrder());
   }, []);
+
+  const valueRoute = () => {
+    if (ordersOrminMaxValue === '1') {
+      navigate('/mp-pro/planning/plannings/orders/');
+    } else if (ordersOrminMaxValue === '2') {
+      dispatch(getDemandList(letter, navigate));
+    }
+  };
 
   /**
    * seleccionar criterio
@@ -318,12 +333,13 @@ const PlanningOrdersPanel = ({
                         value: idsCriteria,
                       })
                     );
-                    navigate('/mp-pro/planning/plannings/orders/');
+                    // navigate('/mp-pro/planning/plannings/orders/');
+                    valueRoute();
                   }}
                   className={`h-12 rounded w-full text-base font-semibold 2xl:mt-6 ${
                     notCompleteCriteria
                       ? 'cursor-not-allowed text-slate-300'
-                      : 'bg-primary text-white hover:bg-secondary hover:text-primary'
+                      : 'bg-primary text-white hover:bg-green-500'
                   }`}
                   disabled={notCompleteCriteria ? true : false}
                 >

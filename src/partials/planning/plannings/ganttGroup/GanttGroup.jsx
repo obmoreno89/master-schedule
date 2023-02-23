@@ -10,11 +10,27 @@ import axios from 'axios';
 import ToastStatus from '../../../../components/ToastStatus';
 import { useSelector } from 'react-redux';
 import { selectGroupGanttLetter } from '../../../../store/slice/planningSlice';
+import ModalAlertGantt from '../../../../pages/component/ModalAlertGantt';
 
 function GanttGroup() {
+  const [modalAlertGanttOpen, setModalAlertGanttOpen] = useState(false);
   const [openStatusToast, setOpenStatusToast] = useState(false);
   const [date, setDate] = useState();
   const ganttLetter = useSelector(selectGroupGanttLetter);
+  const [data, setData] = useState([]);
+
+  const handleBeforeUnload = (event) => {
+    event.preventDefault();
+    event.returnValue = '';
+  };
+
+  useEffect(() => {
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
 
   const first_name_id = JSON.parse(
     sessionStorage.getItem('planningId')
@@ -103,6 +119,18 @@ function GanttGroup() {
       dependenciesData: data['data']['tasks']['dependencies']['rows'],
     });
     project.calendar = 'general';
+
+
+    const dataGantt = project.inlineData;
+    const tasks = dataGantt.eventsData;
+    const dependencies = dataGantt.dependenciesData;
+    const ganttData = {
+      tasks: tasks,
+      dependencies: dependencies,
+    };
+    setData(ganttData);
+    console.log(ganttData)
+
   };
 
   useEffect(() => {
@@ -165,6 +193,7 @@ function GanttGroup() {
       tasks: tasks,
       dependencies: dependencies,
     };
+    setData(data);
     console.log(data);
 
     const save = await axios
@@ -184,12 +213,23 @@ function GanttGroup() {
       .catch((err) => console.log(err));
   };
 
+  const openModalGantt = (e) => {
+    setModalAlertGanttOpen(true);
+  };
+
   return (
     <Layout
       icon={icons.planningIcon}
       nameRoute='Planeación'
       nameSubRoute='Grupo'
     >
+      <section>
+        <ModalAlertGantt
+          setModalAlertGanttOpen={setModalAlertGanttOpen}
+          modalAlertGanttOpen={modalAlertGanttOpen}
+          data={data}
+        />
+      </section>
       <div className='px-4 relative'>
         <BryntumToolbar
           items={[
@@ -244,6 +284,14 @@ function GanttGroup() {
                   onAction: onShiftNextClick,
                 },
               ],
+            },
+            {
+              text: 'Cancelar',
+              icon: 'b-fa b-fa-cancel',
+              cls: 'cancel',
+              async onAction() {
+                openModalGantt();
+              },
             },
             {
               text: 'Guardar planeación',

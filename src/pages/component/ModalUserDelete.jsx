@@ -55,9 +55,9 @@ function ModalUserDelete({ setOpenModalUserDelete, openModalUserDelete }) {
                 setOpenModalUserDelete(false);
                 dispatch(deleteUser());
               }}
-              className='btn-lg bg-red-500 font-semibold text-white w-full'
+              className='btn-lg bg-red-600 hover:bg-red-500 font-semibold text-white w-full'
             >
-              Eliminar Usuario
+              Eliminar usuario
             </button>
           </div>
         </div>

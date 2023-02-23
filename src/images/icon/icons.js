@@ -31,7 +31,10 @@ import play from './play.svg';
 import graphGantt from './graphGantt.svg';
 import confirm from './confirm.svg';
 import cancel from './cancel.svg';
-import refreshGray from "./refreshGray.svg"
+import refreshGray from './refreshGray.svg';
+import file from './file.svg';
+import fileText from './fileText.svg';
+import nNidec from './nNidec.svg';
 
 export default {
   openEye,
@@ -67,5 +70,8 @@ export default {
   graphGantt,
   confirm,
   cancel,
-  refreshGray
+  refreshGray,
+  file,
+  fileText,
+  nNidec,
 };

@@ -15,9 +15,16 @@ import ConfirmNewPassword from './pages/ConfirmNewPassword';
 //PRIVATE ROUTE AND PUBLIC ROUTE
 import PrivateRoute from './routes/PrivateRoute';
 import PublicRoute from './routes/PublicRoute';
+import PrivateGantt from './routes/PrivateGantt';
 
 //SYSTEM STATUS
 import SystemStatus from './pages/SystemStatus';
+
+//EXPORT MODULE
+import Export from './pages/Export';
+
+//IMPORT MODULE
+import Report from './pages/Report';
 
 //PLANNING
 import Planning from './pages/Planning';
@@ -125,9 +132,9 @@ function App() {
         <Route
           path='/mp-pro/planning/plannings/'
           element={
-            <PrivateRoute>
+            <PrivateGantt>
               <Planning />
-            </PrivateRoute>
+            </PrivateGantt>
           }
         />
 
@@ -241,6 +248,23 @@ function App() {
           element={
             <PrivateRoute>
               <GanttForId />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path='/mp-pro/export/'
+          element={
+            <PrivateRoute>
+              <Export />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/mp-pro/report/'
+          element={
+            <PrivateRoute>
+              <Report />
             </PrivateRoute>
           }
         />

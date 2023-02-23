@@ -113,7 +113,7 @@ function ModalCalendar({ setOpenModalCalendar, openModalCalendar }) {
               {!loading ? (
                 <button
                   type='submit'
-                  className='bg-primary text-white w-full h-[51px] rounded mt-14 mb-6 font-semibold'
+                  className='bg-primary text-white w-full h-[51px] rounded mt-14 mb-6 font-semibold hover:bg-green-500'
                 >
                   Agregar dia no laborable
                 </button>
