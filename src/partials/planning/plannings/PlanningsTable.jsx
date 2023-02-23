@@ -20,6 +20,7 @@ function PlanningsTable({
   setGroupOptionsPanel,
   setGroupsOptionGanttPanelOpen,
   setOrdersAndMinMaxPanelOpen,
+  setModalOracleExport,
 }) {
   const [startSearch, setStartSearch] = useState(false);
   const dispatch = useDispatch();
@@ -83,30 +84,80 @@ function PlanningsTable({
             onChange={handleSearch}
           />
           {planningsList.length > 0 ? (
-            <button
-              onClick={() => setGroupsOptionGanttPanelOpen(true)}
-              type='button'
-              className='font-medium text-sm bg-white text-primary w-54 space-x-2 border border-primary rounded px-2 flex justify-center items-center'
-            >
-              <img className='w-5' src={icons.graphGantt} alt='Gantt' />
-              <span>Vista de Gantt</span>
-            </button>
+            <>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setModalOracleExport(true);
+                }}
+                type='button'
+                className='font-medium text-sm bg-white text-primary w-54 space-x-2 border border-primary rounded px-2 flex justify-center items-center hover:text-green-500 hover:border-green-500'
+              >
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  width='19'
+                  height='19'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  stroke='#009B4A'
+                  stroke-width='2'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                  class='stroke-current text-gray-500'
+                >
+                  <path d='M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z'></path>
+                  <polyline points='13 2 13 9 20 9'></polyline>
+                </svg>
+                <span class='hover:text-green-500'>Exportar (Oracle)</span>
+              </button>
+              <button
+                onClick={() => setGroupsOptionGanttPanelOpen(true)}
+                type='button'
+                className='font-medium text-sm bg-white text-primary w-54 space-x-2 border border-primary rounded px-2 flex justify-center items-center'
+              >
+                <img className='w-5' src={icons.graphGantt} alt='Gantt' />
+                <span>Vista de Gantt</span>
+              </button>
+            </>
           ) : (
-            <button
-              type='button'
-              disabled
-              className='font-medium text-sm bg-white text-primary w-54 space-x-2 border border-primary rounded px-2 flex justify-center items-center disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed'
-            >
-              <img className='w-5' src={icons.graphGanttDisabled} alt='Gantt' />
-              <span>Vista de Gantt</span>
-            </button>
+            <>
+              <button
+                type='button'
+                className='font-medium text-sm w-54 space-x-2 border rounded px-2 flex justify-center items-center disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed'
+                disabled
+              >
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  width='19'
+                  height='19'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  stroke='#009B4A'
+                  stroke-width='2'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                  className='stroke-current text-gray-500'
+                >
+                  <path d='M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z'></path>
+                  <polyline points='13 2 13 9 20 9'></polyline>
+                </svg>
+                <span>Exportar (Oracle)</span>
+              </button>
+              <button
+                type='button'
+                disabled
+                className='font-medium text-sm  w-54 space-x-2 border rounded px-2 flex justify-center items-center disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed'
+              >
+                <img
+                  className='w-5'
+                  src={icons.graphGanttDisabled}
+                  alt='Gantt'
+                />
+                <span>Vista de Gantt</span>
+              </button>
+            </>
           )}
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              // setGroupOptionsPanel(true)
-              setOrdersAndMinMaxPanelOpen(true);
-            }}
             type='button'
             className='btn bg-primary text-white w-54 space-x-2 hover:bg-green-500'
           >

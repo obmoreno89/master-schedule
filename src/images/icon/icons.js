@@ -36,6 +36,7 @@ import file from './file.svg';
 import fileText from './fileText.svg';
 import nNidec from './nNidec.svg';
 import graphGanttDisabled from './graphGanttDisabled.svg';
+import download from './download.svg';
 
 export default {
   openEye,
@@ -76,4 +77,5 @@ export default {
   fileText,
   nNidec,
   graphGanttDisabled,
+  download,
 };
