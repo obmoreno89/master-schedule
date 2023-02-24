@@ -135,6 +135,7 @@ function GanttGroup() {
       dependencies: dependencies,
     };
     setData(ganttData);
+    console.log(ganttData);
   };
 
   useEffect(() => {
@@ -335,6 +336,12 @@ function GanttGroup() {
           } `}
         >
           <BryntumGantt
+            onAfterTaskDrop={(valid) => {
+              console.log("Arrastrando"); 
+              console.log(valid);
+              // setOpenStatusToast(true);
+              // ganttRef.current.instance.project.stm.undo();
+            }}
             onDependencyValidationStart={(dependency) => {
               console.log(dependency);
               if (dependency.dependencyType != 2) {

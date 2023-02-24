@@ -488,7 +488,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
               )}
               {/* Finance */}
 
-              <SidebarLinkGroup
+              {/* <SidebarLinkGroup
                 activecondition={
                   pathname === '/mp-pro/system-status/' ||
                   pathname.includes('dashboard')
@@ -558,7 +558,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     </Link>
                   );
                 }}
-              </SidebarLinkGroup>
+              </SidebarLinkGroup> */}
 
               <SidebarLinkGroup
                 activecondition={

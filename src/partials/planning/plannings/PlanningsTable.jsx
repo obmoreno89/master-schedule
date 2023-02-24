@@ -158,6 +158,11 @@ function PlanningsTable({
             </>
           )}
           <button
+            onClick={(e) => {
+              e.stopPropagation();
+              // setGroupOptionsPanel(true)
+              setOrdersAndMinMaxPanelOpen(true);
+            }}
             type='button'
             className='btn bg-primary text-white w-54 space-x-2 hover:bg-green-500'
           >
