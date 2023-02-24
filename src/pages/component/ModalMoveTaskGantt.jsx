@@ -35,7 +35,7 @@ function ModalMoveTaskGantt({ setModalMoveTaskOpen, modalMoveTaskOpen }) {
             <div className='space-y-2'>
               <p>
                 La acción que has realizado, afecta a la programación futura de
-                algunas ordenes, deseas confirmar la acción.
+                algunas ordenes, ¿deseas confirmar la acción?
               </p>
             </div>
           </div>
