@@ -145,7 +145,31 @@ export const GanttGroupConfig = {
       width: 110,
       text: 'SSD',
     },
-    { type: 'number', field: 'ord_qty', width: 30, text: 'Cantidad' },
+    { type: 'number', field: 'ord_qty', width: 30, text: 'Cantidad',  editor : {
+      listeners : {
+          change(context) {
+              console.log(context);
+              let newQuantity = context.value
+              let idTask = context.source.eventRecord.id
+              let parentId = context.source.eventRecord.parentId;
+              let oldTimeDuration = bryntum.query('gantt').taskStore.getById(idTask).duration
+              let oldPieces = bryntum.query('gantt').taskStore.getById(idTask).ord_qty
+              let olDurationPerPiece = oldTimeDuration / oldPieces
+              console.log('Parent ID ' + parentId)
+              console.log('ID Task ' + idTask)
+              console.log('New Qty'  + newQuantity)
+              console.log('Old time duration ' + oldTimeDuration)
+              bryntum.query('gantt').taskStore.getById(idTask).duration = olDurationPerPiece * newQuantity
+              try {
+                console.log('Parent ' + bryntum.query('gantt').taskStore.getById(parentId))
+                bryntum.query('gantt').taskStore.getById(parentId).ord_qty = newQuantity;
+              } catch (error) {
+                console.log('Ocurrió un error:', error);
+              }
+              
+          }
+      }
+  } },
     {
       type: 'number',
       field: 'ord_qty',
