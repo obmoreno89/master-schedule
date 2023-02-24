@@ -21,17 +21,14 @@ function DemoGantt() {
   //     localStorage.removeItem("b-gantt-trial-start");
   //     window.location.reload();
   //   }, 60000);
-   
+
   // }, []);
 
   const loadData = async () => {
-    const data = await axios.get(
-      'http://35.174.106.95/api/gantt/list/global'
-    );
+    const data = await axios.get('http://35.174.106.95/api/gantt/list/global');
 
-    const project = ganttRef.current.instance.project;
     // Feed it to the project
-    console.log(data)
+    console.log(data);
     project.inlineData = data;
     project.stm.autoRecord = true;
     project.stm.enable();
@@ -69,7 +66,6 @@ function DemoGantt() {
               `;
             },
           }}
-          
           percentBar={true}
           {...ganttConfig}
           // other props, event handlers, etc

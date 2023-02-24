@@ -17,6 +17,7 @@ import {
   selectFullLoading,
   setFullLoading,
   generatePlanningFromSalesOrder,
+  setHiddenSidebar,
 } from '../../../store/slice/planningSlice';
 import Loading from '../../../pages/component/Loading';
 
@@ -114,6 +115,7 @@ const PlanningOrders = () => {
                     onClick={(e) => {
                       e.stopPropagation();
                       setFullLoading(true);
+                      dispatch(setHiddenSidebar(true));
                       goToGeneratePlanningFromSalesOrder();
                     }}
                     className='w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-green-500'
