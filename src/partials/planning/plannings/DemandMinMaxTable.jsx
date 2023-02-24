@@ -5,6 +5,8 @@ import icons from '../../../images/icon/icons';
 import ButtonLoading from '../../../helpers/ButtonLoading';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { selectGroupGanttLetter } from '../../../store/slice/planningSlice';
+
 import {
   selectDemandPlanning,
   postDemandPlanningOrders,
@@ -17,6 +19,7 @@ function DemandMinMaxTable() {
   const loading = useSelector(selectDemandLoading);
   const dispatch = useDispatch();
   const [changeNumber, setchangeNumber] = useState(demandPlanningList);
+  const ganttLetter = useSelector(selectGroupGanttLetter);
 
   return (
     <>
@@ -57,7 +60,7 @@ function DemandMinMaxTable() {
             {!loading ? (
               <button
                 onClick={() =>
-                  dispatch(postDemandPlanningOrders(changeNumber, navigate))
+                  dispatch(postDemandPlanningOrders(changeNumber, navigate, ganttLetter))
                 }
                 className={`w-80 h-12 bg-primary rounded text-white text-base flex justify-center hover:bg-secondary hover:text-primary `}
               >
