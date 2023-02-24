@@ -160,7 +160,6 @@ function PlanningsTable({
           <button
             onClick={(e) => {
               e.stopPropagation();
-              // setGroupOptionsPanel(true)
               setOrdersAndMinMaxPanelOpen(true);
             }}
             type='button'
