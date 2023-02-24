@@ -15,10 +15,13 @@ import {
   setHiddenSidebar,
 } from '../../../../store/slice/planningSlice';
 import ModalAlertGantt from '../../../../pages/component/ModalAlertGantt';
+import ModalMoveTaskGantt from '../../../../pages/component/ModalMoveTaskGantt';
+import ModalBlank from '../../../../components/ModalBlank';
 
 function GanttGroup() {
   const [modalAlertGanttOpen, setModalAlertGanttOpen] = useState(false);
   const [openStatusToast, setOpenStatusToast] = useState(false);
+  const [modalMoveTaskOpen, setModalMoveTaskOpen] = useState(false);
   const [date, setDate] = useState();
   const ganttLetter = useSelector(selectGroupGanttLetter);
   const [data, setData] = useState([]);
@@ -241,6 +244,53 @@ function GanttGroup() {
           data={data}
         />
       </section>
+      <ModalBlank
+        id='success-modal'
+        modalOpen={modalMoveTaskOpen}
+        setModalOpen={setModalMoveTaskOpen}
+      >
+        <div className='p-5 flex space-x-4'>
+          <div>
+            {/* Modal header */}
+            <div className='mb-2 flex justify-between items-center'>
+              <h2 className='text-lg font-bold text-slate-800 w-72'>
+                Confirmar reprogramación de ordenes
+              </h2>
+            </div>
+            {/* Modal content */}
+            <div className='text-sm mb-10'>
+              <div className='space-y-2'>
+                <p>
+                  La acción que has realizado, afecta a la programación futura
+                  de algunas ordenes, deseas confirmar la acción.
+                </p>
+              </div>
+            </div>
+            {/* Modal footer */}
+            <div className='flex justify-center items-center space-x-3'>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setModalMoveTaskOpen(false);
+                }}
+                className='btn-lg bg-red-600 hover:bg-red-500 font-semibold text-white w-full'
+              >
+                Si, confirmar
+              </button>
+              <button
+                onClick={(e) => {
+                  setModalMoveTaskOpen(false);
+                  ganttRef.current.instance.project.stm.undo();
+                }}
+                className='btn-lg bg-green-600 hover:bg-green-500 font-semibold text-white w-full'
+              >
+                Cancelar reprogramación
+              </button>
+            </div>
+          </div>
+        </div>
+      </ModalBlank>
+
       <div className='px-4 relative'>
         <BryntumToolbar
           items={[
@@ -337,10 +387,9 @@ function GanttGroup() {
         >
           <BryntumGantt
             onAfterTaskDrop={(valid) => {
-              console.log("Arrastrando"); 
+              console.log('Arrastrando');
               console.log(valid);
-              // setOpenStatusToast(true);
-              // ganttRef.current.instance.project.stm.undo();
+              setModalMoveTaskOpen(true);
             }}
             onDependencyValidationStart={(dependency) => {
               console.log(dependency);
