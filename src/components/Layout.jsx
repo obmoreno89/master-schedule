@@ -10,8 +10,6 @@ function Layout({ icon, nameRoute, nameSubRoute, children }) {
 
   const hiddenSidebar = useSelector(selectHiddenSidebar);
 
-  console.log(hiddenSidebar);
-
   return (
     <div className='flex h-screen overflow-hidden bg-white'>
       {/* Sidebar */}
