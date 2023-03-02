@@ -27,16 +27,18 @@ function ReportPieces() {
   uniqueDates.forEach((fecha) => {
     const objetosParaFecha = reportList.filter((obj) => obj.fecha === fecha);
     const valores = objetosParaFecha.map((obj) => obj.piezas_planeadas);
+    const group = objetosParaFecha.map((obj) => obj.GROUPASSYLINE);
     const dateParts = fecha.split('-');
     const formattedDate = `${dateParts[2].padStart(
       2,
       '0'
     )}-${dateParts[1].padStart(2, '0')}-${dateParts[0]}`;
     datasets.push({
-      label: formattedDate,
+      label: `${formattedDate} - ${group}`,
       data: valores,
       backgroundColor: tailwindConfig().theme.colors.green[500],
       hoverBackgroundColor: tailwindConfig().theme.colors.green[600],
+      group: group,
     });
   });
 

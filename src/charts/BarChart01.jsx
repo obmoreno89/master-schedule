@@ -44,7 +44,7 @@ function BarChart01({ data, width, height }) {
         },
         scales: {
           y: {
-            beginAtZero: true,
+            beginAtZero: false,
             // grid: {
             //   drawBorder: false,
             // },
@@ -128,7 +128,6 @@ function BarChart01({ data, width, height }) {
               box.style.pointerEvents = 'none';
               // Label
               const labelContainer = document.createElement('span');
-              console.log(labelContainer);
               labelContainer.style.display = 'flex';
               labelContainer.style.alignItems = 'center';
               const value = document.createElement('span');
@@ -148,8 +147,7 @@ function BarChart01({ data, width, height }) {
                 (a, b) => a + b,
                 0
               );
-              const valueText = document.createTextNode(formatValue(theValue));
-              console.log(value);
+              const valueText = document.createTextNode(theValue);
               const labelText = document.createTextNode(item.text);
               value.appendChild(valueText);
               label.appendChild(labelText);
