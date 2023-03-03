@@ -22,6 +22,8 @@ function ReportPieces() {
   const valueFilter = useSelector(selectValueFilter);
   const sideBar = localStorage.getItem('sidebar-expanded');
 
+  console.log(valueFilter);
+
   useEffect(() => {
     dispatch(getReportList());
   }, []);
@@ -71,7 +73,7 @@ function ReportPieces() {
               </h2>
               <DropdownReport />
             </article>
-            <div className='grid grid-cols-2 gap-4'>
+            <div className={`grid gap-4 grid-cols-${valueFilter ? '2' : '1'}`}>
               {dataFilter.length > 0 ? (
                 <ReportPiecesTable
                   reportList={reportList}
@@ -84,16 +86,15 @@ function ReportPieces() {
                 />
               )}
 
-              <section>
+              <section className={` ${valueFilter ? '' : 'hidden'}`}>
                 <div
-                  className={`flex flex-col  col-span-full sm:col-span-6 bg-white shadow-lg border border-slate-200`}
+                  className={`flex flex-col  col-span-full sm:col-span-6 bg-white shadow-lg border border-slate-200 `}
                 >
                   <header className='px-5 py-4 border-b border-slate-100'>
                     <h2 className='font-semibold text-slate-800'>
                       Piezas planeadas por grupo
                     </h2>
                   </header>
-
                   <BarChart data={chartData} width={795} height={450} />
                 </div>
               </section>
