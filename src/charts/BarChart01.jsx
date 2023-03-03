@@ -44,23 +44,16 @@ function BarChart01({ data, width, height }) {
         },
         scales: {
           y: {
-            beginAtZero: false,
-            // grid: {
-            //   drawBorder: false,
-            // },
-            // ticks: {
-            //   maxTicksLimit: 5,
-            //   callback: (value) => formatValue(value),
-            // },
+            beginAtZero: true,
+            grid: {
+              drawBorder: false,
+            },
           },
           x: {
             type: 'time',
             time: {
               parser: 'DD-MM-YYYY',
               unit: 'day',
-              displayFormats: {
-                day: 'DD YYYY',
-              },
             },
             grid: {
               display: false,
@@ -74,7 +67,7 @@ function BarChart01({ data, width, height }) {
           },
           tooltip: {
             callbacks: {
-              title: () => 'Fecha y Piezas planeadas', // Disable tooltip title
+              title: () => 'Piezas planeadas',
               // label: (context) => formatValue(context.parsed.y),
             },
           },

@@ -15,6 +15,9 @@ function ReportPieces() {
   const dispatch = useDispatch();
   const reportList = useSelector(selectReportList);
   const dataFilter = useSelector(selectDataFilter);
+  const sideBar = localStorage.getItem('sidebar-expanded');
+
+  console.log(sideBar);
 
   console.log(dataFilter);
 
@@ -22,62 +25,41 @@ function ReportPieces() {
     dispatch(getReportList());
   }, []);
 
-  const uniqueDates = [];
-  reportList.forEach((obj) => {
-    if (!uniqueDates.includes(obj.fecha)) {
-      uniqueDates.push(obj.fecha);
-    }
-  });
+  // Ordenamos los datos por fecha
+  const sortedData = dataFilter.sort(
+    (a, b) => new Date(a.fecha) - new Date(b.fecha)
+  );
 
-  console.log(reportList);
-  console.log(dataFilter);
-
-  const datasets = [];
-  uniqueDates.forEach((fecha) => {
-    const objetosParaFecha = reportList.filter((obj) => obj.fecha === fecha);
-    const valores = objetosParaFecha.map((obj) => obj.piezas_planeadas);
-    const group = objetosParaFecha.map((obj) => obj.GROUPASSYLINE);
-    const dateParts = fecha.split('-');
-    const formattedDate = `${dateParts[2].padStart(
-      2,
-      '0'
-    )}-${dateParts[1].padStart(2, '0')}-${dateParts[0]}`;
-    datasets.push({
-      label: `L1`,
-      data: [35],
-      backgroundColor: tailwindConfig().theme.colors.green[500],
-      hoverBackgroundColor: tailwindConfig().theme.colors.green[600],
-      group: group,
-    });
-  });
-
+  // Creamos el objeto para los datos del chart
   const chartData = {
-    labels: ['06-03-2023'],
-    // labels: uniqueDates.map((fecha) => {
-    //   const dateParts = fecha.split('-');
-    //   return `${dateParts[2].padStart(2, '0')}-${dateParts[1].padStart(
-    //     2,
-    //     '0'
-    //   )}-${dateParts[0]}`;
-    // }),
-    datasets: datasets,
-  };
-  console.log(chartData);
+    labels: sortedData.map((item) => {
+      const dateParts = item.fecha.split('-');
+      const year = parseInt(dateParts[0]);
+      const month = parseInt(dateParts[1]) - 1;
+      const day = parseInt(dateParts[2]);
+      const date = new Date(Date.UTC(year, month, day));
 
-  // const chartData = {
-  //   labels: ['06-03-2023', '07-03-2023', '08-03-2023'],
-  //   datasets: [
-  //     // Light blue bars
-  //     {
-  //       label: 'L1',
-  //       data: [95, 100, 200],
-  //       backgroundColor: tailwindConfig().theme.colors.blue[400],
-  //       hoverBackgroundColor: tailwindConfig().theme.colors.blue[500],
-  //       barPercentage: 0.66,
-  //       categoryPercentage: 0.66,
-  //     },
-  //   ],
-  // };
+      const formattedDate = `${date
+        .getUTCDate()
+        .toString()
+        .padStart(2, '0')}-${(date.getUTCMonth() + 1)
+        .toString()
+        .padStart(2, '0')}-${date.getUTCFullYear()}`;
+
+      return formattedDate;
+    }),
+    datasets: [
+      {
+        label: sortedData[0]?.GROUPASSYLINE, // Usamos el primer valor del grupo como etiqueta
+        data: sortedData.map((item) => item.piezas_planeadas),
+        backgroundColor: tailwindConfig().theme.colors.green[500],
+        hoverBackgroundColor: tailwindConfig().theme.colors.green[600],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  console.log(chartData);
 
   return (
     <>
@@ -90,7 +72,10 @@ function ReportPieces() {
             <DropdownReport />
           </article>
           <div className='grid grid-cols-2 gap-4'>
-            <table className='table-fixed w-full table border border-slate-200 shadow-lg h-[518px]'>
+            <table
+              className={`table-fixed w-full table border border-slate-200 shadow-lg 
+              }`}
+            >
               <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50'>
                 <tr>
                   <th className='px-5 py-3 cursor-pointer'>
@@ -124,16 +109,17 @@ function ReportPieces() {
                 ))}
               </tbody>
             </table>
-            <section className='mb-5'>
-              <div className='flex flex-col col-span-full sm:col-span-6 bg-white shadow-lg border border-slate-200'>
+            <section>
+              <div className='flex flex-col  col-span-full sm:col-span-6 bg-white shadow-lg border border-slate-200'>
                 <header className='px-5 py-4 border-b border-slate-100'>
                   <h2 className='font-semibold text-slate-800'>
-                    Direct VS Indirect
+                    Piezas planeadas por grupo
                   </h2>
                 </header>
                 {/* Chart built with Chart.js 3 */}
                 {/* Change the height attribute to adjust the chart height */}
-                <BarChart data={chartData} width={795} height={400} />
+
+                <BarChart data={chartData} width={795} height={450} />
               </div>
             </section>
           </div>
