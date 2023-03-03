@@ -59,7 +59,7 @@ function BarChart01({ data, width, height }) {
               parser: 'DD-MM-YYYY',
               unit: 'day',
               displayFormats: {
-                day: 'MMM YYYY',
+                day: 'DD YYYY',
               },
             },
             grid: {

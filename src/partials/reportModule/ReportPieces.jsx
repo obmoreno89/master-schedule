@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
 import BarChart from '../../charts/BarChart01';
 import { useDispatch, useSelector } from 'react-redux';
-import { getReportList, selectReportList } from '../../store/slice/reportSlice';
+import {
+  getReportList,
+  selectReportList,
+  selectDataFilter,
+} from '../../store/slice/reportSlice';
+import DropdownReport from '../../pages/component/DropDownReport';
 
 // Import utilities
 import { tailwindConfig } from '../../utils/Utils';
@@ -9,6 +14,9 @@ import { tailwindConfig } from '../../utils/Utils';
 function ReportPieces() {
   const dispatch = useDispatch();
   const reportList = useSelector(selectReportList);
+  const dataFilter = useSelector(selectDataFilter);
+
+  console.log(dataFilter);
 
   useEffect(() => {
     dispatch(getReportList());
@@ -22,6 +30,7 @@ function ReportPieces() {
   });
 
   console.log(reportList);
+  console.log(dataFilter);
 
   const datasets = [];
   uniqueDates.forEach((fecha) => {
@@ -34,8 +43,8 @@ function ReportPieces() {
       '0'
     )}-${dateParts[1].padStart(2, '0')}-${dateParts[0]}`;
     datasets.push({
-      label: `${formattedDate} - ${group}`,
-      data: valores,
+      label: `L1`,
+      data: [35],
       backgroundColor: tailwindConfig().theme.colors.green[500],
       hoverBackgroundColor: tailwindConfig().theme.colors.green[600],
       group: group,
@@ -43,27 +52,44 @@ function ReportPieces() {
   });
 
   const chartData = {
-    labels: uniqueDates.map((fecha) => {
-      const dateParts = fecha.split('-');
-      return `${dateParts[2].padStart(2, '0')}-${dateParts[1].padStart(
-        2,
-        '0'
-      )}-${dateParts[0]}`;
-    }),
+    labels: ['06-03-2023'],
+    // labels: uniqueDates.map((fecha) => {
+    //   const dateParts = fecha.split('-');
+    //   return `${dateParts[2].padStart(2, '0')}-${dateParts[1].padStart(
+    //     2,
+    //     '0'
+    //   )}-${dateParts[0]}`;
+    // }),
     datasets: datasets,
   };
   console.log(chartData);
 
+  // const chartData = {
+  //   labels: ['06-03-2023', '07-03-2023', '08-03-2023'],
+  //   datasets: [
+  //     // Light blue bars
+  //     {
+  //       label: 'L1',
+  //       data: [95, 100, 200],
+  //       backgroundColor: tailwindConfig().theme.colors.blue[400],
+  //       hoverBackgroundColor: tailwindConfig().theme.colors.blue[500],
+  //       barPercentage: 0.66,
+  //       categoryPercentage: 0.66,
+  //     },
+  //   ],
+  // };
+
   return (
     <>
       <div className='flex space-x-3'>
-        <section className='mb-5'>
-          <article>
+        <section className='mb-2'>
+          <article className='flex justify-between mb-5'>
             <h2 className='text-2xl md:text-3xl text-slate-800 font-bold mb-5'>
               Tabla de reportes
             </h2>
+            <DropdownReport />
           </article>
-          <div className='grid grid-cols-1 gap-4'>
+          <div className='grid grid-cols-2 gap-4'>
             <table className='table-fixed w-full table border border-slate-200 shadow-lg h-[518px]'>
               <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50'>
                 <tr>
