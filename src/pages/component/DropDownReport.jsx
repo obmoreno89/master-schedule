@@ -7,6 +7,9 @@ import {
   selectValueFilter,
   setValueFilter,
   getDataFilter,
+  setDataReload,
+  selectDataReload,
+  getReportList,
 } from '../../store/slice/reportSlice';
 
 function DropdownReport({ align }) {
@@ -15,6 +18,7 @@ function DropdownReport({ align }) {
   const dispatch = useDispatch();
   const filterList = useSelector(selectReportFilter);
   const valueFilter = useSelector(selectValueFilter);
+  const load = useSelector(selectDataReload);
 
   useEffect(() => {
     dispatch(getReportFilter());
@@ -90,6 +94,20 @@ function DropdownReport({ align }) {
             Filtro por grupo
           </div>
           <ul className='mb-4'>
+            <li className='py-1 px-3'>
+              <label className='flex items-center'>
+                <input
+                  type='checkbox'
+                  className='form-checkbox'
+                  value={0}
+                  checked={valueFilter === null}
+                  onChange={() => {
+                    onChangeIdValueFilter(null);
+                  }}
+                />
+                <span className='text-sm font-medium ml-2'>Mostrar todas</span>
+              </label>
+            </li>
             {filterList.map((group, index) => (
               <li key={index} className='py-1 px-3'>
                 <label className='flex items-center'>
@@ -113,7 +131,7 @@ function DropdownReport({ align }) {
             <ul className='flex items-center justify-between'>
               <li>
                 <button
-                  className='btn-xs bg-primary hover:bg-slate-400 text-white'
+                  className='btn-xs bg-primary hover:bg-green-500 text-white'
                   onClick={() => {
                     setDropdownOpen(false);
                     dispatch(getDataFilter(valueFilter));
@@ -123,44 +141,7 @@ function DropdownReport({ align }) {
                   Aplicar
                 </button>
               </li>
-              <li>
-                <button
-                  className='btn-xs bg-white hover:text-slate-600 text-slate-500 hover:border-borderInput'
-                  onClick={() => {
-                    setDropdownOpen(false);
-                  }}
-                  onBlur={() => setDropdownOpen(false)}
-                >
-                  Mostrar todas
-                </button>
-              </li>
             </ul>
-
-            {/* <ul className='flex items-center justify-between'>
-                <li>
-                  <button
-                    className='btn-xs bg-primary hover:bg-slate-400 text-white disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed '
-                    disabled
-                  >
-                    Aplicar
-                  </button>
-                </li>
-                <li>
-                  <button
-                    className='btn-xs bg-white hover:text-slate-600 text-slate-500 hover:border-borderInput disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed'
-                    disabled
-                    onClick={() => {
-                      dispatch(getListHistory());
-                      dispatch(setDataFilter([]));
-                      setDropdownOpen(false);
-                    }}
-                    onBlur={() => setDropdownOpen(false)}
-                  >
-                    Mostrar todas
-                  </button>
-                </li>
-              </ul>
-            */}
           </div>
         </div>
       </Transition>

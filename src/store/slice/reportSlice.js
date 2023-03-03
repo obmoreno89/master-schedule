@@ -6,6 +6,7 @@ const initialState = {
   reportFilter: [],
   valueFilter: null,
   dataFilter: [],
+  dataReload: false,
 };
 
 const reportSlice = createSlice({
@@ -24,16 +25,25 @@ const reportSlice = createSlice({
     setDataFilter: (state, action) => {
       state.dataFilter = action.payload;
     },
+    setDataReload: (state, action) => {
+      state.dataReload = action.payload;
+    },
   },
 });
 
-export const { setReportList, setReportFilter, setValueFilter, setDataFilter } =
-  reportSlice.actions;
+export const {
+  setReportList,
+  setReportFilter,
+  setValueFilter,
+  setDataFilter,
+  setDataReload,
+} = reportSlice.actions;
 
 export const selectReportList = (state) => state.report.reportList;
 export const selectReportFilter = (state) => state.report.reportFilter;
 export const selectValueFilter = (state) => state.report.valueFilter;
 export const selectDataFilter = (state) => state.report.dataFilter;
+export const selectDataReload = (state) => state.report.dataReload;
 
 export default reportSlice.reducer;
 
@@ -60,6 +70,7 @@ export const getReportFilter = () => (dispatch) => {
 };
 
 export const getDataFilter = (valueFilter) => (dispatch) => {
+  dispatch(setDataReload(true));
   axios
     .get(
       `http://35.174.106.95/api/reports/pieces-planned-by?group-assembly-line=${valueFilter}`

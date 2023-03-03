@@ -82,6 +82,7 @@ function BarChart01({ data, width, height }) {
         maintainAspectRatio: true,
         resizeDelay: 200,
       },
+
       plugins: [
         {
           id: 'htmlLegend',
@@ -157,7 +158,7 @@ function BarChart01({ data, width, height }) {
     });
     return () => chart.destroy();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [data]);
 
   return (
     <React.Fragment>

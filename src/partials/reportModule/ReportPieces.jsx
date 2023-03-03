@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import BarChart from '../../charts/BarChart01';
 import { useDispatch, useSelector } from 'react-redux';
+import ReportPiecesTable from './ReportPiecesTable';
 import {
   getReportList,
   selectReportList,
   selectDataFilter,
+  selectDataReload,
+  selectValueFilter,
 } from '../../store/slice/reportSlice';
 import DropdownReport from '../../pages/component/DropDownReport';
 
@@ -15,11 +18,9 @@ function ReportPieces() {
   const dispatch = useDispatch();
   const reportList = useSelector(selectReportList);
   const dataFilter = useSelector(selectDataFilter);
+  const load = useSelector(selectDataReload);
+  const valueFilter = useSelector(selectValueFilter);
   const sideBar = localStorage.getItem('sidebar-expanded');
-
-  console.log(sideBar);
-
-  console.log(dataFilter);
 
   useEffect(() => {
     dispatch(getReportList());
@@ -59,72 +60,51 @@ function ReportPieces() {
     ],
   };
 
-  console.log(chartData);
-
   return (
     <>
-      <div className='flex space-x-3'>
-        <section className='mb-2'>
-          <article className='flex justify-between mb-5'>
-            <h2 className='text-2xl md:text-3xl text-slate-800 font-bold mb-5'>
-              Tabla de reportes
-            </h2>
-            <DropdownReport />
-          </article>
-          <div className='grid grid-cols-2 gap-4'>
-            <table
-              className={`table-fixed w-full table border border-slate-200 shadow-lg 
-              }`}
-            >
-              <thead className='text-xs text-textTableHeader font-semibold border-b border-slate-200 bg-slate-50'>
-                <tr>
-                  <th className='px-5 py-3 cursor-pointer'>
-                    <div className='flex items-center space-x-2'>
-                      <div className='font-semibold'>Grupo</div>
-                    </div>
-                  </th>
-                  <th className='px-5 py-3'>
-                    <p className='font-semibold text-left'>Fecha</p>
-                  </th>
-                  <th className='py-3'>Piezas planeadas</th>
-                </tr>
-              </thead>
-              <tbody className='text-sm divide-y divide-slate-200'>
-                {reportList.map((report, index) => (
-                  <tr key={index} className='text-textTableItem'>
-                    <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                      <div className='flex items-center'>
-                        <p className='text-textTableItem capitalize font-semibold'>
-                          {report.GROUPASSYLINE}
-                        </p>
-                      </div>
-                    </td>
-                    <td className='px-4 first:pl-5 last:pr-5 py-3 whitespace-nowrap'>
-                      <p className='truncate text-left'>{report.fecha}</p>
-                    </td>
-                    <td className='px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap text-center'>
-                      {report.piezas_planeadas}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <section>
-              <div className='flex flex-col  col-span-full sm:col-span-6 bg-white shadow-lg border border-slate-200'>
-                <header className='px-5 py-4 border-b border-slate-100'>
-                  <h2 className='font-semibold text-slate-800'>
-                    Piezas planeadas por grupo
-                  </h2>
-                </header>
-                {/* Chart built with Chart.js 3 */}
-                {/* Change the height attribute to adjust the chart height */}
+      {reportList.length > 0 ? (
+        <div className='flex space-x-3'>
+          <section className='mb-2'>
+            <article className='flex justify-between mb-5'>
+              <h2 className='text-2xl md:text-3xl text-slate-800 font-bold mb-5'>
+                Tabla de reportes
+              </h2>
+              <DropdownReport />
+            </article>
+            <div className='grid grid-cols-2 gap-4'>
+              {dataFilter.length > 0 ? (
+                <ReportPiecesTable
+                  reportList={reportList}
+                  dataFilter={dataFilter}
+                />
+              ) : (
+                <ReportPiecesTable
+                  dataFilter={dataFilter}
+                  reportList={reportList}
+                />
+              )}
 
-                <BarChart data={chartData} width={795} height={450} />
-              </div>
-            </section>
-          </div>
+              <section>
+                <div
+                  className={`flex flex-col  col-span-full sm:col-span-6 bg-white shadow-lg border border-slate-200`}
+                >
+                  <header className='px-5 py-4 border-b border-slate-100'>
+                    <h2 className='font-semibold text-slate-800'>
+                      Piezas planeadas por grupo
+                    </h2>
+                  </header>
+
+                  <BarChart data={chartData} width={795} height={450} />
+                </div>
+              </section>
+            </div>
+          </section>
+        </div>
+      ) : (
+        <section className='justify-center items-center flex orders-table'>
+          <h2 className='font-semibold text-2xl'>Sin datos para mostrar</h2>
         </section>
-      </div>
+      )}
     </>
   );
 }
