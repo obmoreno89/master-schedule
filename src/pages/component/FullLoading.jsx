@@ -1,9 +1,22 @@
-import React from 'react';
 import icons from '../../images/icon/icons';
+import GetMinMaxModal from './GetMinMaxModal';
+import { useState, useEffect } from 'react';
 
 function FullLoading() {
+  const [getMinMaxModalOpen, setGetMinMaxModalOpen] = useState(false);
+
+  useEffect(() => {
+    setGetMinMaxModalOpen(true);
+  }, []);
+
   return (
     <>
+      <section>
+        <GetMinMaxModal
+          getMinMaxModalOpen={getMinMaxModalOpen}
+          setGetMinMaxModalOpen={setGetMinMaxModalOpen}
+        />
+      </section>
       <div className='flex flex-col space-y-6 items-center justify-center min-h-screen'>
         <div className='flex justify-center relative top-10'>
           <img
